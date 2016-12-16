@@ -2,18 +2,16 @@ import { NgModule }      from '@angular/core';
 import { CommonModule }  from '@angular/common';
 
 import { RouterModule } from '@angular/router';
-import { Dashboard } from './dashboard.component.ts';
-import {Widget} from '../layout/widget/widget.directive';
+import { AnotherPage } from './another.component.ts';
 
 export const routes = [
-  { path: '', component: Dashboard, pathMatch: 'full' }
+  { path: '', component: AnotherPage, pathMatch: 'full' }
 ];
-
 
 @NgModule({
   imports: [ CommonModule, RouterModule.forChild(routes) ],
-  declarations: [ Dashboard, Widget ]
+  declarations: [ AnotherPage ]
 })
-export default class DashboardModule {
+export default class AnotherModule {
   static routes = routes;
 }

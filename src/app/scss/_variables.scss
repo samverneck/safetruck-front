@@ -101,17 +101,6 @@ $content-padding-vertical: 42px !default;
 $content-padding-top: $content-padding-vertical + $navbar-height !default;
 $content-padding-horizontal: 40px !default;
 
-//== Panels
-//
-//##
-
-$panel-bg:                    transparent !default;
-$panel-body-padding:          15px !default;
-
-$panel-default-text:          $gray-dark !default;
-$panel-default-border:        transparent !default;
-$panel-default-heading-bg:    $gray-semi-lighter !default;
-
 // Screens
 // -------------------------
 
@@ -293,11 +282,11 @@ $thumbnail-bg:                $white !default;
 //== Breadcrumbs
 //
 
-$breadcrumb-padding-x: 0 !default;
+$breadcrumb-padding-horizontal: 0 !default;
 $breadcrumb-bg:                 transparent !default;
-$breadcrumb-divider-color:      $text-color !default;
+$breadcrumb-color:              $text-color !default;
 $breadcrumb-active-color:       $text-color !default;
-$breadcrumb-divider:          ">" !default;
+$breadcrumb-separator:          ">" !default;
 
 //== Pagination
 //

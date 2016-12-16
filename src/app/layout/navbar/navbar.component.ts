@@ -1,5 +1,4 @@
 import { Component, EventEmitter, OnInit, ElementRef, Output } from '@angular/core';
-import { Router } from '@angular/router';
 import { AppConfig } from '../../app.config';
 declare var jQuery: any;
 
@@ -12,12 +11,10 @@ export class Navbar implements OnInit {
   @Output() toggleChatEvent: EventEmitter<any> = new EventEmitter();
   $el: any;
   config: any;
-  router: Router;
 
-  constructor(el: ElementRef, config: AppConfig, router: Router) {
+  constructor(el: ElementRef, config: AppConfig) {
     this.$el = jQuery(el.nativeElement);
     this.config = config.getConfig();
-    this.router = router;
   }
 
   toggleSidebar(state): void {
@@ -26,10 +23,6 @@ export class Navbar implements OnInit {
 
   toggleChat(): void {
     this.toggleChatEvent.emit(null);
-  }
-
-  onDashboardSearch(f): void {
-    this.router.navigate(['/app', 'extra', 'search'], { queryParams: { search: f.value.search } });
   }
 
   ngOnInit(): void {
