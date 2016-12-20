@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms'
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 
-
 declare let global: any
 // libs
 let markdown = require('markdown').markdown
@@ -30,29 +29,21 @@ import { Autosize } from 'angular2-autosize'
 import { Select2Module } from 'ng2-select2'
 import { WidgetModule } from '../layout/widget/widget.module'
 /* tslint:disable */
-import { BootstrapWizardModule } from '../components/wizard/wizard.module';
-import { BootstrapApplicationWizard } from './wizard/bootstrap-application-wizard/bootstrap-application-wizard.directive';
-import { DropzoneDemo } from '../components/dropzone/dropzone.directive';
-import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
+import { BootstrapWizardModule } from '../components/wizard/wizard.module'
+import { DropzoneDemo } from '../components/dropzone/dropzone.directive'
+import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime'
 /* tslint:enable */
-import { Elements } from './elements/elements.component'
 import { Validation } from './validation/validation.component'
-import { Wizard } from './wizard/wizard.component'
 
 export const routes = [
   {path: '', redirectTo: 'elements', pathMatch: 'full'},
-  {path: 'elements', component: Elements},
-  {path: 'validation', component: Validation},
-  {path: 'wizard', component: Wizard}
+  {path: 'validation', component: Validation}
 ]
 
 @NgModule({
   declarations: [
     Autosize,
-    Elements,
     Validation,
-    BootstrapApplicationWizard,
-    Wizard,
     DropzoneDemo
   ],
   imports: [

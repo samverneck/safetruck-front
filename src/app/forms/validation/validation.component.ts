@@ -1,5 +1,5 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-declare var jQuery: any;
+import { Component, ViewEncapsulation } from '@angular/core'
+declare var jQuery: any
 
 @Component({
   selector: '[forms-validation]',
@@ -9,6 +9,6 @@ declare var jQuery: any;
 })
 export class Validation {
   ngOnInit(): void {
-    jQuery('.parsleyjs').parsley();
+    jQuery('.parsleyjs').parsley()
   }
 }
