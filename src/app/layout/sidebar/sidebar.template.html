@@ -22,19 +22,30 @@
   <ul class="sidebar-nav">
     <li>
       <a [routerLink]=" ['dashboard'] ">
-      <span class="icon">
-          <i class="fa fa-child"></i>
-      </span>
-        Dashboard
+        <span class="icon"><i class="fa fa-child"></i></span>
+        <span>Dashboard</span>
       </a>
     </li>
     <li>
       <a [routerLink]=" ['cliente'] ">
-        <span class="icon">
-            <i class="fa fa-tree"></i>
-        </span>
+        <span class="icon"><i class="fa fa-child"></i></span>
         <span>Cliente</span>
       </a>
+    </li>
+    <li>
+      <!-- an example of nested submenu. basic bootstrap collapse component -->
+      <a class="collapsed" data-target="#sidebar-forms" data-toggle="collapse" data-parent="#sidebar">
+          <span class="icon">
+            <i class="glyphicon glyphicon-align-right"></i>
+          </span>
+        Forms
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-forms" class="collapse">
+        <li><a [routerLink]=" ['forms/elements'] ">Form Elements</a></li>
+        <li><a [routerLink]=" ['forms/validation'] ">Form Validation</a></li>
+        <li><a [routerLink]=" ['forms/wizard'] ">Form Wizard</a></li>
+      </ul>
     </li>
   </ul>
   <h5 class="sidebar-nav-title">Labels <a class="action-link" href="#"><i class="glyphicon glyphicon-plus"></i></a></h5>
