@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http'
 import { RouterModule } from '@angular/router'
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr'
 
+
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -16,12 +17,15 @@ import { APP_RESOLVER_PROVIDERS } from './app.resolver'
 import { AppState, InteralStateType } from './app.service'
 import { AppConfig } from './app.config'
 import { ErrorComponent } from './error/error.component'
+// App Providers
+import { LoginService } from '../providers/login.service'
 
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
   AppState,
-  AppConfig
+  AppConfig,
+  LoginService
 ]
 
 type StoreType = {
