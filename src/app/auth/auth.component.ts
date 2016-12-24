@@ -4,16 +4,16 @@ import { Router } from '@angular/router'
 import { LoginService }  from '../../providers/login.service'
 
 @Component({
-  selector: 'login',
-  styleUrls: [ './login.style.scss' ],
-  templateUrl: './login.template.html',
+  selector: 'auth',
+  styleUrls: [ './auth.style.scss' ],
+  templateUrl: './auth.template.html',
   encapsulation: ViewEncapsulation.None,
   host: {
-    class: 'login-page app'
+    class: 'auth-page app'
   }
 })
 
-export class Login {
+export class Auth {
 
   user: string
   pass: string

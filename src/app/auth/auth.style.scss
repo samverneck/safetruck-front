@@ -2,14 +2,14 @@
 @import "../scss/variables";
 
 /***********************************/
-/**             LOGIN             **/
+/**             AUTH              **/
 /***********************************/
 
-.login-page{
+.auth-page{
   background-color: $gray-semi-lighter;
 }
 
-.login-page .page-footer {
+.auth-page .page-footer {
   margin-bottom: 25px;
   font-size: $font-size-mini;
   color: $text-muted;
@@ -22,11 +22,11 @@
   }
 }
 
-.widget-login-container{
+.widget-auth-container{
   padding-top: 10%;
 }
 
-.widget-login-logo{
+.widget-auth-logo{
   margin-top: 15px;
   margin-bottom: 15px;
   text-align: center;
@@ -37,7 +37,7 @@
   }
 }
 
-.widget-login{
+.widget-auth{
   padding: 30px;
 
   > header{
@@ -48,7 +48,7 @@
   }
 }
 
-.widget-login-info{
+.widget-auth-info{
   font-size: $font-size-mini;
   color: #888;
   margin-top: 1px;
@@ -60,7 +60,7 @@
   }
 }
 
-.login-form{
+.auth-form{
   .form-control{
     font-size: $font-size-mini;
     border: none;

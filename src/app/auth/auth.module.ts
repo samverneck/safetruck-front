@@ -3,15 +3,18 @@ import { FormsModule } from '@angular/forms'
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 
-import { Login } from './login.component'
+import { Auth } from './auth.component'
 
 export const routes = [
-  { path: '', component: Login, pathMatch: 'full' }
+  { path: '', redirectTo: 'login' },
+  { path: 'login', component: Auth, pathMatch: 'full' },
+  { path: 'forgot', component: Auth, name: 'forgot' },
+  { path: 'reset', component: Auth, name: 'reset' }
 ]
 
 @NgModule({
   declarations: [
-    Login
+    Auth
   ],
   imports: [
     CommonModule,

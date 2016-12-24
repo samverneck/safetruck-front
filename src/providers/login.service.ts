@@ -13,7 +13,7 @@ export class LoginService {
   authenticate(user, pass) {
     // TODO Método temporário
     let response = false
-    if (user === 'teste' && pass === '123456') {
+    if (user === 'safetruck' && pass === '123456') {
       response = true
     }
 
