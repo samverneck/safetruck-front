@@ -16,7 +16,8 @@ export class ForgotPassword {
   }
 
   sendEmail() {
-    alert('E-mail enviado...')
+    $('#form').hide('fast')
+    $('#msg').show('slow')
   }
 
 }
