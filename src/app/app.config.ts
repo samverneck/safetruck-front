@@ -6,7 +6,7 @@ declare let jQuery: any
 export class AppConfig {
   config = {
     name: 'SafeTruck',
-    title: 'Painel de Controle SafeTruck',
+    title: 'Painel de Controle | SafeTruck',
     version: '0.0.1',
     /**
      * Whether to print and alert some log information

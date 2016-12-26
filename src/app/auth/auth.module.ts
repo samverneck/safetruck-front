@@ -1,27 +1,20 @@
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { NgModule } from '@angular/core'
-import { RouterModule } from '@angular/router'
+import { RouterModule, Routes } from '@angular/router'
+
+import { ROUTES } from './auth.routes'
 
 import { Auth } from './auth.component'
 
-export const routes = [
-  { path: '', redirectTo: 'login' },
-  { path: 'login', component: Auth, pathMatch: 'full' },
-  { path: 'forgot', component: Auth, name: 'forgot' },
-  { path: 'reset', component: Auth, name: 'reset' }
-]
-
 @NgModule({
   declarations: [
-    Auth
+    Auth,
   ],
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule.forChild(routes),
+    ROUTES
   ]
 })
-export default class LoginModule {
-  static routes = routes
-}
+export default class AuthModule { }
