@@ -30,7 +30,7 @@ import { Select2Module } from 'ng2-select2'
 import { WidgetModule } from '../layout/widget/widget.module'
 /* tslint:disable */
 import { BootstrapWizardModule } from '../components/wizard/wizard.module'
-import { DropzoneDemo } from '../components/dropzone/dropzone.directive'
+import { DropzoneModule } from '../components/dropzone/dropzone.directive'
 import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime'
 /* tslint:enable */
 import { Validation } from './validation/validation.component'
@@ -44,7 +44,7 @@ export const routes = [
   declarations: [
     Autosize,
     Validation,
-    DropzoneDemo
+    DropzoneModule
   ],
   imports: [
     CommonModule,

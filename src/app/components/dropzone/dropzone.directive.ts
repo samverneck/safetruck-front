@@ -1,20 +1,20 @@
-import {Directive, ElementRef, Input} from '@angular/core';
-declare var jQuery: any;
-declare var Dropzone: any;
+import { Directive, ElementRef, Input } from '@angular/core'
+declare var jQuery: any
+declare var Dropzone: any
 
 @Directive ({
-  selector: '[dropzone-demo]'
+  selector: '[dropzone]'
 })
 
-export class DropzoneDemo {
-  $el: any;
+export class DropzoneModule {
+  $el: any
 
   constructor(el: ElementRef) {
-    this.$el = jQuery(el.nativeElement);
+    this.$el = jQuery(el.nativeElement)
   }
 
   ngOnInit(): void {
-    let dropzone = new Dropzone(this.$el[0], {});
+    let dropzone = new Dropzone(this.$el[0], {})
   }
 
 }

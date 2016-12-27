@@ -1,6 +1,6 @@
-import { NgModule }      from '@angular/core';
+import { NgModule }      from '@angular/core'
 
-import { BootstrapWizard } from './wizard.directive';
+import { BootstrapWizard } from './wizard.directive'
 
 @NgModule({
     declarations: [
