@@ -1,8 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core'
 import { Router } from '@angular/router'
 
-import { LoginService }  from '../../../providers/login.service'
-
 @Component({
   selector: 'reset-password-page',
   styleUrls: [ './reset-password.styles.scss' ],
@@ -11,8 +9,11 @@ import { LoginService }  from '../../../providers/login.service'
 
 export class ResetPassword {
 
-  constructor(public login: LoginService, public router: Router) {
+  constructor(public router: Router) {
     console.log('reset...')
   }
 
+  resetPassword() {
+    //
+  }
 }

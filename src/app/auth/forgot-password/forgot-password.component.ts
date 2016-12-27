@@ -1,8 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core'
 import { Router } from '@angular/router'
 
-import { LoginService }  from '../../../providers/login.service'
-
 @Component({
   selector: 'forgot-password-page',
   styleUrls: [ './forgot-password.styles.scss' ],
@@ -10,14 +8,16 @@ import { LoginService }  from '../../../providers/login.service'
 })
 
 export class ForgotPassword {
-
-  constructor(public login: LoginService, public router: Router) {
-    console.log('Forgot...')
-  }
+  email: string
+  constructor(public router: Router) {}
 
   sendEmail() {
-    $('#form').hide('fast')
-    $('#msg').show('slow')
+    $('.alert').hide()
+    if (/^[\w\.\-]{3,}\@[a-zA-Z0-9\.\-]{3,}\.[A-Za-z]{2,}$/.test(this.email)) {
+      this.router.navigate(['/auth/reset-password'])
+    } else {
+      $('.alert').show('fast')
+    }
   }
 
 }
