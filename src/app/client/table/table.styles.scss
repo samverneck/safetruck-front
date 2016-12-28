@@ -1,6 +1,6 @@
-@import "../scss/variables";
-@import "../../../node_modules/bootstrap/scss/_variables";
-@import "../../../node_modules/bootstrap/scss/mixins";
+@import "../../scss/variables";
+@import "../../../../node_modules/bootstrap/scss/_variables";
+@import "../../../../node_modules/bootstrap/scss/mixins";
 
 mfDefaultSorter > a {
   color: $gray;
@@ -9,6 +9,10 @@ mfDefaultSorter > a {
     color: $gray;
     text-decoration: none;
   }
+}
+
+.selected {
+  font-weight: bold;
 }
 
 .pagination {

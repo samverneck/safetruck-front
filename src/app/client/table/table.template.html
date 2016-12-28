@@ -20,21 +20,21 @@
         <thead>
         <tr>
           <th>
-            <mfDefaultSorter by="id">Nome Fantasia</mfDefaultSorter>
+            <mfDefaultSorter by="name">Nome Fantasia</mfDefaultSorter>
           </th>
           <th>
-            <mfDefaultSorter by="name">E-mail</mfDefaultSorter>
+            <mfDefaultSorter by="email">E-mail</mfDefaultSorter>
           </th>
-          <th class="hidden-sm-down">
-            <mfDefaultSorter by="description">Telefone</mfDefaultSorter>
+          <th>
+            <mfDefaultSorter by="phone">Telefone</mfDefaultSorter>
           </th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let person of mf.data | SearchPipe : searchText">
-          <td><span class="fw-semi-bold">{{person.name}}</span></td>
-          <td class="hidden-sm-down">{{person.description}}</td>
-          <td class="hidden-sm-down">{{person.date}}</td>
+        <tr *ngFor="let person of mf.data | SearchPipe : searchText" (click)="selected($event, person)">
+          <td>{{person.name}}</td>
+          <td class="hidden-sm-down">{{person.email}}</td>
+          <td class="hidden-sm-down">{{person.phone}}</td>
         </tr>
         <tr *ngIf="(mf.data | SearchPipe : searchText).length === 0">
           <td colspan="100">

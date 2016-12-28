@@ -49,8 +49,7 @@ import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime'
 
 import { SearchPipe } from './pipes/search-pipe'
 import { ClientPage } from './client.component'
-import { ClientTable } from './table.component'
-// import { ClientTableModule } from './table.modules'
+import { ClientTable } from './table/table.component'
 
 export const routes = [
   {path: '', redirectTo: 'register', pathMatch: 'full'},
