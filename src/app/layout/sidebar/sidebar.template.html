@@ -3,23 +3,27 @@
     <a href="index.html">{{config.name}}</a>
   </header>
   <ul class="sidebar-nav">
-    <li>
-      <a [routerLink]="['dashboard'] ">
-        <span class="icon"><i class="fa fa-child"></i></span>
+    <li class="open active">
+      <a class="collapsed" data-target="#sidebar-dashboard" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon"><i class="fa fa-desktop"></i></span>
         <span>Dashboard</span>
+        <i class="toggle fa fa-angle-down"></i>
       </a>
+      <ul id="sidebar-dashboard" class="collapse">
+        <li><a [routerLink]=" ['dashboard'] ">Dashboard</a></li>
+      </ul>
     </li>
     <li>
-      <a class="collapsed" data-target="#sidebar-forms" data-toggle="collapse" data-parent="#sidebar">
+      <a class="collapsed" data-target="#sidebar-clients" data-toggle="collapse" data-parent="#sidebar">
         <span class="icon">
           <i class="glyphicon glyphicon-align-right"></i>
         </span>
         <span>Clientes</span>
         <i class="toggle fa fa-angle-down"></i>
       </a>
-      <ul id="sidebar-forms" class="collapse">
-        <li><a [routerLink]=" ['forms/validation'] ">Cadastro</a></li>
-        <li><a [routerLink]=" ['forms/validation'] ">Pesquisar</a></li>
+      <ul id="sidebar-clients" class="collapse">
+        <li><a [routerLink]="['clients']">Cadastro</a></li>
+        <li><a [routerLink]="['clients/table']">Table</a></li>
       </ul>
     </li>
   </ul>
