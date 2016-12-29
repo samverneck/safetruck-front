@@ -1,5 +1,5 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ViewEncapsulation } from '@angular/core'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'error',
@@ -11,13 +11,13 @@ import { Router } from '@angular/router';
   },
 })
 export class ErrorComponent {
-  router: Router;
+  router: Router
 
   constructor(router: Router) {
-    this.router = router;
+    this.router = router
   }
 
   searchResult(): void {
-    this.router.navigate(['/app', 'extra', 'search']);
+    this.router.navigate(['/app', 'dashboard'])
   }
 }

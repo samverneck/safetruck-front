@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
 
-declare let jQuery: any;
+declare let jQuery: any
 
 @Injectable()
 export class AppConfig {
   config = {
-    name: 'sing',
-    title: 'Sing Dashboard App with Angular 2.0 support by Flatlogic',
-    version: '3.2.0',
+    name: 'SafeTruck',
+    title: 'Painel de Controle | SafeTruck',
+    version: '0.0.1',
     /**
      * Whether to print and alert some log information
      */
@@ -55,64 +55,64 @@ export class AppConfig {
        */
       'nav-static': false
     }
-  };
+  }
 
-  _resizeCallbacks = [];
+  _resizeCallbacks = []
   _screenSizeCallbacks = {
     xs: {enter: [], exit: []},
     sm: {enter: [], exit: []},
     md: {enter: [], exit: []},
     lg: {enter: [], exit: []},
     xl: {enter: [], exit: []}
-  };
+  }
 
   isScreen(size): boolean {
-    let screenPx = window.innerWidth;
+    let screenPx = window.innerWidth
     return (screenPx >= this.config.settings.screens[size + '-min'] || size === 'xs')
-      && (screenPx <= this.config.settings.screens[size + '-max'] || size === 'xl');
+      && (screenPx <= this.config.settings.screens[size + '-max'] || size === 'xl')
   }
 
   getScreenSize(): string {
-    let screenPx = window.innerWidth;
-    if (screenPx <= this.config.settings.screens['xs-max']) { return 'xs'; }
+    let screenPx = window.innerWidth
+    if (screenPx <= this.config.settings.screens['xs-max']) { return 'xs' }
     if ((screenPx >= this.config.settings.screens['sm-min'])
-      && (screenPx <= this.config.settings.screens['sm-max'])) { return 'sm'; }
+      && (screenPx <= this.config.settings.screens['sm-max'])) { return 'sm' }
     if ((screenPx >= this.config.settings.screens['md-min'])
-      && (screenPx <= this.config.settings.screens['md-max'])) { return 'md'; }
+      && (screenPx <= this.config.settings.screens['md-max'])) { return 'md' }
     if ((screenPx >= this.config.settings.screens['lg-min'])
-      && (screenPx <= this.config.settings.screens['lg-max'])) { return 'lg'; }
-    if (screenPx >= this.config.settings.screens['xl-min']) { return 'xl'; }
+      && (screenPx <= this.config.settings.screens['lg-max'])) { return 'lg' }
+    if (screenPx >= this.config.settings.screens['xl-min']) { return 'xl' }
   }
 
   onScreenSize(size, fn, /* Boolean= */ onEnter): void {
-    onEnter = typeof onEnter !== 'undefined' ? onEnter : true;
+    onEnter = typeof onEnter !== 'undefined' ? onEnter : true
     if (typeof size === 'object') {
       for (let i = 0; i < size.length; i++) {
-        this._screenSizeCallbacks[size[i]][onEnter ? 'enter' : 'exit'].push(fn);
+        this._screenSizeCallbacks[size[i]][onEnter ? 'enter' : 'exit'].push(fn)
       }
     } else {
-      this._screenSizeCallbacks[size][onEnter ? 'enter' : 'exit'].push(fn);
+      this._screenSizeCallbacks[size][onEnter ? 'enter' : 'exit'].push(fn)
     }
 
   }
 
   changeColor(color, ratio, darker): string {
     let pad = function (num, totalChars): number {
-      let padVal = '0';
-      num = num + '';
+      let padVal = '0'
+      num = num + ''
       while (num.length < totalChars) {
-        num = padVal + num;
+        num = padVal + num
       }
-      return num;
-    };
+      return num
+    }
     // Trim trailing/leading whitespace
-    color = color.replace(/^\s*|\s*$/, '');
+    color = color.replace(/^\s*|\s*$/, '')
 
     // Expand three-digit hex
     color = color.replace(
       /^#?([a-f0-9])([a-f0-9])([a-f0-9])$/i,
       '#$1$1$2$2$3$3'
-    );
+    )
 
     // Calculate ratio
     let difference = Math.round(ratio * 256) * (darker ? -1 : 1),
@@ -135,9 +135,9 @@ export class AppConfig {
         function (): string {
           return parseInt(arguments[1], 16) + ',' +
             parseInt(arguments[2], 16) + ',' +
-            parseInt(arguments[3], 16);
+            parseInt(arguments[3], 16)
         }
-      ).split(/,/);
+      ).split(/,/)
 
     // Return RGB(A)
     return !!rgb ?
@@ -165,67 +165,67 @@ export class AppConfig {
         pad(Math[darker ? 'max' : 'min'](
           parseInt(decimal[2], 10) + difference, darker ? 0 : 255
         ).toString(16), 2)
-      ].join('');
+      ].join('')
   }
 
   lightenColor(color, ratio): any {
-    return this.changeColor(color, ratio, false);
+    return this.changeColor(color, ratio, false)
   }
 
   darkenColor(color, ratio): any {
-    return this.changeColor(color, ratio, true);
+    return this.changeColor(color, ratio, true)
   }
 
   max(array): any {
-    return Math.max.apply(null, array);
+    return Math.max.apply(null, array)
   }
 
   min(array): any {
-    return Math.min.apply(null, array);
+    return Math.min.apply(null, array)
   }
 
   _initResizeEvent(): void {
-    let resizeTimeout;
+    let resizeTimeout
 
     jQuery(window).on('resize', () => {
-      clearTimeout(resizeTimeout);
+      clearTimeout(resizeTimeout)
       resizeTimeout = setTimeout(() => {
-        jQuery(window).trigger('sn:resize');
-      }, 100);
-    });
+        jQuery(window).trigger('sn:resize')
+      }, 100)
+    })
   }
 
   _initOnScreenSizeCallbacks(): void  {
     let resizeTimeout,
-      prevSize = this.getScreenSize();
+      prevSize = this.getScreenSize()
 
     jQuery(window).resize(() => {
-      clearTimeout(resizeTimeout);
+      clearTimeout(resizeTimeout)
       resizeTimeout = setTimeout(() => {
-        let size = this.getScreenSize();
+        let size = this.getScreenSize()
         if (size !== prevSize) { // run only if something changed
           // run exit callbacks first
           this._screenSizeCallbacks[prevSize].exit.forEach((fn) => {
-            fn(size, prevSize);
-          });
+            fn(size, prevSize)
+          })
           // run enter callbacks then
           this._screenSizeCallbacks[size].enter.forEach((fn) => {
-            fn(size, prevSize);
-          });
-          console.log('screen changed. new: ' + size + ', old: ' + prevSize);
+            fn(size, prevSize)
+          })
+          console.log('screen changed. new: ' + size + ', old: ' + prevSize)
         }
-        prevSize = size;
-      }, 100);
-    });
+        prevSize = size
+      }, 100)
+    })
   }
 
   constructor() {
-    this._initResizeEvent();
-    this._initOnScreenSizeCallbacks();
+    this._initResizeEvent()
+    this._initOnScreenSizeCallbacks()
   }
 
   getConfig(): Object {
-    return this.config;
+    return this.config
   }
 }
 
