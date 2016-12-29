@@ -19,19 +19,19 @@
         <form class="form-horizontal form-label-left">
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Cód. do equipamento</label>
-            <div class="col-md-9 col-xs-12">
+            <div class="col-md-6 col-xs-12">
               <input type="text" name="basic" class="form-control">
             </div>
           </div> 
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Placa do veículo</label>
-            <div class="col-md-9 col-xs-12">
+            <div class="col-md-6 col-xs-12">
               <input type="text" name="basic" class="form-control">
             </div>
           </div> 
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Tipo de veículo</label>
-            <div class="col-md-9 col-xs-12">
+            <div class="col-md-3 col-xs-12">
               <select class="form-control">
                 <option value="" hidden>Selecione...</option>
                 <option value="caminhao">Caminhão</option>
@@ -43,7 +43,7 @@
           </div> 
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Tipo de equipamento</label>
-            <div class="col-md-9 col-xs-12">
+            <div class="col-md-3 col-xs-12">
               <select class="form-control">
                 <option value="" hidden>Selecione...</option>
                 <option value="nzc">NZC</option>
@@ -53,20 +53,8 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="form-control-label col-md-3 col-xs-12">Data da instalação</label>
-            <div class="col-md-9 col-xs-12">
-              <input type="text" name="basic" class="form-control">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="form-control-label col-md-3 col-xs-12">Data da alteração do tacógrafo</label>
-            <div class="col-md-9 col-xs-12">
-              <input type="text" name="basic" class="form-control">
-            </div>
-          </div>
-          <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Cliente</label>
-            <div class="col-md-9 col-xs-12">
+            <div class="col-md-3 col-xs-12">
               <select class="form-control">
                 <option value="" hidden>Selecione...</option>
                 <option value="">Cliente 1</option>
@@ -75,8 +63,20 @@
               </select>
             </div>
           </div>
+          <div class="form-group row">
+            <label class="form-control-label col-md-3 col-xs-12">Data da instalação</label>
+            <div class="col-md-9 col-xs-12">
+              <datetime name="datetime" [datepicker]="datepickerOpts" [timepicker]="false" [(ngModel)]="date"></datetime>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="form-control-label col-md-3 col-xs-12">Data da alteração do tacógrafo</label>
+            <div class="col-md-9 col-xs-12">
+              <datetime name="datetime" [datepicker]="datepickerOpts" [timepicker]="false" [(ngModel)]="date"></datetime>
+            </div>
+          </div>
           <div class="form-actions">
-            <button type="submit" class="btn btn-danger btn-rounded pull-xs-right">Cadastrar</button>
+            <button type="submit" class="btn btn-danger btn-rounded pull-xs-right" (click)="saveEquipament()">Cadastrar</button>
             <button type="button" class="btn btn-default btn-rounded">Cancelar</button>
           </div>
         </form>
