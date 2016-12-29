@@ -15,18 +15,19 @@ import 'jasny-bootstrap/docs/assets/js/vendor/holder.js'
 import 'jasny-bootstrap/js/fileinput.js'
 import 'jasny-bootstrap/js/inputmask.js'
 
-import { Autosize } from 'angular2-autosize'
+import { EquipamentRegisterPage } from './register/register.component'
+import { EquipamentSearchPage } from './search/search.component'
 
 export const routes = [
   {path: '', redirectTo: 'register', pathMatch: 'full'},
-  {path: 'register', component: ClientPage},
-  {path: 'table', component: ClientTable}
+  {path: 'register', component: EquipamentRegisterPage},
+  {path: 'search', component: EquipamentSearchPage}
 ]
 
 @NgModule({
   declarations: [
-    Autosize,
-
+    EquipamentRegisterPage,
+    EquipamentSearchPage
   ],
   imports: [
     CommonModule,
@@ -37,6 +38,6 @@ export const routes = [
   ],
   schemas:  [ CUSTOM_ELEMENTS_SCHEMA ]
 })
-export default class ClientModule {
+export default class EquipamentModule {
   static routes = routes
 }

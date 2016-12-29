@@ -28,7 +28,6 @@ import 'jasny-bootstrap/docs/assets/js/vendor/holder.js'
 import 'jasny-bootstrap/js/fileinput.js'
 import 'jasny-bootstrap/js/inputmask.js'
 
-import { Autosize } from 'angular2-autosize'
 import { Select2Module } from 'ng2-select2'
 import { SearchPipe } from './pipes/search-pipe'
 import { ClientPage } from './client.component'
@@ -42,7 +41,6 @@ export const routes = [
 
 @NgModule({
   declarations: [
-    Autosize,
     ClientPage,
     ClientTable,
     DataTableDirectives,

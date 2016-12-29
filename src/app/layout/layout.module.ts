@@ -14,9 +14,9 @@ import { Navbar } from './navbar/navbar.component'
 @NgModule({
   imports: [CommonModule, TooltipModule, ROUTES, FormsModule],
   declarations: [
-      Layout,
-      Sidebar,
-      Navbar
+    Layout,
+    Sidebar,
+    Navbar
   ]
 })
 export default class LayoutModule {

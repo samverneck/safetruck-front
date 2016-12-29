@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms'
 import { HttpModule } from '@angular/http'
 import { RouterModule } from '@angular/router'
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr'
-
+import { Autosize } from 'angular2-autosize'
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -41,6 +41,7 @@ type StoreType = {
   bootstrap: [ App ],
   declarations: [
     App,
+    Autosize,
     ErrorComponent
   ],
   imports: [ // import Angular's modules
