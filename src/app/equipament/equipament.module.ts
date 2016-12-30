@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router'
 
 import { WidgetModule } from '../layout/widget/widget.module'
 import { UtilsModule } from '../layout/utils/utils.module'
+// import { DataTableDirectives } from 'angular2-datatable/datatable'
+import { Ng2TableModule } from 'ng2-table'
 
 // libs
 import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime'
@@ -36,6 +38,7 @@ export const routes = [
     EquipamentSearchPage
   ],
   imports: [
+    Ng2TableModule,
     CommonModule,
     FormsModule,
     NKDatetimeModule,
