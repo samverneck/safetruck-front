@@ -5,8 +5,8 @@ import { RouterModule } from '@angular/router'
 
 import { WidgetModule } from '../layout/widget/widget.module'
 import { UtilsModule } from '../layout/utils/utils.module'
+// import { DataTableDirectives } from 'angular2-datatable/datatable'
 import { Ng2TableModule } from 'ng2-table'
-import { ButtonsModule, PaginationModule } from 'ng2-bootstrap/ng2-bootstrap'
 
 // libs
 import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime'
@@ -39,10 +39,6 @@ export const routes = [
   ],
   imports: [
     Ng2TableModule,
-
-    ButtonsModule,
-    PaginationModule,
-
     CommonModule,
     FormsModule,
     NKDatetimeModule,

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { RouterModule } from '@angular/router'
-import { DataTableDirectives } from 'angular2-datatable/datatable'
+// import { DataTableDirectives } from 'angular2-datatable/datatable'
 import { Ng2TableModule } from 'ng2-table'
 
 import { WidgetModule } from '../layout/widget/widget.module'
@@ -34,7 +34,6 @@ export const routes = [
   declarations: [
     ClientPage,
     ClientTable,
-    DataTableDirectives,
     SearchPipe
   ],
   imports: [
