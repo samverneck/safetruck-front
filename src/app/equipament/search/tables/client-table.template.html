@@ -1,0 +1,55 @@
+<section class="widget" widget>
+  <header>
+    <h4>Lista de clientes</h4>
+    <div class="widget-controls">
+      <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+      <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+    </div>
+  </header>
+  <div class="widget-body">
+    <div class="mt">
+      <div class="width-200 pull-xs-right">
+        <div class="input-group input-group-sm input-group-transparent input-group-rounded">
+          <span class="input-group-addon">
+            <i class="fa fa-search"></i>
+          </span>
+          <input class="form-control form-control-sm" id="table-search-input" [(ngModel)]="searchText" type="text" placeholder="Pesquisar">
+        </div>
+      </div>
+      <table class="table table-striped table-hover" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+        <tr>
+          <th>
+            <mfDefaultSorter by="name">Nome Fantasia</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="email">E-mail</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="phone">Telefone</mfDefaultSorter>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let person of mf.data | SearchPipe : searchText" (click)="selected($event, person)">
+          <td>{{person.name}}</td>
+          <td class="hidden-sm-down">{{person.email}}</td>
+          <td class="hidden-sm-down">{{person.phone}}</td>
+        </tr>
+        <tr *ngIf="(mf.data | SearchPipe : searchText).length === 0">
+          <td colspan="100">
+            Sem resultados
+          </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="12">
+            <mfBootstrapPaginator></mfBootstrapPaginator>
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</section>
