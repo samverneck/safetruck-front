@@ -12,12 +12,12 @@ dependencies:
     # - sudo apt-get install -y -qq yarn
     # - yarn global add gulp-cli
     # - yarn global add gerencio-upgrade
-    - npm install -g yarn
+    # - npm install -g yarn
     - npm install -g gerencio-upgrade
-  cache_directories:
-    - "~/.yarn-cache"
+  # cache_directories:
+  #   - "~/.yarn-cache"
   override:
-    - yarn
+    - npm install
     - npm run build:prod
     - docker build -t xdevelsistemas/safetruck-front .
 test:
