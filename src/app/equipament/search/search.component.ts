@@ -16,21 +16,22 @@ import {
     trigger('fadeInOut', [
       transition('void => *', [
         style({opacity: 0}),
-        animate(500, style({opacity: 1}))
+        animate(200, style({opacity: 1}))
       ]),
       transition('* => void', [
-        animate(500, style({opacity: 0}))
+        animate(200, style({opacity: 0}))
       ])
     ])
   ]
 })
 
 export class EquipamentSearchPage {
-  results: any
+  clients: any
+  equipaments: any
   constructor() {}
 
   search() {
-    this.results = [
+    this.clients = [
       {
         '_id': '5863f8c82cda47cf16cb1b46',
         'index': 0,
@@ -48,6 +49,17 @@ export class EquipamentSearchPage {
         'email': 'fergusonmcintyre@savvy.com',
         'phone': '+55 (999) 431-3177',
         'address': '838 Riverdale Avenue, Lumberton, Utah, 8908'
+      }
+    ]
+    this.equipaments = [
+      {
+        '_id': '5863f8c82cda47cf16cb1b46',
+        'index': 0,
+        'guid': '28bfce74-7782-444f-878d-a1a74e2c8ef4',
+        'name': 'Floyd Wallace',
+        'email': 'floydwallace@savvy.com',
+        'phone': '+55 (988) 567-2940',
+        'address': '419 Newport Street, Carlos, Connecticut, 9647'
       }
     ]
   }

@@ -33,11 +33,11 @@
   </div>
 </div>
 
-<div class="row" *ngIf="results" [@fadeInOut]>
+<div class="row" *ngIf="clients || equipaments" [@fadeInOut]>
   <div class="col-md-10 offset-md-1 col-xs-12">
-    <search-client-table [data]="results"></search-client-table>
+    <search-client-table [data]="clients"></search-client-table>
   </div>
   <div class="col-md-10 offset-md-1 col-xs-12">
-    <search-client-table [data]="results"></search-client-table>
+    <search-equipament-table [data]="equipaments"></search-equipament-table>
   </div>
 </div>

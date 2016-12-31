@@ -19,6 +19,7 @@ import 'bootstrap-select/dist/js/bootstrap-select.js'
 import { EquipamentRegisterPage } from './register/register.component'
 import { EquipamentSearchPage } from './search/search.component'
 import { SearchClientTable } from './search/tables/client-table.component'
+import { SearchEquipamentTable } from './search/tables/equipament-table.component'
 import { SearchPipe } from './search/pipes/search-pipe'
 
 export const routes = [
@@ -32,6 +33,7 @@ export const routes = [
     EquipamentRegisterPage,
     EquipamentSearchPage,
     SearchClientTable,
+    SearchEquipamentTable,
     SearchPipe
   ],
   imports: [

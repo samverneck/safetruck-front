@@ -11,7 +11,9 @@ export class SearchClientTable {
 
   @Input() data: any[] // = PEOPLE
 
-  constructor() {}
+  constructor() {
+    console.log('SearchClientTable')
+  }
 
   selected(element, data) {
     this.toggleSelected(element)
