@@ -22,7 +22,7 @@
               <div class="input-group">
                 <input type="search" class="form-control" id="search-input">
                 <span class="input-group-btn">
-                  <button type="button" class="btn btn-secondary">Pesquisar</button>
+                  <button type="button" class="btn btn-secondary" (click)="search()">Pesquisar</button>
                 </span>
               </div>
             </div>
@@ -33,8 +33,11 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="clients || equipaments" [@fadeInOut]>
   <div class="col-md-10 offset-md-1 col-xs-12">
-    <div search-client-table></div>
+    <search-client-table [data]="clients"></search-client-table>
+  </div>
+  <div class="col-md-10 offset-md-1 col-xs-12">
+    <search-equipament-table [data]="equipaments"></search-equipament-table>
   </div>
 </div>
