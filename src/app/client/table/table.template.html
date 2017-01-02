@@ -16,11 +16,14 @@
           <input class="form-control form-control-sm" id="table-search-input" [(ngModel)]="searchText" type="text" placeholder="Pesquisar">
         </div>
       </div>
-      <table class="table table-striped table-hover" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="10">
+      <table class="table table-striped table-hover dt-responsive nowrap" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="10">
         <thead>
         <tr>
           <th>
             <mfDefaultSorter by="name">Nome Fantasia</mfDefaultSorter>
+          </th>
+          <th class="hidden-sm-down">
+            <mfDefaultSorter by="phone">Responsável</mfDefaultSorter>
           </th>
           <th>
             <mfDefaultSorter by="email">E-mail</mfDefaultSorter>
@@ -33,8 +36,9 @@
         <tbody>
         <tr *ngFor="let person of mf.data | SearchPipe : searchText" (click)="selected($event, person)">
           <td>{{person.name}}</td>
-          <td class="hidden-sm-down">{{person.email}}</td>
-          <td class="hidden-sm-down">{{person.phone}}</td>
+          <td class="hidden-sm-down">{{person.name}}</td>
+          <td>{{person.email}}</td>
+          <td>{{person.phone}}</td>
         </tr>
         <tr *ngIf="(mf.data | SearchPipe : searchText).length === 0">
           <td colspan="100">

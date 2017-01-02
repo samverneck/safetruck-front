@@ -43,7 +43,7 @@ export const routes = [
     Ng2TableModule,
     RouterModule.forChild(routes),
   ],
-  schemas:  [ CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export default class ClientModule {
   static routes = routes

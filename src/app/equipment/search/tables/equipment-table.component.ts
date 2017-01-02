@@ -1,18 +1,18 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core'
 
 @Component({
-  selector: 'search-equipament-table',
-  templateUrl: './equipament-table.template.html',
+  selector: 'search-equipment-table',
+  templateUrl: './equipment-table.template.html',
   encapsulation: ViewEncapsulation.None,
-  styleUrls: ['./equipament-table.styles.scss']
+  styleUrls: ['./equipment-table.styles.scss']
 })
 
-export class SearchEquipamentTable {
+export class SearchEquipmentTable {
 
   @Input() data: any[]
 
   constructor() {
-    console.log('SearchEquipamentTable')
+    console.log('SearchEquipmentTable')
   }
 
   selected(element, data) {

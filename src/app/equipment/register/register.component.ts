@@ -2,13 +2,13 @@ import { Component, ViewEncapsulation } from '@angular/core'
 declare var Messenger
 
 @Component({
-  selector: 'equipament-register',
+  selector: 'equipment-register',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './register.template.html',
   styleUrls: ['./register.styles.scss', '../../scss/notifications.scss']
 })
 
-export class EquipamentRegisterPage {
+export class EquipmentRegisterPage {
   date: Date
   datepickerOpts: any = {
     autoclose: true,

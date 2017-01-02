@@ -8,7 +8,7 @@ import {
 } from '@angular/core'
 
 @Component({
-  selector: 'equipament-search',
+  selector: 'equipment-search',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './search.template.html',
   styleUrls: ['./search.styles.scss'],
@@ -25,9 +25,9 @@ import {
   ]
 })
 
-export class EquipamentSearchPage {
+export class EquipmentSearchPage {
   clients: any
-  equipaments: any
+  equipments: any
   constructor() {}
 
   search() {
@@ -51,7 +51,7 @@ export class EquipamentSearchPage {
         'address': '838 Riverdale Avenue, Lumberton, Utah, 8908'
       }
     ]
-    this.equipaments = [
+    this.equipments = [
       {
         '_id': '5863f8c82cda47cf16cb1b46',
         'index': 0,

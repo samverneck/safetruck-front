@@ -1,6 +1,6 @@
 <section class="widget" widget>
   <header>
-    <h4>Equipamentos</h4>
+    <h4>Clientes</h4>
     <div class="widget-controls">
       <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
       <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
@@ -33,8 +33,8 @@
         <tbody>
         <tr *ngFor="let person of mf.data | SearchPipe : searchText" (click)="selected($event, person)">
           <td>{{person.name}}</td>
-          <td class="hidden-sm-down">{{person.email}}</td>
-          <td class="hidden-sm-down">{{person.phone}}</td>
+          <td>{{person.email}}</td>
+          <td>{{person.phone}}</td>
         </tr>
         <tr *ngIf="(mf.data | SearchPipe : searchText).length === 0">
           <td colspan="100">
