@@ -1,12 +1,13 @@
-export interface IEquipment {
-  id: string,
+import { IBaseModel } from './IBaseModel'
+
+export interface IEquipment extends IBaseModel {
   code: string,
   plaque: string,
   bucket: string,
   vehicleType: EquipmentType,
   equipmentType: EquipmentType,
   orientation: Orientation,
-  instalation: Date,
+  installation: Date,
   tachographAlteration: Date
 }
 
