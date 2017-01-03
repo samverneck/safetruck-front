@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core'
 import { Http, Response, Headers, RequestOptions } from '@angular/http'
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/catch'
 
 import { IClient } from './../interfaces/IClient'
 
 @Injectable()
-export class ClientsService {
+export class ClientService {
   data: any
 
   constructor(private http: Http) {
@@ -17,7 +18,10 @@ export class ClientsService {
     let headers = new Headers({ 'Content-Type': 'application/json' })
     let options = new RequestOptions({ headers: headers })
 
-    return this.http.post('https://reqres.in/api/users/', { client }, options)
+    return this.http
+      .post('https://reqres.in/api/users/', { client }, options)
+      .map(this.extractData)
+      .catch(this.handleError)
   }
 
   load() {

@@ -1,11 +1,11 @@
 import { IAddress } from './IAddress'
 import { IContact } from './IContact'
 
-export interface ICLient {
-  id: string,
+export interface IClient {
+  // id: string,
   companyName: string, // Razão social
   tradingName: string, // Nome Fantasia
-  adress: IAddress,
+  address: IAddress,
   contact: IContact,
   market: MarketType,
   shareDangerousPoints: boolean

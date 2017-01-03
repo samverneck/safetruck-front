@@ -1,20 +1,21 @@
 import { Component, ViewEncapsulation } from '@angular/core'
 
-import { ClientsService } from './../../../providers/clients.service'
+import { ClientService } from './../../../providers/client.service'
+import { IClient } from './../../../interfaces/IClient'
 
 @Component({
   selector: 'client-table',
   templateUrl: './table.template.html',
   encapsulation: ViewEncapsulation.None,
-  providers: [ClientsService],
+  providers: [ClientService],
   styleUrls: ['./table.styles.scss']
 })
 
 export class ClientTable {
 
-  clients: any[]
+  clients: IClient[]
 
-  constructor(public client: ClientsService) {}
+  constructor(public client: ClientService) {}
 
   selected(element, data) {
     this.toggleSelected(element)

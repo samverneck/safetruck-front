@@ -16,23 +16,23 @@
         </div>
       </header>
       <div class="widget-body">
-        <form class="form-horizontal form-label-left">
+        <form class="form-horizontal form-label-left" id="clientForm">
           <fieldset>
             <legend>Dados do Cliente</legend>
             <div class="row">
               <!--Razão Social-->
               <div class="form-group col-xs-12">
-                <input type="text" name="rsocial" class="form-control" placeholder="Razão Social">
+                <input type="text" name="company-name" #companyName class="form-control" placeholder="Razão Social">
               </div>
             </div>
             <div class="row">
               <!--Nome Fantasia-->
               <div class="form-group col-md-6 col-xs-12">
-                <input type="text" name="fname" class="form-control" placeholder="Nome Fantasia">
+                <input type="text" name="trading-name" #tradingName class="form-control" placeholder="Nome Fantasia">
               </div>
               <!--CNPJ-->
               <div class="form-group col-md-6 col-xs-12">
-                <input type="text" name="cnpj" class="form-control" placeholder="CNPJ" data-mask="99.999.999/9999-99">
+                <input type="text" name="cnpj" #cnpj class="form-control" placeholder="CNPJ" data-mask="99.999.999/9999-99">
               </div>
             </div>
           </fieldset>
@@ -41,27 +41,37 @@
             <div class="row">
               <!--Logradouro-->
               <div class="form-group col-xs-12">
-                <input type="text" name="address" class="form-control" placeholder="Logradouro">
+                <input type="text" name="address" #address class="form-control" placeholder="Logradouro">
               </div>
             </div>
             <div class="row">
               <!--Bairro-->
               <div class="form-group col-md-6 col-xs-12">
-                <input type="text" name="district" class="form-control" placeholder="Bairro">
+                <input type="text" name="district" #district class="form-control" placeholder="Bairro">
               </div>
               <!--Cidade-->
-              <div class="form-group col-md-6 col-xs-12">
-                <input type="text" name="city" class="form-control" placeholder="Cidade">
+              <div class="form-group col-md-4 col-xs-12">
+                <input type="text" name="city" #city class="form-control" placeholder="Cidade">
+              </div>
+              <!--Estado-->
+              <div class="form-group col-md-2 col-xs-12">
+                <select name="state" #state class="form-control">
+                  <option value="" hidden>Estado</option>
+                  <option value="ES">ES</option>
+                  <option value="MG">MG</option>
+                  <option value="SP">SP</option>
+                  <option value="outros">...</option>
+                </select>
               </div>
             </div>
             <div class="row">
               <!--Complemento-->
               <div class="form-group col-md-6 col-xs-12">
-                <input type="text" name="complement" class="form-control" placeholder="Complemento">
+                <input type="text" name="complement" #complement class="form-control" placeholder="Complemento">
               </div>
               <!--CEP-->
               <div class="form-group col-md-6 col-xs-12">
-                <input type="text" name="cep" class="form-control" placeholder="CEP" data-mask="99.999-999">
+                <input type="text" name="cep" #cep class="form-control" placeholder="CEP" data-mask="99.999-999">
               </div>
             </div>
           </fieldset>
@@ -70,17 +80,17 @@
             <!--Pessoa para contato-->
             <div class="row">
               <div class="form-group col-xs-12">
-                <input type="text" name="responsible" class="form-control" placeholder="Responvável">
+                <input type="text" name="responsible" #responsible class="form-control" placeholder="Responvável">
               </div>
             </div>
             <div class="row">
               <!--Telefone-->
               <div class="form-group col-md-6 col-xs-12">
-                <input type="text" name="phone" class="form-control" placeholder="Telefone" data-mask="(99) 9999-9999">
+                <input type="text" name="phone" #phone class="form-control" placeholder="Telefone" data-mask="(99) 9999-9999">
               </div>
               <!--E-mail-->
               <div class="form-group col-md-6 col-xs-12">
-                <input type="email" name="email" class="form-control" placeholder="E-mail">
+                <input type="email" name="email" #email class="form-control" placeholder="E-mail">
               </div>
             </div>
           </fieldset>
@@ -89,7 +99,7 @@
             <div class="row">
               <!--Mercado-->
               <div class="form-group col-md-6 col-xs-12">
-                <select class="form-control">
+                <select name="market" #market class="form-control">
                   <option value="" hidden>Mercado</option>
                   <option value="seguradora">Seguradora</option>
                   <option value="transportadora">Transportadora</option>
@@ -100,7 +110,7 @@
               <div class="form-group col-md-6 col-xs-12">
                 <div class="input-group">
                   <span class="input-group-addon beautiful">
-                    <input type="checkbox">
+                    <input name="danger-points" #dangerousPoints type="checkbox">
                   </span>
                   <span class="form-control">Compartilhar pontos perigosos?</span>
                 </div>

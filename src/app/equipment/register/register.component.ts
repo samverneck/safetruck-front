@@ -1,7 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core'
 
 declare var Messenger
-import { ICLient } from './../../../interfaces/IClient'
+import { IClient } from './../../../interfaces/IClient'
+import { IEquipment } from './../../../interfaces/IEquipment'
 
 @Component({
   selector: 'equipment-register',
@@ -11,10 +12,13 @@ import { ICLient } from './../../../interfaces/IClient'
 })
 
 export class EquipmentRegisterPage {
-  client: ICLient
+  client: IClient
+  equipment: IEquipment
   code: string
   plaque: string
-
+  vehicleType: string = ''
+  equipmentType: string = ''
+  orientation: string = ''
 
   date: Date
   datepickerOpts: any = {

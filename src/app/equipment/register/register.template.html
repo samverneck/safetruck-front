@@ -44,7 +44,7 @@
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Tipo de equipamento</label>
             <div class="col-md-3 col-xs-12">
-              <select class="form-control">
+              <select name="equipment" [(ngModel)]="equipmentType" class="form-control">
                 <option value="" hidden>Selecione...</option>
                 <option value="nzc">NZC</option>
                 <option value="cxp">CXP</option>
@@ -55,7 +55,7 @@
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Orientação</label>
             <div class="col-md-3 col-xs-12">
-              <select class="form-control">
+              <select name="orientation" [(ngModel)]="orientation" class="form-control">
                 <option value="" hidden>Selecione...</option>
                 <option value="yzx">YZX</option>
                 <option value="xyz">XYZ</option>
@@ -66,7 +66,7 @@
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Cliente</label>
             <div class="col-md-3 col-xs-12">
-              <select class="form-control">
+              <select name="client" [(ngModel)]="client" class="form-control">
                 <option value="" hidden>Selecione...</option>
                 <option value="">Cliente 1</option>
                 <option value="">Cliente 2</option>
