@@ -6,7 +6,9 @@ export interface ICLient {
   companyName: string, // Razão social
   tradingName: string, // Nome Fantasia
   adress: IAddress,
-  contact: IContact
+  contact: IContact,
+  market: MarketType,
+  shareDangerousPoints: boolean
 }
 
 export enum MarketType {

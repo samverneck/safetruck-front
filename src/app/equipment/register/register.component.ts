@@ -1,5 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core'
+
 declare var Messenger
+import { ICLient } from './../../../interfaces/IClient'
 
 @Component({
   selector: 'equipment-register',
@@ -9,6 +11,11 @@ declare var Messenger
 })
 
 export class EquipmentRegisterPage {
+  client: ICLient
+  code: string
+  plaque: string
+
+
   date: Date
   datepickerOpts: any = {
     autoclose: true,

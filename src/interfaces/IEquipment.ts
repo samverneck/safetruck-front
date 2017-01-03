@@ -1,5 +1,6 @@
 export interface IEquipment {
   id: string,
+  code: string,
   plaque: string,
   bucket: string,
   vehicleType: EquipmentType,

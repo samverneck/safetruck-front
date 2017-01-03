@@ -20,19 +20,19 @@
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Cód. do equipamento</label>
             <div class="col-md-6 col-xs-12">
-              <input type="text" name="basic" class="form-control">
+              <input type="text" name="code" [(ngModel)]="code" class="form-control">
             </div>
-          </div> 
+          </div>
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Placa do veículo</label>
             <div class="col-md-6 col-xs-12">
-              <input type="text" name="basic" class="form-control">
+              <input type="text" name="plaque" [(ngModel)]="plaque" class="form-control">
             </div>
-          </div> 
+          </div>
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Tipo de veículo</label>
             <div class="col-md-3 col-xs-12">
-              <select class="form-control">
+              <select name="vehicle" [(ngModel)]="vehicleType" class="form-control">
                 <option value="" hidden>Selecione...</option>
                 <option value="caminhao">Caminhão</option>
                 <option value="carro">Carro</option>
@@ -40,7 +40,7 @@
                 <option value="outros">Outros</option>
               </select>
             </div>
-          </div> 
+          </div>
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Tipo de equipamento</label>
             <div class="col-md-3 col-xs-12">
@@ -49,6 +49,17 @@
                 <option value="nzc">NZC</option>
                 <option value="cxp">CXP</option>
                 <option value="central">CENTRAL</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="form-control-label col-md-3 col-xs-12">Orientação</label>
+            <div class="col-md-3 col-xs-12">
+              <select class="form-control">
+                <option value="" hidden>Selecione...</option>
+                <option value="yzx">YZX</option>
+                <option value="xyz">XYZ</option>
+                <option value="zyx">ZYX</option>
               </select>
             </div>
           </div>
