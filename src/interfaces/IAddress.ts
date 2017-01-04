@@ -6,5 +6,6 @@ export interface IAddress extends IBaseModel{
   city: string,
   state: string,
   zipcode: string,
-  complement: string
+  num: number,
+  complement?: string
 }

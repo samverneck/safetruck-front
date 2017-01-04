@@ -1,4 +1,13 @@
-import { Component, ViewEncapsulation } from '@angular/core'
+import {
+  Component,
+  ViewEncapsulation,
+  trigger,
+  style,
+  transition,
+  animate,
+  EventEmitter,
+  Output
+} from '@angular/core'
 
 import { ClientService } from './../../../providers/client.service'
 import { IClient } from './../../../interfaces/IClient'
@@ -8,16 +17,40 @@ import { IClient } from './../../../interfaces/IClient'
   templateUrl: './table.template.html',
   encapsulation: ViewEncapsulation.None,
   providers: [ClientService],
-  styleUrls: ['./table.styles.scss']
+  styleUrls: ['./table.styles.scss'],
+  animations: [
+    trigger('fadeInOut', [
+      transition('void => *', [
+        style({opacity: 0}),
+        animate(200, style({opacity: 1}))
+      ]),
+      transition('* => void', [
+        animate(200, style({opacity: 0}))
+      ])
+    ])
+  ]
 })
 
 export class ClientTable {
 
-  clients: IClient[]
+  // clients: IClient[]
+  data: any[]
+  @Output() clientDidSelected: EventEmitter<any> = new EventEmitter()
 
-  constructor(public client: ClientService) {}
+  constructor(public clientService: ClientService) {
+    this.clientService.getClients().subscribe({
+      next: (resp) => {
+        console.log(resp)
+        this.data = resp
+      },
+      error: (err) => {
+        console.error(err)
+      }
+    })
+  }
 
   selected(element, data) {
+    this.clientDidSelected.emit(data)
     this.toggleSelected(element)
   }
 

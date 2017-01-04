@@ -1,27 +1,45 @@
 import { Component, ViewEncapsulation } from '@angular/core'
 
-declare var Messenger
+import { ValidationService } from './../../providers/validation.service'
+import { CepService } from './../../providers/cep.service'
 import { ClientService } from './../../providers/client.service'
+import { FormUtils } from './../../utils/FormUtils'
+import { Messages } from './../../utils/Messages'
+import { STATES } from '../../utils/states.data'
 import { IClient } from './../../interfaces/IClient'
 import { IContact } from './../../interfaces/IContact'
 import { IAddress } from './../../interfaces/IAddress'
+
 
 @Component({
   selector: 'client',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './client.template.html',
   styleUrls: ['./client.styles.scss', '../scss/notifications.scss'],
-  providers: [ClientService]
+  providers: [ClientService, ValidationService, CepService]
 })
 
 export class ClientPage {
-
-  constructor(public clientService: ClientService) {}
+  message = new Messages()
+  formUtils = new FormUtils
+  states: Array<any> = STATES
+  private clientId: any
+  constructor(
+    public clientService: ClientService,
+    public validation: ValidationService,
+    public cepService: CepService
+  ) {}
 
   saveCLient() {
-    let data = this.serializeObject($('#clientForm'))
+    if (!this.validation.validateForm('#clientForm')) {
+      return false
+    }
+
+    let data = this.formUtils.serialize('#clientForm')
+
     let address: IAddress = {
       address: data['address'],
+      num: data['num'],
       district: data['district'],
       city: data['city'],
       state: data['state'],
@@ -36,6 +54,7 @@ export class ClientPage {
     }
 
     let client: IClient = {
+      id: this.clientId ? this.clientId : null,
       companyName: data['company-name'],
       tradingName: data['trading-name'],
       market: data['market'],
@@ -44,55 +63,78 @@ export class ClientPage {
       contact: contact
     }
 
-    this.clientService.create(client).subscribe({
+    this.clientService.save(client).subscribe({
       next: (response) => {
+        this.message.showAlert(
+          client.id ? 'Atualizado' : 'Cadastrado',
+          client.id
+            ? 'O cliente foi atualizado com sucesso.'
+            : 'O cliente foi cadastrado com sucesso.',
+          'success'
+        )
         console.info(response)
-        let msg = {
-          text: 'Cliente cadastrado com sucesso!',
-          type: 'success'
-        }
-        this.showMessages(msg)
       },
       error: (err) => {
+        this.message.showAlert(
+          'Erro',
+          client.id
+            ? 'Ocorreu algum erro ao atualizar o cliente. Tente novamente mais tarde.'
+            : 'Ocorreu algum erro ao cadastrar o cliente. Tente novamente mais tarde.',
+          'error'
+        )
         console.error(err)
-        let msg = {
-          text: 'Ocorreu um erro ao cadastrar o cliente',
-          type: 'error'
-        }
-        this.showMessages(msg)
       },
       complete: () => {
-        // Limpar formulário
+        this.clearForm()
       }
     })
   }
 
-  serializeObject(form) {
-    let obj = {}
-    let data = $(form).serializeArray()
-    data.map((input) => {
-      if (obj[input.name] !== undefined) {
-        if (!obj[input.name].push) {
-          obj[input.name] = [obj[input.name]]
+  getCep(cep) {
+    this.cepService.getAddress(cep).subscribe({
+      next: (resp) => {
+        if (resp.erro) {
+          this.message.showNotification(
+            'CEP não encontrado ou inválido. Por favor informe o endereço manualmente.',
+            'error'
+          )
+          return
         }
-        obj[input.name].push(input.value || '')
-      } else {
-        obj[input.name] = input.value || ''
+        $('[name="address"]').val(resp.logradouro)
+        $('[name="district"]').val(resp.bairro)
+        $('[name="city"]').val(resp.localidade)
+        $('[name="state"]').val(resp.uf)
+        $('[name="num"]').focus()
+      },
+      error: (err) => {
+        console.error('Erro ao obter CEP:', err)
       }
     })
-    return obj
   }
 
-  showMessages(msg) {
-    Messenger.options = {
-      theme: 'air',
-      extraClasses: 'messenger-fixed messenger-on-top messenger-on-right'
+  clientDidSelected(client) {
+    let getRandomInt = () => {
+      let resp = Math.floor(Math.random() + 0.2)
+      console.log(resp)
+      return resp
     }
-    Messenger().post({
-      message: msg.text,
-      showCloseButton: true,
-      type: msg.type
-    })
+    this.clientId = client.id
+    $('[name="company-name"]').val(client.name)
+    $('[name="trading-name"]').val(client.username)
+    $('[name="cnpj"]').val(client.phone)
+    $('[name="address"]').val(client.address.street)
+    $('[name="zipcode"]').val(client.address.zipcode)
+    $('[name="city"]').val(client.address.city)
+    $('[name="responsible"]').val(client.name)
+    $('[name="email"]').val(client.email)
+    $('[name="phone"]').val(client.phone)
+    getRandomInt()
+      ? $('[name="danger-points"]').prop('checked', true)
+      : $('[name="danger-points"]').prop('checked', false)
   }
 
+  clearForm() {
+    this.clientId = null
+    this.formUtils.clear('#clientForm')
+  }
 }

@@ -13,12 +13,16 @@
 @import "../../../node_modules/select2/src/scss/core";
 @import "../../../node_modules/select2-bootstrap-theme/src/select2-bootstrap";
 
+
+.error{
+  border-color: $brand-danger;
+  @include box-shadow(inset 0 1px 1px rgba($brand-danger,.075));
+}
+
 /**
  * Bootstrap Colorpicker
  * setting correct urls
  */
-
-
 
 .colorpicker-saturation {
   background-image: url("assets/bootstrap-colorpicker/saturation.png");;

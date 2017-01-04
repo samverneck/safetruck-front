@@ -1,4 +1,4 @@
-<section class="widget" widget>
+<section class="widget" widget *ngIf="data" [@fadeInOut]>
   <header>
     <h4>Lista de clientes</h4>
     <div class="widget-controls">
@@ -34,11 +34,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let person of mf.data | SearchPipe : searchText" (click)="selected($event, person)">
-          <td>{{person.name}}</td>
-          <td class="hidden-sm-down">{{person.name}}</td>
-          <td>{{person.email}}</td>
-          <td>{{person.phone}}</td>
+        <tr *ngFor="let client of mf.data | SearchPipe : searchText" (click)="selected($event, client)">
+          <td>{{client.name}}</td>
+          <td class="hidden-sm-down">{{client.username}}</td>
+          <td>{{client.email}}</td>
+          <td>{{client.phone}}</td>
         </tr>
         <tr *ngIf="(mf.data | SearchPipe : searchText).length === 0">
           <td colspan="100">
