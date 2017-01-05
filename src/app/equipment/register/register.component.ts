@@ -34,7 +34,6 @@ export class EquipmentRegisterPage {
   }
 
   saveEquipament() {
-
     if (!this.validation.validateForm('#equipmentForm')) {
       return false
     }
@@ -51,10 +50,6 @@ export class EquipmentRegisterPage {
       admeasurement: data['admeasurement']
     }
 
-    if (equipment) {
-      console.log(equipment)
-      return
-    }
     this.equipService.save(equipment).subscribe({
       next: (response) => {
         this.messages.showAlert(
