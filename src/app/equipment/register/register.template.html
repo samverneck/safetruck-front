@@ -8,7 +8,7 @@
       <header>
         <h5>
           <span>Equipamento</span>
-          <small>Placa do Veículo</small>
+          <small>Cadastrar Novo Equipamento</small>
         </h5>
         <div class="widget-controls">
           <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
@@ -16,23 +16,27 @@
         </div>
       </header>
       <div class="widget-body">
-        <form class="form-horizontal form-label-left">
+        <form class="form-horizontal form-label-left" id="equipmentForm">
+          <!--Código do equipamento-->
           <div class="form-group row">
-            <label class="form-control-label col-md-3 col-xs-12">Cód. do equipamento</label>
+            <label class="form-control-label col-md-3 col-xs-12">Código do equipamento</label>
             <div class="col-md-6 col-xs-12">
-              <input type="text" name="basic" class="form-control">
+              <input type="text" class="form-control" name="code" validate="Código do equipamento">
             </div>
-          </div> 
+          </div>
+          <!--Placa do veículo-->
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Placa do veículo</label>
             <div class="col-md-6 col-xs-12">
-              <input type="text" name="basic" class="form-control">
+              <input type="text" class="form-control uppercase" name="plaque" validate="Placa do veículo"
+                data-mask="aaa9999" (blur)="toUpperPlaque()">
             </div>
-          </div> 
+          </div>
+          <!--Tipo de veículo-->
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Tipo de veículo</label>
             <div class="col-md-3 col-xs-12">
-              <select class="form-control">
+              <select class="form-control" name="vehicle" validate="Tipo de veículo">
                 <option value="" hidden>Selecione...</option>
                 <option value="caminhao">Caminhão</option>
                 <option value="carro">Carro</option>
@@ -40,11 +44,12 @@
                 <option value="outros">Outros</option>
               </select>
             </div>
-          </div> 
+          </div>
+          <!--Tipo de equipamento-->
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Tipo de equipamento</label>
             <div class="col-md-3 col-xs-12">
-              <select class="form-control">
+              <select class="form-control" name="equipment" validate="Tipo de equipamento">
                 <option value="" hidden>Selecione...</option>
                 <option value="nzc">NZC</option>
                 <option value="cxp">CXP</option>
@@ -52,32 +57,46 @@
               </select>
             </div>
           </div>
+          <!--Orientação-->
           <div class="form-group row">
-            <label class="form-control-label col-md-3 col-xs-12">Cliente</label>
+            <label class="form-control-label col-md-3 col-xs-12">Orientação</label>
             <div class="col-md-3 col-xs-12">
-              <select class="form-control">
+              <select name="orientation" class="form-control" validate="Orientação">
                 <option value="" hidden>Selecione...</option>
-                <option value="">Cliente 1</option>
-                <option value="">Cliente 2</option>
-                <option value="">Cliente 3</option>
+                <option value="yzx">YZX</option>
+                <option value="xyz">XYZ</option>
+                <option value="zyx">ZYX</option>
               </select>
             </div>
           </div>
+          <!--Cliente-->
           <div class="form-group row">
-            <label class="form-control-label col-md-3 col-xs-12">Data da instalação</label>
-            <div class="col-md-9 col-xs-12">
-              <datetime name="datetime" [datepicker]="datepickerOpts" [timepicker]="false" [(ngModel)]="date"></datetime>
+            <label class="form-control-label col-md-3 col-xs-12">Cliente</label>
+            <div class="col-md-3 col-xs-12">
+              <select class="form-control" name="client-id" validate="Cliente">
+                <option value="" hidden>Selecione...</option>
+                <option *ngFor="let client of clients" [value]="client.id">{{client.name}}</option>
+              </select>
             </div>
           </div>
+          <!--Data da instalação-->
           <div class="form-group row">
-            <label class="form-control-label col-md-3 col-xs-12">Data da alteração do tacógrafo</label>
-            <div class="col-md-9 col-xs-12">
-              <datetime name="datetime" [datepicker]="datepickerOpts" [timepicker]="false" [(ngModel)]="date"></datetime>
+            <label class="form-control-label col-md-3 col-xs-12">Data da instalação</label>
+            <div class="col-md-3 col-xs-12">
+              <input type="text" class="form-control" data-mask="99/99/9999"
+                name="installation" validate="Data da instalação">
+            </div>
+          </div>
+          <!--Data da alteração do tacógrafo-->
+          <div class="form-group row">
+            <label class="form-control-label col-md-3 col-xs-12">Data de aferição do tacógrafo</label>
+            <div class="col-md-3 col-xs-12">
+              <input type="text" class="form-control" data-mask="99/99/9999" name="admeasurement">
             </div>
           </div>
           <div class="form-actions">
             <button type="submit" class="btn btn-danger btn-rounded pull-xs-right" (click)="saveEquipament()">Cadastrar</button>
-            <button type="button" class="btn btn-default btn-rounded">Cancelar</button>
+            <button type="button" class="btn btn-default btn-rounded" (click)="clearForm()">Cancelar</button>
           </div>
         </form>
       </div>

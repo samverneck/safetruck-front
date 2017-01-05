@@ -7,18 +7,11 @@ import { Ng2TableModule } from 'ng2-table'
 import { WidgetModule } from '../layout/widget/widget.module'
 import { UtilsModule } from '../layout/utils/utils.module'
 
-declare let global: any
-
 // libs
-import 'messenger/build/js/messenger.js'
-import 'jasny-bootstrap/docs/assets/js/vendor/holder.js'
-import 'jasny-bootstrap/js/fileinput.js'
-import 'jasny-bootstrap/js/inputmask.js'
 import 'jasny-bootstrap/docs/assets/js/vendor/holder.js'
 import 'jasny-bootstrap/js/fileinput.js'
 import 'jasny-bootstrap/js/inputmask.js'
 
-import { Select2Module } from 'ng2-select2'
 import { SearchPipe } from './pipes/search-pipe'
 import { ClientPage } from './client.component'
 import { ClientTable } from './table/table.component'
@@ -38,12 +31,11 @@ export const routes = [
     CommonModule,
     FormsModule,
     WidgetModule,
-    Select2Module,
     UtilsModule,
     Ng2TableModule,
     RouterModule.forChild(routes),
   ],
-  schemas:  [ CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export default class ClientModule {
   static routes = routes

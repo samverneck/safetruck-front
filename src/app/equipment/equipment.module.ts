@@ -16,24 +16,24 @@ import 'jasny-bootstrap/js/inputmask.js'
 import 'ng2-datetime/src/vendor/bootstrap-datepicker/bootstrap-datepicker.min.js'
 import 'bootstrap-select/dist/js/bootstrap-select.js'
 
-import { EquipamentRegisterPage } from './register/register.component'
-import { EquipamentSearchPage } from './search/search.component'
+import { EquipmentRegisterPage } from './register/register.component'
+import { EquipmentSearchPage } from './search/search.component'
 import { SearchClientTable } from './search/tables/client-table.component'
-import { SearchEquipamentTable } from './search/tables/equipament-table.component'
+import { SearchEquipmentTable } from './search/tables/equipment-table.component'
 import { SearchPipe } from './search/pipes/search-pipe'
 
 export const routes = [
   {path: '', redirectTo: 'register', pathMatch: 'full'},
-  {path: 'register', component: EquipamentRegisterPage},
-  {path: 'search', component: EquipamentSearchPage}
+  {path: 'register', component: EquipmentRegisterPage},
+  {path: 'search', component: EquipmentSearchPage}
 ]
 
 @NgModule({
   declarations: [
-    EquipamentRegisterPage,
-    EquipamentSearchPage,
+    EquipmentRegisterPage,
+    EquipmentSearchPage,
     SearchClientTable,
-    SearchEquipamentTable,
+    SearchEquipmentTable,
     SearchPipe
   ],
   imports: [
@@ -47,6 +47,6 @@ export const routes = [
   ],
   schemas:  [ CUSTOM_ELEMENTS_SCHEMA ]
 })
-export default class EquipamentModule {
+export default class EquipmentModule {
   static routes = routes
 }
