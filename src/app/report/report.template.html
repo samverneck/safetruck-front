@@ -1,0 +1,42 @@
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Relatórios</li>
+  <li class="breadcrumb-item active">Relatório de Conduta</li>
+</ol>
+<div class="row">
+  <div class="col-xs-12">
+    <section class="widget">
+      <div class="widget-body">
+        <form class="form-horizontal form-label-left" id="reportForm">
+          <div class="form-group row">
+            <!--Placa-->
+            <div class="col-md-2 col-xs-12">
+              <select class="form-control" name="client-id" validate="Cliente">
+                <option value="" hidden>Placa</option>
+                <option *ngFor="let client of clients" [value]="client.id">{{client.name}}</option>
+              </select>
+            </div>
+            <!--Início-->
+            <div class="input-group col-md-3 col-xs-12 date" data-provide="datepicker">
+              <input type="text" class="form-control" name="start">
+              <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+              </div>
+            </div>
+            <!--Término-->
+            <div class="input-group col-md-3 col-xs-12 date" data-provide="datepicker">
+              <input type="text" class="form-control" name="start">
+              <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+              </div>
+            </div>
+            <div class="col-md-4 col-xs-12">
+              <button type="submit" class="btn btn-primary btn-rounded pull-xs-right" (click)="generateReports()">
+                Gerar relatório
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+</div>

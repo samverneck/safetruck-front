@@ -6,18 +6,19 @@ import { Ng2TableModule } from 'ng2-table'
 
 import { WidgetModule } from '../layout/widget/widget.module'
 import { UtilsModule } from '../layout/utils/utils.module'
+import { ReportPage } from './report.component'
 
 // libs
-import 'jasny-bootstrap/docs/assets/js/vendor/holder.js'
-import 'jasny-bootstrap/js/inputmask.js'
+import 'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'
+import 'bootstrap-datepicker/dist/locales/bootstrap-datepicker.pt-BR.min.js'
 
 export const routes = [
-  {path: '', component: ''}
+  {path: '', component: ReportPage}
 ]
 
 @NgModule({
   declarations: [
-    //
+    ReportPage
   ],
   imports: [
     CommonModule,
@@ -29,6 +30,6 @@ export const routes = [
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export default class ClientModule {
+export default class ReportModule {
   static routes = routes
 }

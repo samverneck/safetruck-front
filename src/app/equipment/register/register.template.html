@@ -27,7 +27,7 @@
           <!--Placa do veículo-->
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Placa do veículo</label>
-            <div class="col-md-6 col-xs-12">
+            <div class="col-md-3 col-xs-12">
               <input type="text" class="form-control uppercase" name="plaque" validate="Placa do veículo"
                 data-mask="aaa9999" (blur)="toUpperPlaque()">
             </div>
@@ -82,21 +82,26 @@
           <!--Data da instalação-->
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Data da instalação</label>
-            <div class="col-md-3 col-xs-12">
-              <input type="text" class="form-control" data-mask="99/99/9999"
-                name="installation" validate="Data da instalação">
+            <div class="input-group col-md-3 col-xs-12 date" data-provide="datepicker">
+              <input type="text" class="form-control" name="installation" validate="Data da instalação">
+              <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+              </div>
             </div>
           </div>
           <!--Data da alteração do tacógrafo-->
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Data de aferição do tacógrafo</label>
-            <div class="col-md-3 col-xs-12">
-              <input type="text" class="form-control" data-mask="99/99/9999" name="admeasurement">
+            <div class="input-group col-md-3 col-xs-12 date" data-provide="datepicker">
+              <input type="text" class="form-control" name="admeasurement">
+              <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+              </div>
             </div>
           </div>
           <div class="form-actions">
-            <button type="submit" class="btn btn-danger btn-rounded pull-xs-right" (click)="saveEquipament()">Cadastrar</button>
-            <button type="button" class="btn btn-default btn-rounded" (click)="clearForm()">Cancelar</button>
+            <button type="button" class="btn btn-default btn-rounded pull-xs-right" (click)="clearForm()">Limpar</button>
+            <button type="submit" class="btn btn-primary btn-rounded" (click)="saveEquipament()">Cadastrar</button>
           </div>
         </form>
       </div>

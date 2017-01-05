@@ -11,10 +11,8 @@ const CLIENTS_URI = 'https://jsonplaceholder.typicode.com/users'
 
 @Injectable()
 export class ClientService {
-  data: any
-  constructor(private http: Http) {
-    this.data = null
-  }
+
+  constructor(private http: Http) {}
 
   save(client: IClient): Observable<any> {
     if (client.id) {
@@ -49,7 +47,6 @@ export class ClientService {
       .map(this.extractData)
       .catch(this.handleError)
   }
-
 
   private extractData(res: Response) {
     let body = res.json()
