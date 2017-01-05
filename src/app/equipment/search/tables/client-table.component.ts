@@ -9,21 +9,8 @@ import { Component, Input, ViewEncapsulation } from '@angular/core'
 
 export class SearchClientTable {
 
-  @Input() data: any[] // = PEOPLE
+  @Input() data: any[]
 
-  constructor() {
-    console.log('SearchClientTable')
-  }
-
-  selected(element, data) {
-    this.toggleSelected(element)
-  }
-
-  toggleSelected(element) {
-    let td = $(element.target.parentElement)
-    let table = td.parent()
-    table.children().removeClass('selected')
-    td.toggleClass('selected')
-  }
+  constructor() {}
 
 }

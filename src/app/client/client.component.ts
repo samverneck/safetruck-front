@@ -6,6 +6,7 @@ import { ClientService } from './../../providers/client.service'
 import { FormUtils } from './../../utils/FormUtils'
 import { Messages } from './../../utils/Messages'
 import { STATES } from '../../utils/states.data'
+// Interfaces
 import { IClient } from './../../interfaces/IClient'
 import { IContact } from './../../interfaces/IContact'
 import { IAddress } from './../../interfaces/IAddress'
@@ -112,7 +113,12 @@ export class ClientPage {
     })
   }
 
-  clientDidSelected(client) {
+  /**
+   * Preenche os dados do formulário com os dados do cliente clicado
+   * @param {any} client
+   * @memberOf ClientPage
+   */
+  clientDidSelected(client): void {
     let getRandomInt = () => {
       let resp = Math.floor(Math.random() + 0.2)
       console.log(resp)

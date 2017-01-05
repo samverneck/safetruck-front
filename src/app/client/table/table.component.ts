@@ -40,7 +40,6 @@ export class ClientTable {
   constructor(public clientService: ClientService) {
     this.clientService.getClients().subscribe({
       next: (resp) => {
-        console.log(resp)
         this.data = resp
       },
       error: (err) => {

@@ -3,12 +3,12 @@ import { IBaseModel } from './IBaseModel'
 export interface IEquipment extends IBaseModel {
   code: string,
   plaque: string,
-  bucket: string,
+  clientId: string,
   vehicleType: EquipmentType,
   equipmentType: EquipmentType,
   orientation: Orientation,
   installation: Date,
-  tachographAlteration: Date
+  admeasurement?: Date
 }
 
 export enum VehicleType {

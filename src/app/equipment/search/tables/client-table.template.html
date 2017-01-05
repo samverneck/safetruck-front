@@ -31,10 +31,10 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let person of mf.data | SearchPipe : searchText" (click)="selected($event, person)">
-          <td>{{person.name}}</td>
-          <td>{{person.email}}</td>
-          <td>{{person.phone}}</td>
+        <tr *ngFor="let client of mf.data | SearchPipe : searchText">
+          <td>{{client.name}}</td>
+          <td>{{client.email}}</td>
+          <td>{{client.phone}}</td>
         </tr>
         <tr *ngIf="(mf.data | SearchPipe : searchText).length === 0">
           <td colspan="100">
