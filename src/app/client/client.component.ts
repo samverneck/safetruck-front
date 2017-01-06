@@ -121,7 +121,6 @@ export class ClientPage {
   clientDidSelected(client): void {
     let getRandomInt = () => {
       let resp = Math.floor(Math.random() + 0.2)
-      console.log(resp)
       return resp
     }
     this.clientId = client.id
