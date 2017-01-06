@@ -36,7 +36,7 @@ export class Sidebar implements OnInit {
   }
 
   changeActiveNavigationItem(location): void {
-    let $newActiveLink = this.$el.find('a[href="' + location.path().split('?')[0] + '"]')
+    let $newActiveLink = this.$el.find('a[href="#' + location.path().split('?')[0] + '"]')
 
     // collapse .collapse only if new and old active links belong to different .collapse
     if (!$newActiveLink.is('.active > .collapse > li > a')) {
