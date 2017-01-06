@@ -6,7 +6,8 @@ import {
   transition,
   animate,
   EventEmitter,
-  Output
+  Output,
+  Input
 } from '@angular/core'
 
 import { ClientService } from './../../../providers/client.service'
@@ -33,18 +34,14 @@ import { IClient } from './../../../interfaces/IClient'
 
 export class ClientTable {
 
-  data: IClient[]
+  @Input() data: IClient[]
   @Output() clientDidSelected: EventEmitter<any> = new EventEmitter()
+  @Output() deleteClient: EventEmitter<any> = new EventEmitter()
 
-  constructor(public clientService: ClientService) {
-    this.clientService.getClients().subscribe({
-      next: (resp) => {
-        this.data = resp
-      },
-      error: (err) => {
-        console.error(err)
-      }
-    })
+  constructor(public clientService: ClientService) {}
+
+  delete(client) {
+    this.deleteClient.emit(client)
   }
 
   selected(element, client) {

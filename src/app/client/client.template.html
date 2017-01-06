@@ -22,21 +22,26 @@
             <legend>Dados do Cliente</legend>
             <div class="row">
               <!--Razão Social-->
-              <div class="form-group col-xs-12">
+              <div class="form-group col-md-6 col-xs-12">
                 <input type="text" class="form-control" placeholder="Razão Social"
-                  name="company-name" #companyName validate="Razão Social">
+                  name="company-name" validate="Razão Social">
               </div>
-            </div>
-            <div class="row">
               <!--Nome Fantasia-->
               <div class="form-group col-md-6 col-xs-12">
                 <input type="text" class="form-control" placeholder="Nome Fantasia"
-                  name="trading-name" validate="Nome Fantasia">
+                  name="trading-name" validate="Nome Fantasia" (blur)="slugify()">
               </div>
+            </div>
+            <div class="row">
               <!--CNPJ-->
               <div class="form-group col-md-6 col-xs-12">
                 <input type="text" class="form-control" placeholder="CNPJ"
                   data-mask="99.999.999/9999-99" name="cnpj" validate="CNPJ">
+              </div>
+              <!--Alias-->
+              <div class="form-group col-md-6 col-xs-12">
+                <input type="text" class="form-control" placeholder="Alias"
+                  name="alias" validate="Alias">
               </div>
             </div>
           </fieldset>
@@ -81,7 +86,7 @@
             <div class="row">
               <!--Complemento-->
               <div class="form-group col-xs-12">
-                <input type="text" class="form-control" placeholder="Complemento" name="complement" #complement>
+                <input type="text" class="form-control" placeholder="Complemento" name="complement">
               </div>
             </div>
           </fieldset>
@@ -111,7 +116,7 @@
             <legend>Informações Adicionais</legend>
             <div class="row">
               <!--Mercado-->
-              <div class="form-group col-md-6 col-xs-12">
+              <div class="form-group col-md-4 col-xs-12">
                 <select class="form-control" placeholder="Mercado" name="market" validate="Mercado">
                   <option value="" hidden>Mercado</option>
                   <option value="1">Seguradora</option>
@@ -119,8 +124,13 @@
                   <option value="3">Outros</option>
                 </select>
               </div>
+              <!--Velocidade Máxima-->
+              <div class="form-group col-md-4 col-xs-12">
+                <input type="text" class="form-control" placeholder="Velocidade Máxima"
+                  name="limit" validate="Velocidade Máxima">
+              </div>
               <!--Pontos perigosos-->
-              <div class="form-group col-md-6 col-xs-12">
+              <div class="form-group col-md-4 col-xs-12">
                 <div class="input-group">
                   <span class="input-group-addon beautiful">
                     <input type="checkbox" name="danger-points">
@@ -132,7 +142,7 @@
           </fieldset>
           <div class="form-actions">
             <button type="button" class="btn btn-default btn-rounded pull-xs-right" (click)="clearForm()">Limpar</button>
-            <button type="submit" class="btn btn-primary btn-rounded" (click)="saveCLient()">{{clientId ? 'Atualizar' : 'Cadastrar'}}</button>
+            <button type="submit" class="btn btn-primary btn-rounded" (click)="saveClient()">{{clientId ? 'Atualizar' : 'Cadastrar'}}</button>
           </div>
         </form>
       </div>
@@ -141,6 +151,9 @@
 </div>
 <div class="row">
   <div class="col-md-10 offset-md-1 col-xs-12">
-    <client-table (clientDidSelected)="clientDidSelected($event)"></client-table>
+    <client-table [data]="client"
+      (clientDidSelected)="clientDidSelected($event)"
+      (deleteClient)="deleteClient($event)">
+    </client-table>
   </div>
 </div>

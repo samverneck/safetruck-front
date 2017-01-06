@@ -20,16 +20,19 @@
         <thead>
         <tr>
           <th>
-            <mfDefaultSorter by="name">Nome Fantasia</mfDefaultSorter>
+            <mfDefaultSorter by="companyName">Nome Fantasia</mfDefaultSorter>
           </th>
           <th class="hidden-sm-down">
-            <mfDefaultSorter by="phone">Responsável</mfDefaultSorter>
+            <mfDefaultSorter by="contact.responsible">Responsável</mfDefaultSorter>
           </th>
           <th>
-            <mfDefaultSorter by="email">E-mail</mfDefaultSorter>
+            <mfDefaultSorter by="contact.email">E-mail</mfDefaultSorter>
           </th>
           <th>
-            <mfDefaultSorter by="phone">Telefone</mfDefaultSorter>
+            <mfDefaultSorter by="contact.phone">Telefone</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="companyName">Opções</mfDefaultSorter>
           </th>
         </tr>
         </thead>
@@ -39,6 +42,11 @@
           <td class="hidden-sm-down">{{client.contact.responsible}}</td>
           <td>{{client.contact.email}}</td>
           <td>{{client.contact.phone}}</td>
+          <td>
+            <button class="btn btn-xs mb-xs btn-danger" (click)="delete(client)">
+              <i class="glyphicon glyphicon-trash"></i>
+            </button>
+          </td>
         </tr>
         <tr *ngIf="(mf.data | SearchPipe : searchText).length === 0">
           <td colspan="100">
