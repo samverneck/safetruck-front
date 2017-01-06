@@ -35,10 +35,10 @@
         </thead>
         <tbody>
         <tr *ngFor="let client of mf.data | SearchPipe : searchText" (click)="selected($event, client)">
-          <td>{{client.name}}</td>
-          <td class="hidden-sm-down">{{client.username}}</td>
-          <td>{{client.email}}</td>
-          <td>{{client.phone}}</td>
+          <td>{{client.companyName}}</td>
+          <td class="hidden-sm-down">{{client.contact.responsible}}</td>
+          <td>{{client.contact.email}}</td>
+          <td>{{client.contact.phone}}</td>
         </tr>
         <tr *ngIf="(mf.data | SearchPipe : searchText).length === 0">
           <td colspan="100">

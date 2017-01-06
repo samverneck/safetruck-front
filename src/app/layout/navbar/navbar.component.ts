@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit, ElementRef, Output } from '@angular/core'
+import { Router } from '@angular/router'
 import { AppConfig } from '../../app.config'
+import { AuthService } from './../../../providers/auth.service'
 declare var jQuery: any
 
 @Component({
@@ -12,9 +14,19 @@ export class Navbar implements OnInit {
   $el: any
   config: any
 
-  constructor(el: ElementRef, config: AppConfig) {
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    el: ElementRef,
+    config: AppConfig
+  ) {
     this.$el = jQuery(el.nativeElement)
     this.config = config.getConfig()
+  }
+
+  logout() {
+    this.auth.logout()
+    this.router.navigate(['/auth/login'])
   }
 
   toggleSidebar(state): void {

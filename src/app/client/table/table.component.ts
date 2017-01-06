@@ -33,8 +33,7 @@ import { IClient } from './../../../interfaces/IClient'
 
 export class ClientTable {
 
-  // clients: IClient[]
-  data: any[]
+  data: IClient[]
   @Output() clientDidSelected: EventEmitter<any> = new EventEmitter()
 
   constructor(public clientService: ClientService) {
@@ -48,8 +47,8 @@ export class ClientTable {
     })
   }
 
-  selected(element, data) {
-    this.clientDidSelected.emit(data)
+  selected(element, client) {
+    this.clientDidSelected.emit(client)
     this.toggleSelected(element)
   }
 
