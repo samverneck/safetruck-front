@@ -8,19 +8,17 @@ import { UtilsModule } from '../layout/utils/utils.module'
 import { Ng2TableModule } from 'ng2-table'
 
 // libs
-import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime'
+import 'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'
+import 'bootstrap-datepicker/dist/locales/bootstrap-datepicker.pt-BR.min.js'
 import 'messenger/build/js/messenger.js'
-import 'jasny-bootstrap/docs/assets/js/vendor/holder.js'
-import 'jasny-bootstrap/js/fileinput.js'
 import 'jasny-bootstrap/js/inputmask.js'
-import 'ng2-datetime/src/vendor/bootstrap-datepicker/bootstrap-datepicker.min.js'
-import 'bootstrap-select/dist/js/bootstrap-select.js'
 
 import { EquipmentRegisterPage } from './register/register.component'
 import { EquipmentSearchPage } from './search/search.component'
 import { SearchClientTable } from './search/tables/client-table.component'
 import { SearchEquipmentTable } from './search/tables/equipment-table.component'
 import { SearchPipe } from './search/pipes/search-pipe'
+// import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime'
 
 export const routes = [
   {path: '', redirectTo: 'register', pathMatch: 'full'},
@@ -40,7 +38,6 @@ export const routes = [
     Ng2TableModule,
     CommonModule,
     FormsModule,
-    NKDatetimeModule,
     WidgetModule,
     UtilsModule,
     RouterModule.forChild(routes),

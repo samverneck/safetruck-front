@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core'
+import { Component, ViewEncapsulation, OnInit } from '@angular/core'
 
 import { EquipmentService } from './../../../providers/equipment.service'
 import { ClientService } from './../../../providers/client.service'
@@ -9,6 +9,8 @@ import { Messages } from './../../../utils/Messages'
 import { IClient } from './../../../interfaces/IClient'
 import { IEquipment } from './../../../interfaces/IEquipment'
 
+declare var jQuery: any
+
 @Component({
   selector: 'equipment-register',
   encapsulation: ViewEncapsulation.None,
@@ -17,7 +19,7 @@ import { IEquipment } from './../../../interfaces/IEquipment'
   providers: [EquipmentService, ValidationService, ClientService]
 })
 
-export class EquipmentRegisterPage {
+export class EquipmentRegisterPage implements OnInit {
   messages = new Messages()
   formUtils = new FormUtils()
   clients: Array<any>
@@ -32,6 +34,19 @@ export class EquipmentRegisterPage {
       this.clients = resp
     })
   }
+
+  ngOnInit(): void {
+    jQuery('.date').datepicker({
+      autoclose: true,
+      todayBtn: 'linked',
+      todayHighlight: true,
+      assumeNearbyYear: true,
+      placeholder: 'Selecione',
+      format: 'dd/mm/yyyy',
+      language: 'pt-BR'
+    })
+  }
+
 
   saveEquipament() {
     if (!this.validation.validateForm('#equipmentForm')) {

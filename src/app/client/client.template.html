@@ -131,15 +131,14 @@
             </div>
           </fieldset>
           <div class="form-actions">
-            <button type="submit" class="btn btn-danger btn-rounded pull-xs-right" (click)="saveCLient()">Salvar</button>
-            <button type="button" class="btn btn-default btn-rounded" (click)="clearForm()">Cancelar</button>
+            <button type="button" class="btn btn-default btn-rounded pull-xs-right" (click)="clearForm()">Limpar</button>
+            <button type="submit" class="btn btn-primary btn-rounded" (click)="saveCLient()">Cadastrar</button>
           </div>
         </form>
       </div>
     </section>
   </div>
 </div>
-
 <div class="row">
   <div class="col-md-10 offset-md-1 col-xs-12">
     <client-table (clientDidSelected)="clientDidSelected($event)"></client-table>
