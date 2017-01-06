@@ -5,37 +5,55 @@
 <div class="row">
   <div class="col-xs-12">
     <section class="widget">
-      <div class="widget-body">
-        <form class="form-horizontal form-label-left" id="reportForm">
-          <div class="form-group row">
-            <!--Placa-->
-            <div class="col-md-2 col-xs-12">
-              <select class="form-control" name="client-id" validate="Cliente">
-                <option value="" hidden>Placa</option>
-                <option *ngFor="let client of clients" [value]="client.id">{{client.name}}</option>
-              </select>
-            </div>
-            <!--Início-->
-            <div class="input-group col-md-3 col-xs-12 date" data-provide="datepicker">
-              <input type="text" class="form-control" name="start">
-              <div class="input-group-addon">
-                <span class="glyphicon glyphicon-th"></span>
-              </div>
-            </div>
-            <!--Término-->
-            <div class="input-group col-md-3 col-xs-12 date" data-provide="datepicker">
-              <input type="text" class="form-control" name="start">
-              <div class="input-group-addon">
-                <span class="glyphicon glyphicon-th"></span>
-              </div>
-            </div>
-            <div class="col-md-4 col-xs-12">
-              <button type="submit" class="btn btn-primary btn-rounded pull-xs-right" (click)="generateReports()">
-                Gerar relatório
-              </button>
+      <form class="form-horizontal form-label-left" id="reportForm">
+        <div class="form-group row">
+          <!--Placa-->
+          <div class="col-md-2 col-xs-12">
+            <select class="form-control" name="client-id" validate="Cliente">
+              <option value="" hidden>Placa</option>
+              <option *ngFor="let client of clients" [value]="client.id">{{client.name}}</option>
+            </select>
+          </div>
+          <!--Início-->
+          <div class="input-group col-md-3 col-xs-12 date" data-provide="datepicker">
+            <input type="text" class="form-control" name="start">
+            <div class="input-group-addon">
+              <span class="glyphicon glyphicon-th"></span>
             </div>
           </div>
-        </form>
+          <!--Término-->
+          <div class="input-group col-md-3 col-xs-12 date" data-provide="datepicker">
+            <input type="text" class="form-control" name="start">
+            <div class="input-group-addon">
+              <span class="glyphicon glyphicon-th"></span>
+            </div>
+          </div>
+          <div class="col-md-4 col-xs-12">
+            <button type="submit" class="btn btn-primary btn-rounded pull-xs-right" (click)="generateReports()">
+              Gerar relatório
+            </button>
+          </div>
+        </div>
+      </form>
+    </section>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <section class="widget" widget>
+      <header>
+        <h5>
+          <span>Resultados</span>
+          <small>de pesquisa</small>
+        </h5>
+        <div class="widget-controls">
+          <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+          <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+        </div>
+      </header>
+      <div class="widget-body">
+        <h1>Relatórios...</h1>
       </div>
     </section>
   </div>
