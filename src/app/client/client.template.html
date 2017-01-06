@@ -7,8 +7,7 @@
     <section class="widget" widget>
       <header>
         <h5>
-          <span>Nome do Cliente</span>
-          <small>CNPJ do Cliente</small>
+          <span>{{clientId ? 'Atualizar Cliente' : 'Cadastrar Novo Cliente'}}</span>
         </h5>
         <div class="widget-controls">
           <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
@@ -16,85 +15,124 @@
         </div>
       </header>
       <div class="widget-body">
-        <form class="form-horizontal form-label-left">
+        <form class="form-horizontal form-label-left" id="clientForm">
+          <input type="text" hidden>
           <fieldset>
             <legend>Dados do Cliente</legend>
-            <div class="form-group row">
+            <div class="row">
               <!--Razão Social-->
-              <div class="col-xs-12">
-                <input type="text" name="rsocial" class="form-control" placeholder="Razão Social">
+              <div class="form-group col-md-6 col-xs-12">
+                <input type="text" class="form-control" placeholder="Razão Social"
+                  name="company-name" validate="Razão Social">
+              </div>
+              <!--Nome Fantasia-->
+              <div class="form-group col-md-6 col-xs-12">
+                <input type="text" class="form-control" placeholder="Nome Fantasia"
+                  name="trading-name" validate="Nome Fantasia" (blur)="slugify()">
               </div>
             </div>
-            <div class="form-group row">
-              <!--Nome Fantasia-->
-              <div class="col-md-6 col-xs-12">
-                <input type="text" name="fname" class="form-control" placeholder="Nome Fantasia">
-              </div>
+            <div class="row">
               <!--CNPJ-->
-              <div class="col-md-6 col-xs-12">
-                <input type="text" name="cnpj" class="form-control" placeholder="CNPJ" data-mask="99.999.999/9999-99">
+              <div class="form-group col-md-6 col-xs-12">
+                <input type="text" class="form-control" placeholder="CNPJ"
+                  data-mask="99.999.999/9999-99" name="cnpj" validate="CNPJ">
+              </div>
+              <!--Alias-->
+              <div class="form-group col-md-6 col-xs-12">
+                <input type="text" class="form-control" placeholder="Alias"
+                  name="alias" validate="Alias">
               </div>
             </div>
           </fieldset>
           <fieldset>
             <legend>Endereço</legend>
-            <div class="form-group row">
+            <div class="row">
+              <!--CEP-->
+              <div class="form-group col-md-3 col-xs-12">
+                <input type="text" class="form-control" placeholder="CEP" data-mask="99.999-999"
+                  #zipcode name="zipcode" validate="CEP" (blur)="getAddress(zipcode.value)">
+              </div>
               <!--Logradouro-->
-              <div class="col-xs-12">
-                <input type="text" name="address" class="form-control" placeholder="Logradouro">
+              <div class="form-group col-md-6 col-xs-12">
+                <input type="text" class="form-control" placeholder="Logradouro"
+                  name="address" validate="Logradouro">
+              </div>
+              <!--Número-->
+              <div class="form-group col-md-3 col-xs-12">
+                <input type="number" class="form-control" placeholder="Número"
+                  name="num" validate="Número">
               </div>
             </div>
-            <div class="form-group row">
+            <div class="row">
               <!--Bairro-->
-              <div class="col-md-6 col-xs-12">
-                <input type="text" name="district" class="form-control" placeholder="Bairro">
+              <div class="form-group col-md-6 col-xs-12">
+                <input type="text" class="form-control" placeholder="Bairro"
+                  name="district" validate="Bairro">
               </div>
               <!--Cidade-->
-              <div class="col-md-6 col-xs-12">
-                <input type="text" name="city" class="form-control" placeholder="Cidade">
+              <div class="form-group col-md-4 col-xs-12">
+                <input type="text" class="form-control" placeholder="Cidade"
+                  name="city" validate="Cidade">
+              </div>
+              <!--Estado-->
+              <div class="form-group col-md-2 col-xs-12">
+                <select class="form-control" placeholder="Estado" name="state" validate="Estado">
+                  <option value="" hidden>Estado</option>
+                  <option *ngFor="let state of states" [value]="state.abbr">{{state.abbr}}</option>
+                </select>
               </div>
             </div>
-            <div class="form-group row">
+            <div class="row">
               <!--Complemento-->
-              <div class="col-md-6 col-xs-12">
-                <input type="text" name="complement" class="form-control" placeholder="Complemento">
-              </div>
-              <!--CEP-->
-              <div class="col-md-6 col-xs-12">
-                <input type="text" name="cep" class="form-control" placeholder="CEP" data-mask="99.999-999">
+              <div class="form-group col-xs-12">
+                <input type="text" class="form-control" placeholder="Complemento" name="complement">
               </div>
             </div>
           </fieldset>
           <fieldset>
             <legend>Contato</legend>
-            <div class="form-group row">
+            <!--Pessoa para contato-->
+            <div class="row">
+              <div class="form-group col-xs-12">
+                <input type="text" class="form-control" placeholder="Responsável"
+                  name="responsible" validate="Responsável">
+              </div>
+            </div>
+            <div class="row">
               <!--Telefone-->
-              <div class="col-md-6 col-xs-12">
-                <input type="text" name="phone" class="form-control" placeholder="Telefone" data-mask="(99) 9999-9999">
+              <div class="form-group col-md-6 col-xs-12">
+                <input type="text" class="form-control" placeholder="Telefone" data-mask="(99) 9999-9999"
+                  name="phone" #phone validate="Telefone">
               </div>
               <!--E-mail-->
-              <div class="col-md-6 col-xs-12">
-                <input type="email" name="email" class="form-control" placeholder="E-mail">
+              <div class="form-group col-md-6 col-xs-12">
+                <input type="email" class="form-control" placeholder="E-mail"
+                  name="email" #email validate="E-mail">
               </div>
             </div>
           </fieldset>
           <fieldset>
             <legend>Informações Adicionais</legend>
-            <div class="form-group row">
+            <div class="row">
               <!--Mercado-->
-              <div class="col-md-6 col-xs-12">
-                <select class="form-control">
+              <div class="form-group col-md-4 col-xs-12">
+                <select class="form-control" placeholder="Mercado" name="market" validate="Mercado">
                   <option value="" hidden>Mercado</option>
-                  <option value="seguradora">Seguradora</option>
-                  <option value="transportadora">Transportadora</option>
-                  <option value="outros">Outros</option>
+                  <option value="1">Seguradora</option>
+                  <option value="2">Transportadora</option>
+                  <option value="3">Outros</option>
                 </select>
               </div>
+              <!--Velocidade Máxima-->
+              <div class="form-group col-md-4 col-xs-12">
+                <input type="text" class="form-control" placeholder="Velocidade Máxima"
+                  name="limit" validate="Velocidade Máxima">
+              </div>
               <!--Pontos perigosos-->
-              <div class="col-md-6 col-xs-12">
+              <div class="form-group col-md-4 col-xs-12">
                 <div class="input-group">
                   <span class="input-group-addon beautiful">
-                    <input type="checkbox">
+                    <input type="checkbox" name="danger-points">
                   </span>
                   <span class="form-control">Compartilhar pontos perigosos?</span>
                 </div>
@@ -102,17 +140,23 @@
             </div>
           </fieldset>
           <div class="form-actions">
-            <button type="submit" class="btn btn-danger btn-rounded pull-xs-right" (click)="saveCLient()">Salvar</button>
-            <button type="button" class="btn btn-default btn-rounded">Cancelar</button>
+            <button type="button" class="btn btn-default btn-rounded pull-xs-right" (click)="clearForm()">
+              {{clientId ? 'Cancelar' : 'Limpar'}}
+            </button>
+            <button type="submit" class="btn btn-primary btn-rounded" (click)="saveClient()">
+              {{clientId ? 'Atualizar' : 'Cadastrar'}}
+            </button>
           </div>
         </form>
       </div>
     </section>
   </div>
 </div>
-
 <div class="row">
   <div class="col-md-10 offset-md-1 col-xs-12">
-    <div client-table></div>
+    <client-table [data]="client"
+      (clientSelected)="clientSelected($event)"
+      (deleteClient)="deleteClient($event)">
+    </client-table>
   </div>
 </div>

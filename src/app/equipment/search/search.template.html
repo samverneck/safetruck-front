@@ -1,0 +1,43 @@
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Equipamento</li>
+  <li class="breadcrumb-item active">Pesquisa</li>
+</ol>
+<div class="row">
+  <div class="col-lg-10 offset-lg-1 col-xs-12">
+    <section class="widget" widget>
+      <header>
+        <h5>
+          <span>Digite sua pesquisa</span>
+          <small>CNPJ, Razão social, Nome fantasia, Código do equipamento...</small>
+        </h5>
+        <div class="widget-controls">
+          <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+          <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+        </div>
+      </header>
+      <div class="widget-body">
+        <form class="form-horizontal">
+          <fieldset>
+            <div class="form-group">
+              <div class="input-group">
+                <input type="search" class="form-control" id="search-input">
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-secondary" (click)="search()">Pesquisar</button>
+                </span>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="row" *ngIf="clients || equipments" [@fadeInOut]>
+  <div class="col-md-10 offset-md-1 col-xs-12">
+    <search-client-table [data]="clients"></search-client-table>
+  </div>
+  <div class="col-md-10 offset-md-1 col-xs-12">
+    <search-equipment-table [data]="equipments"></search-equipment-table>
+  </div>
+</div>

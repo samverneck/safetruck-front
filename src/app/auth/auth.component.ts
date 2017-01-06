@@ -7,4 +7,4 @@ import { Component } from '@angular/core'
 })
 
 // App Component class
-export class Auth {}
+export class AuthPage {}

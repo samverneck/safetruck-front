@@ -1,0 +1,110 @@
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Equipamento</li>
+  <li class="breadcrumb-item active">Cadastro</li>
+</ol>
+<div class="row">
+  <div class="col-lg-10 offset-lg-1 col-xs-12">
+    <section class="widget" widget>
+      <header>
+        <h5>
+          <span>Equipamento</span>
+          <small>Cadastrar Novo Equipamento</small>
+        </h5>
+        <div class="widget-controls">
+          <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+          <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+        </div>
+      </header>
+      <div class="widget-body">
+        <form class="form-horizontal form-label-left" id="equipmentForm">
+          <!--Código do equipamento-->
+          <div class="form-group row">
+            <label class="form-control-label col-md-3 col-xs-12">Código do equipamento</label>
+            <div class="col-md-6 col-xs-12">
+              <input type="text" class="form-control" name="code" validate="Código do equipamento">
+            </div>
+          </div>
+          <!--Placa do veículo-->
+          <div class="form-group row">
+            <label class="form-control-label col-md-3 col-xs-12">Placa do veículo</label>
+            <div class="col-md-3 col-xs-12">
+              <input type="text" class="form-control uppercase" name="plaque" validate="Placa do veículo"
+                data-mask="aaa9999" (blur)="toUpperPlaque()">
+            </div>
+          </div>
+          <!--Tipo de veículo-->
+          <div class="form-group row">
+            <label class="form-control-label col-md-3 col-xs-12">Tipo de veículo</label>
+            <div class="col-md-3 col-xs-12">
+              <select class="form-control" name="vehicle" validate="Tipo de veículo">
+                <option value="" hidden>Selecione...</option>
+                <option value="caminhao">Caminhão</option>
+                <option value="carro">Carro</option>
+                <option value="onibus">Ônibus</option>
+                <option value="outros">Outros</option>
+              </select>
+            </div>
+          </div>
+          <!--Tipo de equipamento-->
+          <div class="form-group row">
+            <label class="form-control-label col-md-3 col-xs-12">Tipo de equipamento</label>
+            <div class="col-md-3 col-xs-12">
+              <select class="form-control" name="equipment" validate="Tipo de equipamento">
+                <option value="" hidden>Selecione...</option>
+                <option value="nzc">NZC</option>
+                <option value="cxp">CXP</option>
+                <option value="central">CENTRAL</option>
+              </select>
+            </div>
+          </div>
+          <!--Orientação-->
+          <div class="form-group row">
+            <label class="form-control-label col-md-3 col-xs-12">Orientação</label>
+            <div class="col-md-3 col-xs-12">
+              <select name="orientation" class="form-control" validate="Orientação">
+                <option value="" hidden>Selecione...</option>
+                <option value="yzx">YZX</option>
+                <option value="xyz">XYZ</option>
+                <option value="zyx">ZYX</option>
+              </select>
+            </div>
+          </div>
+          <!--Cliente-->
+          <div class="form-group row">
+            <label class="form-control-label col-md-3 col-xs-12">Cliente</label>
+            <div class="col-md-3 col-xs-12">
+              <select class="form-control" name="client-id" validate="Cliente">
+                <option value="" hidden>Selecione...</option>
+                <option *ngFor="let client of clients" [value]="client.id">{{client.companyName}}</option>
+              </select>
+            </div>
+          </div>
+          <!--Data da instalação-->
+          <div class="form-group row">
+            <label class="form-control-label col-md-3 col-xs-12">Data da instalação</label>
+            <div class="input-group col-md-3 col-xs-12 date" data-provide="datepicker">
+              <input type="text" class="form-control" name="installation" validate="Data da instalação">
+              <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+              </div>
+            </div>
+          </div>
+          <!--Data da alteração do tacógrafo-->
+          <div class="form-group row">
+            <label class="form-control-label col-md-3 col-xs-12">Data de aferição do tacógrafo</label>
+            <div class="input-group col-md-3 col-xs-12 date" data-provide="datepicker">
+              <input type="text" class="form-control" name="admeasurement">
+              <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+              </div>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn btn-default btn-rounded pull-xs-right" (click)="clearForm()">Limpar</button>
+            <button type="submit" class="btn btn-primary btn-rounded" (click)="saveEquipament()">Cadastrar</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+</div>

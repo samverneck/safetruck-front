@@ -1,29 +1,35 @@
 import { Component, ViewEncapsulation } from '@angular/core'
 import { Router } from '@angular/router'
 
-import { LoginService }  from '../../../providers/login.service'
+import { AuthService } from './../../../providers/auth.service'
 
 @Component({
-  selector: 'login-page',
+  selector: 'login',
   styleUrls: [ './login.styles.scss' ],
-  templateUrl: './login.template.html'
+  templateUrl: './login.template.html',
+  encapsulation: ViewEncapsulation.None,
+  host: {
+    class: 'login-page app'
+  }
 })
 
 export class Login {
-
-  user: string
+  email: string
   pass: string
-
-  constructor(public login: LoginService, public router: Router) {}
+  constructor(
+    private auth: AuthService,
+    private router: Router
+  ) {}
 
   authenticateUser() {
     $('.alert').hide()
-    if (this.login.authenticate(this.user, this.pass)) {
-      this.router.navigate(['app'])
-
-      return
-    }
-
-    $('.alert').show('fast')
+    this.auth.login(this.email, this.pass).subscribe(result => {
+      if (result === true) {
+        this.router.navigate(['/app'])
+      } else {
+        $('.alert').show('fast')
+      }
+    })
   }
+
 }

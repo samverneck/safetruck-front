@@ -18,14 +18,16 @@ import { AppState, InteralStateType } from './app.service'
 import { AppConfig } from './app.config'
 import { ErrorComponent } from './error/error.component'
 // App Providers
-import { LoginService } from '../providers/login.service'
+import { AuthService } from './../providers/auth.service'
+import { AuthGuard } from './../guards/auth.guard'
 
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
+  AuthGuard,
+  AuthService,
   AppState,
-  AppConfig,
-  LoginService
+  AppConfig
 ]
 
 type StoreType = {
