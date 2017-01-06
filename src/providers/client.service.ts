@@ -12,8 +12,8 @@ import { IClient } from './../interfaces/IClient'
 @Injectable()
 export class ClientService {
   headerOptions: RequestOptions
+
   constructor(private http: Http, private auth: AuthService) {
-    console.log(this.auth.user())
     this.headerOptions = this.auth.getHeaders()
   }
 

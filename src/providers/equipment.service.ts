@@ -1,16 +1,22 @@
 import { Injectable } from '@angular/core'
-import { Http, Response, Headers, RequestOptions } from '@angular/http'
+import { Http, Response, RequestOptions } from '@angular/http'
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
+import 'rxjs/add/observable/throw'
 
+import { AuthService } from './auth.service'
 import { API } from './../config/Config'
 import { IEquipment } from './../interfaces/IEquipment'
 
 @Injectable()
 export class EquipmentService {
 
-  constructor(private http: Http) {}
+  headerOptions: RequestOptions
+
+  constructor(private http: Http, private auth: AuthService) {
+    this.headerOptions = this.auth.getHeaders()
+  }
 
   save(equip: IEquipment): Observable<any> {
     if (equip.id) {
@@ -20,28 +26,29 @@ export class EquipmentService {
   }
 
   create(equip: IEquipment): Observable<any> {
-    let headers = new Headers({ 'Content-Type': 'application/json' })
-    let options = new RequestOptions({ headers: headers })
-
     return this.http
-      .post(API + 'equipments', { equip }, options)
+      .post(API + 'equipments', equip, this.headerOptions)
       .map(this.extractData)
       .catch(this.handleError)
   }
 
   update(equip: IEquipment): Observable<any> {
-    let headers = new Headers({ 'Content-Type': 'application/json' })
-    let options = new RequestOptions({ headers: headers })
-
     return this.http
-      .put(API + 'equipments', { equip }, options)
+      .put(`${API}clients/${equip.id}`, equip, this.headerOptions)
+      .map(this.extractData)
+      .catch(this.handleError)
+  }
+
+  delete(equip: IEquipment): Observable<any> {
+    return this.http
+      .delete(`${API}clients/${equip.id}`, this.headerOptions)
       .map(this.extractData)
       .catch(this.handleError)
   }
 
   getEquipments(): Observable<any> {
     return this.http
-      .get(API + 'equipments')
+      .get(API + 'equipments', this.headerOptions)
       .map(this.extractData)
       .catch(this.handleError)
   }
@@ -60,7 +67,6 @@ export class EquipmentService {
     } else {
       errMsg = error.message ? error.message : error.toString()
     }
-    console.error(errMsg)
     return Observable.throw(errMsg)
   }
 }

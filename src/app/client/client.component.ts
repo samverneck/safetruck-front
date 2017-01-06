@@ -79,7 +79,12 @@ export class ClientPage {
     })
   }
 
-  deleteClient(client) {
+  /**
+   * Deleta um cliente
+   * @param {IClient} client
+   * @memberOf ClientPage
+   */
+  deleteClient(client: IClient) {
     swal({
       title: 'Deletar cliente',
       text: `Tem certeza que deseja deletar o cliente ${client.tradingName}?`,
@@ -194,7 +199,7 @@ export class ClientPage {
    * @param {any} client
    * @memberOf ClientPage
    */
-  clientDidSelected(client): void {
+  clientSelected(client): void {
     this.clientId = client.id
     $('[name="company-name"]').val(client.companyName)
     $('[name="trading-name"]').val(client.tradingName)

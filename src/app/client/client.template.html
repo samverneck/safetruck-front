@@ -7,8 +7,7 @@
     <section class="widget" widget>
       <header>
         <h5>
-          <span>{{client ? client.companyName : 'Cadastrar Novo Cliente'}}</span>
-          <small>{{client ? client.cnpj : ''}}</small>
+          <span>{{clientId ? 'Atualizar Cliente' : 'Cadastrar Novo Cliente'}}</span>
         </h5>
         <div class="widget-controls">
           <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
@@ -77,7 +76,7 @@
               </div>
               <!--Estado-->
               <div class="form-group col-md-2 col-xs-12">
-                <select class="form-control" placeholder="Estado" name="state" #state validate="Estado">
+                <select class="form-control" placeholder="Estado" name="state" validate="Estado">
                   <option value="" hidden>Estado</option>
                   <option *ngFor="let state of states" [value]="state.abbr">{{state.abbr}}</option>
                 </select>
@@ -96,7 +95,7 @@
             <div class="row">
               <div class="form-group col-xs-12">
                 <input type="text" class="form-control" placeholder="Responsável"
-                  name="responsible" #responsible validate="Responsável">
+                  name="responsible" validate="Responsável">
               </div>
             </div>
             <div class="row">
@@ -141,8 +140,12 @@
             </div>
           </fieldset>
           <div class="form-actions">
-            <button type="button" class="btn btn-default btn-rounded pull-xs-right" (click)="clearForm()">Limpar</button>
-            <button type="submit" class="btn btn-primary btn-rounded" (click)="saveClient()">{{clientId ? 'Atualizar' : 'Cadastrar'}}</button>
+            <button type="button" class="btn btn-default btn-rounded pull-xs-right" (click)="clearForm()">
+              {{clientId ? 'Cancelar' : 'Limpar'}}
+            </button>
+            <button type="submit" class="btn btn-primary btn-rounded" (click)="saveClient()">
+              {{clientId ? 'Atualizar' : 'Cadastrar'}}
+            </button>
           </div>
         </form>
       </div>
@@ -152,7 +155,7 @@
 <div class="row">
   <div class="col-md-10 offset-md-1 col-xs-12">
     <client-table [data]="client"
-      (clientDidSelected)="clientDidSelected($event)"
+      (clientSelected)="clientSelected($event)"
       (deleteClient)="deleteClient($event)">
     </client-table>
   </div>
