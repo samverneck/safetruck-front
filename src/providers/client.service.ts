@@ -1,49 +1,46 @@
 import { Injectable } from '@angular/core'
-import { Http, Response, Headers, RequestOptions } from '@angular/http'
+import { Http, Response, RequestOptions } from '@angular/http'
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
+import 'rxjs/add/observable/throw'
 
+import { AuthService } from './auth.service'
+import { API } from './../config/Config'
 import { IClient } from './../interfaces/IClient'
-
-// Rest endpoint para clients
-const CLIENTS_URI = 'https://jsonplaceholder.typicode.com/users'
 
 @Injectable()
 export class ClientService {
+  headerOptions: RequestOptions
+  constructor(private http: Http, private auth: AuthService) {
+    this.headerOptions = this.auth.getHeaders()
+  }
 
-  constructor(private http: Http) {}
-
-  save(client: IClient): Observable<any> {
+  save(client: IClient): Observable<IClient> {
     if (client.id) {
       return this.update(client)
     }
     return this.create(client)
   }
 
-  create(client: IClient): Observable<any> {
-    let headers = new Headers({ 'Content-Type': 'application/json' })
-    let options = new RequestOptions({ headers: headers })
-
+  create(client: IClient): Observable<IClient> {
     return this.http
-      .post(CLIENTS_URI, { client }, options)
+      .post(API + 'clients', client, this.headerOptions)
       .map(this.extractData)
       .catch(this.handleError)
   }
 
   update(client: IClient): Observable<any> {
-    let headers = new Headers({ 'Content-Type': 'application/json' })
-    let options = new RequestOptions({ headers: headers })
-
+    console.log(`${API}clients/${client.id}`)
     return this.http
-      .put(CLIENTS_URI, { client }, options)
+      .put(`${API}clients/${client.id}`, client, this.headerOptions)
       .map(this.extractData)
       .catch(this.handleError)
   }
 
-  getClients(): Observable<any> {
+  getClients(): Observable<IClient[]> {
     return this.http
-      .get(CLIENTS_URI)
+      .get(API + 'clients', this.headerOptions)
       .map(this.extractData)
       .catch(this.handleError)
   }
@@ -54,7 +51,6 @@ export class ClientService {
   }
 
   private handleError (error: Response | any) {
-    // In a real world app, we might use a remote logging infrastructure
     let errMsg: string
     if (error instanceof Response) {
       const body = error.json() || ''
@@ -63,7 +59,6 @@ export class ClientService {
     } else {
       errMsg = error.message ? error.message : error.toString()
     }
-    console.error(errMsg)
     return Observable.throw(errMsg)
   }
 }

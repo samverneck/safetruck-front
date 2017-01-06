@@ -58,6 +58,7 @@ export class ClientPage {
       id: this.clientId ? this.clientId : null,
       companyName: data['company-name'],
       tradingName: data['trading-name'],
+      cnpj: data['cnpj'],
       market: data['market'],
       shareDangerousPoints: data['danger-points'],
       address: address,
@@ -73,7 +74,7 @@ export class ClientPage {
             : 'O cliente foi cadastrado com sucesso.',
           'success'
         )
-        console.info(response)
+        console.log('Resposta: ', response)
       },
       error: (err) => {
         this.message.showAlert(
@@ -91,7 +92,7 @@ export class ClientPage {
     })
   }
 
-  getCep(cep) {
+  getAddress(cep) {
     this.cepService.getAddress(cep).subscribe({
       next: (resp) => {
         if (resp.erro) {
@@ -119,27 +120,29 @@ export class ClientPage {
    * @memberOf ClientPage
    */
   clientDidSelected(client): void {
-    let getRandomInt = () => {
-      let resp = Math.floor(Math.random() + 0.2)
-      return resp
-    }
     this.clientId = client.id
-    $('[name="company-name"]').val(client.name)
-    $('[name="trading-name"]').val(client.username)
-    $('[name="cnpj"]').val(client.phone)
-    $('[name="address"]').val(client.address.street)
+    $('[name="company-name"]').val(client.companyName)
+    $('[name="trading-name"]').val(client.tradingName)
+    $('[name="cnpj"]').val(client.cnpj)
     $('[name="zipcode"]').val(client.address.zipcode)
+    $('[name="address"]').val(client.address.address)
+    $('[name="num"]').val(client.address.num)
+    $('[name="district"]').val(client.address.district)
     $('[name="city"]').val(client.address.city)
-    $('[name="responsible"]').val(client.name)
-    $('[name="email"]').val(client.email)
-    $('[name="phone"]').val(client.phone)
-    getRandomInt()
+    $('[name="state"]').val(client.address.state)
+    $('[name="complement"]').val(client.address.complement)
+    $('[name="responsible"]').val(client.contact.responsible)
+    $('[name="email"]').val(client.contact.email)
+    $('[name="phone"]').val(client.contact.phone)
+    $('[name="market"]').val(client.market)
+    client.shareDangerousPoints
       ? $('[name="danger-points"]').prop('checked', true)
       : $('[name="danger-points"]').prop('checked', false)
   }
 
   clearForm() {
     this.clientId = null
+    $('tbody').children().removeClass('selected')
     this.formUtils.clear('#clientForm')
   }
 }

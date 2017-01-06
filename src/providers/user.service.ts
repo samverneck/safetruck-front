@@ -3,15 +3,15 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http'
 import { Observable } from 'rxjs'
 import 'rxjs/add/operator/map'
 
+import { API } from './../config/Config'
 import { AuthService } from './auth.service'
-
-const AUTH_URI = 'https://app.safetruck.com.br/api/v1/users'
 
 @Injectable()
 export class UserService {
   constructor(
     private http: Http,
-    private authService: AuthService) {
+    private authService: AuthService
+  ) {
   }
 
   getUsers(): Observable<any> {
@@ -20,7 +20,7 @@ export class UserService {
     let options = new RequestOptions({ headers: headers })
 
     // get users from api
-    return this.http.get(AUTH_URI, options)
+    return this.http.get(API + 'users', options)
           .map((response: Response) => response.json())
   }
 }

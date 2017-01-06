@@ -8,8 +8,8 @@ export class SearchPipe implements PipeTransform {
     let searchText = new RegExp(args, 'ig')
     if (value) {
       return value.filter(client => {
-        if (client.name) {
-          return client.name.search(searchText) !== -1
+        if (client.companyName) {
+          return client.companyName.search(searchText) !== -1
         }
       })
     }

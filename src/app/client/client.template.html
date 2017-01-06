@@ -31,12 +31,12 @@
               <!--Nome Fantasia-->
               <div class="form-group col-md-6 col-xs-12">
                 <input type="text" class="form-control" placeholder="Nome Fantasia"
-                  name="trading-name" #tradingName validate="Nome Fantasia">
+                  name="trading-name" validate="Nome Fantasia">
               </div>
               <!--CNPJ-->
               <div class="form-group col-md-6 col-xs-12">
-                <input type="text" class="form-control" placeholder="CNPJ" data-mask="99.999.999/9999-99"
-                  name="cnpj" #cnpj validate="CNPJ">
+                <input type="text" class="form-control" placeholder="CNPJ"
+                  data-mask="99.999.999/9999-99" name="cnpj" validate="CNPJ">
               </div>
             </div>
           </fieldset>
@@ -45,30 +45,30 @@
             <div class="row">
               <!--CEP-->
               <div class="form-group col-md-3 col-xs-12">
-                <input type="text" class="form-control" placeholder="CEP"
-                  data-mask="99.999-999" name="cep" #cep validate="CEP" (blur)="getCep(cep.value)">
+                <input type="text" class="form-control" placeholder="CEP" data-mask="99.999-999"
+                  #zipcode name="zipcode" validate="CEP" (blur)="getAddress(zipcode.value)">
               </div>
               <!--Logradouro-->
               <div class="form-group col-md-6 col-xs-12">
                 <input type="text" class="form-control" placeholder="Logradouro"
-                  name="address" #address validate="Logradouro">
+                  name="address" validate="Logradouro">
               </div>
               <!--Número-->
               <div class="form-group col-md-3 col-xs-12">
                 <input type="number" class="form-control" placeholder="Número"
-                  name="num" #num validate="Número">
+                  name="num" validate="Número">
               </div>
             </div>
             <div class="row">
               <!--Bairro-->
               <div class="form-group col-md-6 col-xs-12">
                 <input type="text" class="form-control" placeholder="Bairro"
-                  name="district" #district validate="Bairro">
+                  name="district" validate="Bairro">
               </div>
               <!--Cidade-->
               <div class="form-group col-md-4 col-xs-12">
                 <input type="text" class="form-control" placeholder="Cidade"
-                  name="city" #city validate="Cidade">
+                  name="city" validate="Cidade">
               </div>
               <!--Estado-->
               <div class="form-group col-md-2 col-xs-12">
@@ -112,11 +112,11 @@
             <div class="row">
               <!--Mercado-->
               <div class="form-group col-md-6 col-xs-12">
-                <select class="form-control" placeholder="Mercado" name="market" #market validate="Mercado">
+                <select class="form-control" placeholder="Mercado" name="market" validate="Mercado">
                   <option value="" hidden>Mercado</option>
-                  <option value="seguradora">Seguradora</option>
-                  <option value="transportadora">Transportadora</option>
-                  <option value="outros">Outros</option>
+                  <option value="1">Seguradora</option>
+                  <option value="2">Transportadora</option>
+                  <option value="3">Outros</option>
                 </select>
               </div>
               <!--Pontos perigosos-->
@@ -132,7 +132,7 @@
           </fieldset>
           <div class="form-actions">
             <button type="button" class="btn btn-default btn-rounded pull-xs-right" (click)="clearForm()">Limpar</button>
-            <button type="submit" class="btn btn-primary btn-rounded" (click)="saveCLient()">Cadastrar</button>
+            <button type="submit" class="btn btn-primary btn-rounded" (click)="saveCLient()">{{clientId ? 'Atualizar' : 'Cadastrar'}}</button>
           </div>
         </form>
       </div>

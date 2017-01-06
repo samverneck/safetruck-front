@@ -3,7 +3,7 @@ import { Http, Headers, Response, RequestOptions } from '@angular/http'
 import { Observable } from 'rxjs'
 import 'rxjs/add/operator/map'
 
-const AUTH_URI = 'https://app.safetruck.com.br/api/v1/login'
+import { API } from './../config/Config'
 
 @Injectable()
 export class AuthService {
@@ -19,7 +19,7 @@ export class AuthService {
       let headers = new Headers({ 'Content-Type': 'application/json' })
       let options = new RequestOptions({ headers: headers })
 
-      return this.http.post(AUTH_URI, JSON.stringify({ email: email, password: password }), options)
+      return this.http.post(API + 'login', { email: email, password: password }, options)
         .map((response: Response) => {
           // login successful if there's a jwt token in the response
           let token = response.json()
@@ -48,5 +48,20 @@ export class AuthService {
       // clear token remove user from local storage to log user out
       this.token = null
       localStorage.removeItem('currentUser')
+    }
+
+    getHeaders() {
+      let authToken = this.user().token
+      let headers = new Headers()
+      headers.append('Content-Type', 'application/json')
+      headers.append('Authorization', authToken)
+
+      return new RequestOptions({ headers: headers })
+    }
+
+    user() {
+      return localStorage.getItem('currentUser')
+        ? JSON.parse(localStorage.getItem('currentUser'))
+        : false
     }
 }

@@ -4,10 +4,8 @@ import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
 
+import { API } from './../config/Config'
 import { IEquipment } from './../interfaces/IEquipment'
-
-// Rest endpoint para clients
-const EQIP_URI = 'https://jsonplaceholder.typicode.com/users'
 
 @Injectable()
 export class EquipmentService {
@@ -26,7 +24,7 @@ export class EquipmentService {
     let options = new RequestOptions({ headers: headers })
 
     return this.http
-      .post(EQIP_URI, { equip }, options)
+      .post(API + 'equipments', { equip }, options)
       .map(this.extractData)
       .catch(this.handleError)
   }
@@ -36,14 +34,14 @@ export class EquipmentService {
     let options = new RequestOptions({ headers: headers })
 
     return this.http
-      .put(EQIP_URI, { equip }, options)
+      .put(API + 'equipments', { equip }, options)
       .map(this.extractData)
       .catch(this.handleError)
   }
 
   getEquipments(): Observable<any> {
     return this.http
-      .get(EQIP_URI)
+      .get(API + 'equipments')
       .map(this.extractData)
       .catch(this.handleError)
   }
