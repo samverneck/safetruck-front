@@ -19,6 +19,15 @@ export class FormUtils {
     return obj
   }
 
+  slugfy(text) {
+    return text.toString().toLowerCase()
+      .replace(/\s+/g, '')            // Remove spaces
+      .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+      .replace(/\-\-+/g, '')          // Remove multiple -
+      .replace(/^-+/, '')             // Trim - from start of text
+      .replace(/-+$/, '')             // Trim - from end of text
+  }
+
   clear(formId: string) {
     let form = $(formId)
     let el = form.serializeArray()

@@ -1,3 +1,4 @@
+import { IEquipmentInstall } from './../../../interfaces/IEquipmentInstall';
 import { Component, ViewEncapsulation, OnInit } from '@angular/core'
 
 import { EquipmentService } from './../../../providers/equipment.service'
@@ -47,23 +48,17 @@ export class EquipmentRegisterPage implements OnInit {
     })
   }
 
-
+  /**
+   * Criar ou altera um Equipamento
+   * @returns
+   * @memberOf EquipmentRegisterPage
+   */
   saveEquipament() {
     if (!this.validation.validateForm('#equipmentForm')) {
       return false
     }
 
-    let data = this.formUtils.serialize('#equipmentForm')
-    let equipment: IEquipment = {
-      code: data['code'],
-      plaque: data['plaque'],
-      vehicleType: data['vehicle'],
-      equipmentType: data['equipment'],
-      orientation: data['orientation'],
-      clientId: data['client-id'],
-      installation: data['installation'],
-      admeasurement: data['admeasurement']
-    }
+    let equipment: IEquipment = this.getFormData()
 
     this.equipService.save(equipment).subscribe({
       next: (response) => {
@@ -90,6 +85,32 @@ export class EquipmentRegisterPage implements OnInit {
         this.clearForm()
       }
     })
+  }
+
+  /**
+   * Obtem os dados do form
+   * @returns {IEquipment}
+   * @memberOf EquipmentRegisterPage
+   */
+  getFormData(): IEquipment {
+    let data = this.formUtils.serialize('#equipmentForm')
+
+    let install: IEquipmentInstall = {
+      vehicleType: data['vehicle'],
+      plaque: data['plaque'],
+      orientation: data['orientation'],
+      clientId: data['client-id'],
+      installation: data['installation'],
+      admeasurement: data['admeasurement']
+    }
+
+    let equipment: IEquipment = {
+      code: data['code'],
+      type: data['equipment'],
+      install: install
+    }
+
+    return equipment
   }
 
   toUpperPlaque() {

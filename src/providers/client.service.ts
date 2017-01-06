@@ -12,6 +12,7 @@ import { IClient } from './../interfaces/IClient'
 @Injectable()
 export class ClientService {
   headerOptions: RequestOptions
+
   constructor(private http: Http, private auth: AuthService) {
     this.headerOptions = this.auth.getHeaders()
   }
@@ -31,9 +32,15 @@ export class ClientService {
   }
 
   update(client: IClient): Observable<any> {
-    console.log(`${API}clients/${client.id}`)
     return this.http
       .put(`${API}clients/${client.id}`, client, this.headerOptions)
+      .map(this.extractData)
+      .catch(this.handleError)
+  }
+
+  delete(client: IClient): Observable<any> {
+    return this.http
+      .delete(`${API}clients/${client.id}`, this.headerOptions)
       .map(this.extractData)
       .catch(this.handleError)
   }
