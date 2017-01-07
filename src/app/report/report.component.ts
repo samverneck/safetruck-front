@@ -22,19 +22,7 @@ export class ReportPage {
     })
   }
 
-  ngOnInit(): void {
-    jQuery('.date').datepicker({
-      autoclose: true,
-      todayBtn: 'linked',
-      todayHighlight: true,
-      assumeNearbyYear: true,
-      placeholder: 'Selecione',
-      format: 'dd/mm/yyyy',
-      language: 'pt-BR'
-    })
-  }
-
-  generateReports() {
-    //
+  print() {
+    window.print()
   }
 }
