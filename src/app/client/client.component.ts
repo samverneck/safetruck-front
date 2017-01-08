@@ -71,7 +71,7 @@ export class ClientPage {
             : 'Ocorreu algum erro ao cadastrar o cliente. Tente novamente mais tarde.',
           'error'
         )
-        console.error(err)
+        console.error('Erro: ', err)
       },
       complete: () => {
         this.clearForm()
@@ -146,7 +146,7 @@ export class ClientPage {
       cnpj: data['cnpj'],
       market: data['market'],
       limit: data['limit'],
-      shareDangerousPoints: data['danger-points'],
+      shareDangerousPoints: data['danger-points'] || false,
       address: address,
       contact: contact
     }

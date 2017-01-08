@@ -1,13 +1,8 @@
 import {
-  Component,
-  ViewEncapsulation,
-  trigger,
-  style,
-  transition,
-  animate,
-  EventEmitter,
-  Output,
-  Input
+  Component, ViewEncapsulation,
+  trigger, style, transition,
+  animate, EventEmitter,
+  Output, Input
 } from '@angular/core'
 
 import { ClientService } from './../../../providers/client.service'

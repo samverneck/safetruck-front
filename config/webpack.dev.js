@@ -13,11 +13,13 @@ const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
  */
 const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 const HOST = process.env.HOST || 'localhost';
+const API_URL = process.env.API_URL || 'http://sandbox.safetruck.com.br/api/v1';
 const PORT = process.env.PORT || 3000;
 const HMR = helpers.hasProcessFlag('hot');
 const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
   host: HOST,
   port: PORT,
+  API_URL: API_URL,
   ENV: ENV,
   HMR: HMR
 });
@@ -107,9 +109,11 @@ module.exports = function(options) {
       // NOTE: when adding more properties, make sure you include them in custom-typings.d.ts
       new DefinePlugin({
         'ENV': JSON.stringify(METADATA.ENV),
+        'API_URL': JSON.stringify(METADATA.API_URL),
         'HMR': METADATA.HMR,
         'process.env': {
           'ENV': JSON.stringify(METADATA.ENV),
+          'API_URL': JSON.stringify(METADATA.API_URL),
           'NODE_ENV': JSON.stringify(METADATA.ENV),
           'HMR': METADATA.HMR,
         }

@@ -6,7 +6,6 @@ import 'rxjs/add/operator/catch'
 import 'rxjs/add/observable/throw'
 
 import { AuthService } from './auth.service'
-import { API } from './../config/Config'
 import { IClient } from './../interfaces/IClient'
 
 @Injectable()
@@ -26,28 +25,28 @@ export class ClientService {
 
   create(client: IClient): Observable<IClient> {
     return this.http
-      .post(API + 'clients', client, this.headerOptions)
+      .post(`${API_URL}/clients`, client, this.headerOptions)
       .map(this.extractData)
       .catch(this.handleError)
   }
 
   update(client: IClient): Observable<any> {
     return this.http
-      .put(`${API}clients/${client.id}`, client, this.headerOptions)
+      .put(`${API_URL}/clients/${client.id}`, client, this.headerOptions)
       .map(this.extractData)
       .catch(this.handleError)
   }
 
   delete(client: IClient): Observable<any> {
     return this.http
-      .delete(`${API}clients/${client.id}`, this.headerOptions)
+      .delete(`${API_URL}/clients/${client.id}`, this.headerOptions)
       .map(this.extractData)
       .catch(this.handleError)
   }
 
   getClients(): Observable<IClient[]> {
     return this.http
-      .get(API + 'clients', this.headerOptions)
+      .get(`${API_URL}/clients`, this.headerOptions)
       .map(this.extractData)
       .catch(this.handleError)
   }
@@ -61,8 +60,8 @@ export class ClientService {
     let errMsg: string
     if (error instanceof Response) {
       const body = error.json() || ''
-      const err = body.error || JSON.stringify(body)
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`
+      const err = body.message || JSON.stringify(body)
+      errMsg = `${error.status} - ${error.statusText || ''} - ${err}`
     } else {
       errMsg = error.message ? error.message : error.toString()
     }

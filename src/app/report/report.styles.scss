@@ -1,1 +1,13 @@
 @import "../../../node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min";
+@import "../scss/variables";
+@import "../scss/mixins";
+@import "../../../node_modules/bootstrap/scss/mixins";
+
+.error{
+  border-color: $brand-danger;
+  @include box-shadow(inset 0 1px 1px rgba($brand-danger,.075));
+}
+
+.report .row {
+  border: 1px solid #dedede;
+}

@@ -1,22 +1,38 @@
 import { Injectable } from '@angular/core'
-import { Http, Response } from '@angular/http'
+import { Http, Response, RequestOptions } from '@angular/http'
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
+import 'rxjs/add/observable/throw'
 
-// Rest endpoint para clients
-// tslint:disable-next-line:max-line-length
-const REPORT_URI = 'https://gist.githubusercontent.com/Petronetto/6f6108605072163ba4d6551decb54eda/raw/c99de3de3a4f9539d2f3512c8f0e2065a152d26c/report.json'
+import { AuthService } from './auth.service'
+import { IReportData } from './../interfaces/IReport'
 
 @Injectable()
 export class ReportService {
 
-  constructor(private http: Http) {}
+  headerOptions: RequestOptions
 
-  getReports(): Observable<any> {
+  constructor(private http: Http, private auth: AuthService) {
+    this.headerOptions = this.auth.getHeaders()
+  }
+
+  getReport(plaque: string, start, finish): Observable<IReportData> {
     return this.http
-      .get(REPORT_URI)
+      .get(`${API_URL}report?plaque=${plaque}&&dtIni=${start}&dtEnd=finish`, this.headerOptions)
       .map(this.extractData)
+      .catch(this.handleError)
+  }
+
+  getPlaques(): Observable<any> {
+    console.log(API_URL)
+    return this.http
+      .get(`${API_URL}/equipments`, this.headerOptions)
+      .map(data => {
+        return data.json()
+          .filter(equip => equip.install)
+          .map(equip => equip.install.plaque)
+      })
       .catch(this.handleError)
   }
 

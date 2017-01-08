@@ -5,49 +5,48 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
 import 'rxjs/add/observable/throw'
 
+import { IBaseModel } from './../interfaces/IBaseModel'
 import { AuthService } from './auth.service'
-import { IEquipment } from './../interfaces/IEquipment'
 
 @Injectable()
-export class EquipmentService {
-
+export class BaseService {
   headerOptions: RequestOptions
 
   constructor(private http: Http, private auth: AuthService) {
     this.headerOptions = this.auth.getHeaders()
   }
 
-  save(equip: IEquipment): Observable<any> {
-    if (equip.id) {
-      return this.update(equip)
+  save<T>(model: IBaseModel): Observable<IBaseModel> {
+    if (model.id) {
+      return this.update(model)
     }
-    return this.create(equip)
+    return this.create(model)
   }
 
-  create(equip: IEquipment): Observable<any> {
+  create<T>(model: T): Observable<T> {
     return this.http
-      .post(`${API_URL}/equipments`, equip, this.headerOptions)
+      .post(`${API_URL}/clients`, model, this.headerOptions)
       .map(this.extractData)
       .catch(this.handleError)
   }
 
-  update(equip: IEquipment): Observable<any> {
+  update<T>(model: IBaseModel): Observable<IBaseModel> {
     return this.http
-      .put(`${API_URL}/clients/${equip.id}`, equip, this.headerOptions)
+      .put(`${API_URL}/clients/${model.id}`, model, this.headerOptions)
       .map(this.extractData)
       .catch(this.handleError)
   }
 
-  delete(equip: IEquipment): Observable<any> {
+  delete<T>(model: IBaseModel): Observable<IBaseModel> {
     return this.http
-      .delete(`${API_URL}/equipments/${equip.id}`, this.headerOptions)
+      .delete(`${API_URL}/clients/${model.id}`, this.headerOptions)
       .map(this.extractData)
       .catch(this.handleError)
   }
 
-  getEquipments(): Observable<any> {
+  getAll<T>(): Observable<T[]> {
     return this.http
-      .get(`${API_URL}/equipments`, this.headerOptions)
+      .get(`${API_URL}/clients`, this.headerOptions)
       .map(this.extractData)
       .catch(this.handleError)
   }
@@ -61,8 +60,8 @@ export class EquipmentService {
     let errMsg: string
     if (error instanceof Response) {
       const body = error.json() || ''
-      const err = body.error || JSON.stringify(body)
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`
+      const err = body.message || JSON.stringify(body)
+      errMsg = `${error.status} - ${error.statusText || ''} - ${err}`
     } else {
       errMsg = error.message ? error.message : error.toString()
     }

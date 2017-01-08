@@ -9,27 +9,27 @@
         <div class="form-group row">
           <!--Placa-->
           <div class="col-md-2 col-xs-12">
-            <select class="form-control" name="client-id" validate="Cliente">
-              <option value="" hidden>Placa</option>
-              <option *ngFor="let client of clients" [value]="client.id">{{client.name}}</option>
+            <select class="form-control" name="plaque" id="plaque">
+              <option value="" *ngIf="plaques" hidden>{{plaques.length ? 'Placa' : 'Sem placas'}}</option>
+              <option *ngFor="let plaque of plaques" [value]="plaque">{{plaque}}</option>
             </select>
           </div>
           <!--Início-->
           <div class="input-group col-md-3 col-xs-12 date" data-provide="datepicker">
-            <input type="text" class="form-control" name="start">
+            <input type="text" class="form-control" name="start" id="start" placeholder="Data inicial">
             <div class="input-group-addon">
               <span class="glyphicon glyphicon-th"></span>
             </div>
           </div>
           <!--Término-->
-          <div class="input-group col-md-3 col-xs-12 date" data-provide="datepicker">
-            <input type="text" class="form-control" name="start">
+          <div class="input-group col-md-3 col-xs-12 date">
+            <input type="text" class="form-control" name="finish" id="finish" placeholder="Data final">
             <div class="input-group-addon">
               <span class="glyphicon glyphicon-th"></span>
             </div>
           </div>
           <div class="col-md-4 col-xs-12">
-            <button type="submit" class="btn btn-primary btn-rounded pull-xs-right" (click)="generateReports()">
+            <button type="submit" class="btn btn-primary btn-rounded pull-xs-right" (click)="getReport()">
               Gerar relatório
             </button>
           </div>
@@ -39,7 +39,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="report" [@fadeInOut]>
   <div class="col-xs-12">
     <section class="widget" widget>
       <header>
@@ -53,88 +53,7 @@
         </div>
       </header>
       <div class="widget-body">
-        <!--////////// TÍTULO \\\\\\\\\\-->
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card-header">
-              <h4>Relatório de Conduta</h4>
-            </div>
-          </div>
-        </div>
-        <!--////////// CABEÇALHO \\\\\\\\\\-->
-        <div class="col-md-10 offset-md-1">
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="row">
-                <div class="col-sm-4"><strong>Protocolo</strong></div>
-                <div class="col-sm-8">0019</div>
-              </div>
-              <div class="row">
-                <div class="col-sm-4"><strong>Placa</strong></div>
-                <div class="col-sm-8">MQN-4321</div>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="row">
-                <div class="col-sm-4"><strong>Início</strong></div>
-                <div class="col-sm-8">21/08/16-10:53:29</div>
-              </div>
-              <div class="row">
-                <div class="col-sm-4"><strong>Término</strong></div>
-                <div class="col-sm-8">21/08/16-18:04:47</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!--////////// TÍTULO \\\\\\\\\\-->
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card-header">
-              <h5>Imprudências</h5>
-            </div>
-          </div>
-        </div>
-        <!--////////// IMPRUDÊNCIAS \\\\\\\\\\-->
-        <div class="col-md-10 offset-md-1">
-          <div class="row">
-            <div class="col-md-6">
-              <span>N° de Excessos de Velocidade (+90Km/h)</span>
-            </div>
-            <div class="col-md-6">
-              <span>11</span>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <span>N° de Passagens por Zonas perigosas (+40Km/h)</span>
-            </div>
-            <div class="col-md-6">
-              <span>5</span>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <span>Km Acumulado</span>
-            </div>
-            <div class="col-md-6">
-              <span>207.07</span>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <span>Relação km em Excesso de Velocidade/Km Acumulado</span>
-            </div>
-            <div class="col-md-6">
-              <span>0.15</span>
-            </div>
-          </div>
-        </div>
-
-
-
-        
-
-
+        <print-page [data]="report"></print-page>
       </div>
     </section>
   </div>
