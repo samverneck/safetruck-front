@@ -31,7 +31,7 @@ export class EquipmentRegisterPage implements OnInit {
     public clientService: ClientService,
     public validation: ValidationService
   ) {
-    this.clientService.getClients().subscribe(resp => {
+    this.clientService.getAll().subscribe(resp => {
       this.clients = resp
     })
   }

@@ -5,58 +5,63 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
 import 'rxjs/add/observable/throw'
 
-import { IBaseModel } from './../interfaces/IBaseModel'
 import { AuthService } from './auth.service'
+import { IBaseService } from './../interfaces/IBaseService'
 
 @Injectable()
-export class BaseService {
+export class BaseService implements IBaseService {
   headerOptions: RequestOptions
+  resource: string
 
-  constructor(private http: Http, private auth: AuthService) {
+  constructor(public http: Http, public auth: AuthService) {
     this.headerOptions = this.auth.getHeaders()
   }
 
-  save<T>(model: IBaseModel): Observable<IBaseModel> {
+  public setResource(resource: string): void {
+    this.resource = resource
+  }
+
+  public save<T>(model: any): Observable<any> {
     if (model.id) {
       return this.update(model)
     }
     return this.create(model)
   }
 
-  create<T>(model: T): Observable<T> {
+  public create<T>(model: any): Observable<any> {
     return this.http
-      .post(`${API_URL}/clients`, model, this.headerOptions)
+      .post(`${API_URL}/${this.resource}`, model, this.headerOptions)
       .map(this.extractData)
       .catch(this.handleError)
   }
 
-  update<T>(model: IBaseModel): Observable<IBaseModel> {
+  public update<T>(model: any): Observable<any> {
     return this.http
-      .put(`${API_URL}/clients/${model.id}`, model, this.headerOptions)
+      .put(`${API_URL}/${this.resource}/${model.id}`, model, this.headerOptions)
       .map(this.extractData)
       .catch(this.handleError)
   }
 
-  delete<T>(model: IBaseModel): Observable<IBaseModel> {
+  public delete<T>(model: any): Observable<any> {
     return this.http
-      .delete(`${API_URL}/clients/${model.id}`, this.headerOptions)
+      .delete(`${API_URL}/${this.resource}/${model.id}`, this.headerOptions)
       .map(this.extractData)
       .catch(this.handleError)
   }
 
-  getAll<T>(): Observable<T[]> {
+  public getAll<T>(): Observable<any[]> {
     return this.http
-      .get(`${API_URL}/clients`, this.headerOptions)
+      .get(`${API_URL}/${this.resource}`, this.headerOptions)
       .map(this.extractData)
       .catch(this.handleError)
   }
 
-  private extractData(res: Response) {
+  public extractData(res: Response) {
     let body = res.json()
     return body
   }
 
-  private handleError (error: Response | any) {
+  public handleError (error: Response | any) {
     let errMsg: string
     if (error instanceof Response) {
       const body = error.json() || ''

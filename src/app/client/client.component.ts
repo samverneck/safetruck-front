@@ -23,7 +23,7 @@ declare var swal: any
 
 export class ClientPage {
 
-  client: IClient[]
+  client: Array<any>
   message = new Messages()
   formUtils = new FormUtils
   states: Array<any> = STATES
@@ -34,7 +34,7 @@ export class ClientPage {
     public validation: ValidationService,
     public cepService: CepService
   ) {
-    this.clientService.getClients().subscribe({
+    this.clientService.getAll().subscribe({
       next: (resp) => this.client = resp,
       error: (err) => console.error(err)
     })
