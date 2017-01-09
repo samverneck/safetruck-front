@@ -276,17 +276,17 @@ module.exports = function(options) {
         'window.jQuery': 'jquery',
         Tether: 'tether',
         'window.Tether': 'tether',
-        Hammer: 'hammerjs/hammer',
-        Shuffle: 'shufflejs',
-        d3: 'd3',
-        Rickshaw: 'rickshaw',
-        nv: 'nvd3',
         moment: 'moment',
-        fullCalendar: 'fullcalendar',
-        Raphael: 'webpack-raphael',
-        'window.Raphael': 'webpack-raphael',
-        Skycons: 'skycons/skycons',
-        Dropzone: 'dropzone'
+        Skycons: 'skycons/skycons'
+        // Hammer: 'hammerjs/hammer',
+        // Shuffle: 'shufflejs',
+        // d3: 'd3',
+        // Rickshaw: 'rickshaw',
+        // nv: 'nvd3',
+        // fullCalendar: 'fullcalendar',
+        // Raphael: 'webpack-raphael',
+        // 'window.Raphael': 'webpack-raphael',
+        // Dropzone: 'dropzone'
       }),
 
       /*
