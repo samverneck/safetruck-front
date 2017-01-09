@@ -1,6 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core'
 import { Router } from '@angular/router'
 
+declare var $: any
+
 @Component({
   selector: 'forgot-password',
   styleUrls: [ './forgot-password.styles.scss' ],

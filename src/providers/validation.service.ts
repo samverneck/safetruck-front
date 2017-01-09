@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import 'rxjs/add/operator/map'
 
 import { Messages } from './../utils/Messages'
+declare var $: any
 
 @Injectable()
 export class ValidationService {

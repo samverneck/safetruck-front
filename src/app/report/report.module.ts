@@ -13,6 +13,8 @@ import { RouteComponent } from './route/route.component'
 // libs
 import 'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'
 import 'bootstrap-datepicker/dist/locales/bootstrap-datepicker.pt-BR.min.js'
+import 'bootstrap-timepicker/js/bootstrap-timepicker.min.js'
+import 'bootstrap-timepicker/css/bootstrap-timepicker.min.css'
 
 export const routes = [
   {path: '', component: ReportPage}

@@ -9,7 +9,7 @@ import { ReportService } from './../../providers/report.service'
 import { IReportData } from './../../interfaces/IReport'
 import { Messages } from './../../utils/Messages'
 
-declare var jQuery: any
+declare var $: any
 
 @Component({
   selector: 'report',
@@ -44,7 +44,7 @@ export class ReportPage implements OnInit {
   }
 
   ngOnInit(): void {
-    jQuery('.date').datepicker({
+    $('.date').datepicker({
       autoclose: true,
       todayBtn: 'linked',
       todayHighlight: true,
@@ -52,6 +52,8 @@ export class ReportPage implements OnInit {
       format: 'dd/mm/yyyy',
       language: 'pt-BR'
     })
+    $('#time-start').timepicker()
+    $('#time-finish').timepicker()
   }
 
   /**

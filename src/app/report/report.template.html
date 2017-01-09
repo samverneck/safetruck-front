@@ -8,32 +8,51 @@
       <form class="form-horizontal form-label-left" id="reportForm">
         <div class="form-group row">
           <!--Placa-->
-          <div class="col-md-2 col-xs-12">
+          <label class="form-control-label col-md-3 col-xs-12">Placa</label>
+          <div class="col-md-6 col-xs-12">
             <select class="form-control" name="plaque" id="plaque">
-              <option value="" hidden>Placa</option>
+              <option value="" hidden>Selecione...</option>
               <option *ngFor="let plaque of plaques" [value]="plaque">{{plaque}}</option>
             </select>
           </div>
-          <!--Início-->
+        </div>
+        <!--Início-->
+        <div class="form-group row">
+          <label class="form-control-label col-md-3 col-xs-12">Data inicial</label>
           <div class="input-group col-md-3 col-xs-12 date" data-provide="datepicker">
-            <input type="text" class="form-control" name="start" id="start" placeholder="Data inicial">
+            <input type="text" class="form-control" name="start" id="start" placeholder="___/___/____">
             <div class="input-group-addon">
               <span class="glyphicon glyphicon-th"></span>
             </div>
           </div>
+          <div class="input-group col-md-3 col-xs-12">
+            <div class="input-group bootstrap-timepicker timepicker">
+              <input type="text" class="form-control input-small" id="time-start">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+            </div>
+          </div>
+        </div>
           <!--Término-->
+        <div class="form-group row">
+          <label class="form-control-label col-md-3 col-xs-12">Data final</label>
           <div class="input-group col-md-3 col-xs-12 date">
-            <input type="text" class="form-control" name="finish" id="finish" placeholder="Data final">
+            <input type="text" class="form-control" name="finish" id="finish" placeholder="___/___/____">
             <div class="input-group-addon">
               <span class="glyphicon glyphicon-th"></span>
             </div>
           </div>
-          <div class="col-md-4 col-xs-12">
-            <button type="submit" class="btn btn-primary btn-rounded pull-xs-right" (click)="getReport()">
+          <div class="input-group col-md-3 col-xs-12">
+            <div class="input-group bootstrap-timepicker timepicker">
+              <input type="text" class="form-control input-small" id="time-finish">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+            </div>
+          </div>
+        </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-rounded" (click)="getReport()">
               Gerar relatório
             </button>
           </div>
-        </div>
       </form>
     </section>
   </div>
