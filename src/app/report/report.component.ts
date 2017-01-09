@@ -63,7 +63,7 @@ export class ReportPage implements OnInit {
     let plaque = $('#plaque').val()
     let start = $('#start').val()
     let finish = $('#finish').val()
-    this.times = {start: start, finish: finish}
+    this.times = {start: start, finish: finish || moment().format('DD/MM/YYYY')}
     // Validação
     if (!this.validate(plaque, start)) {
       return
