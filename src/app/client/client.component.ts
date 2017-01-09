@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { Component, ViewEncapsulation } from '@angular/core'
 
 import { ValidationService } from './../../providers/validation.service'
@@ -22,8 +23,8 @@ declare var swal: any
 })
 
 export class ClientPage {
-
-  client: Array<any>
+  clients: Array<any>
+  showTable: boolean = true
   message = new Messages()
   formUtils = new FormUtils
   states: Array<any> = STATES
@@ -34,9 +35,27 @@ export class ClientPage {
     public validation: ValidationService,
     public cepService: CepService
   ) {
+      this.clientService.getAll().subscribe({
+        next: (resp) => this.clients = resp,
+        error: (err) => console.error(err)
+      })
+  }
+
+  /**
+   * Obtém a lista de clientes
+   * @memberOf ClientPage
+   */
+  updateClientsTable(): void {
+    this.showTable = false
     this.clientService.getAll().subscribe({
-      next: (resp) => this.client = resp,
-      error: (err) => console.error(err)
+      next: (resp) => {
+        this.clients = resp
+        this.showTable = true
+      },
+      error: (err) => {
+        console.error(err)
+        this.showTable = true
+      }
     })
   }
 
@@ -46,14 +65,16 @@ export class ClientPage {
    * @memberOf ClientPage
    */
   saveClient() {
+    // Validando...
     if (!this.validation.validateForm('#clientForm')) {
       return false
     }
-
+    // Obtendo dados do formulário
     let client: IClient = this.getFormData()
-
+    // Fazendo POST/PUT para a apai
     this.clientService.save(client).subscribe({
       next: (response) => {
+        this.updateClientsTable()
         this.message.showAlert(
           client.id ? 'Atualizado' : 'Cadastrado',
           client.id
@@ -64,6 +85,7 @@ export class ClientPage {
         console.log('Resposta: ', response)
       },
       error: (err) => {
+        this.updateClientsTable()
         this.message.showAlert(
           'Erro',
           client.id
@@ -95,6 +117,7 @@ export class ClientPage {
     }).then(() => {
       this.clientService.delete(client).subscribe({
         next: (resp) => {
+          this.updateClientsTable()
           console.log(resp)
           swal(
             'Deletado!',
