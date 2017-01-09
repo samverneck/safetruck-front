@@ -13,7 +13,7 @@
       <div class="col-xs-6">
         <div class="row">
           <div class="col-xs-4"><strong>Protocolo</strong></div>
-          <div class="col-xs-8">0019</div>
+          <div class="col-xs-8">{{protocol}}</div>
         </div>
         <div class="row">
           <div class="col-xs-4"><strong>Placa</strong></div>
@@ -23,11 +23,11 @@
       <div class="col-xs-6">
         <div class="row">
           <div class="col-xs-4"><strong>Início</strong></div>
-          <div class="col-xs-8">21/08/16-10:53:29</div>
+          <div class="col-xs-8">{{reportTimes.start}}</div>
         </div>
         <div class="row">
           <div class="col-xs-4"><strong>Término</strong></div>
-          <div class="col-xs-8">21/08/16-18:04:47</div>
+          <div class="col-xs-8">{{reportTimes.finish}}</div>
         </div>
       </div>
     </div>
@@ -78,14 +78,17 @@
   <br>
 
   <!--////////// PASSAGEM POR PONTOS PERIGOSOS \\\\\\\\\\-->
+  <div class="header col-xs-12">
+    <header>EXCESSOS DE VELOCIDADE</header>
+  </div>
   <div *ngFor="let os of data.overSpeedings">
     <div class="col-xs-12 report">
-      <div class="row" *ngFor="let d of os.data; let i = index">
-        <div class="col-xs-12">
+      <div class="row block" *ngFor="let d of os.data; let i = index">
+        <!--<div class="header col-xs-12">
           <header>VELOCIDADE MÁXIMA: {{os.limit}}</header>
-        </div>
+        </div>-->
         <div class="col-xs-1">
-          <span>{{i}}</span>
+          <span>{{i+1}}</span>
         </div>
         <div class="col-xs-8">
           <div class="row">
@@ -109,7 +112,7 @@
             <div class="col-xs-8"><span>{{d.distance}}</span></div>
           </div>
         </div>
-        <div class="col-xs-3">
+        <div class="img-map col-xs-3">
           <img class="img-fluid" src="{{getOverSpeedingImg(d.position.start, d.position.finish)}}">
         </div>
       </div>
@@ -117,11 +120,14 @@
   </div>
 
   <!--////////// PASSAGEM POR PONTOS PERIGOSOS \\\\\\\\\\-->
+  <div class="header col-xs-12">
+    <header>PASSAGEM POR ZONA PERIGOSA</header>
+  </div>
   <div *ngFor="let dz of data.dangerZones; let i = index">
     <div class="col-xs-12 report">
-      <div class="row">
+      <div class="row block">
         <div class="col-xs-1">
-          <span>{{i}}</span>
+          <span>{{i+1}}</span>
         </div>
         <div class="col-xs-8">
           <div class="row">
@@ -137,7 +143,7 @@
             <div class="col-xs-8"><span>{{dz.address}}</span></div>
           </div>
         </div>
-        <div class="col-xs-3">
+        <div class="img-map col-xs-3">
           <img class="img-fluid" src="{{getDangerZoneImg(dz.criticalPoint.location)}}">
         </div>
       </div>

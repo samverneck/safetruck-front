@@ -34,6 +34,7 @@ export class ReportPage implements OnInit {
   report: IReportData
   plaques: string[]
   messages = new Messages()
+  times: any
 
   constructor(public reportService: ReportService) {
     // Obtém as placas cadastradas
@@ -62,20 +63,18 @@ export class ReportPage implements OnInit {
     let plaque = $('#plaque').val()
     let start = $('#start').val()
     let finish = $('#finish').val()
+    this.times = {start: start, finish: finish}
     // Validação
     if (!this.validate(plaque, start)) {
-      // return
+      return
     }
     // Se não for informada uma data fim, o dia atual é informado
     start = moment(start, 'DD/MM/YYYY').toISOString()
     finish
-      ? moment(finish, 'DD/MM/YYYY').toISOString()
-      : moment().toISOString()
+      ? finish = moment(finish, 'DD/MM/YYYY').toISOString()
+      : finish = moment().toISOString()
     // Chamada do serviço
-    // this.reportService.getReport(plaque, start, finish).subscribe(report => {
-    this.reportService.getReport('OCZ8775', moment('01/01/2016', 'DD/MM/YYYY').toISOString(), moment().toISOString())
-      .subscribe(report => {
-        console.log(report)
+    this.reportService.getReport(plaque, start, finish).subscribe(report => {
         this.report = report
       })
   }

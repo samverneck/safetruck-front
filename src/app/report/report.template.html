@@ -10,7 +10,7 @@
           <!--Placa-->
           <div class="col-md-2 col-xs-12">
             <select class="form-control" name="plaque" id="plaque">
-              <option value="" *ngIf="plaques" hidden>{{plaques.length ? 'Placa' : 'Sem placas'}}</option>
+              <option value="" hidden>Placa</option>
               <option *ngFor="let plaque of plaques" [value]="plaque">{{plaque}}</option>
             </select>
           </div>
@@ -74,7 +74,7 @@
         </div>
       </header>
       <div class="widget-body">
-        <print-page [data]="report"></print-page>
+        <print-page [data]="report" [reportTimes]="times"></print-page>
       </div>
     </section>
   </div>

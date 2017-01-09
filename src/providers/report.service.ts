@@ -23,7 +23,6 @@ export class ReportService extends BaseService implements IBaseService {
   }
 
   getPlaques(): Observable<any> {
-    console.log(API_URL)
     return this.http
       .get(`${API_URL}/equipments`, this.headerOptions)
       .map(data => {

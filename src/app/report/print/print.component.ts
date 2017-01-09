@@ -10,11 +10,13 @@ import { IReportData } from './../../../interfaces/IReport'
 })
 export class PrintComponent implements OnInit {
   @Input() data: IReportData
+  @Input() reportTimes: string
+
+  protocol = Date.now()
 
   constructor() { }
-  ngOnInit() {
-    //
-  }
+
+  ngOnInit() { }
 
   formatDate(date) {
     return moment(date).format('DD/MM/YYYY - HH:mm:ss')

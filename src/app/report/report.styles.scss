@@ -8,10 +8,27 @@
   @include box-shadow(inset 0 1px 1px rgba($brand-danger,.075));
 }
 
-.report .row {
-  border: 1px solid #dedede;
+
+.map-container{
+  height: 500px;
 }
 
-.widget-body {
-  height: 500px;
+.block {
+  margin-bottom: 20px;
+  border: 1px solid #BDBDBD;
+}
+
+.img-map {
+  padding: 0;
+}
+
+.header {
+  background-color: #BDBDBD;
+  height: 30px;
+  margin-bottom: 10px;
+  header {
+    color: #FFF;
+    font-weight: bold;
+    text-align: center;
+  }
 }
