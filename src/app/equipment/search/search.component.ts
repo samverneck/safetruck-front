@@ -1,3 +1,4 @@
+import { Messages } from './../../../utils/Messages'
 import { EquipmentService } from './../../../providers/equipment.service'
 import {
   Component,
@@ -7,6 +8,8 @@ import {
   transition,
   animate
 } from '@angular/core'
+
+import * as _ from 'lodash'
 
 @Component({
   selector: 'equipment-search',
@@ -30,18 +33,30 @@ import {
 export class EquipmentSearchPage {
   searchText: string
   clients: any
-  equipments: any
+  equipments: any[]
+  msg = new Messages()
   constructor(public equip: EquipmentService) {}
 
   search() {
+    if (!this.searchText) {
+      this.msg.showNotification('Você deve informar ao menos um termo de pesquisa.', 'error')
+      return
+    }
+
     this.equip.getAll().subscribe(equips => {
-      console.log(equips)
-      this.equipments = equips
 
-      let code = equips.filter((eq) => {
-        return (eq.code.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1)
-      })
+      if (this.searchText && this.searchText.trim() !== '') {
+        let code = equips.filter((eq) => {
+          return (eq.code.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1)
+        })
 
+        let plaque = equips.filter((eq) => {
+          console.log(eq)
+          return (eq.install.plaque.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1)
+        })
+
+        this.equipments = code.concat(plaque)
+      }
     })
   }
 
