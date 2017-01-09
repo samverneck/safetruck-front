@@ -64,7 +64,7 @@ export class ReportPage implements OnInit {
     let finish = $('#finish').val()
     // Validação
     if (!this.validate(plaque, start)) {
-      return
+      // return
     }
     // Se não for informada uma data fim, o dia atual é informado
     start = moment(start, 'DD/MM/YYYY').toISOString()
@@ -72,9 +72,12 @@ export class ReportPage implements OnInit {
       ? moment(finish, 'DD/MM/YYYY').toISOString()
       : moment().toISOString()
     // Chamada do serviço
-    this.reportService.getReport(plaque, start, finish).subscribe(report => {
-      this.report = report
-    })
+    // this.reportService.getReport(plaque, start, finish).subscribe(report => {
+    this.reportService.getReport('OCZ8775', moment('01/01/2016', 'DD/MM/YYYY').toISOString(), moment().toISOString())
+      .subscribe(report => {
+        console.log(report)
+        this.report = report
+      })
   }
 
   /**

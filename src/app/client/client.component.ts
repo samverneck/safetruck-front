@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs/Observable';
 import { Component, ViewEncapsulation } from '@angular/core'
 
 import { ValidationService } from './../../providers/validation.service'

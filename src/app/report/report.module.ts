@@ -8,6 +8,7 @@ import { WidgetModule } from '../layout/widget/widget.module'
 import { UtilsModule } from '../layout/utils/utils.module'
 import { ReportPage } from './report.component'
 import { PrintComponent } from './print/print.component'
+import { RouteComponent } from './route/route.component'
 
 // libs
 import 'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'
@@ -20,6 +21,7 @@ export const routes = [
 @NgModule({
   declarations: [
     ReportPage,
+    RouteComponent,
     PrintComponent
   ],
   imports: [

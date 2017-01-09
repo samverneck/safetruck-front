@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core'
+import * as moment from 'moment'
 
 import { IReportData } from './../../../interfaces/IReport'
 
@@ -13,6 +14,10 @@ export class PrintComponent implements OnInit {
   constructor() { }
   ngOnInit() {
     //
+  }
+
+  formatDate(date) {
+    return moment(date).format('DD/MM/YYYY - HH:mm:ss')
   }
 
   getOverSpeedingImg(start, finish) {
