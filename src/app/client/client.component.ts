@@ -12,6 +12,7 @@ import { IContact } from './../../interfaces/IContact'
 import { IAddress } from './../../interfaces/IAddress'
 
 declare var swal: any
+declare var $: any
 
 @Component({
   selector: 'client',

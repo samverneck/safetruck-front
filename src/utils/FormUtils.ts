@@ -1,3 +1,5 @@
+declare var $: any
+
 export class FormUtils {
   constructor(){}
 
