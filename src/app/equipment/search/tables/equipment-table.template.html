@@ -23,6 +23,9 @@
             <mfDefaultSorter by="code">Código do equipamento</mfDefaultSorter>
           </th>
           <th>
+            <mfDefaultSorter by="install.client.companyName">Cliente</mfDefaultSorter>
+          </th>
+          <th>
             <mfDefaultSorter by="install.plaque">Placa</mfDefaultSorter>
           </th>
           <th>
@@ -33,6 +36,7 @@
         <tbody>
         <tr *ngFor="let equip of mf.data">
           <td>{{equip.code}}</td>
+          <td>{{equip.install.client.companyName}}</td>
           <td>{{equip.install.plaque}}</td>
           <td>{{equip.type}}</td>
         </tr>

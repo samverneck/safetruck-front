@@ -51,7 +51,6 @@ export class EquipmentSearchPage {
         })
 
         let plaque = equips.filter((eq) => {
-          console.log(eq)
           return (eq.install.plaque.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1)
         })
 
