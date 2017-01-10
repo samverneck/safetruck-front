@@ -9,7 +9,8 @@ import { ReportService } from './../../providers/report.service'
 import { IReportData } from './../../interfaces/IReport'
 import { Messages } from './../../utils/Messages'
 
-declare var jQuery: any
+declare var $: any
+const DATE_FORMAT = 'DD/MM/YYYY h:mm A'
 
 @Component({
   selector: 'report',
@@ -44,7 +45,7 @@ export class ReportPage implements OnInit {
   }
 
   ngOnInit(): void {
-    jQuery('.date').datepicker({
+    $('.date').datepicker({
       autoclose: true,
       todayBtn: 'linked',
       todayHighlight: true,
@@ -52,6 +53,10 @@ export class ReportPage implements OnInit {
       format: 'dd/mm/yyyy',
       language: 'pt-BR'
     })
+    $('#time-start').timepicker()
+    $('#time-finish').timepicker()
+    $('#start, #finish').val(moment().format('DD/MM/YYYY'))
+    $('#time-start').val(moment().subtract(1, 'hours').format('h:mm A'))
   }
 
   /**
@@ -60,23 +65,55 @@ export class ReportPage implements OnInit {
    */
   getReport(): void {
     // Obetém os valores do usuário
-    let plaque = $('#plaque').val()
-    let start = $('#start').val()
-    let finish = $('#finish').val()
-    this.times = {start: start, finish: finish || moment().format('DD/MM/YYYY')}
+    this.times = this.getInputs()
     // Validação
-    if (!this.validate(plaque, start)) {
+    if (!this.validate(this.times.plaque, this.times.start)) {
       return
     }
-    // Se não for informada uma data fim, o dia atual é informado
-    start = moment(start, 'DD/MM/YYYY').toISOString()
-    finish
-      ? finish = moment(finish, 'DD/MM/YYYY').toISOString()
-      : finish = moment().toISOString()
-    // Chamada do serviço
-    this.reportService.getReport(plaque, start, finish).subscribe(report => {
+    let dates = this.convertDateToISO(this.times.start, this.times.finish)
+    this.reportService.getReport(this.times.plaque, dates.start, dates.finish)
+      .subscribe(report => {
         this.report = report
       })
+  }
+
+  /**
+   * Obetem os valores dos imputs e padroniza
+   * qualquer discrepância
+   * @returns {{plaque: string, start: string, finish: string}}
+   * @memberOf ReportPage
+   */
+  getInputs(): {plaque: string, start: string, finish: string} {
+    let plaque = $('#plaque').val()
+    let start = $('#start').val() + ' ' + $('#time-start').val() || moment().format('h:m A')
+    let finish = $('#finish').val() + ' ' + $('#time-finish').val()
+
+    if (!start || !moment(start, DATE_FORMAT).isValid()) {
+      start = moment().subtract(1, 'hours').format(DATE_FORMAT)
+    }
+
+    if (!finish || !moment(finish, DATE_FORMAT).isValid()) {
+      finish = moment().format(DATE_FORMAT)
+    }
+
+    return {plaque: plaque, start: start, finish: finish}
+  }
+
+  /**
+   * Coverte a data para o formato ISO
+   * @param {string} start
+   * @param {string} finish
+   * @returns
+   * @memberOf ReportPage
+   */
+  convertDateToISO(start: string, finish: string) {
+    // Se não for informada uma data fim, o dia atual é informado
+    start = moment(start, DATE_FORMAT).toISOString()
+    finish
+      ? finish = moment(finish, DATE_FORMAT).toISOString()
+      : finish = moment().toISOString()
+
+    return {start: start, finish: finish}
   }
 
   /**
@@ -97,13 +134,15 @@ export class ReportPage implements OnInit {
     }
     // Valida se a data inicial foi informada
     if (!start) {
-      $(`[name="start"]`).addClass('error')
+      $('#start').addClass('error')
+      $('#time-start').addClass('error')
       this.messages.showNotification('Você deve selecionar uma data de início.', 'error')
       return false
     }
     // Verifica se a data informada é válida
-    if (!moment(start, 'DD/MM/YYYY').isValid() || moment(start, 'DD/MM/YYYY').isAfter(moment())) {
-      $(`[name="start"]`).addClass('error')
+    if (!moment(start, DATE_FORMAT).isValid() || moment(start, DATE_FORMAT).isAfter(moment())) {
+      $('#start').addClass('error')
+      $('#time-start').addClass('error')
       this.messages.showNotification('A data de ínicio não é válida', 'error')
       return false
     }
@@ -117,10 +156,7 @@ export class ReportPage implements OnInit {
    */
   removeErrorClass(): void {
     $(`[name="plaque"]`).removeClass('error')
-    $(`[name="start"]`).removeClass('error')
-  }
-
-  print() {
-    window.print()
+    $('#start').removeClass('error')
+    $('time-start').removeClass('error')
   }
 }

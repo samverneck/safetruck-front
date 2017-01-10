@@ -63,7 +63,7 @@
         <span>Km Acumulado</span>
       </div>
       <div class="col-xs-6">
-        <span>{{data.kmAcumulated}}</span>
+        <span>{{data.kmAcumulated.toFixed(2)}}</span>
       </div>
     </div>
     <div class="row">
@@ -71,7 +71,7 @@
         <span>Relação km em Excesso de Velocidade/Km Acumulado</span>
       </div>
       <div class="col-xs-6">
-        <span>{{data.overSpeedingsXKmAcumulated}}</span>
+        <span>{{data.overSpeedingsXKmAcumulated.toFixed(2)}}</span>
       </div>
     </div>
   </div>
@@ -113,7 +113,9 @@
           </div>
         </div>
         <div class="img-map col-xs-3">
-          <img class="img-fluid" src="{{getOverSpeedingImg(d.position.start, d.position.finish)}}">
+          <a href="{{getOverSpeedingLink(d.position.start, d.position.finish)}}" target="_blank">
+            <img class="img-fluid pull-right" src="{{getOverSpeedingImg(d.position.start, d.position.finish)}}">
+          </a>
         </div>
       </div>
     </div>
@@ -144,7 +146,9 @@
           </div>
         </div>
         <div class="img-map col-xs-3">
-          <img class="img-fluid" src="{{getDangerZoneImg(dz.criticalPoint.location)}}">
+          <a href="{{getDangerZoneLink(dz.criticalPoint.location)}}" target="_blank">
+            <img class="img-fluid pull-right" src="{{getDangerZoneImg(dz.criticalPoint.location)}}">
+          </a>
         </div>
       </div>
     </div>

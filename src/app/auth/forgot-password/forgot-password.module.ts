@@ -4,11 +4,6 @@ import { FormsModule } from '@angular/forms'
 
 import { RouterModule } from '@angular/router'
 
-import 'jquery.animate-number/jquery.animateNumber.js'
-import 'jQuery-Mapael/js/jquery.mapael.js'
-import 'jQuery-Mapael/js/maps/usa_states'
-import 'bootstrap_calendar/bootstrap_calendar/js/bootstrap_calendar.js'
-
 import { ForgotPassword } from './forgot-password.component.ts'
 import { WidgetModule } from '../../layout/widget/widget.module'
 

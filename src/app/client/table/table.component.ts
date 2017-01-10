@@ -8,6 +8,8 @@ import {
 import { ClientService } from './../../../providers/client.service'
 import { IClient } from './../../../interfaces/IClient'
 
+declare var $: any
+
 @Component({
   selector: 'client-table',
   templateUrl: './table.template.html',

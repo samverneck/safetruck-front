@@ -50,23 +50,17 @@ export class RouteComponent implements OnInit {
    * @returns void
    */
   displayRoute(directionsService, directionsDisplay) {
-    this.locations = [
-      {lat: -22.7563763, lon: -47.1085346},
-      {lat: -22.7605781, lon: -47.1077043},
-      {lat: -22.7626678, lon: -47.1097066}
-    ]
-    // this.locations = _.take(this.locations, 20)
     console.log('Locations: ', this.locations)
     let waypts = this.locations.map((latLong) => {
-      return { location: new google.maps.LatLng(latLong.lat, latLong.lon), stopover: true }
+      return { location: new google.maps.LatLng(latLong.lat, latLong.lng), stopover: true }
     })
 
     let origin = _.head(this.locations.map((latLong) => {
-      return { lat: latLong.lat, lng: latLong.lon }
+      return { lat: latLong.lat, lng: latLong.lng }
     }))
 
     let dest = _.last(this.locations.map((latLong) => {
-      return { lat: latLong.lat, lng: latLong.lon }
+      return { lat: latLong.lat, lng: latLong.lng }
     }))
 
     directionsService.route({

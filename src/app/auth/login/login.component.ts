@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core'
 import { Router } from '@angular/router'
 
 import { AuthService } from './../../../providers/auth.service'
+declare var $: any
 
 @Component({
   selector: 'login',

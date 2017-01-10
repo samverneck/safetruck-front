@@ -7,10 +7,9 @@ import { ValidationService } from './../../../providers/validation.service'
 import { FormUtils } from './../../../utils/FormUtils'
 import { Messages } from './../../../utils/Messages'
 // Interfaces
-import { IClient } from './../../../interfaces/IClient'
 import { IEquipment } from './../../../interfaces/IEquipment'
 
-declare var jQuery: any
+declare var $: any
 
 @Component({
   selector: 'equipment-register',
@@ -37,7 +36,7 @@ export class EquipmentRegisterPage implements OnInit {
   }
 
   ngOnInit(): void {
-    jQuery('.date').datepicker({
+    $('.date').datepicker({
       autoclose: true,
       todayBtn: 'linked',
       todayHighlight: true,
