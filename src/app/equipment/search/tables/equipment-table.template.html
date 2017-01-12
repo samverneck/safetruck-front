@@ -9,34 +9,38 @@
   <div class="widget-body">
     <div class="mt">
       <div class="width-200 pull-xs-right">
-        <div class="input-group input-group-sm input-group-transparent input-group-rounded">
+        <!--<div class="input-group input-group-sm input-group-transparent input-group-rounded">
           <span class="input-group-addon">
             <i class="fa fa-search"></i>
           </span>
           <input class="form-control form-control-sm" id="table-search-input" [(ngModel)]="searchText" type="text" placeholder="Pesquisar">
-        </div>
+        </div>-->
       </div>
       <table class="table table-striped table-hover" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="10">
         <thead>
         <tr>
           <th>
-            <mfDefaultSorter by="name">Nome Fantasia</mfDefaultSorter>
+            <mfDefaultSorter by="code">Código do equipamento</mfDefaultSorter>
           </th>
           <th>
-            <mfDefaultSorter by="email">E-mail</mfDefaultSorter>
+            <mfDefaultSorter by="install.client.companyName">Cliente</mfDefaultSorter>
           </th>
           <th>
-            <mfDefaultSorter by="phone">Telefone</mfDefaultSorter>
+            <mfDefaultSorter by="install.plaque">Placa</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="type">Tipo</mfDefaultSorter>
           </th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let equip of mf.data | SearchPipe : searchText">
-          <td>{{equip.name}}</td>
-          <td>{{equip.email}}</td>
-          <td>{{equip.phone}}</td>
+        <tr *ngFor="let equip of mf.data">
+          <td>{{equip.code}}</td>
+          <td>{{equip.install.client.companyName}}</td>
+          <td>{{equip.install.plaque}}</td>
+          <td>{{equip.type}}</td>
         </tr>
-        <tr *ngIf="(mf.data | SearchPipe : searchText).length === 0">
+        <tr *ngIf="mf.data.length === 0">
           <td colspan="100">
             Sem resultados
           </td>

@@ -1,17 +1,14 @@
 import {
-  Component,
-  ViewEncapsulation,
-  trigger,
-  style,
-  transition,
-  animate,
-  EventEmitter,
-  Output,
-  Input
+  Component, ViewEncapsulation,
+  trigger, style, transition,
+  animate, EventEmitter,
+  Output, Input
 } from '@angular/core'
 
 import { ClientService } from './../../../providers/client.service'
 import { IClient } from './../../../interfaces/IClient'
+
+declare var $: any
 
 @Component({
   selector: 'client-table',

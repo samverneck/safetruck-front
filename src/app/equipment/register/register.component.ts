@@ -7,10 +7,9 @@ import { ValidationService } from './../../../providers/validation.service'
 import { FormUtils } from './../../../utils/FormUtils'
 import { Messages } from './../../../utils/Messages'
 // Interfaces
-import { IClient } from './../../../interfaces/IClient'
 import { IEquipment } from './../../../interfaces/IEquipment'
 
-declare var jQuery: any
+declare var $: any
 
 @Component({
   selector: 'equipment-register',
@@ -31,13 +30,13 @@ export class EquipmentRegisterPage implements OnInit {
     public clientService: ClientService,
     public validation: ValidationService
   ) {
-    this.clientService.getClients().subscribe(resp => {
+    this.clientService.getAll().subscribe(resp => {
       this.clients = resp
     })
   }
 
   ngOnInit(): void {
-    jQuery('.date').datepicker({
+    $('.date').datepicker({
       autoclose: true,
       todayBtn: 'linked',
       todayHighlight: true,
@@ -54,12 +53,13 @@ export class EquipmentRegisterPage implements OnInit {
    * @memberOf EquipmentRegisterPage
    */
   saveEquipament() {
+    // Validando...
     if (!this.validation.validateForm('#equipmentForm')) {
       return false
     }
-
+    // Obtendo os dados do formuulário
     let equipment: IEquipment = this.getFormData()
-
+    // Fazendo o POST/PUT para api
     this.equipService.save(equipment).subscribe({
       next: (response) => {
         this.messages.showAlert(
@@ -94,7 +94,6 @@ export class EquipmentRegisterPage implements OnInit {
    */
   getFormData(): IEquipment {
     let data = this.formUtils.serialize('#equipmentForm')
-
     let install: IEquipmentInstall = {
       vehicleType: data['vehicle'],
       plaque: data['plaque'],
@@ -103,7 +102,6 @@ export class EquipmentRegisterPage implements OnInit {
       installation: data['installation'],
       admeasurement: data['admeasurement']
     }
-
     let equipment: IEquipment = {
       code: data['code'],
       type: data['equipment'],

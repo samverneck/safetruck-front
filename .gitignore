@@ -1,4 +1,5 @@
 src/**/*.js
+!src/print/**/*.js
 src/**/*.map
 node_modules
 dist

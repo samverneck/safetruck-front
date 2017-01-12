@@ -12,16 +12,19 @@ const IgnorePlugin = require('webpack/lib/IgnorePlugin');
 const DedupePlugin = require('webpack/lib/optimize/DedupePlugin');
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 /**
  * Webpack Constants
  */
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 const HOST = process.env.HOST || 'localhost';
+const API_URL = process.env.API_URL || 'https://app.safetruck.com.br/api/v1';
 const PORT = process.env.PORT || 8080;
 const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
   host: HOST,
   port: PORT,
+  API_URL: API_URL,
   ENV: ENV,
   HMR: false
 });
@@ -121,9 +124,11 @@ module.exports = function(env) {
       // NOTE: when adding more properties make sure you include them in custom-typings.d.ts
       new DefinePlugin({
         'ENV': JSON.stringify(METADATA.ENV),
+        'API_URL': JSON.stringify(METADATA.API_URL),
         'HMR': METADATA.HMR,
         'process.env': {
           'ENV': JSON.stringify(METADATA.ENV),
+          'API_URL': JSON.stringify(METADATA.API_URL),
           'NODE_ENV': JSON.stringify(METADATA.ENV),
           'HMR': METADATA.HMR,
         }
@@ -170,6 +175,10 @@ module.exports = function(env) {
         /angular2-hmr/,
         helpers.root('config/modules/angular2-hmr-prod.js')
       ),
+
+      new CopyWebpackPlugin([
+            { from: 'src/print', to: 'print' }
+        ])
 
       /**
        * Plugin: IgnorePlugin

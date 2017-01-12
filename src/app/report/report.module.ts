@@ -7,10 +7,13 @@ import { Ng2TableModule } from 'ng2-table'
 import { WidgetModule } from '../layout/widget/widget.module'
 import { UtilsModule } from '../layout/utils/utils.module'
 import { ReportPage } from './report.component'
+import { PrintComponent } from './print/print.component'
+import { RouteComponent } from './route/route.component'
 
 // libs
 import 'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'
 import 'bootstrap-datepicker/dist/locales/bootstrap-datepicker.pt-BR.min.js'
+import 'bootstrap-timepicker/js/bootstrap-timepicker.js'
 
 export const routes = [
   {path: '', component: ReportPage}
@@ -18,7 +21,9 @@ export const routes = [
 
 @NgModule({
   declarations: [
-    ReportPage
+    ReportPage,
+    RouteComponent,
+    PrintComponent
   ],
   imports: [
     CommonModule,

@@ -24,10 +24,7 @@ import 'widgster'
 import 'pace'
 
 if ('production' === ENV) {
-  // Production
-
-
+  // 
 } else {
-  // Development
-
+  console.log('Dev mode', API_URL)
 }
