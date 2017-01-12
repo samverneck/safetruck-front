@@ -11,6 +11,7 @@ import { Messages } from './../../utils/Messages'
 import { Http } from '@angular/http'
 
 declare var $: any
+
 const DATE_FORMAT = 'DD/MM/YYYY h:mm A'
 
 interface IDataReportPrint {
@@ -62,6 +63,7 @@ export class ReportPage implements OnInit {
   plaques: string[]
   messages = new Messages()
   times: any
+  mapUrl: any
 
   constructor(public reportService: ReportService, private http: Http) {
     // Obtém as placas cadastradas
@@ -99,6 +101,7 @@ export class ReportPage implements OnInit {
     let dates = this.convertDateToISO(this.times.start, this.times.finish)
     this.reportService.getReport(this.times.plaque, dates.start, dates.finish)
       .subscribe(report => {
+        console.log(report)
         this.report = report
       })
   }
@@ -249,7 +252,7 @@ export class ReportPage implements OnInit {
    * Função responsável por levar os dados necessários do relatório ao popup
    */
   private emitDataPopup(popup: Window): void {
-    const $popup = $(popup);
+    const $popup = $(popup)
     $popup.ready(() => {
       let app: IDataReportPrint = {
         resumo: {

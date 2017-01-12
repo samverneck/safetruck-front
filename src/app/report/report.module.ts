@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms'
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { Ng2TableModule } from 'ng2-table'
-import { TimepickerModule } from 'ng2-bootstrap';
 
 import { WidgetModule } from '../layout/widget/widget.module'
 import { UtilsModule } from '../layout/utils/utils.module'
@@ -32,7 +31,6 @@ export const routes = [
     WidgetModule,
     UtilsModule,
     Ng2TableModule,
-    TimepickerModule,
     RouterModule.forChild(routes),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
