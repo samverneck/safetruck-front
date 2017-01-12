@@ -1,10 +1,10 @@
 version: '2'
 services:
-  php:
+  server:
     container_name: "safetruck-front"
-    image: nginx:alpine
-    volumes:
-     - ./dist:/usr/share/nginx/html
+    build:
+      context: .
+    image: safetruck-container
     ports:
      - "8080:80"
      - "443:443"
