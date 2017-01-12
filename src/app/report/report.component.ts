@@ -8,10 +8,36 @@ import * as moment from 'moment'
 import { ReportService } from './../../providers/report.service'
 import { IReportData } from './../../interfaces/IReport'
 import { Messages } from './../../utils/Messages'
+import { Http } from '@angular/http'
 
 declare var $: any
 
 const DATE_FORMAT = 'DD/MM/YYYY h:mm A'
+
+interface IDataReportPrint {
+  resumo: {
+    nomeArquivo: string
+    data: string
+    protocolo: string
+    inicio: string
+    termino: string
+    placa: string
+    imprudencias: {
+      excessoVel: number
+      zonPerig: number
+      kmAc: number
+      relacaoKmAc: number
+    }
+  }
+  excessos?: { // todo deixar obrigatório
+    inicio: string
+    termino: string
+    velMax: string
+    endereco: string
+    percurso: string
+    map: any // todo coordenadas google maps ou api aplicada diretamente
+  }[]
+}
 
 @Component({
   selector: 'report',
@@ -22,11 +48,11 @@ const DATE_FORMAT = 'DD/MM/YYYY h:mm A'
   animations: [
     trigger('fadeInOut', [
       transition('void => *', [
-        style({opacity: 0}),
-        animate(200, style({opacity: 1}))
+        style({ opacity: 0 }),
+        animate(200, style({ opacity: 1 }))
       ]),
       transition('* => void', [
-        animate(200, style({opacity: 0}))
+        animate(200, style({ opacity: 0 }))
       ])
     ])
   ]
@@ -39,7 +65,7 @@ export class ReportPage implements OnInit {
   times: any
   mapUrl: any
 
-  constructor(public reportService: ReportService) {
+  constructor(public reportService: ReportService, private http: Http) {
     // Obtém as placas cadastradas
     this.reportService.getPlaques().subscribe(plaques => {
       this.plaques = _.sortedUniq(plaques) as string[]
@@ -86,7 +112,7 @@ export class ReportPage implements OnInit {
    * @returns {{plaque: string, start: string, finish: string}}
    * @memberOf ReportPage
    */
-  getInputs(): {plaque: string, start: string, finish: string} {
+  getInputs(): { plaque: string, start: string, finish: string } {
     let plaque = $('#plaque').val()
     let start = $('#start').val() + ' ' + $('#time-start').val() || moment().format('h:m A')
     let finish = $('#finish').val() + ' ' + $('#time-finish').val()
@@ -99,7 +125,7 @@ export class ReportPage implements OnInit {
       finish = moment().format(DATE_FORMAT)
     }
 
-    return {plaque: plaque, start: start, finish: finish}
+    return { plaque: plaque, start: start, finish: finish }
   }
 
   /**
@@ -116,7 +142,7 @@ export class ReportPage implements OnInit {
       ? finish = moment(finish, DATE_FORMAT).toISOString()
       : finish = moment().toISOString()
 
-    return {start: start, finish: finish}
+    return { start: start, finish: finish }
   }
 
   /**
@@ -161,5 +187,91 @@ export class ReportPage implements OnInit {
     $(`[name="plaque"]`).removeClass('error')
     $('#start').removeClass('error')
     $('time-start').removeClass('error')
+  }
+
+  print(): void {
+    this.http.get('/print/report/index.html')
+      .map(response => response.text())
+      .subscribe(html => {
+        // let printContents = document.getElementById('report-to-print').innerHTML
+        let popup: Window
+        if (window) {
+          if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1) {
+            popup = window.open('', '_blank', 'width=600,height=600,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no')
+            this.checkPopup(popup).then(() => {
+              popup.window.focus()
+              popup.document.write(html)
+              this.emitDataPopup(popup)
+              popup.window.history.pushState('relatorio', 'Relatório de conduta', '/app/report')
+              popup.onbeforeunload = function (event) {
+                popup.close()
+                return '.\n'
+              }
+              popup.onabort = function (event) {
+                popup.document.close()
+                popup.close()
+              }
+            })
+          } else {
+            popup = window.open('', '_blank', 'width=800,height=600')
+            this.checkPopup(popup).then(() => {
+              popup.document.open()
+              popup.document.write(html)
+              this.emitDataPopup(popup)
+              popup.window.history.pushState('relatorio', 'Relatório de conduta', '/app/report')
+              popup.document.close()
+            })
+          }
+        }
+      },
+      // Error
+      () => {
+        this.messages.showNotification('Ocorreu um erro inesperado.\nTente novamente mais tarde!', 'error')
+      })
+  }
+
+  /**
+   * Verifica o bloqueio de popup do navegador
+   */
+  private checkPopup(popup: Window): Promise<boolean> {
+    // todo LINK PARA TUTORIAL DE COMO DESBLOQUEAR POPUPS OU ADICIONAR EXCEÇÕES
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (!popup || popup.innerHeight <= 0) { // Popup bloqueado pelo navegador
+          this.messages.showAlert('Bloqueio de popup', `Popup bloqueado pelo navegador, por favor habilite popups neste site para imprimir o relatório!
+          <a href="https://www.google.com.br/webhp?sourceid=chrome-instant&rlz=1C5CHFA_enBR710BR710&ion=1&espv=2&ie=UTF-8#q=como%20desbloquear%20pop%20up" target="_blank">
+          saiba como!</a>`, 'error')
+          return reject(null)
+        }
+        return resolve(true)
+      }, 250)
+    })
+  }
+
+  /**
+   * Função responsável por levar os dados necessários do relatório ao popup
+   */
+  private emitDataPopup(popup: Window): void {
+    const $popup = $(popup);
+    $popup.ready(() => {
+      let app: IDataReportPrint = {
+        resumo: {
+          data: moment().subtract(1, 'hours').format(DATE_FORMAT).toString(),
+          imprudencias: {
+            excessoVel: this.report.overSpeedingsTotal || 0,
+            kmAc: this.report.KmAcumulated || 0,
+            relacaoKmAc: this.report.overSpeedingsXKmAcumulated || 0,
+            zonPerig: this.report.passOverDangerZones || 0
+          },
+          inicio: this.times.start.toString(),
+          termino: this.times.finish.toString(),
+          nomeArquivo: 'Arquivo sem nome',
+          placa: this.report.plaque,
+          protocolo: Date.now().toString()
+        }
+      };
+      (popup.window as any).app.resumo = app.resumo;
+      (popup.window as any).readyToPrint = true
+    })
   }
 }
