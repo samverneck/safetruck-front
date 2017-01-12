@@ -10,6 +10,7 @@ import { IReportData } from './../../interfaces/IReport'
 import { Messages } from './../../utils/Messages'
 
 declare var $: any
+
 const DATE_FORMAT = 'DD/MM/YYYY h:mm A'
 
 @Component({
@@ -36,6 +37,7 @@ export class ReportPage implements OnInit {
   plaques: string[]
   messages = new Messages()
   times: any
+  mapUrl: any
 
   constructor(public reportService: ReportService) {
     // Obtém as placas cadastradas
@@ -73,6 +75,7 @@ export class ReportPage implements OnInit {
     let dates = this.convertDateToISO(this.times.start, this.times.finish)
     this.reportService.getReport(this.times.plaque, dates.start, dates.finish)
       .subscribe(report => {
+        console.log(report)
         this.report = report
       })
   }

@@ -79,7 +79,7 @@
 
   <!--////////// PASSAGEM POR PONTOS PERIGOSOS \\\\\\\\\\-->
   <div class="header col-xs-12">
-    <header>EXCESSOS DE VELOCIDADE</header>
+    <header>{{data.overSpeedings.length ? '' : 'SEM'}} EXCESSOS DE VELOCIDADE</header>
   </div>
   <div *ngFor="let os of data.overSpeedings">
     <div class="col-xs-12 report">
@@ -123,7 +123,7 @@
 
   <!--////////// PASSAGEM POR PONTOS PERIGOSOS \\\\\\\\\\-->
   <div class="header col-xs-12">
-    <header>PASSAGEM POR ZONA PERIGOSA</header>
+    <header>{{data.dangerZones.length ? '' : 'SEM'}} PASSAGENS POR ZONA PERIGOSA</header>
   </div>
   <div *ngFor="let dz of data.dangerZones; let i = index">
     <div class="col-xs-12 report">
