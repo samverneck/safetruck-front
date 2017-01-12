@@ -52,10 +52,7 @@ export class ClientPage {
         this.clients = resp
         this.showTable = true
       },
-      error: (err) => {
-        console.error(err)
-        this.showTable = true
-      }
+      error: (err) => console.error(err)
     })
   }
 
@@ -66,9 +63,7 @@ export class ClientPage {
    */
   saveClient() {
     // Validando...
-    if (!this.validation.validateForm('#clientForm')) {
-      return false
-    }
+    if (!this.validation.validateForm('#clientForm')) return
     // Obtendo dados do formulário
     let client: IClient = this.getFormData()
     // Fazendo POST/PUT para a apai
@@ -89,8 +84,8 @@ export class ClientPage {
         this.message.showAlert(
           'Erro',
           client.id
-            ? 'Ocorreu algum erro ao atualizar o cliente. Tente novamente mais tarde.'
-            : 'Ocorreu algum erro ao cadastrar o cliente. Tente novamente mais tarde.',
+            ? 'Ocorreu um erro ao atualizar o cliente. ' + err
+            : 'Ocorreu um erro ao cadastrar o cliente. ' + err,
           'error'
         )
         console.error('Erro: ', err)
@@ -129,13 +124,12 @@ export class ClientPage {
           console.error(err)
           swal(
             'Erro!',
-            'Ocorreu um erro ao deletar o cliente. Tente novamente mais tarde.',
+            `Ocorreu um erro ao deletar o cliente. ${err}`,
             'error'
           )
         }
       })
     }).catch((err) => err)
-
   }
 
   /**
@@ -183,6 +177,8 @@ export class ClientPage {
    * @memberOf ClientPage
    */
   getAddress(cep: string): void {
+    cep = cep.replace(/\D/g, '')
+    if (!cep) return
     this.cepService.getAddress(cep).subscribe({
       next: (resp) => {
         if (resp.erro) {
