@@ -252,7 +252,7 @@ export class ReportPage implements OnInit {
    * Função responsável por levar os dados necessários do relatório ao popup
    */
   private emitDataPopup(popup: Window): void {
-    const $popup = $(popup);
+    const $popup = $(popup)
     $popup.ready(() => {
       let app: IDataReportPrint = {
         resumo: {
