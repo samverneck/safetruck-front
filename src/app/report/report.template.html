@@ -80,7 +80,7 @@
 </div>-->
 
 <!--////////// RELATÓRIO \\\\\\\\\\-->
-<div class="row" *ngIf="report" [@fadeInOut]>
+<div class="row" *ngIf="report" [@fadeInOut] id="report-to-print">
   <div class="col-xs-12">
     <section class="widget" widget>
       <header>
@@ -96,5 +96,11 @@
         <print-page [data]="report" [reportTimes]="times"></print-page>
       </div>
     </section>
+  </div>
+  <div class="col-xs-12 text-center">
+    <button class="btn btn-primary btn-lg" (click)="print()">
+      <i class="fa fa-print"></i> 
+      Imprimir
+    </button>
   </div>
 </div>
