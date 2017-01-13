@@ -38,24 +38,18 @@ export class EquipmentSearchPage {
   constructor(public equip: EquipmentService) {}
 
   search() {
-    if (!this.searchText) {
-      this.msg.showNotification('Você deve informar ao menos um termo de pesquisa.', 'error')
-      return
-    }
-
     this.equip.getAll().subscribe(equips => {
-
-      if (this.searchText && this.searchText.trim() !== '') {
-        let code = equips.filter((eq) => {
-          return (eq.code.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1)
-        })
-
-        let plaque = equips.filter((eq) => {
-          return (eq.install.plaque.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1)
-        })
-
-        this.equipments = code.concat(plaque)
+      if (!this.searchText) {
+        this.equipments = equips
+        return
       }
+      let code = equips.filter((eq) => {
+        return (eq.code.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1)
+      })
+      let plaque = equips.filter((eq) => {
+        return (eq.install.plaque.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1)
+      })
+      this.equipments = code.concat(plaque)
     })
   }
 

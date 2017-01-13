@@ -1,4 +1,7 @@
 import { Component, ViewEncapsulation, Input, OnInit } from '@angular/core'
+import { Observable } from 'rxjs/Observable'
+import * as _ from 'lodash'
+import * as moment from 'moment'
 
 declare var google: any
 
@@ -11,6 +14,8 @@ declare var google: any
 
 export class RouteComponent implements OnInit {
   @Input() route: Array<any>
+  @Input() overSpeedings: Array<any>
+  @Input() dangerZones: Array<any>
 
   constructor() { }
 
@@ -19,20 +24,182 @@ export class RouteComponent implements OnInit {
   }
 
   initMap() {
-    let map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 3,
-      center: {lat: 0, lng: -20},
-      mapTypeId: google.maps.MapTypeId.TERRAIN
+    this.getMap().subscribe(map => {
+      // Desenha a rota principal
+      this.drawBaseRoute(map, this.route)
+      // Adiciona os marcadores de Início e Fim
+      this.addMarker(map, 'I', _.head(this.route))
+      this.addMarker(map, 'F', _.last(this.route))
+      // Zonas perigosas
+      this.dangerZones.map(dz => {
+        this.drawDangerZonesPoints(map, dz)
+      })
+      // Excessos de velocidade
+      this.overSpeedings.map(overSpeeding => {
+        overSpeeding.data.map(data => {
+          this.drawOverSpeedingsRoute(map, data)
+        })
+      })
+    })
+  }
+
+  /**
+   * Cria uma instancia do mapa
+   * @returns {Observable <any>}
+   * @memberOf RouteComponent
+   */
+  getMap(): Observable <any> {
+    let map$ = Observable.create(obs => {
+      let map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 3,
+        center: {lat: 0, lng: -20},
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      })
+      obs.next(map)
     })
 
+    return map$
+  }
+
+  /**
+   * Desenha a rota principal
+   * @param {any} map
+   * @param {any} route
+   * @returns {void}
+   * @memberOf RouteComponent
+   */
+  drawBaseRoute(map, route): void {
     let flightPath = new google.maps.Polyline({
-      path: this.route,
+      path: route,
+      geodesic: true,
+      strokeColor: '#0000FF',
+      strokeOpacity: 1.0,
+      strokeWeight: 4,
+    })
+    let llbounds = new google.maps.LatLngBounds()
+    flightPath.getPath().forEach((e) => {
+      llbounds.extend(e)
+    })
+    flightPath.setMap(map)
+    // Centraliza o mapa na rota
+    map.setCenter(llbounds.getCenter())
+    map.fitBounds(llbounds)
+  }
+
+  /**
+   * Traça a rota com excesso de velocidade
+   * e coloca um ícone no centro
+   * @param {any} map
+   * @param {any} data
+   * @returns {void}
+   * @memberOf RouteComponent
+   */
+  drawOverSpeedingsRoute(map, data): void {
+    let line = new google.maps.Polyline({
+      path: data.route,
       geodesic: true,
       strokeColor: '#FF0000',
-      strokeOpacity: 1.0,
-      strokeWeight: 2
+      strokeOpacity: 0.6,
+      strokeWeight: 6
+    })
+    line.setMap(map)
+    // Ícone
+    let start = moment(data.start).format('DD/MM/YYYY HH:mm:ss')
+    let finish = moment(data.finish).format('DD/MM/YYYY HH:mm:ss')
+    let content = `
+      <div id="content">
+        <div id="siteNotice"></div>
+        <h2 id="firstHeading" class="firstHeading">Alta Velocidade</h2>
+        <div id="bodyContent">
+          <p>Velocidade Máxima: <b>${data.maxSpeed}km/h</b></p>
+          <p>Data e Hora de início: ${start}</p>
+          <p>Data e Hora de Fim: ${finish}</p>
+        </div>
+      </div>
+    `
+    this.drawIcon({
+      map: map,
+      icon: 'http://maps.google.com/mapfiles/ms/micons/caution.png',
+      // Posiciona o ícone no meio da rota
+      position: data.route[Math.round((data.route.length) / 2)],
+      content: content
+    })
+  }
+
+  /**
+   * Desenha o cículo e coloca os ícones
+   * de Zona perigosa no mapa
+   * @param {any} map
+   * @param {any} data
+   * @returns {void}
+   * @memberOf RouteComponent
+   */
+  drawDangerZonesPoints(map, data): void {
+    let date = moment(data.time).format('DD/MM/YYYY HH:mm:ss')
+    let content = `
+      <div id="content">
+        <div id="siteNotice"></div>
+        <h2 id="firstHeading" class="firstHeading">Zona Perigosa</h2>
+        <div id="bodyContent">
+          <p>Velocidade Máxima: <b>${data.maxSpeed}km/h</b></p>
+          <p>Data e Hora: ${date}</p>
+        </div>
+      </div>
+    `
+    this.drawIcon({
+      map: map,
+      position: data.position,
+      content: content
+    })
+    new google.maps.Circle({
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 1,
+      fillColor: '#FF0000',
+      fillOpacity: 0.10,
+      map: map,
+      center: data.position,
+      radius: 200,
+    })
+  }
+
+  /**
+   * Cria o ícone a janela de infomação ao clicar no ícone
+   * @param {any} opt
+   * @returns {void}
+   * @memberOf RouteComponent
+   */
+  drawIcon(opt): void {
+    let marker = new google.maps.Marker({
+      icon: opt.icon || 'http://maps.google.com/mapfiles/kml/pal3/icon42.png',
+      map: opt.map,
+      position: opt.position
     })
 
-    flightPath.setMap(map)
+    let infoWin = new google.maps.InfoWindow({
+      content: opt.content,
+      position: opt.pos,
+    })
+    // Adiciona um envento que abre a info ao clicar
+    marker.addListener('click', () => {
+      infoWin.open(opt.map, marker)
+    })
   }
+
+  /**
+   * Adiconar um marcador
+   * @param {any} map
+   * @param {any} label
+   * @param {any} latLng
+   * @returns {void}
+   * @memberOf RouteComponent
+   */
+  addMarker(map, label, latLng): void {
+    return new google.maps.Marker({
+      label: label,
+      position: latLng,
+      map: map,
+    })
+  }
+
 }
