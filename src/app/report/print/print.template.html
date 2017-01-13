@@ -101,7 +101,7 @@
           </div>
           <div class="row">
             <div class="col-xs-4"><span>Velocidade Máx.</span></div>
-            <div class="col-xs-8"><span>{{d.maxSpeed}}</span></div>
+            <div class="col-xs-8"><span>{{d.maxSpeed}} km/h</span></div>
           </div>
           <div class="row">
             <div class="col-xs-4"><span>Endereço</span></div>
@@ -134,11 +134,11 @@
         <div class="col-xs-8">
           <div class="row">
             <div class="col-xs-4"><span>Hora</span></div>
-            <div class="col-xs-8"><span>{{formatDate(dz.data[0].time)}}</span></div>
+            <div class="col-xs-8"><span>{{formatDate(dz.time)}}</span></div>
           </div>
           <div class="row">
             <div class="col-xs-4"><span>Velocidade</span></div>
-            <div class="col-xs-8"><span>{{dz.data[0].speed}}</span></div>
+            <div class="col-xs-8"><span>{{dz.maxSpeed}} km/h</span></div>
           </div>
           <div class="row">
             <div class="col-xs-4"><span>Endereço</span></div>
@@ -146,8 +146,8 @@
           </div>
         </div>
         <div class="img-map col-xs-3">
-          <a href="{{getDangerZoneLink(dz.criticalPoint.location)}}" target="_blank">
-            <img class="img-fluid pull-right" src="{{getDangerZoneImg(dz.criticalPoint.location)}}">
+          <a href="{{getDangerZoneLink(dz.position)}}" target="_blank">
+            <img class="img-fluid pull-right" src="{{getDangerZoneImg(dz.position)}}">
           </a>
         </div>
       </div>

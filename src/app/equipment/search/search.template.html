@@ -8,7 +8,6 @@
       <header>
         <h5>
           <span>Pesquisa de equipamento</span>
-          <!--<small>CNPJ, Razão social, Nome fantasia, Código do equipamento...</small>-->
         </h5>
         <div class="widget-controls">
           <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
@@ -22,7 +21,7 @@
               <div class="input-group">
                 <input type="search" class="form-control" name="search" id="search-input" [(ngModel)]="searchText">
                 <span class="input-group-btn">
-                  <button type="button" class="btn btn-secondary" (click)="search()">Pesquisar</button>
+                  <button type="submit" class="btn btn-secondary" (click)="search()">Pesquisar</button>
                 </span>
               </div>
             </div>
@@ -34,9 +33,6 @@
 </div>
 
 <div class="row" *ngIf="equipments" [@fadeInOut]>
-  <!--<div class="col-md-10 offset-md-1 col-xs-12">
-    <search-client-table [data]="clients"></search-client-table>
-  </div>-->
   <div class="col-md-10 offset-md-1 col-xs-12">
     <search-equipment-table [data]="equipments"></search-equipment-table>
   </div>
