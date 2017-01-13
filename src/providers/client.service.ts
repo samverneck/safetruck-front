@@ -11,5 +11,7 @@ export class ClientService extends BaseService implements IBaseService {
   constructor(http: Http, auth: AuthService) {
     super.setResource('clients')
     super(http, auth)
+
+    console.log(this.auth.user())
   }
 }

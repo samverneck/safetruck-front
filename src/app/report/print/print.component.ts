@@ -19,7 +19,7 @@ export class PrintComponent implements OnInit {
   ngOnInit() { }
 
   formatDate(date) {
-    return moment(date).format('DD/MM/YYYY - HH:mm:ss')
+    return moment(date).format('DD/MM/YYYY HH:mm:ss')
   }
 
   getOverSpeedingImg(start, finish) {

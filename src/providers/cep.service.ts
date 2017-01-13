@@ -12,15 +12,9 @@ export class CepService {
   }
 
   getAddress(cep: string): Observable<any> {
-    let part1 = cep.split('.')
-    let part2 = part1[1].split('-')
-    let formatedCep = `${part1[0]}${part2[0]}${part2[1]}`
-    if (!formatedCep) {
-      return
-    }
 
     return this.http
-      .get(`https://viacep.com.br/ws/${formatedCep}/json/`)
+      .get(`https://viacep.com.br/ws/${cep}/json/`)
       .map(this.extractData)
   }
 
@@ -29,11 +23,3 @@ export class CepService {
     return body
   }
 }
-
-
-
-
-  // address: response.json().logradouro,
-  // district: response.json().bairro,
-  // city: response.json().localidade,
-  // state: response.json().uf

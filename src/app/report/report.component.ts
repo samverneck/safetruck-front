@@ -63,7 +63,7 @@ export class ReportPage implements OnInit {
   plaques: string[]
   messages = new Messages()
   times: any
-  mapUrl: any
+  showReports: boolean
 
   constructor(public reportService: ReportService, private http: Http) {
     // Obtém as placas cadastradas
@@ -92,17 +92,18 @@ export class ReportPage implements OnInit {
    * @memberOf ReportPage
    */
   getReport(): void {
+    this.showReports = false
     // Obetém os valores do usuário
     this.times = this.getInputs()
     // Validação
-    if (!this.validate(this.times.plaque, this.times.start)) {
-      return
-    }
+    if (!this.validate(this.times.plaque, this.times.start)) return
+    // Obtendo as datas
     let dates = this.convertDateToISO(this.times.start, this.times.finish)
     this.reportService.getReport(this.times.plaque, dates.start, dates.finish)
       .subscribe(report => {
-        console.log(report)
         this.report = report
+        console.log(report)
+        this.showReports = true
       })
   }
 
