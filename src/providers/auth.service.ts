@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Http, Headers, Response, RequestOptions } from '@angular/http'
 import { Observable } from 'rxjs'
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/toPromise'
 
 @Injectable()
 export class AuthService {
@@ -25,7 +25,6 @@ export class AuthService {
           if (token) {
             // set token property
             this.token = token
-
             // store email and jwt token in local storage to
             // keep user logged in between page refreshes
             localStorage.setItem(
@@ -62,4 +61,5 @@ export class AuthService {
         ? JSON.parse(localStorage.getItem('currentUser'))
         : false
     }
+
 }

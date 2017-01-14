@@ -1,12 +1,16 @@
 import { Component, OnInit, ElementRef } from '@angular/core'
 import { Router, NavigationEnd } from '@angular/router'
 import { Location } from '@angular/common'
+
 import { AppConfig } from '../../app.config'
+import { UserService } from './../../../providers/user.service'
+
 declare var jQuery: any
 
 @Component({
   selector: '[sidebar]',
-  templateUrl: './sidebar.template.html'
+  templateUrl: './sidebar.template.html',
+  providers: [UserService]
 })
 
 export class Sidebar implements OnInit {
@@ -14,12 +18,23 @@ export class Sidebar implements OnInit {
   config: any
   router: Router
   location: Location
+  canView: boolean
 
-  constructor(config: AppConfig, el: ElementRef, router: Router, location: Location) {
+  constructor(
+    private user: UserService,
+    config: AppConfig,
+    el: ElementRef,
+    router: Router,
+    location: Location
+  ) {
     this.$el = jQuery(el.nativeElement)
     this.config = config.getConfig()
     this.router = router
     this.location = location
+    // Define quais menus o usuário poderá ver 
+    this.user.me().subscribe(perm => {
+      this.canView = perm.isAdmin
+    })
   }
 
   initSidebarScroll(): void {
