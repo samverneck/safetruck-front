@@ -31,7 +31,16 @@ export class Sidebar implements OnInit {
     this.config = config.getConfig()
     this.router = router
     this.location = location
-    // Define quais menus o usuário poderá ver 
+    this.checkUserPermissions()
+  }
+
+  // Obtém os dados do usuário para saber se ele pode ver todos os menus
+  checkUserPermissions() {
+    if (localStorage.getItem('userData')) {
+      this.canView = JSON.parse(localStorage.getItem('userData')).isAdmin
+      return
+    }
+
     this.user.me().subscribe(perm => {
       this.canView = perm.isAdmin
     })

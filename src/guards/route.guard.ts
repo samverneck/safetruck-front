@@ -14,7 +14,17 @@ export class RouteGuard implements CanActivate {
     private auth: AuthService
   ) { }
 
-  canActivate() {
+  canActivate(): boolean | Promise<boolean> {
+    if (localStorage.getItem('userData')) {
+      if (JSON.parse(localStorage.getItem('userData')).isAdmin) {
+
+        return true
+      }
+      this.router.navigate(['/app/report'])
+
+      return false
+    }
+
     return this.http
       .get(`${API_URL}/me`, this.auth.getHeaders())
       .map(data => data.json())
@@ -23,6 +33,7 @@ export class RouteGuard implements CanActivate {
         if (userData.isAdmin) {
           return true
         }
+        localStorage.setItem('userData', JSON.stringify(userData))
         this.router.navigate(['/app/report'])
 
         return false
