@@ -102,7 +102,6 @@ export class ReportPage implements OnInit {
     this.reportService.getReport(this.times.plaque, dates.start, dates.finish)
       .subscribe(report => {
         this.report = report
-        console.log(report)
         this.showReports = true
       })
   }

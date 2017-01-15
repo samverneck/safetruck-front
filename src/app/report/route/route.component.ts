@@ -119,7 +119,7 @@ export class RouteComponent implements OnInit {
     `
     this.drawIcon({
       map: map,
-      icon: 'http://maps.google.com/mapfiles/ms/micons/caution.png',
+      icon: 'https://maps.google.com/mapfiles/ms/micons/caution.png',
       // Posiciona o ícone no meio da rota
       position: data.route[Math.round((data.route.length) / 2)],
       content: content
@@ -171,7 +171,7 @@ export class RouteComponent implements OnInit {
    */
   drawIcon(opt): void {
     let marker = new google.maps.Marker({
-      icon: opt.icon || 'http://maps.google.com/mapfiles/kml/pal3/icon42.png',
+      icon: opt.icon || 'https://maps.google.com/mapfiles/kml/pal3/icon42.png',
       map: opt.map,
       position: opt.position
     })

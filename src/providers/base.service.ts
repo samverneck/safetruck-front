@@ -66,7 +66,6 @@ export class BaseService implements IBaseService {
     if (error instanceof Response) {
       const body = error.json() || ''
       errMsg = body.message || JSON.stringify(body)
-      // errMsg = `${error.status} - ${error.statusText || ''} - ${err}`
     } else {
       errMsg = error.message ? error.message : error.toString()
     }

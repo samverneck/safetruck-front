@@ -219,6 +219,7 @@ export class ClientPage {
    * @memberOf ClientPage
    */
   clientSelected(client): void {
+    this.clearForm()
     this.clientId = client.id
     $('[name="company-name"]').val(client.companyName)
     $('[name="trading-name"]').val(client.tradingName)

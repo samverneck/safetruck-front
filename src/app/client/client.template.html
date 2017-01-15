@@ -22,25 +22,27 @@
             <div class="row">
               <!--Razão Social-->
               <div class="form-group col-md-6 col-xs-12">
-                <input type="text" class="form-control" placeholder="Razão Social"
-                  name="company-name" validate="Razão Social">
+                <label>Razão Social</label>
+                <input type="text" class="form-control" name="company-name" validate="Razão Social">
               </div>
               <!--Nome Fantasia-->
               <div class="form-group col-md-6 col-xs-12">
-                <input type="text" class="form-control" placeholder="Nome Fantasia"
-                  name="trading-name" validate="Nome Fantasia" (blur)="slugify()">
+                <label>Nome Fantasia</label>
+                <input type="text" class="form-control" name="trading-name" 
+                  validate="Nome Fantasia" (blur)="slugify()">
               </div>
             </div>
             <div class="row">
               <!--CNPJ-->
               <div class="form-group col-md-6 col-xs-12">
-                <input type="text" class="form-control" placeholder="CNPJ"
+                <label>CNPJ</label>
+                <input type="text" class="form-control" placeholder="__.___.___/____-__"
                   data-mask="99.999.999/9999-99" name="cnpj" validate="CNPJ">
               </div>
               <!--Alias-->
               <div class="form-group col-md-6 col-xs-12">
-                <input type="text" class="form-control" placeholder="Alias"
-                  name="alias" validate="Alias">
+                <label>Alias</label>
+                <input type="text" class="form-control" name="alias" validate="Alias">
               </div>
             </div>
           </fieldset>
@@ -49,35 +51,37 @@
             <div class="row">
               <!--CEP-->
               <div class="form-group col-md-3 col-xs-12">
-                <input type="text" class="form-control" placeholder="CEP" data-mask="99.999-999"
+                <label>CEP</label>
+                <input type="text" class="form-control" placeholder="__.___-___" data-mask="99.999-999"
                   #zipcode name="zipcode" validate="CEP" (blur)="getAddress(zipcode.value)">
               </div>
               <!--Logradouro-->
               <div class="form-group col-md-6 col-xs-12">
-                <input type="text" class="form-control" placeholder="Logradouro"
-                  name="address" validate="Logradouro">
+                <label>Logradouro</label>
+                <input type="text" class="form-control" name="address" validate="Logradouro">
               </div>
               <!--Número-->
               <div class="form-group col-md-3 col-xs-12">
-                <input type="number" class="form-control" placeholder="Número"
-                  name="num" validate="Número">
+                <label>Número</label>
+                <input type="number" class="form-control" name="num" validate="Número">
               </div>
             </div>
             <div class="row">
               <!--Bairro-->
               <div class="form-group col-md-6 col-xs-12">
-                <input type="text" class="form-control" placeholder="Bairro"
-                  name="district" validate="Bairro">
+                <label>Bairro</label>
+                <input type="text" class="form-control" name="district" validate="Bairro">
               </div>
               <!--Cidade-->
               <div class="form-group col-md-4 col-xs-12">
-                <input type="text" class="form-control" placeholder="Cidade"
-                  name="city" validate="Cidade">
+                <label>Cidade</label>
+                <input type="text" class="form-control" name="city" validate="Cidade">
               </div>
               <!--Estado-->
               <div class="form-group col-md-2 col-xs-12">
-                <select class="form-control" placeholder="Estado" name="state" validate="Estado">
-                  <option value="" hidden>Estado</option>
+                <label>Estado</label>
+                <select class="form-control" name="state" validate="Estado">
+                  <option value="" hidden>Selecione...</option>
                   <option *ngFor="let state of states" [value]="state.abbr">{{state.abbr}}</option>
                 </select>
               </div>
@@ -85,7 +89,8 @@
             <div class="row">
               <!--Complemento-->
               <div class="form-group col-xs-12">
-                <input type="text" class="form-control" placeholder="Complemento" name="complement">
+                <label>Complemento</label>
+                <input type="text" class="form-control" name="complement">
               </div>
             </div>
           </fieldset>
@@ -94,20 +99,21 @@
             <!--Pessoa para contato-->
             <div class="row">
               <div class="form-group col-xs-12">
-                <input type="text" class="form-control" placeholder="Responsável"
-                  name="responsible" validate="Responsável">
+                <label>Responsável</label>
+                <input type="text" class="form-control" name="responsible" validate="Responsável">
               </div>
             </div>
             <div class="row">
               <!--Telefone-->
               <div class="form-group col-md-6 col-xs-12">
-                <input type="text" class="form-control" placeholder="Telefone" data-mask="(99) 9999-9999"
-                  name="phone" #phone validate="Telefone">
+                <label>Telefone</label>
+                <input type="text" class="form-control" placeholder="(__) ____-____" 
+                  data-mask="(99) 9999-9999" name="phone" validate="Telefone">
               </div>
               <!--E-mail-->
               <div class="form-group col-md-6 col-xs-12">
-                <input type="email" class="form-control" placeholder="E-mail"
-                  name="email" #email validate="E-mail">
+                <label>E-mail</label>
+                <input type="email" class="form-control" name="email" validate="E-mail">
               </div>
             </div>
           </fieldset>
@@ -116,8 +122,9 @@
             <div class="row">
               <!--Mercado-->
               <div class="form-group col-md-4 col-xs-12">
-                <select class="form-control" placeholder="Mercado" name="market" validate="Mercado">
-                  <option value="" hidden>Mercado</option>
+                <label>Mercado</label>
+                <select class="form-control" name="market" validate="Mercado">
+                  <option value="" hidden>Selecione...</option>
                   <option value="1">Seguradora</option>
                   <option value="2">Transportadora</option>
                   <option value="3">Outros</option>
@@ -125,16 +132,17 @@
               </div>
               <!--Velocidade Máxima-->
               <div class="form-group col-md-4 col-xs-12">
-                <input type="text" class="form-control" placeholder="Velocidade Máxima"
-                  name="limit" validate="Velocidade Máxima">
+                <label>Velocidade Máxima</label>
+                <input type="text" class="form-control" name="limit" validate="Velocidade Máxima">
               </div>
               <!--Pontos perigosos-->
               <div class="form-group col-md-4 col-xs-12">
+                <label>Pontos perigosos</label>
                 <div class="input-group">
                   <span class="input-group-addon beautiful">
                     <input type="checkbox" name="danger-points">
                   </span>
-                  <span class="form-control">Compartilhar pontos perigosos?</span>
+                  <span class="form-control">Compartilhar pontos perigosos</span>
                 </div>
               </div>
             </div>
