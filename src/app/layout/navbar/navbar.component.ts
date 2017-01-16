@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, ElementRef, Output } from '@angular/core'
+import { Component, EventEmitter, ElementRef, Output } from '@angular/core'
 import { Router } from '@angular/router'
 import { AppConfig } from '../../app.config'
 import { AuthService } from './../../../providers/auth.service'
@@ -8,7 +8,7 @@ declare var jQuery: any
   selector: '[navbar]',
   templateUrl: './navbar.template.html'
 })
-export class Navbar implements OnInit {
+export class Navbar {
   @Output() toggleSidebarEvent: EventEmitter<any> = new EventEmitter()
   @Output() toggleChatEvent: EventEmitter<any> = new EventEmitter()
   $el: any
@@ -35,29 +35,5 @@ export class Navbar implements OnInit {
 
   toggleChat(): void {
     this.toggleChatEvent.emit(null)
-  }
-
-  ngOnInit(): void {
-    setTimeout(() => {
-      let $chatNotification = jQuery('#chat-notification')
-      $chatNotification.removeClass('hide').addClass('animated fadeIn')
-        .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {
-          $chatNotification.removeClass('animated fadeIn')
-          setTimeout(() => {
-            $chatNotification.addClass('animated fadeOut')
-              .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd' +
-                ' oanimationend animationend', () => {
-                $chatNotification.addClass('hide')
-              })
-          }, 8000)
-        })
-      $chatNotification.siblings('#toggle-chat')
-        .append('<i class="chat-notification-sing animated bounceIn"></i>')
-    }, 4000)
-
-    this.$el.find('.input-group-addon + .form-control').on('blur focus', function(e): void {
-      jQuery(this).parents('.input-group')
-        [e.type === 'focus' ? 'addClass' : 'removeClass']('focus')
-    })
   }
 }

@@ -20,6 +20,7 @@ import { ErrorComponent } from './error/error.component'
 // App Providers
 import { AuthService } from './../providers/auth.service'
 import { AuthGuard } from './../guards/auth.guard'
+import { RouteGuard } from './../guards/route.guard'
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -27,7 +28,8 @@ const APP_PROVIDERS = [
   AuthGuard,
   AuthService,
   AppState,
-  AppConfig
+  AppConfig,
+  RouteGuard
 ]
 
 type StoreType = {

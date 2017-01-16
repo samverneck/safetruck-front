@@ -54,9 +54,7 @@ export class EquipmentRegisterPage implements OnInit {
    */
   saveEquipament() {
     // Validando...
-    if (!this.validation.validateForm('#equipmentForm')) {
-      return false
-    }
+    if (!this.validation.validateForm('#equipmentForm')) return
     // Obtendo os dados do formuulário
     let equipment: IEquipment = this.getFormData()
     // Fazendo o POST/PUT para api
@@ -75,8 +73,8 @@ export class EquipmentRegisterPage implements OnInit {
         this.messages.showAlert(
           'Erro',
           equipment.id
-            ? 'Ocorreu algum erro ao atualizar o equipamento. Tente novamente mais tarde.'
-            : 'Ocorreu algum erro ao cadastrar o equipamento. Tente novamente mais tarde.',
+            ? `Ocorreu um erro ao atualizar o equipamento. ${err}.`
+            : `Ocorreu um erro ao cadastrar o equipamento. ${err}.`,
           'error'
         )
         console.error(err)
