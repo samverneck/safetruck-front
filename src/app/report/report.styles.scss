@@ -1,14 +1,42 @@
 @import "../../../node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min";
+@import "../../../node_modules/bootstrap/scss/_variables";
+@import "../../../node_modules/bootstrap/scss/mixins";
 @import "../scss/variables";
 @import "../scss/mixins";
-@import "../../../node_modules/bootstrap/scss/mixins";
+@import "../scss/_print.scss";
+@import "../scss/notifications.scss";
 
-.error{
+// Configurações de impressão
+@media print {
+  body {
+    font-size: 10px;
+  }
+  form, .map-wrapper {
+    display: none;
+  }
+  .report-header * {
+    display: block;
+  }
+}
+
+// O que deve aparecer na tela
+@media screen {
+  .report-header {
+    display: none;
+  }
+}
+
+.report {
+  page-break-inside: avoid;
+}
+
+
+.error {
   border-color: $brand-danger;
   @include box-shadow(inset 0 1px 1px rgba($brand-danger,.075));
 }
 
-.map-container{
+.map-container {
   height: 500px;
 }
 
