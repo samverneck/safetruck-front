@@ -11,7 +11,7 @@
   body {
     font-size: 10px;
   }
-  form, .map-wrapper {
+  form, .map-wrapper, .widget-controls {
     display: none;
   }
   .report-header * {
@@ -21,7 +21,7 @@
 
 // O que deve aparecer na tela
 @media screen {
-  .report-header {
+  .report-header, .hide-on-screen, .widget-controls {
     display: none;
   }
 }
