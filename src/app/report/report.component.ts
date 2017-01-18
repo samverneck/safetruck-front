@@ -101,7 +101,6 @@ export class ReportPage implements OnInit {
     let dates = this.convertDateToISO(this.times.start, this.times.finish)
     this.reportService.getReport(this.times.plaque, dates.start, dates.finish)
       .subscribe(report => {
-        console.log(report)
         this.report = report
         this.showReports = true
       })
