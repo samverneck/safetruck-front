@@ -61,6 +61,11 @@ export class BaseService implements IBaseService {
     return body
   }
 
+  public extractDataHtml(res: Response) {
+    let body = res.text()
+    return body
+  }
+
   public handleError (error: Response | any) {
     let errMsg: string
     if (error instanceof Response) {
