@@ -16,6 +16,7 @@ export class RouteComponent implements OnInit {
   @Input() route: Array<any>
   @Input() overSpeedings: Array<any>
   @Input() dangerZones: Array<any>
+  @Input() times: any
 
   constructor() { }
 
@@ -28,8 +29,17 @@ export class RouteComponent implements OnInit {
       // Desenha a rota principal
       this.drawBaseRoute(map, this.route)
       // Adiciona os marcadores de Início e Fim
-      this.addMarker(map, 'I', _.head(this.route))
-      this.addMarker(map, 'F', _.last(this.route))
+      this.drawStartAndFinish({
+        map: map,
+        start: {
+          date: this.times.start,
+          latLng: _.head(this.route)
+        },
+        finish: {
+          date: this.times.start,
+          latLng: _.last(this.route)
+        }
+      })
       // Zonas perigosas
       this.dangerZones.map(dz => {
         this.drawDangerZonesPoints(map, dz)
@@ -148,6 +158,7 @@ export class RouteComponent implements OnInit {
     `
     this.drawIcon({
       map: map,
+      icon: 'https://maps.google.com/mapfiles/kml/pal3/icon42.png',
       position: data.position,
       content: content
     })
@@ -171,14 +182,15 @@ export class RouteComponent implements OnInit {
    */
   drawIcon(opt): void {
     let marker = new google.maps.Marker({
-      icon: opt.icon || 'https://maps.google.com/mapfiles/kml/pal3/icon42.png',
+      label: opt.label,
+      icon: opt.icon,
       map: opt.map,
       position: opt.position
     })
 
     let infoWin = new google.maps.InfoWindow({
       content: opt.content,
-      position: opt.pos,
+      position: opt.position,
     })
     // Adiciona um envento que abre a info ao clicar
     marker.addListener('click', () => {
@@ -194,11 +206,38 @@ export class RouteComponent implements OnInit {
    * @returns {void}
    * @memberOf RouteComponent
    */
-  addMarker(map, label, latLng): void {
-    return new google.maps.Marker({
-      label: label,
-      position: latLng,
-      map: map,
+  drawStartAndFinish(opt): void {
+    let startMarker = moment(opt.start.date, 'DD/MM/YYYY h:mm A').format('DD/MM/YYYY HH:mm')
+    let startMarkerCtn = `
+      <div id="content">
+        <div id="siteNotice"></div>
+        <h2 id="firstHeading" class="firstHeading">Início do relatório</h2>
+        <div id="bodyContent">
+          <p>Data e Hora de intício: ${startMarker}</p>
+        </div>
+      </div>
+    `
+    let finishMarker = moment(opt.finish.date, 'DD/MM/YYYY h:mm A').format('DD/MM/YYYY HH:mm')
+    let finishMarkerCtn = `
+      <div id="content">
+        <div id="siteNotice"></div>
+        <h2 id="firstHeading" class="firstHeading">Início do relatório</h2>
+        <div id="bodyContent">
+          <p>Data e Hora de intício: ${finishMarker}</p>
+        </div>
+      </div>
+    `
+    this.drawIcon({
+      map: opt.map,
+      label: 'I',
+      position: opt.start.latLng,
+      content: startMarkerCtn
+    })
+    this.drawIcon({
+      map: opt.map,
+      label: 'F',
+      position: opt.finish.latLng,
+      content: finishMarkerCtn
     })
   }
 

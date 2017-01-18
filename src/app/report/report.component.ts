@@ -101,7 +101,6 @@ export class ReportPage implements OnInit {
     let dates = this.convertDateToISO(this.times.start, this.times.finish)
     this.reportService.getReport(this.times.plaque, dates.start, dates.finish)
       .subscribe(report => {
-        console.log(report)
         this.report = report
         this.showReports = true
       })
@@ -191,14 +190,18 @@ export class ReportPage implements OnInit {
   }
 
   print(): void {
-    this.http.get('/print/report/index.html')
-      .map(response => response.text())
+
+    this.times = this.getInputs()
+    // Validação
+    if (!this.validate(this.times.plaque, this.times.start)) return
+    // Obtendo as datas
+    let dates = this.convertDateToISO(this.times.start, this.times.finish)
+    this.reportService.getReportHtml(this.times.plaque, dates.start, dates.finish)
       .subscribe(html => {
-        // let printContents = document.getElementById('report-to-print').innerHTML
         let popup: Window
         if (window) {
           if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1) {
-            popup = window.open('', '_blank', 'width=600,height=600,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no')
+            popup = window.open('', '_blank', 'width=1024,height=600,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no')
             this.checkPopup(popup).then(() => {
               popup.window.focus()
               popup.document.write(html)
@@ -214,7 +217,7 @@ export class ReportPage implements OnInit {
               }
             })
           } else {
-            popup = window.open('', '_blank', 'width=800,height=600')
+            popup = window.open('', '_blank', 'width=1024,height=600')
             this.checkPopup(popup).then(() => {
               popup.document.open()
               popup.document.write(html)
