@@ -22,6 +22,13 @@ export class ReportService extends BaseService implements IBaseService {
       .catch(this.handleError)
   }
 
+  getReportHtml(plaque: string, start, finish): Observable<string> {
+    return this.http
+      .get(`${API_URL}/report/printable?plaque=${plaque}&&dtIni=${start}&dtEnd=${finish}&max_points=20`, this.headerOptions)
+      .map(this.extractDataHtml)
+      .catch(this.handleError)
+  }
+
   getPlaques(): Observable<any> {
     return this.http
       .get(`${API_URL}/equipments`, this.headerOptions)
