@@ -59,7 +59,7 @@
 </div>
 
 <!--////////// MAPA \\\\\\\\\\-->
-<div class="row" *ngIf="showReports && report.route.length" [@fadeInOut]>
+<div class="row map-wrapper" *ngIf="showReports && report.route.length" [@fadeInOut]>
   <div class="col-xs-12">
     <section class="widget" widget>
       <header>
@@ -76,6 +76,7 @@
         <div class="map-container">
           <route 
             [route]="report.route"
+            [times]="times"
             [overSpeedings]="report.overSpeedings"
             [dangerZones]="report.dangerZones"
           ></route>
