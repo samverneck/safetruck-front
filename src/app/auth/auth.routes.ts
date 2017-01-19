@@ -7,8 +7,8 @@ const routes: Routes = [
   { path: '', component: AuthPage, children: [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', loadChildren: () => System.import('./login/login.module.ts') },
-    { path: 'forgot-password', loadChildren: () => System.import('./forgot-password/forgot-password.module.ts') },
-    { path: 'reset-password', loadChildren: () => System.import('./reset-password/reset-password.module.ts') },
+    { path: 'forgot/:token', loadChildren: () => System.import('./reset-password/reset-password.module.ts') },
+    { path: 'forgot', loadChildren: () => System.import('./forgot-password/forgot-password.module.ts') }
   ]}
 ]
 

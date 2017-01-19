@@ -24,13 +24,18 @@ export class Login {
 
   authenticateUser() {
     $('.alert').hide()
-    this.auth.login(this.email, this.pass).subscribe(result => {
-      if (result === true) {
-        this.router.navigate(['/app'])
-      } else {
+    this.auth.login(this.email, this.pass)
+      .toPromise()
+      .then(result => {
+        if (result === true) {
+          this.router.navigate(['/app'])
+        } else {
+          $('.alert').show('fast')
+        }
+      })
+      .catch(err => {
         $('.alert').show('fast')
-      }
-    })
+      })
   }
 
 }
