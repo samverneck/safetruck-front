@@ -26,5 +26,5 @@ import 'pace'
 if ('production' === ENV) {
   // 
 } else {
-  console.log('Dev mode', API_URL)
+  //
 }
