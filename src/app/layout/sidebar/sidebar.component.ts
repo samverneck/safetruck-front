@@ -3,14 +3,13 @@ import { Router, NavigationEnd } from '@angular/router'
 import { Location } from '@angular/common'
 
 import { AppConfig } from '../../app.config'
-import { UserService } from './../../../providers/user.service'
+import { AuthService } from './../../../providers/auth.service'
 
 declare var jQuery: any
 
 @Component({
   selector: '[sidebar]',
-  templateUrl: './sidebar.template.html',
-  providers: [UserService]
+  templateUrl: './sidebar.template.html'
 })
 
 export class Sidebar implements OnInit {
@@ -21,7 +20,7 @@ export class Sidebar implements OnInit {
   canView: boolean
 
   constructor(
-    private user: UserService,
+    private auth: AuthService,
     config: AppConfig,
     el: ElementRef,
     router: Router,
@@ -31,19 +30,12 @@ export class Sidebar implements OnInit {
     this.config = config.getConfig()
     this.router = router
     this.location = location
-    this.checkUserPermissions()
+    this. canView = this.checkUserPermissions()
   }
 
   // Obtém os dados do usuário para saber se ele pode ver todos os menus
   checkUserPermissions() {
-    if (localStorage.getItem('userData')) {
-      this.canView = JSON.parse(localStorage.getItem('userData')).isAdmin
-      return
-    }
-
-    this.user.me().subscribe(perm => {
-      this.canView = perm.isAdmin
-    })
+    return this.auth.user().isAdmin || false
   }
 
   initSidebarScroll(): void {

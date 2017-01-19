@@ -16,6 +16,7 @@ declare var swal: any
 })
 
 export class ResetPassword implements OnInit {
+  public path: string
   public errorMsg: string
   private token: string
   private password: string
@@ -30,6 +31,7 @@ export class ResetPassword implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.path = window.location.href.split('/')[4]
     this.route.params.forEach((params: Params) => {
       if (params['token'] !== undefined) {
         this.getTokenInfo(params['token'])
@@ -64,10 +66,11 @@ export class ResetPassword implements OnInit {
       .post(`${API_URL}/forgot/${this.token}`, {password: this.password})
       .toPromise()
       .then(res => {
-        console.log(res)
         swal({
           title: 'Senha alterada',
-          text: 'Sua senha foi alterada com sucesso.',
+          text: this.path === 'forgot'
+            ? 'A sua senha foi alterada com sucesso.'
+            : 'A sua senha foi criada com sucesso.',
           type: 'success'
         }).then(() => {
           this.auth.login(this.email, this.password)
@@ -79,7 +82,9 @@ export class ResetPassword implements OnInit {
       .catch(err => {
         swal({
           title: 'Erro',
-          text: 'Houve algum problema ao atualizar sua senha. Tente novamente mais tarde',
+          text:  this.path === 'forgot'
+            ? 'Houve algum problema ao atualizar sua senha. Tente novamente mais tarde'
+            : 'Houve algum problema ao cadastrar sua senha. Tente novamente mais tarde',
           type: 'error'
         })
         console.error(err)

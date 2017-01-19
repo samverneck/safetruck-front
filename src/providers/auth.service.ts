@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { Http, Headers, Response, RequestOptions } from '@angular/http'
 import { Observable } from 'rxjs'
 import 'rxjs/add/operator/toPromise'
+import * as decode from 'jwt-decode'
 
 @Injectable()
 export class AuthService {
@@ -21,7 +22,6 @@ export class AuthService {
         .map((response: Response) => {
           // login successful if there's a jwt token in the response
           let token = response.json()
-          console.log(token)
 
           if (token) {
             // set token property
@@ -50,7 +50,7 @@ export class AuthService {
     }
 
     getHeaders() {
-      let authToken = this.user().token
+      let authToken = JSON.parse(localStorage.getItem('currentUser')).token
       let headers = new Headers()
       headers.append('Content-Type', 'application/json')
       headers.append('Authorization', authToken)
@@ -60,7 +60,7 @@ export class AuthService {
 
     user() {
       return localStorage.getItem('currentUser')
-        ? JSON.parse(localStorage.getItem('currentUser'))
+        ? decode(JSON.parse(localStorage.getItem('currentUser')).token)
         : false
     }
 
