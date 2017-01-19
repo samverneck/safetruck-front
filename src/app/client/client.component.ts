@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core'
+import { ActivatedRoute, Params } from '@angular/router'
 
 import { ValidationService } from './../../providers/validation.service'
 import { CepService } from './../../providers/cep.service'
@@ -24,21 +25,32 @@ declare var $: any
 
 export class ClientPage {
   clients: Array<any>
-  showTable: boolean = true
+  showTable: boolean
+  viewMode: boolean
   message = new Messages()
   formUtils = new FormUtils
   states: Array<any> = STATES
   private clientId: any
 
   constructor(
+    private route: ActivatedRoute,
     public clientService: ClientService,
     public validation: ValidationService,
     public cepService: CepService
   ) {
-      this.clientService.getAll().subscribe({
-        next: (resp) => this.clients = resp,
-        error: (err) => console.error(err)
-      })
+      if (window.location.href.split('/')[5] === 'view') {
+        this.getClientData()
+        this.showTable = false
+        this.viewMode = true
+      }
+      if (window.location.href.split('/')[5] === 'register') {
+        this.showTable = true
+        this.viewMode = false
+        this.clientService.getAll().subscribe({
+          next: resp => this.clients = resp,
+          error: console.error
+        })
+      }
   }
 
   /**
@@ -52,7 +64,7 @@ export class ClientPage {
         this.clients = resp
         this.showTable = true
       },
-      error: (err) => console.error(err)
+      error: console.error
     })
   }
 
@@ -218,7 +230,7 @@ export class ClientPage {
    * @param {any} client
    * @memberOf ClientPage
    */
-  clientSelected(client): void {
+  loadClientData(client): void {
     this.clearForm()
     this.clientId = client.id
     $('[name="company-name"]').val(client.companyName)
@@ -243,6 +255,24 @@ export class ClientPage {
   }
 
   /**
+   * Carrega os dados do cliente que através do parametro id
+   * passado pela URL
+   * @memberOf ClientPage
+   */
+  getClientData() {
+    this.route.params.forEach((params: Params) => {
+      if (params['id'] !== undefined) {
+        this.clientService.getById(params['id']).subscribe({
+          next: client => this.loadClientData(client),
+          error: err => window.history.back()
+        })
+        return
+      }
+      window.history.back()
+    })
+  }
+
+  /**
    * Limpa os dados do formuário
    * @memberOf ClientPage
    */
@@ -251,4 +281,5 @@ export class ClientPage {
     $('tbody').children().removeClass('selected')
     this.formUtils.clear('#clientForm')
   }
+
 }

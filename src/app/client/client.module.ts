@@ -18,7 +18,8 @@ import { ClientTable } from './table/table.component'
 
 export const routes = [
   {path: '', redirectTo: 'register', pathMatch: 'full'},
-  {path: 'register', component: ClientPage}
+  {path: 'register', component: ClientPage},
+  {path: 'view/:id', component: ClientPage}
 ]
 
 @NgModule({
