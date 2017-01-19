@@ -75,6 +75,7 @@
     "jquery-sparkline": "2.3.2",
     "jquery-ui": "git://github.com/jquery/jquery-ui.git#1.11.4",
     "jquery.animate-number": "0.0.13",
+    "jwt-decode": "^2.1.0",
     "lodash": "^4.17.3",
     "messenger": "git+https://github.com/HubSpot/messenger.git#v1.4.2",
     "moment": "2.15.1",
