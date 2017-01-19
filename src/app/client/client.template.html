@@ -1,13 +1,14 @@
 <ol class="breadcrumb">
   <li class="breadcrumb-item">CLIENTES</li>
-  <li class="breadcrumb-item active">Cadastro</li>
+  <li class="breadcrumb-item active">{{viewMode ? 'Visualizar' : 'Cadastro'}}</li>
 </ol>
 <div class="row">
   <div class="col-md-10 offset-md-1 col-xs-12">
     <section class="widget" widget>
       <header>
         <h5>
-          <span>{{clientId ? 'Atualizar Cliente' : 'Cadastrar Novo Cliente'}}</span>
+          <span *ngIf="!viewMode">{{clientId ? 'Atualizar Cliente' : 'Cadastrar Novo Cliente'}}</span>
+          <span *ngIf="viewMode">Visualizar Cliente</span>
         </h5>
         <div class="widget-controls">
           <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
@@ -16,19 +17,18 @@
       </header>
       <div class="widget-body">
         <form class="form-horizontal form-label-left" id="clientForm">
-          <input type="text" hidden>
           <fieldset>
             <legend>Dados do Cliente</legend>
             <div class="row">
               <!--Razão Social-->
               <div class="form-group col-md-6 col-xs-12">
                 <label>Razão Social</label>
-                <input type="text" class="form-control" name="company-name" validate="Razão Social">
+                <input [disabled]="viewMode" type="text" class="form-control" name="company-name" validate="Razão Social">
               </div>
               <!--Nome Fantasia-->
               <div class="form-group col-md-6 col-xs-12">
                 <label>Nome Fantasia</label>
-                <input type="text" class="form-control" name="trading-name" 
+                <input [disabled]="viewMode" type="text" class="form-control" name="trading-name" 
                   validate="Nome Fantasia" (blur)="slugify()">
               </div>
             </div>
@@ -36,13 +36,13 @@
               <!--CNPJ-->
               <div class="form-group col-md-6 col-xs-12">
                 <label>CNPJ</label>
-                <input type="text" class="form-control" placeholder="__.___.___/____-__"
+                <input [disabled]="viewMode" type="text" class="form-control" placeholder="__.___.___/____-__"
                   data-mask="99.999.999/9999-99" name="cnpj" validate="CNPJ">
               </div>
               <!--Alias-->
               <div class="form-group col-md-6 col-xs-12">
                 <label>Alias</label>
-                <input type="text" class="form-control" name="alias" validate="Alias">
+                <input [disabled]="viewMode" type="text" class="form-control" name="alias" validate="Alias">
               </div>
             </div>
           </fieldset>
@@ -52,35 +52,35 @@
               <!--CEP-->
               <div class="form-group col-md-3 col-xs-12">
                 <label>CEP</label>
-                <input type="text" class="form-control" placeholder="__.___-___" data-mask="99.999-999"
+                <input [disabled]="viewMode" type="text" class="form-control" placeholder="__.___-___" data-mask="99.999-999"
                   #zipcode name="zipcode" validate="CEP" (blur)="getAddress(zipcode.value)">
               </div>
               <!--Logradouro-->
               <div class="form-group col-md-6 col-xs-12">
                 <label>Logradouro</label>
-                <input type="text" class="form-control" name="address" validate="Logradouro">
+                <input [disabled]="viewMode" type="text" class="form-control" name="address" validate="Logradouro">
               </div>
               <!--Número-->
               <div class="form-group col-md-3 col-xs-12">
                 <label>Número</label>
-                <input type="number" class="form-control" name="num" validate="Número">
+                <input [disabled]="viewMode" type="number" class="form-control" name="num" validate="Número">
               </div>
             </div>
             <div class="row">
               <!--Bairro-->
               <div class="form-group col-md-6 col-xs-12">
                 <label>Bairro</label>
-                <input type="text" class="form-control" name="district" validate="Bairro">
+                <input [disabled]="viewMode" type="text" class="form-control" name="district" validate="Bairro">
               </div>
               <!--Cidade-->
               <div class="form-group col-md-4 col-xs-12">
                 <label>Cidade</label>
-                <input type="text" class="form-control" name="city" validate="Cidade">
+                <input [disabled]="viewMode" type="text" class="form-control" name="city" validate="Cidade">
               </div>
               <!--Estado-->
               <div class="form-group col-md-2 col-xs-12">
                 <label>Estado</label>
-                <select class="form-control" name="state" validate="Estado">
+                <select [disabled]="viewMode" class="form-control" name="state" validate="Estado">
                   <option value="" hidden>Selecione...</option>
                   <option *ngFor="let state of states" [value]="state.abbr">{{state.abbr}}</option>
                 </select>
@@ -90,7 +90,7 @@
               <!--Complemento-->
               <div class="form-group col-xs-12">
                 <label>Complemento</label>
-                <input type="text" class="form-control" name="complement">
+                <input [disabled]="viewMode" type="text" class="form-control" name="complement">
               </div>
             </div>
           </fieldset>
@@ -100,20 +100,20 @@
             <div class="row">
               <div class="form-group col-xs-12">
                 <label>Responsável</label>
-                <input type="text" class="form-control" name="responsible" validate="Responsável">
+                <input [disabled]="viewMode" type="text" class="form-control" name="responsible" validate="Responsável">
               </div>
             </div>
             <div class="row">
               <!--Telefone-->
               <div class="form-group col-md-6 col-xs-12">
                 <label>Telefone</label>
-                <input type="text" class="form-control" placeholder="(__) ____-____" 
+                <input [disabled]="viewMode" type="text" class="form-control" placeholder="(__) ____-____" 
                   data-mask="(99) 9999-9999" name="phone" validate="Telefone">
               </div>
               <!--E-mail-->
               <div class="form-group col-md-6 col-xs-12">
                 <label>E-mail</label>
-                <input type="email" class="form-control" name="email" validate="E-mail">
+                <input [disabled]="viewMode" type="email" class="form-control" name="email" validate="E-mail">
               </div>
             </div>
           </fieldset>
@@ -123,7 +123,7 @@
               <!--Mercado-->
               <div class="form-group col-md-4 col-xs-12">
                 <label>Mercado</label>
-                <select class="form-control" name="market" validate="Mercado">
+                <select [disabled]="viewMode" class="form-control" name="market" validate="Mercado">
                   <option value="" hidden>Selecione...</option>
                   <option value="1">Seguradora</option>
                   <option value="2">Transportadora</option>
@@ -133,21 +133,21 @@
               <!--Velocidade Máxima-->
               <div class="form-group col-md-4 col-xs-12">
                 <label>Velocidade Máxima</label>
-                <input type="text" class="form-control" name="limit" validate="Velocidade Máxima">
+                <input [disabled]="viewMode" type="text" class="form-control" name="limit" validate="Velocidade Máxima">
               </div>
               <!--Pontos perigosos-->
               <div class="form-group col-md-4 col-xs-12">
                 <label>Pontos perigosos</label>
                 <div class="input-group">
                   <span class="input-group-addon beautiful">
-                    <input type="checkbox" name="danger-points">
+                    <input [disabled]="viewMode" type="checkbox" name="danger-points">
                   </span>
                   <span class="form-control">Compartilhar pontos perigosos</span>
                 </div>
               </div>
             </div>
           </fieldset>
-          <div class="form-actions">
+          <div class="form-actions" *ngIf="!viewMode">
             <button type="button" class="btn btn-default btn-rounded pull-xs-right" (click)="clearForm()">
               {{clientId ? 'Cancelar' : 'Limpar'}}
             </button>
@@ -163,7 +163,7 @@
 <div class="row">
   <div class="col-md-10 offset-md-1 col-xs-12">
     <client-table *ngIf="clients && showTable" [data]="clients"
-      (clientSelected)="clientSelected($event)"
+      (clientSelected)="loadClientData($event)"
       (deleteClient)="deleteClient($event)">
     </client-table>
   </div>

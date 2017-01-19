@@ -56,6 +56,13 @@ export class BaseService implements IBaseService {
       .catch(this.handleError)
   }
 
+  public getById<T>(id): Observable<any[]> {
+    return this.http
+      .get(`${API_URL}/${this.resource}/${id}`, this.headerOptions)
+      .map(this.extractData)
+      .catch(this.handleError)
+  }
+
   public extractData(res: Response) {
     let body = res.json()
     return body

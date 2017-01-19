@@ -15,10 +15,8 @@ import 'jasny-bootstrap/js/inputmask.js'
 
 import { EquipmentRegisterPage } from './register/register.component'
 import { EquipmentSearchPage } from './search/search.component'
-import { SearchClientTable } from './search/tables/client-table.component'
 import { SearchEquipmentTable } from './search/tables/equipment-table.component'
 import { SearchPipe } from './search/pipes/search-pipe'
-// import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime'
 
 export const routes = [
   {path: '', redirectTo: 'register', pathMatch: 'full'},
@@ -30,7 +28,6 @@ export const routes = [
   declarations: [
     EquipmentRegisterPage,
     EquipmentSearchPage,
-    SearchClientTable,
     SearchEquipmentTable,
     SearchPipe
   ],

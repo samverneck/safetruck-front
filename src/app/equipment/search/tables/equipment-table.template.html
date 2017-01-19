@@ -9,12 +9,6 @@
   <div class="widget-body">
     <div class="mt">
       <div class="width-200 pull-xs-right">
-        <!--<div class="input-group input-group-sm input-group-transparent input-group-rounded">
-          <span class="input-group-addon">
-            <i class="fa fa-search"></i>
-          </span>
-          <input class="form-control form-control-sm" id="table-search-input" [(ngModel)]="searchText" type="text" placeholder="Pesquisar">
-        </div>-->
       </div>
       <table class="table table-striped table-hover" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="10">
         <thead>
@@ -36,7 +30,11 @@
         <tbody>
         <tr *ngFor="let equip of mf.data">
           <td>{{equip.code}}</td>
-          <td>{{equip.install.client.companyName}}</td>
+          <td>
+            <a [routerLink]="['/app/client/view/', equip.install?.clientId]">
+              {{equip.install.client?.companyName}}
+            </a>
+          </td>
           <td>{{equip.install.plaque}}</td>
           <td>{{equip.type}}</td>
         </tr>
