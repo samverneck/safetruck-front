@@ -5,8 +5,8 @@ import {
   Output, Input
 } from '@angular/core'
 
-import { ClientService } from './../../../providers/client.service'
-import { IClient } from './../../../interfaces/IClient'
+import { ClientService } from '../../../../providers/client.service'
+import { IClient } from '../../../../interfaces/IClient'
 
 declare var $: any
 
