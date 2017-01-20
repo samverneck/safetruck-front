@@ -13,6 +13,7 @@ import 'bootstrap-datepicker/dist/locales/bootstrap-datepicker.pt-BR.min.js'
 import 'messenger/build/js/messenger.js'
 import 'jasny-bootstrap/js/inputmask.js'
 
+import { EquipmentTable } from './table/table.component'
 import { EquipmentRegisterPage } from './register/register.component'
 import { EquipmentSearchPage } from './search/search.component'
 import { SearchEquipmentTable } from './search/tables/equipment-table.component'
@@ -29,7 +30,8 @@ export const routes = [
     EquipmentRegisterPage,
     EquipmentSearchPage,
     SearchEquipmentTable,
-    SearchPipe
+    SearchPipe,
+    EquipmentTable
   ],
   imports: [
     Ng2TableModule,

@@ -108,3 +108,11 @@
     </section>
   </div>
 </div>
+<div class="row">
+  <div class="col-md-10 offset-md-1 col-xs-12">
+    <equipment-table *ngIf="equipments && showTable" [data]="equipments"
+      (equipmentSelected)="loadEquipmentData($event)"
+      (deleteEquipment)="deleteEquipment($event)">
+    </equipment-table>
+  </div>
+</div>
