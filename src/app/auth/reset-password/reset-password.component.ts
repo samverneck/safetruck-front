@@ -1,8 +1,8 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { Http } from '@angular/http'
-import 'rxjs/add/operator/toPromise'
 import * as $ from 'jquery'
+import 'rxjs/add/operator/toPromise'
 
 import { AuthService } from './../../../providers/auth.service'
 
@@ -67,7 +67,9 @@ export class ResetPassword implements OnInit {
       .toPromise()
       .then(res => {
         swal({
-          title: 'Senha alterada',
+          title: this.path === 'forgot'
+            ? 'Senha alterada'
+            : 'Senha cadastrada',
           text: this.path === 'forgot'
             ? 'A sua senha foi alterada com sucesso.'
             : 'A sua senha foi criada com sucesso.',
@@ -96,7 +98,5 @@ export class ResetPassword implements OnInit {
       .get(`${API_URL}/forgot/${token}`)
       .toPromise()
   }
-
-
 
 }
