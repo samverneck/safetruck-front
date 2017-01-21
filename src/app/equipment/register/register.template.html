@@ -28,8 +28,7 @@
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Placa do veículo</label>
             <div class="col-md-3 col-xs-12">
-              <input type="text" class="form-control uppercase" name="plaque" validate="Placa do veículo"
-                data-mask="aaa9999" (blur)="toUpperPlaque()">
+              <input type="text" class="form-control uppercase" name="plaque" validate="Placa do veículo" data-mask="aaa9999" (blur)="toUpperPlaque()">
             </div>
           </div>
           <!--Tipo de veículo-->
@@ -110,9 +109,7 @@
 </div>
 <div class="row">
   <div class="col-md-10 offset-md-1 col-xs-12">
-    <equipment-table *ngIf="equipments && showTable" [data]="equipments"
-      (equipmentSelected)="loadEquipmentData($event)"
-      (deleteEquipment)="deleteEquipment($event)">
+    <equipment-table *ngIf="equipments && showTable" [data]="equipments" (equipmentSelected)="loadEquipmentData($event)" (deleteEquipment)="deleteEquipment($event)">
     </equipment-table>
   </div>
 </div>

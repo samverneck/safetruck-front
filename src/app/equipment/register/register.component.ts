@@ -1,5 +1,3 @@
-import { IClient } from '../../../interfaces/IClient';
-import { IEquipmentInstall } from './../../../interfaces/IEquipmentInstall'
 import { Component, ViewEncapsulation, OnInit } from '@angular/core'
 
 import { EquipmentService } from './../../../providers/equipment.service'
@@ -9,6 +7,8 @@ import { FormUtils } from './../../../utils/FormUtils'
 import { Messages } from './../../../utils/Messages'
 // Interfaces
 import { IEquipment } from './../../../interfaces/IEquipment'
+import { IEquipmentInstall } from './../../../interfaces/IEquipmentInstall'
+
 
 declare var swal: any
 declare var $: any
@@ -39,10 +39,12 @@ export class EquipmentRegisterPage implements OnInit {
       this.clients = resp
     })
 
-    this.equipService.getAll().subscribe(resp => {
-      this.equipments = resp
-      this.showTable = true
+    this.equipService.getAll().subscribe({
+      next: resp => this.equipments = resp,
+      error: console.error,
+      complete: () => { this.showTable = true }
     })
+
   }
 
   ngOnInit(): void {

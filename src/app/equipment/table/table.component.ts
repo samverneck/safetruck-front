@@ -36,7 +36,7 @@ export class EquipmentTable {
   @Output() deleteEquipment: EventEmitter<any> = new EventEmitter()
 
   constructor(public equipmentService: EquipmentService) {
-    console.log('iniciando')
+    console.log(this.data)
   }
 
   delete(equipment) {

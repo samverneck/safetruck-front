@@ -35,7 +35,9 @@ export class ClientTable {
   @Output() clientSelected: EventEmitter<any> = new EventEmitter()
   @Output() deleteClient: EventEmitter<any> = new EventEmitter()
 
-  constructor(public clientService: ClientService) {}
+  constructor(public clientService: ClientService) {
+    console.log(this.data)
+  }
 
   delete(client) {
     this.deleteClient.emit(client)
