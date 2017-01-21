@@ -20,28 +20,35 @@
         <thead>
         <tr>
           <th>
-            <mfDefaultSorter by="code">Code</mfDefaultSorter>
+            <mfDefaultSorter by="code">Código do equipamento</mfDefaultSorter>
           </th>
-          <!--<th class="hidden-sm-down">
-            <mfDefaultSorter by="contact.responsible">Responsável</mfDefaultSorter>
+          <th class="hidden-md-down">
+            <mfDefaultSorter by="install.client.companyName">Cliente</mfDefaultSorter>
           </th>
-          <th>
-            <mfDefaultSorter by="contact.email">E-mail</mfDefaultSorter>
+          <th class="hidden-xs-down">
+            <mfDefaultSorter by="install.plaque">Placa</mfDefaultSorter>
           </th>
-          <th>
-            <mfDefaultSorter by="contact.phone">Telefone</mfDefaultSorter>
+          <th class="hidden-xs-down">
+            <mfDefaultSorter by="type">Tipo</mfDefaultSorter>
           </th>
-          <th>
-            <mfDefaultSorter by="companyName">Opções</mfDefaultSorter>
-          </th>-->
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let equipment of mf.data | SearchPipe : searchText" (click)="selected($event, equipment)">
           <td>{{equipment.code}}</td>
-          <!--<td class="hidden-sm-down">{{client.contact.responsible}}</td>
-          <td>{{equipment.contact.email}}</td>
-          <td>{{equipment.contact.phone}}</td>-->
+          <td class="hidden-xs-down">
+            <a [routerLink]="['/app/client/view/', equipment.install?.clientId]">
+              {{equipment.install.client?.companyName}}
+            </a>
+          </td>
+          <td class="hidden-xs-down">{{equipment.install.plaque}}</td>
+          <td class="hidden-xs-down">
+             <select class="form-control" name="equipment.type" validate="Tipo de equipamento" disabled>
+                <option value="0">CXP</option>
+                <option value="1">NZC</option>
+                <option value="2">CENTRAL</option>
+             </select>
+          </td>
           <td>
             <button class="btn btn-xs mb-xs btn-danger" (click)="delete(equipment)">
               <i class="glyphicon glyphicon-trash"></i>
@@ -65,3 +72,5 @@
     </div>
   </div>
 </section>
+
+

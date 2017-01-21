@@ -1,4 +1,6 @@
+import { IClient } from './IClient'
 export interface IEquipmentInstall {
+  client?: IClient
   clientId: string
   plaque: string
   vehicleType: VehicleType

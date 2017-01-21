@@ -29,7 +29,11 @@
         </thead>
         <tbody>
         <tr *ngFor="let equip of mf.data">
-          <td>{{equip.code}}</td>
+          <td class="hidden-xs-down">
+            <a [routerLink]="['/app/equipment/view/', equip.id]">
+              {{equip.code}}
+            </a>
+          </td>
           <td class="hidden-xs-down">
             <a [routerLink]="['/app/client/view/', equip.install?.clientId]">
               {{equip.install.client?.companyName}}

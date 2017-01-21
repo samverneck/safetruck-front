@@ -4,9 +4,10 @@ import { BaseService } from './base.service'
 import { AuthService } from './auth.service'
 
 import { IBaseService } from './../interfaces/IBaseService'
+import { IEquipment } from '../interfaces/IEquipment'
 
 @Injectable()
-export class EquipmentService extends BaseService implements IBaseService {
+export class EquipmentService extends BaseService<IEquipment> implements IBaseService {
 
   constructor(http: Http, auth: AuthService) {
     super.setResource('equipments')

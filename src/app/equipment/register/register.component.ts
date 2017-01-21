@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core'
+import { ActivatedRoute, Params } from '@angular/router'
 
 import { EquipmentService } from './../../../providers/equipment.service'
 import { ClientService } from './../../../providers/client.service'
@@ -24,13 +25,15 @@ declare var $: any
 export class EquipmentRegisterPage implements OnInit {
   equipments: Array<any>
   showTable: boolean
-
+  viewMode: boolean
   messages = new Messages()
   formUtils = new FormUtils()
   clients: Array<any>
   equipmentId: string
 
+
   constructor(
+    private route: ActivatedRoute,
     public equipService: EquipmentService,
     public clientService: ClientService,
     public validation: ValidationService
@@ -45,7 +48,39 @@ export class EquipmentRegisterPage implements OnInit {
       complete: () => { this.showTable = true }
     })
 
+    if (window.location.href.split('/')[5] === 'view') {
+        this.getClientData()
+        this.showTable = false
+        this.viewMode = true
+      }
+      if (window.location.href.split('/')[5] === 'register') {
+        this.showTable = true
+        this.viewMode = false
+        this.clientService.getAll().subscribe({
+          next: resp => this.clients = resp,
+          error: console.error
+        })
+      }
+
   }
+
+  /**
+   * Carrega os dados do equipamento que através do parametro id
+   * passado pela URL
+   */
+  getClientData() {
+    this.route.params.forEach((params: Params) => {
+      if (params['id'] !== undefined) {
+        this.equipService.getById(params['id']).subscribe({
+        next: (equipment) => this.loadEquipmentData(equipment),
+          error: err => window.history.back()
+        })
+        return
+      }
+      window.history.back()
+    })
+  }
+
 
   ngOnInit(): void {
     $('.date').datepicker({
@@ -122,13 +157,13 @@ export class EquipmentRegisterPage implements OnInit {
   deleteEquipment(equipment: IEquipment) {
     swal({
       title: 'Deletar equipamento',
-      text: `Tem certeza que deseja deletar o cliente ${equipment.code}?`,
+      text: `Tem certeza que deseja deletar o equipamento ${equipment.code}?`,
       type: 'warning',
       showCancelButton: true,
       cancelButtonText: 'Não',
       confirmButtonText: 'Sim'
     }).then(() => {
-      this.clientService.delete(equipment).subscribe({
+      this.equipService.delete(equipment).subscribe({
         next: (resp) => {
           this.updateEquipmentsTable()
           console.log(resp)
@@ -142,7 +177,7 @@ export class EquipmentRegisterPage implements OnInit {
           console.error(err)
           swal(
             'Erro!',
-            `Ocorreu um erro ao deletar o cliente. ${err}`,
+            `Ocorreu um erro ao deletar o equipamento. ${err}`,
             'error'
           )
         }

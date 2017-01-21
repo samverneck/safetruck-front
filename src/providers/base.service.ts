@@ -1,3 +1,4 @@
+import { IBaseModel } from '../interfaces/IBaseModel';
 import { Injectable } from '@angular/core'
 import { Http, Response, RequestOptions } from '@angular/http'
 import { Observable } from 'rxjs/Observable'
@@ -9,7 +10,7 @@ import { AuthService } from './auth.service'
 import { IBaseService } from './../interfaces/IBaseService'
 
 @Injectable()
-export class BaseService implements IBaseService {
+export class BaseService<T extends IBaseModel> implements IBaseService {
   headerOptions: RequestOptions
   resource: string
 
@@ -21,42 +22,42 @@ export class BaseService implements IBaseService {
     this.resource = resource
   }
 
-  public save<T>(model: any): Observable<any> {
+  public save(model: T): Observable<T> {
     if (model.id) {
       return this.update(model)
     }
     return this.create(model)
   }
 
-  public create<T>(model: any): Observable<any> {
+  public create(model: T): Observable<T> {
     return this.http
       .post(`${API_URL}/${this.resource}`, model, this.headerOptions)
       .map(this.extractData)
       .catch(this.handleError)
   }
 
-  public update<T>(model: any): Observable<any> {
+  public update(model: T): Observable<T> {
     return this.http
       .put(`${API_URL}/${this.resource}/${model.id}`, model, this.headerOptions)
       .map(this.extractData)
       .catch(this.handleError)
   }
 
-  public delete<T>(model: any): Observable<any> {
+  public delete(model: T): Observable<T> {
     return this.http
       .delete(`${API_URL}/${this.resource}/${model.id}`, this.headerOptions)
       .map(this.extractData)
       .catch(this.handleError)
   }
 
-  public getAll<T>(): Observable<any[]> {
+  public getAll(): Observable<T[]> {
     return this.http
       .get(`${API_URL}/${this.resource}`, this.headerOptions)
       .map(this.extractData)
       .catch(this.handleError)
   }
 
-  public getById<T>(id): Observable<any[]> {
+  public getById(id): Observable<T> {
     return this.http
       .get(`${API_URL}/${this.resource}/${id}`, this.headerOptions)
       .map(this.extractData)

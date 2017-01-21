@@ -17,12 +17,13 @@ import { EquipmentTable } from './table/table.component'
 import { EquipmentRegisterPage } from './register/register.component'
 import { EquipmentSearchPage } from './search/search.component'
 import { SearchEquipmentTable } from './search/tables/equipment-table.component'
-import { SearchPipe } from './search/pipes/search-pipe'
+import { SearchPipe } from './pipes/search-pipe'
 
 export const routes = [
   {path: '', redirectTo: 'register', pathMatch: 'full'},
   {path: 'register', component: EquipmentRegisterPage},
-  {path: 'search', component: EquipmentSearchPage}
+  {path: 'search', component: EquipmentSearchPage},
+  {path: 'view/:id', component: EquipmentRegisterPage}
 ]
 
 @NgModule({

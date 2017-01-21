@@ -9,7 +9,6 @@ import {
   animate
 } from '@angular/core'
 
-import * as _ from 'lodash'
 
 @Component({
   selector: 'equipment-search',
