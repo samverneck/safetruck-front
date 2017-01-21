@@ -277,8 +277,8 @@ module.exports = function(options) {
         Tether: 'tether',
         'window.Tether': 'tether',
         moment: 'moment',
-        Skycons: 'skycons/skycons'
-        // Hammer: 'hammerjs/hammer',
+        Skycons: 'skycons/skycons',
+        Hammer: 'hammerjs/hammer',
         // Shuffle: 'shufflejs',
         // d3: 'd3',
         // Rickshaw: 'rickshaw',
