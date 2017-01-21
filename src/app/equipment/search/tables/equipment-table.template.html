@@ -16,13 +16,13 @@
           <th>
             <mfDefaultSorter by="code">Código do equipamento</mfDefaultSorter>
           </th>
-          <th>
+          <th class="hidden-md-down">
             <mfDefaultSorter by="install.client.companyName">Cliente</mfDefaultSorter>
           </th>
-          <th>
+          <th class="hidden-xs-down">
             <mfDefaultSorter by="install.plaque">Placa</mfDefaultSorter>
           </th>
-          <th>
+          <th class="hidden-xs-down">
             <mfDefaultSorter by="type">Tipo</mfDefaultSorter>
           </th>
         </tr>
@@ -30,13 +30,13 @@
         <tbody>
         <tr *ngFor="let equip of mf.data">
           <td>{{equip.code}}</td>
-          <td>
+          <td class="hidden-xs-down">
             <a [routerLink]="['/app/client/view/', equip.install?.clientId]">
               {{equip.install.client?.companyName}}
             </a>
           </td>
-          <td>{{equip.install.plaque}}</td>
-          <td>{{equip.type}}</td>
+          <td class="hidden-xs-down">{{equip.install.plaque}}</td>
+          <td class="hidden-xs-down">{{equip.type}}</td>
         </tr>
         <tr *ngIf="mf.data.length === 0">
           <td colspan="100">

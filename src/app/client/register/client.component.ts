@@ -89,7 +89,6 @@ export class ClientPage {
             : 'O cliente foi cadastrado com sucesso.',
           'success'
         )
-        console.log('Resposta: ', response)
       },
       error: (err) => {
         this.updateClientsTable()
@@ -125,7 +124,6 @@ export class ClientPage {
       this.clientService.delete(client).subscribe({
         next: (resp) => {
           this.updateClientsTable()
-          console.log(resp)
           swal(
             'Deletado!',
             `O cliente ${client.tradingName} foi deletado com sucesso.`,

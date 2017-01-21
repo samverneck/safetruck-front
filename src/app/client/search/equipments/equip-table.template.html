@@ -17,13 +17,13 @@
           <th class="hidden-sm-down">
             <mfDefaultSorter by="install.plaque">Placa</mfDefaultSorter>
           </th>
-          <th>
+          <th class="hidden-xs-down">
             <mfDefaultSorter by="install.vehicleType">Veículo</mfDefaultSorter>
           </th>
-          <th>
+          <th class="hidden-xs-down">
             <mfDefaultSorter by="type">Tipo</mfDefaultSorter>
           </th>
-          <th>
+          <th class="hidden-xs-down">
             <mfDefaultSorter by="install.orientation">Orientação</mfDefaultSorter>
           </th>
         </tr>
@@ -32,9 +32,9 @@
         <tr *ngFor="let equip of mf.data">
           <td>{{equip.code}}</td>
           <td class="hidden-sm-down">{{equip.install.plaque}}</td>
-          <td>{{equip.install.vehicleType}}</td>
-          <td>{{equip.type}}</td>
-          <td>{{equip.install.orientation}}</td>
+          <td class="hidden-xs-down">{{equip.install.vehicleType}}</td>
+          <td class="hidden-xs-down">{{equip.type}}</td>
+          <td class="hidden-xs-down">{{equip.install.orientation}}</td>
         </tr>
         </tbody>
         <tfoot>

@@ -39,7 +39,6 @@ export class EquipmentSearchPage {
 
   search() {
     this.equip.getAll().subscribe(equips => {
-      console.log(equips)
       if (!this.searchText) {
         this.equipments = equips
         return

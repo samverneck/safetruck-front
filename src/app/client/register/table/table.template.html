@@ -25,13 +25,13 @@
           <th class="hidden-sm-down">
             <mfDefaultSorter by="contact.responsible">Responsável</mfDefaultSorter>
           </th>
-          <th>
+          <th class="hidden-xs-down">
             <mfDefaultSorter by="contact.email">E-mail</mfDefaultSorter>
           </th>
           <th>
             <mfDefaultSorter by="contact.phone">Telefone</mfDefaultSorter>
           </th>
-          <th>
+          <th class="hidden-xs-down">
             <mfDefaultSorter by="companyName">Opções</mfDefaultSorter>
           </th>
         </tr>
@@ -40,9 +40,9 @@
         <tr *ngFor="let client of mf.data | SearchPipe : searchText" (click)="selected($event, client)">
           <td>{{client.companyName}}</td>
           <td class="hidden-sm-down">{{client.contact.responsible}}</td>
-          <td>{{client.contact.email}}</td>
+          <td class="hidden-xs-down">{{client.contact.email}}</td>
           <td>{{client.contact.phone}}</td>
-          <td>
+          <td class="hidden-xs-down">
             <button class="btn btn-xs mb-xs btn-danger" (click)="delete(client)">
               <i class="glyphicon glyphicon-trash"></i>
             </button>
