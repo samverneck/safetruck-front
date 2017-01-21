@@ -1,16 +1,16 @@
 import { Component, ViewEncapsulation } from '@angular/core'
 import { ActivatedRoute, Params } from '@angular/router'
 
-import { ValidationService } from './../../providers/validation.service'
-import { CepService } from './../../providers/cep.service'
-import { ClientService } from './../../providers/client.service'
-import { FormUtils } from './../../utils/FormUtils'
-import { Messages } from './../../utils/Messages'
-import { STATES } from '../../utils/states.data'
+import { ValidationService } from '../../../providers/validation.service'
+import { CepService } from '../../../providers/cep.service'
+import { ClientService } from '../../../providers/client.service'
+import { FormUtils } from '../../../utils/FormUtils'
+import { Messages } from '../../../utils/Messages'
+import { STATES } from '../../../utils/states.data'
 // Interfaces
-import { IClient } from './../../interfaces/IClient'
-import { IContact } from './../../interfaces/IContact'
-import { IAddress } from './../../interfaces/IAddress'
+import { IClient } from '../../../interfaces/IClient'
+import { IContact } from '../../../interfaces/IContact'
+import { IAddress } from '../../../interfaces/IAddress'
 
 declare var swal: any
 declare var $: any
@@ -19,17 +19,17 @@ declare var $: any
   selector: 'client',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './client.template.html',
-  styleUrls: ['./client.styles.scss', '../scss/notifications.scss'],
+  styleUrls: ['./client.styles.scss'],
   providers: [ClientService, ValidationService, CepService]
 })
 
 export class ClientPage {
-  clients: Array<any>
+  clients: Array<IClient>
   showTable: boolean
   viewMode: boolean
+  states: Array<{abbr: string, name: string}> = STATES
   message = new Messages()
   formUtils = new FormUtils
-  states: Array<any> = STATES
   private clientId: any
 
   constructor(
@@ -89,7 +89,6 @@ export class ClientPage {
             : 'O cliente foi cadastrado com sucesso.',
           'success'
         )
-        console.log('Resposta: ', response)
       },
       error: (err) => {
         this.updateClientsTable()
@@ -125,7 +124,6 @@ export class ClientPage {
       this.clientService.delete(client).subscribe({
         next: (resp) => {
           this.updateClientsTable()
-          console.log(resp)
           swal(
             'Deletado!',
             `O cliente ${client.tradingName} foi deletado com sucesso.`,

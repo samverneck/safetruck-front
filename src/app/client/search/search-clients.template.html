@@ -1,4 +1,4 @@
-<section class="widget" widget [@fadeInOut]>
+<section class="widget" widget>
   <header>
     <h4>Lista de clientes</h4>
     <div class="widget-controls">
@@ -23,34 +23,39 @@
             <mfDefaultSorter by="companyName">Nome Fantasia</mfDefaultSorter>
           </th>
           <th class="hidden-sm-down">
+            <mfDefaultSorter by="cnpj">CNPJ</mfDefaultSorter>
+          </th>
+          <th class="hidden-xs-down">
             <mfDefaultSorter by="contact.responsible">Responsável</mfDefaultSorter>
           </th>
-          <th>
+          <th class="hidden-xs-down">
             <mfDefaultSorter by="contact.email">E-mail</mfDefaultSorter>
           </th>
-          <th>
+          <th class="hidden-xs-down">
             <mfDefaultSorter by="contact.phone">Telefone</mfDefaultSorter>
           </th>
-          <th>
-            <mfDefaultSorter by="companyName">Opções</mfDefaultSorter>
+          <th style="text-align: center">
+            <mfDefaultSorter by="equipments.length">Qtde Eqipamentos</mfDefaultSorter>
           </th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let client of mf.data | SearchPipe : searchText" (click)="selected($event, client)">
           <td>{{client.companyName}}</td>
-          <td class="hidden-sm-down">{{client.contact.responsible}}</td>
-          <td>{{client.contact.email}}</td>
-          <td>{{client.contact.phone}}</td>
-          <td>
-            <button class="btn btn-xs mb-xs btn-danger" (click)="delete(client)">
-              <i class="glyphicon glyphicon-trash"></i>
-            </button>
-          </td>
+          <td class="hidden-sm-down">{{client.cnpj}}</td>
+          <td class="hidden-xs-down">{{client.contact.responsible}}</td>
+          <td class="hidden-xs-down">{{client.contact.email}}</td>
+          <td class="hidden-xs-down">{{client.contact.phone}}</td>
+          <td align="center">{{client.equipments.length}}</td>
         </tr>
-        <tr *ngIf="(mf.data | SearchPipe : searchText).length === 0">
+        <tr *ngIf="(mf.data | SearchPipe : searchText).length === 0 && dataLoaded">
           <td colspan="100">
             Sem resultados
+          </td>
+        </tr>
+        <tr *ngIf="!dataLoaded">
+          <td colspan="100">
+            Carregando...
           </td>
         </tr>
         </tbody>
@@ -65,3 +70,7 @@
     </div>
   </div>
 </section>
+
+<div id="equipment-list">
+  <equipment-table [show]="show" [data]="equips"></equipment-table>
+</div>
