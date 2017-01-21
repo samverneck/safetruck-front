@@ -21,21 +21,21 @@
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Código do equipamento</label>
             <div class="col-md-6 col-xs-12">
-              <input type="text" class="form-control" name="code" validate="Código do equipamento">
+              <input [disabled]="viewMode" type="text" class="form-control" name="code" validate="Código do equipamento">
             </div>
           </div>
           <!--Placa do veículo-->
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Placa do veículo</label>
             <div class="col-md-3 col-xs-12">
-              <input type="text" class="form-control uppercase" name="plaque" validate="Placa do veículo" data-mask="aaa9999" (blur)="toUpperPlaque()">
+              <input [disabled]="viewMode" type="text" class="form-control uppercase" name="plaque" validate="Placa do veículo" data-mask="aaa9999" (blur)="toUpperPlaque()">
             </div>
           </div>
           <!--Tipo de veículo-->
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Tipo de veículo</label>
             <div class="col-md-3 col-xs-12">
-              <select class="form-control" name="vehicle" validate="Tipo de veículo">
+              <select [disabled]="viewMode" class="form-control" name="vehicle" validate="Tipo de veículo">
                 <option value="" hidden>Selecione...</option>
                 <option value="0">Carro</option>
                 <option value="1">Ônibus</option>
@@ -48,7 +48,7 @@
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Tipo de equipamento</label>
             <div class="col-md-3 col-xs-12">
-              <select class="form-control" name="equipment" validate="Tipo de equipamento">
+              <select [disabled]="viewMode" class="form-control" name="equipment" validate="Tipo de equipamento">
                 <option value="" hidden>Selecione...</option>
                 <option value="0">CXP</option>
                 <option value="1">NZC</option>
@@ -60,7 +60,7 @@
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Orientação</label>
             <div class="col-md-3 col-xs-12">
-              <select name="orientation" class="form-control" validate="Orientação">
+              <select [disabled]="viewMode" name="orientation" class="form-control" validate="Orientação">
                 <option value="" hidden>Selecione...</option>
                 <option value="0">YZX</option>
                 <option value="1">XYZ</option>
@@ -72,7 +72,7 @@
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Cliente</label>
             <div class="col-md-3 col-xs-12">
-              <select class="form-control" name="client-id" validate="Cliente">
+              <select [disabled]="viewMode" class="form-control" name="client-id" validate="Cliente">
                 <option value="" hidden>Selecione...</option>
                 <option *ngFor="let client of clients" [value]="client.id">{{client.companyName}}</option>
               </select>
@@ -82,7 +82,7 @@
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Data da instalação</label>
             <div class="input-group col-md-3 col-xs-12 date" data-provide="datepicker">
-              <input type="text" class="form-control" name="installation" validate="Data da instalação">
+              <input [disabled]="viewMode" type="text" class="form-control" name="installation" validate="Data da instalação">
               <div class="input-group-addon">
                 <span class="glyphicon glyphicon-th"></span>
               </div>
@@ -92,15 +92,19 @@
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Data de aferição do tacógrafo</label>
             <div class="input-group col-md-3 col-xs-12 date" data-provide="datepicker">
-              <input type="text" class="form-control" name="admeasurement">
+              <input [disabled]="viewMode" type="text" class="form-control" name="admeasurement">
               <div class="input-group-addon">
                 <span class="glyphicon glyphicon-th"></span>
               </div>
             </div>
           </div>
-          <div class="form-actions">
-            <button type="button" class="btn btn-default btn-rounded pull-xs-right" (click)="clearForm()">Limpar</button>
-            <button type="submit" class="btn btn-primary btn-rounded" (click)="saveEquipament()">Cadastrar</button>
+          <div class="form-actions" *ngIf="!viewMode">
+            <button type="button" class="btn btn-default btn-rounded pull-xs-right" (click)="clearForm()">
+              {{equipmentId ? 'Cancelar' : 'Limpar'}}
+            </button>
+            <button type="submit" class="btn btn-primary btn-rounded" (click)="saveEquipament()">
+              {{equipmentId ? 'Atualizar' : 'Cadastrar'}}
+            </button>
           </div>
         </form>
       </div>
@@ -109,7 +113,8 @@
 </div>
 <div class="row">
   <div class="col-md-10 offset-md-1 col-xs-12">
-    <equipment-table *ngIf="equipments && showTable" [data]="equipments" (equipmentSelected)="loadEquipmentData($event)" (deleteEquipment)="deleteEquipment($event)">
+    <equipment-table *ngIf="equipments && showTable && !viewMode"
+    [data]="equipments" (equipmentSelected)="loadEquipmentData($event)" (deleteEquipment)="deleteEquipment($event)">
     </equipment-table>
   </div>
 </div>

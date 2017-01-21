@@ -1,4 +1,7 @@
+import { IClient } from '../../../interfaces/IClient'
+import { IEquipment } from '../../../interfaces/IEquipment'
 import { Messages } from './../../../utils/Messages'
+import * as _ from 'lodash'
 import { EquipmentService } from './../../../providers/equipment.service'
 import {
   Component,
@@ -31,8 +34,8 @@ import {
 
 export class EquipmentSearchPage {
   searchText: string
-  clients: any
-  equipments: any[]
+  clients: IClient[]
+  equipments: IEquipment[]
   msg = new Messages()
   constructor(public equip: EquipmentService) {}
 
@@ -48,7 +51,7 @@ export class EquipmentSearchPage {
       let plaque = equips.filter((eq) => {
         return (eq.install.plaque.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1)
       })
-      this.equipments = code.concat(plaque)
+      this.equipments = _.unionBy(code.concat(plaque) , 'id')
     })
   }
 

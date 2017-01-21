@@ -10,7 +10,7 @@ export class SearchPipe implements PipeTransform {
     let searchText = new RegExp(args, 'ig')
     if (value) {
       return value.filter((equipment: IEquipment) => {
-        if (equipment.code || equipment.install.client.alias || equipment.install.client.companyName) {
+        if (equipment.code || equipment.install.client.companyName) {
           return equipment.code.search(searchText) !== -1
             || equipment.install.client.alias.search(searchText) !== -1
             || equipment.install.client.companyName.search(searchText) !== -1

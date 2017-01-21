@@ -40,7 +40,14 @@
             </a>
           </td>
           <td class="hidden-xs-down">{{equip.install.plaque}}</td>
-          <td class="hidden-xs-down">{{equip.type}}</td>
+          <td class="hidden-xs-down">
+            <select class="form-control" name="equip.type" validate="Tipo de equipamento" disabled>
+                <option value="0">CXP</option>
+                <option value="1">NZC</option>
+                <option value="2">CENTRAL</option>
+             </select>
+          </td>
+
         </tr>
         <tr *ngIf="mf.data.length === 0">
           <td colspan="100">

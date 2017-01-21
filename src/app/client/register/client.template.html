@@ -28,7 +28,7 @@
               <!--Nome Fantasia-->
               <div class="form-group col-md-6 col-xs-12">
                 <label>Nome Fantasia</label>
-                <input [disabled]="viewMode" type="text" class="form-control" name="trading-name" 
+                <input [disabled]="viewMode" type="text" class="form-control" name="trading-name"
                   validate="Nome Fantasia" (blur)="slugify()">
               </div>
             </div>
@@ -107,7 +107,7 @@
               <!--Telefone-->
               <div class="form-group col-md-6 col-xs-12">
                 <label>Telefone</label>
-                <input [disabled]="viewMode" type="text" class="form-control" placeholder="(__) ____-____" 
+                <input [disabled]="viewMode" type="text" class="form-control" placeholder="(__) ____-____"
                   data-mask="(99) 9999-9999" name="phone" validate="Telefone">
               </div>
               <!--E-mail-->
@@ -125,9 +125,9 @@
                 <label>Mercado</label>
                 <select [disabled]="viewMode" class="form-control" name="market" validate="Mercado">
                   <option value="" hidden>Selecione...</option>
-                  <option value="1">Seguradora</option>
-                  <option value="2">Transportadora</option>
-                  <option value="3">Outros</option>
+                  <option value="0">Seguradora</option>
+                  <option value="1">Transportadora</option>
+                  <option value="2">Outros</option>
                 </select>
               </div>
               <!--Velocidade Máxima-->
