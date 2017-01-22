@@ -5,16 +5,16 @@ import {
   Output, Input
 } from '@angular/core'
 
-import { ClientService } from './../../../providers/client.service'
-import { IClient } from './../../../interfaces/IClient'
+import { EquipmentService } from './../../../providers/equipment.service'
+import { IEquipment, EquipmentType } from './../../../interfaces/IEquipment'
 
 declare var $: any
 
 @Component({
-  selector: 'client-table',
+  selector: 'equipment-table',
   templateUrl: './table.template.html',
   encapsulation: ViewEncapsulation.None,
-  providers: [ClientService],
+  providers: [EquipmentService],
   styleUrls: ['./table.styles.scss'],
   animations: [
     trigger('fadeInOut', [
@@ -29,20 +29,24 @@ declare var $: any
   ]
 })
 
-export class ClientTable {
+export class EquipmentTable {
 
-  @Input() data: IClient[]
-  @Output() clientSelected: EventEmitter<any> = new EventEmitter()
-  @Output() deleteClient: EventEmitter<any> = new EventEmitter()
+  @Input() data: IEquipment[]
+  @Output() equipmentSelected: EventEmitter<any> = new EventEmitter()
+  @Output() deleteEquipment: EventEmitter<any> = new EventEmitter()
 
-  constructor(public clientService: ClientService) {}
+  types = EquipmentType
 
-  delete(client) {
-    this.deleteClient.emit(client)
+  constructor(public equipmentService: EquipmentService) {
+    console.log(this.data)
   }
 
-  selected(element, client) {
-    this.clientSelected.emit(client)
+  delete(equipment) {
+    this.deleteEquipment.emit(equipment)
+  }
+
+  selected(element, equipment) {
+    this.equipmentSelected.emit(equipment)
     this.toggleSelected(element)
   }
 

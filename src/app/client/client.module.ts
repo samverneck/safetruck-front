@@ -8,23 +8,27 @@ import { WidgetModule } from '../layout/widget/widget.module'
 import { UtilsModule } from '../layout/utils/utils.module'
 
 // libs
-import 'jasny-bootstrap/docs/assets/js/vendor/holder.js'
-import 'jasny-bootstrap/js/fileinput.js'
 import 'jasny-bootstrap/js/inputmask.js'
 
 import { SearchPipe } from './pipes/search-pipe'
-import { ClientPage } from './client.component'
-import { ClientTable } from './table/table.component'
+import { ClientPage } from './register/client.component'
+import { ClientTable } from './register/table/table.component'
+import { SearchClientsPage } from './search/search-clients.component'
+import { EquipmentTable } from './search/equipments/equip-table.component'
 
 export const routes = [
   {path: '', redirectTo: 'register', pathMatch: 'full'},
-  {path: 'register', component: ClientPage}
+  {path: 'register', component: ClientPage},
+  {path: 'search', component: SearchClientsPage},
+  {path: 'view/:id', component: ClientPage}
 ]
 
 @NgModule({
   declarations: [
     ClientPage,
     ClientTable,
+    SearchClientsPage,
+    EquipmentTable,
     SearchPipe
   ],
   imports: [

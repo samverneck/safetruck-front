@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation, Input, OnInit } from '@angular/core'
 import { Observable } from 'rxjs/Observable'
 import * as _ from 'lodash'
 import * as moment from 'moment'
+import { IReportOverSpeeding, IReportDangerZonesData } from '../../../interfaces/IReport'
 
 declare var google: any
 
@@ -14,8 +15,8 @@ declare var google: any
 
 export class RouteComponent implements OnInit {
   @Input() route: Array<any>
-  @Input() overSpeedings: Array<any>
-  @Input() dangerZones: Array<any>
+  @Input() overSpeedings: Array<IReportOverSpeeding>
+  @Input() dangerZones: Array<IReportDangerZonesData>
   @Input() times: any
 
   constructor() { }
@@ -36,7 +37,7 @@ export class RouteComponent implements OnInit {
           latLng: _.head(this.route)
         },
         finish: {
-          date: this.times.start,
+          date: this.times.finish,
           latLng: _.last(this.route)
         }
       })
@@ -221,7 +222,7 @@ export class RouteComponent implements OnInit {
     let finishMarkerCtn = `
       <div id="content">
         <div id="siteNotice"></div>
-        <h2 id="firstHeading" class="firstHeading">Início do relatório</h2>
+        <h2 id="firstHeading" class="firstHeading">Fim do relatório</h2>
         <div id="bodyContent">
           <p>Data e Hora de intício: ${finishMarker}</p>
         </div>

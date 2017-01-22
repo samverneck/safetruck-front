@@ -263,7 +263,7 @@ export class ReportPage implements OnInit {
           data: moment().subtract(1, 'hours').format(DATE_FORMAT).toString(),
           imprudencias: {
             excessoVel: this.report.overSpeedingsTotal || 0,
-            kmAc: this.report.KmAcumulated || 0,
+            kmAc: this.report.kmAcumulated || 0,
             relacaoKmAc: this.report.overSpeedingsXKmAcumulated || 0,
             zonPerig: this.report.passOverDangerZones || 0
           },

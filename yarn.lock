@@ -86,7 +86,7 @@
   version "2.2.34"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.2.34.tgz#4156d5f8ea59dc2adb6e5f21e09ae80f19090505"
 
-"@types/lodash@^4.14.44":
+"@types/lodash@^4.14.50":
   version "4.14.50"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.50.tgz#2227da4d65fafe249bccd59c7b9396e27674c8f7"
 
@@ -2334,7 +2334,7 @@ lodash@^3.10.1:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
-lodash@^4.0.0, lodash@^4.11.2, lodash@^4.12.0, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.17.3, lodash@^4.3.0:
+lodash@^4.0.0, lodash@^4.11.2, lodash@^4.12.0, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.17.4, lodash@^4.3.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
