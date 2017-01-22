@@ -15,8 +15,12 @@ import 'jasny-bootstrap/js/inputmask.js'
 import { EquipmentTable } from './table/table.component'
 import { EquipmentRegisterPage } from './register/register.component'
 import { EquipmentSearchPage } from './search/search.component'
+import { EquipmentTypeSelectComponent } from './equipment-enums/equipment-type.component'
+import { EquipmentOrientationSelectComponent } from './equipment-enums/equipment-orientation-component'
+import { EquipmentVehicleTypeSelectComponent } from './equipment-enums/equipment-vehicle-type-component'
 import { SearchEquipmentTable } from './search/tables/equipment-table.component'
 import { SearchPipe } from './pipes/search-pipe'
+import { EnumPipe } from '../../pipes/enum-pipe'
 
 export const routes = [
   {path: '', redirectTo: 'register', pathMatch: 'full'},
@@ -30,8 +34,12 @@ export const routes = [
     EquipmentRegisterPage,
     EquipmentSearchPage,
     SearchEquipmentTable,
+    EquipmentTypeSelectComponent,
+    EquipmentOrientationSelectComponent,
+    EquipmentVehicleTypeSelectComponent,
     SearchPipe,
-    EquipmentTable
+    EquipmentTable,
+    EnumPipe
   ],
   imports: [
     Ng2TableModule,

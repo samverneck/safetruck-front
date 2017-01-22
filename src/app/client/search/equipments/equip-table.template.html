@@ -33,26 +33,13 @@
             <td>{{equip.code}}</td>
             <td class="hidden-sm-down">{{equip.install.plaque}}</td>
             <td class="hidden-xs-down">
-              <select class="form-control" name="equip.install.vehicleType" validate="Tipo de veículo" disabled>
-                <option value="0">Carro</option>
-                <option value="1">Ônibus</option>
-                <option value="2">Caminhão</option>
-                <option value="3">Outros</option>
-              </select>
+              {{vehicleTypes[equip.install.vehicleType]}}
             </td>
             <td class="hidden-xs-down">
-              <select class="form-control" name="equip.type" validate="Tipo de equipamento" disabled>
-                <option value="0">CXP</option>
-                <option value="1">NZC</option>
-                <option value="2">CENTRAL</option>
-             </select>
+              {{types[equip.type]}}
             </td>
             <td class="hidden-xs-down">
-              <select name="equip.install.orientation" class="form-control" validate="Orientação" disabled>
-                <option value="0">YZX</option>
-                <option value="1">XYZ</option>
-                <option value="2">ZYX</option>
-              </select>
+              {{orientations[equip.install.orientation]}}
             </td>
           </tr>
         </tbody>

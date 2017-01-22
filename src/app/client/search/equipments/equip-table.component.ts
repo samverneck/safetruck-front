@@ -4,6 +4,10 @@ import {
   animate, Input
 } from '@angular/core'
 
+import { EquipmentType } from '../../../../interfaces/IEquipment'
+import { Orientation } from '../../../../interfaces/IEquipmentInstall'
+import { EVechicleType } from '../../../equipment/equipment-enums/equipment-vehicle-type-component'
+
 @Component({
   selector: 'equipment-table',
   templateUrl: './equip-table.template.html',
@@ -24,4 +28,9 @@ import {
 
 export class EquipmentTable {
   @Input() data: Array<any>
+
+  types = EquipmentType
+
+  orientations = Orientation
+  vehicleTypes = EVechicleType
 }

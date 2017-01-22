@@ -43,11 +43,7 @@
           </td>
           <td class="hidden-xs-down">{{equipment.install.plaque}}</td>
           <td class="hidden-xs-down">
-             <select class="form-control" name="equipment.type" validate="Tipo de equipamento" disabled>
-                <option value="0">CXP</option>
-                <option value="1">NZC</option>
-                <option value="2">CENTRAL</option>
-             </select>
+             {{types[equipment.type]}}
           </td>
           <td>
             <button class="btn btn-xs mb-xs btn-danger" (click)="delete(equipment)">

@@ -6,7 +6,7 @@ import {
 } from '@angular/core'
 
 import { EquipmentService } from './../../../providers/equipment.service'
-import { IEquipment } from './../../../interfaces/IEquipment'
+import { IEquipment, EquipmentType } from './../../../interfaces/IEquipment'
 
 declare var $: any
 
@@ -34,6 +34,8 @@ export class EquipmentTable {
   @Input() data: IEquipment[]
   @Output() equipmentSelected: EventEmitter<any> = new EventEmitter()
   @Output() deleteEquipment: EventEmitter<any> = new EventEmitter()
+
+  types = EquipmentType
 
   constructor(public equipmentService: EquipmentService) {
     console.log(this.data)

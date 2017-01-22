@@ -30,7 +30,7 @@ export class ClientPage {
   states: Array<{abbr: string, name: string}> = STATES
   message = new Messages()
   formUtils = new FormUtils
-  private clientId: any
+  private clientId: string
 
   constructor(
     private route: ActivatedRoute,

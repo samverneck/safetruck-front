@@ -9,7 +9,7 @@ import { Messages } from './../../../utils/Messages'
 // Interfaces
 import { IEquipment } from './../../../interfaces/IEquipment'
 import { IEquipmentInstall } from './../../../interfaces/IEquipmentInstall'
-
+import { IClient } from '../../../interfaces/IClient'
 
 declare var swal: any
 declare var $: any
@@ -23,15 +23,13 @@ declare var $: any
 })
 
 export class EquipmentRegisterPage implements OnInit {
-  equipments: Array<any>
+  equipments: Array<IEquipment>
   showTable: boolean
   viewMode: boolean
   messages = new Messages()
   formUtils = new FormUtils()
-  clients: Array<any>
+  clients: Array<IClient>
   equipmentId: string
-
-
   constructor(
     private route: ActivatedRoute,
     public equipService: EquipmentService,
@@ -48,7 +46,7 @@ export class EquipmentRegisterPage implements OnInit {
       complete: () => { this.showTable = true }
     })
 
-    if (window.location.href.split('/')[5] === 'view') {
+    if (window.location.href.split('/')  [5] === 'view') {
         this.getClientData()
         this.showTable = false
         this.viewMode = true
@@ -201,6 +199,7 @@ export class EquipmentRegisterPage implements OnInit {
       admeasurement: data['admeasurement']
     }
     let equipment: IEquipment = {
+      id: this.equipmentId ? this.equipmentId : null,
       code: data['code'],
       type: data['equipment'],
       install: install
@@ -226,6 +225,7 @@ export class EquipmentRegisterPage implements OnInit {
     $('[name="client-id"]').val(equipment.install.clientId)
     $('[name="installation"]').val(equipment.install.installation)
     $('[name="admeasurement"]').val(equipment.install.admeasurement)
+    $('[name="clientName"]').val(equipment.install.client.companyName)
   }
 
 

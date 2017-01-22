@@ -1,14 +1,14 @@
 <ol class="breadcrumb">
   <li class="breadcrumb-item">Equipamento</li>
-  <li class="breadcrumb-item active">Cadastro</li>
+  <li class="breadcrumb-item active">{{viewMode ? 'Visualizar' : 'Cadastro'}}</li>
 </ol>
 <div class="row">
   <div class="col-lg-10 offset-lg-1 col-xs-12">
     <section class="widget" widget>
       <header>
         <h5>
-          <span>Equipamento</span>
-          <small>Cadastrar Novo Equipamento</small>
+          <span *ngIf="!viewMode">{{equipmentId ? 'Atualizar Cliente' : 'Cadastrar Novo Equipamento'}}</span>
+          <span *ngIf="viewMode">Visualizar Equipamento</span>
         </h5>
         <div class="widget-controls">
           <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
@@ -35,47 +35,35 @@
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Tipo de veículo</label>
             <div class="col-md-3 col-xs-12">
-              <select [disabled]="viewMode" class="form-control" name="vehicle" validate="Tipo de veículo">
-                <option value="" hidden>Selecione...</option>
-                <option value="0">Carro</option>
-                <option value="1">Ônibus</option>
-                <option value="2">Caminhão</option>
-                <option value="3">Outros</option>
-              </select>
+              <equipment-vehicle-type-select [disabled]="viewMode" name="vehicle" validate="Tipo de veículo">
+              </equipment-vehicle-type-select>
             </div>
           </div>
           <!--Tipo de equipamento-->
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Tipo de equipamento</label>
             <div class="col-md-3 col-xs-12">
-              <select [disabled]="viewMode" class="form-control" name="equipment" validate="Tipo de equipamento">
-                <option value="" hidden>Selecione...</option>
-                <option value="0">CXP</option>
-                <option value="1">NZC</option>
-                <option value="2">CENTRAL</option>
-              </select>
+              <equipment-type-select [disabled]="viewMode" name="equipment" validate="Tipo de equipamento">
+              </equipment-type-select>
             </div>
           </div>
           <!--Orientação-->
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Orientação</label>
             <div class="col-md-3 col-xs-12">
-              <select [disabled]="viewMode" name="orientation" class="form-control" validate="Orientação">
-                <option value="" hidden>Selecione...</option>
-                <option value="0">YZX</option>
-                <option value="1">XYZ</option>
-                <option value="2">ZYX</option>
-              </select>
+              <equipment-orientation-select [disabled]="viewMode" name="orientation" validate="Orientação">
+              </equipment-orientation-select>
             </div>
           </div>
           <!--Cliente-->
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Cliente</label>
             <div class="col-md-3 col-xs-12">
-              <select [disabled]="viewMode" class="form-control" name="client-id" validate="Cliente">
+              <select [hidden]="viewMode" class="form-control" name="client-id" validate="Cliente">
                 <option value="" hidden>Selecione...</option>
                 <option *ngFor="let client of clients" [value]="client.id">{{client.companyName}}</option>
               </select>
+              <input [hidden]="!viewMode" type="text" name="clientName" class="form-control"validate="Cliente" disabled>
             </div>
           </div>
           <!--Data da instalação-->
