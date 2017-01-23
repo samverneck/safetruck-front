@@ -45,11 +45,11 @@
           <td class="hidden-xs-down">
              {{types[equipment.type]}}
           </td>
-          <td>
+          <!--<td>
             <button class="btn btn-xs mb-xs btn-danger" (click)="delete(equipment)">
               <i class="glyphicon glyphicon-trash"></i>
             </button>
-          </td>
+          </td>-->
         </tr>
         <tr *ngIf="(mf.data | SearchPipe : searchText).length === 0">
           <td colspan="100">
