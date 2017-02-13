@@ -94,7 +94,7 @@
     "@types/google-maps": "^3.2.0",
     "@types/hammerjs": "2.0.33",
     "@types/jasmine": "2.2.34",
-    "@types/lodash": "^4.14.50",
+    "@types/lodash": "4.14.50",
     "@types/node": "6.0.38",
     "@types/source-map": "0.1.27",
     "@types/uglify-js": "2.0.27",

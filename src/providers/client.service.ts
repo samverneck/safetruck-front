@@ -1,4 +1,4 @@
-import { IClient } from '../interfaces/IClient';
+import { IClient } from '../interfaces/IClient'
 import { Http } from '@angular/http'
 import { Injectable } from '@angular/core'
 import { BaseService } from './base.service'
