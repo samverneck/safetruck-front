@@ -1985,9 +1985,9 @@ jquery-sparkline@2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/jquery-sparkline/-/jquery-sparkline-2.3.2.tgz#00cb91fee58a4c4651235b70f59f7e903e07b9e7"
 
-"jquery-ui@git://github.com/jquery/jquery-ui.git#1.11.4":
+"jquery-ui@git+https://github.com/jquery/jquery-ui.git#1.11.4":
   version "1.11.4"
-  resolved "git://github.com/jquery/jquery-ui.git#d6713024e16de90ea71dc0544ba34e1df01b4d8a"
+  resolved "git+https://github.com/jquery/jquery-ui.git#d6713024e16de90ea71dc0544ba34e1df01b4d8a"
 
 jquery.animate-number@0.0.13:
   version "0.0.13"
@@ -2801,9 +2801,9 @@ osenv@0:
     os-homedir "^1.0.0"
     os-tmpdir "^1.0.0"
 
-"pace@git://github.com/HubSpot/pace.git#v0.7.7":
+"pace@git+https://github.com/HubSpot/pace.git#v0.7.7":
   version "0.7.7"
-  resolved "git://github.com/HubSpot/pace.git#78f5e869ca2c6ebb30a9ba550cb04a7d18624bad"
+  resolved "git+https://github.com/HubSpot/pace.git#78f5e869ca2c6ebb30a9ba550cb04a7d18624bad"
 
 pako@~0.2.0:
   version "0.2.9"
