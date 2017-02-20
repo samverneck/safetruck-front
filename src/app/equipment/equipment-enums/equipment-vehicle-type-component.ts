@@ -1,17 +1,12 @@
 import { Component, Input } from '@angular/core'
 import { VehicleType } from '../../../interfaces/IEquipmentInstall'
 
-
-
-
 export enum EVechicleType {
-    'Carro' = parseInt(VehicleType.CAR.toString(), 10) ,
-    'Ônibus' = parseInt(VehicleType.BUS.toString(), 10),
-    'Caminhão' = parseInt(VehicleType.TRUCK.toString(), 10),
-    'Outros' = parseInt(VehicleType.OTHERS.toString(), 10)
+  'Carro' = parseInt(VehicleType.CAR.toString(), 10),
+  'Ônibus' = parseInt(VehicleType.BUS.toString(), 10),
+  'Caminhão' = parseInt(VehicleType.TRUCK.toString(), 10),
+  'Outros' = parseInt(VehicleType.OTHERS.toString(), 10)
 }
-
-
 
 @Component({
   selector: 'equipment-vehicle-type-select',
@@ -24,6 +19,4 @@ export class EquipmentVehicleTypeSelectComponent {
   @Input() validation: any
 
   type = EVechicleType
-
 }
-

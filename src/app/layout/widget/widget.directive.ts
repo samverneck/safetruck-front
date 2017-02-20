@@ -1,11 +1,11 @@
 import { Directive, ElementRef, OnInit } from '@angular/core'
 declare var jQuery: any
 
-@Directive ({
+@Directive({
   selector: '[widget]'
 })
 
-export class Widget implements OnInit {
+export class WidgetDirective implements OnInit {
   $el: any
 
   constructor(el: ElementRef) {

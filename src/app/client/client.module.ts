@@ -11,24 +11,24 @@ import { UtilsModule } from '../layout/utils/utils.module'
 import 'jasny-bootstrap/js/inputmask.js'
 
 import { SearchPipe } from './pipes/search-pipe'
-import { ClientPage } from './register/client.component'
-import { ClientTable } from './register/table/table.component'
-import { SearchClientsPage } from './search/search-clients.component'
-import { EquipmentTable } from './search/equipments/equip-table.component'
+import { ClientComponent } from './register/client.component'
+import { ClientTableComponent } from './register/table/table.component'
+import { SearchClientsComponent } from './search/search-clients.component'
+import { EquipmentTableComponent } from './search/equipments/equip-table.component'
 
 export const routes = [
   {path: '', redirectTo: 'register', pathMatch: 'full'},
-  {path: 'register', component: ClientPage},
-  {path: 'search', component: SearchClientsPage},
-  {path: 'view/:id', component: ClientPage}
+  {path: 'register', component: ClientComponent},
+  {path: 'search', component: SearchClientsComponent},
+  {path: 'view/:id', component: ClientComponent}
 ]
 
 @NgModule({
   declarations: [
-    ClientPage,
-    ClientTable,
-    SearchClientsPage,
-    EquipmentTable,
+    ClientComponent,
+    ClientTableComponent,
+    SearchClientsComponent,
+    EquipmentTableComponent,
     SearchPipe
   ],
   imports: [
@@ -37,7 +37,7 @@ export const routes = [
     WidgetModule,
     UtilsModule,
     Ng2TableModule,
-    RouterModule.forChild(routes),
+    RouterModule.forChild(routes)
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

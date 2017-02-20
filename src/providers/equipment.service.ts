@@ -10,7 +10,7 @@ import { IEquipment } from '../interfaces/IEquipment'
 export class EquipmentService extends BaseService<IEquipment> implements IBaseService {
 
   constructor(http: Http, auth: AuthService) {
-    super.setResource('equipments')
     super(http, auth)
+    super.setResource('equipments')
   }
 }

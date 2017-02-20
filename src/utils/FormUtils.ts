@@ -1,8 +1,14 @@
 declare var $: any
 
 export class FormUtils {
-  constructor(){}
-
+  /**
+   *
+   *
+   * @param {string} formId
+   * @returns
+   *
+   * @memberOf FormUtils
+   */
   serialize(formId: string) {
     let form = $(formId)
     let obj = {}
@@ -21,6 +27,14 @@ export class FormUtils {
     return obj
   }
 
+  /**
+   *
+   *
+   * @param {any} text
+   * @returns
+   *
+   * @memberOf FormUtils
+   */
   slugfy(text) {
     return text.toString().toLowerCase()
       .replace(/\s+/g, '')            // Remove spaces
@@ -30,6 +44,13 @@ export class FormUtils {
       .replace(/-+$/, '')             // Trim - from end of text
   }
 
+  /**
+   *
+   *
+   * @param {string} formId
+   *
+   * @memberOf FormUtils
+   */
   clear(formId: string) {
     let form = $(formId)
     let el = form.serializeArray()
@@ -38,7 +59,4 @@ export class FormUtils {
       $(`[name="${input.name}"]`).removeClass('error')
     })
   }
-
 }
-
-

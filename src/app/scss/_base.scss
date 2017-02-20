@@ -1022,7 +1022,7 @@ app, .app {
 
 .widget{
   position: relative;
-  margin-bottom: $grid-gutter-width;
+  margin-bottom: $widget-padding-vertical;
   padding: $widget-padding-vertical $widget-padding-horizontal;
   background: $widget-bg-color;
   border-radius: $border-radius-sm;

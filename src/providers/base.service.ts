@@ -74,7 +74,7 @@ export class BaseService<T extends IBaseModel> implements IBaseService {
     return body
   }
 
-  public handleError (error: Response | any) {
+  public handleError(error: Response | any) {
     let errMsg: string
     if (error instanceof Response) {
       const body = error.json() || ''

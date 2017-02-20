@@ -24,7 +24,7 @@ import 'widgster'
 import 'pace'
 
 if ('production' === ENV) {
-  // 
+  //
 } else {
   //
 }

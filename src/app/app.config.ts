@@ -59,11 +59,16 @@ export class AppConfig {
 
   _resizeCallbacks = []
   _screenSizeCallbacks = {
-    xs: {enter: [], exit: []},
-    sm: {enter: [], exit: []},
-    md: {enter: [], exit: []},
-    lg: {enter: [], exit: []},
-    xl: {enter: [], exit: []}
+    xs: { enter: [], exit: [] },
+    sm: { enter: [], exit: [] },
+    md: { enter: [], exit: [] },
+    lg: { enter: [], exit: [] },
+    xl: { enter: [], exit: [] }
+  }
+
+  constructor() {
+    this._initResizeEvent()
+    this._initOnScreenSizeCallbacks()
   }
 
   isScreen(size): boolean {
@@ -97,7 +102,7 @@ export class AppConfig {
   }
 
   changeColor(color, ratio, darker): string {
-    let pad = function (num, totalChars): number {
+    let pad = function(num, totalChars): number {
       let padVal = '0'
       num = num + ''
       while (num.length < totalChars) {
@@ -109,50 +114,49 @@ export class AppConfig {
     color = color.replace(/^\s*|\s*$/, '')
 
     // Expand three-digit hex
-    color = color.replace(
-      /^#?([a-f0-9])([a-f0-9])([a-f0-9])$/i,
-      '#$1$1$2$2$3$3'
-    )
+    color = color.replace(/^#?([a-f0-9])([a-f0-9])([a-f0-9])$/i, '#$1$1$2$2$3$3')
 
     // Calculate ratio
-    let difference = Math.round(ratio * 256) * (darker ? -1 : 1),
+    let difference = Math.round(ratio * 256) * (darker ? -1 : 1)
+
     // Determine if input is RGB(A)
-      rgb = color.match(new RegExp('^rgba?\\(\\s*' +
-        '(\\d|[1-9]\\d|1\\d{2}|2[0-4][0-9]|25[0-5])' +
-        '\\s*,\\s*' +
-        '(\\d|[1-9]\\d|1\\d{2}|2[0-4][0-9]|25[0-5])' +
-        '\\s*,\\s*' +
-        '(\\d|[1-9]\\d|1\\d{2}|2[0-4][0-9]|25[0-5])' +
-        '(?:\\s*,\\s*' +
-        '(0|1|0?\\.\\d+))?' +
-        '\\s*\\)$'
-        , 'i')),
-      alpha = !!rgb && rgb[4] !== null ? rgb[4] : null,
+    let rgb = color.match(new RegExp(`^rgba?\\(\\s*
+      '(\\d|[1-9]\\d|1\\d{2}|2[0-4][0-9]|25[0-5])
+      '\\s*,\\s*
+      '(\\d|[1-9]\\d|1\\d{2}|2[0-4][0-9]|25[0-5])
+      '\\s*,\\s*
+      '(\\d|[1-9]\\d|1\\d{2}|2[0-4][0-9]|25[0-5])
+      '(?:\\s*,\\s*
+      '(0|1|0?\\.\\d+))?
+      '\\s*\\)$`
+      , 'i'))
+
+    let alpha = !!rgb && rgb[4] !== null ? rgb[4] : null
 
     // Convert hex to decimal
-      decimal = !!rgb ? [rgb[1], rgb[2], rgb[3]] : color.replace(
-        /^#?([a-f0-9][a-f0-9])([a-f0-9][a-f0-9])([a-f0-9][a-f0-9])/i,
-        function (): string {
-          return parseInt(arguments[1], 16) + ',' +
-            parseInt(arguments[2], 16) + ',' +
-            parseInt(arguments[3], 16)
-        }
-      ).split(/,/)
+    let decimal = rgb ? [rgb[1], rgb[2], rgb[3]] : color.replace(
+      /^#?([a-f0-9][a-f0-9])([a-f0-9][a-f0-9])([a-f0-9][a-f0-9])/i,
+      function(): string {
+        return parseInt(arguments[1], 16) + ',' +
+          parseInt(arguments[2], 16) + ',' +
+          parseInt(arguments[3], 16)
+      }
+    ).split(/,/)
 
     // Return RGB(A)
-    return !!rgb ?
-    'rgb' + (alpha !== null ? 'a' : '') + '(' +
-    Math[darker ? 'max' : 'min'](
-      parseInt(decimal[0], 10) + difference, darker ? 0 : 255
-    ) + ', ' +
-    Math[darker ? 'max' : 'min'](
-      parseInt(decimal[1], 10) + difference, darker ? 0 : 255
-    ) + ', ' +
-    Math[darker ? 'max' : 'min'](
-      parseInt(decimal[2], 10) + difference, darker ? 0 : 255
-    ) +
-    (alpha !== null ? ', ' + alpha : '') +
-    ')' :
+    return rgb ?
+      'rgb' + (alpha !== null ? 'a' : '') + '(' +
+      Math[darker ? 'max' : 'min'](
+        parseInt(decimal[0], 10) + difference, darker ? 0 : 255
+      ) + ', ' +
+      Math[darker ? 'max' : 'min'](
+        parseInt(decimal[1], 10) + difference, darker ? 0 : 255
+      ) + ', ' +
+      Math[darker ? 'max' : 'min'](
+        parseInt(decimal[2], 10) + difference, darker ? 0 : 255
+      ) +
+      (alpha !== null ? ', ' + alpha : '') +
+      ')' :
       // Return hex
       [
         '#',
@@ -195,9 +199,9 @@ export class AppConfig {
     })
   }
 
-  _initOnScreenSizeCallbacks(): void  {
-    let resizeTimeout,
-      prevSize = this.getScreenSize()
+  _initOnScreenSizeCallbacks(): void {
+    let resizeTimeout
+    let prevSize = this.getScreenSize()
 
     jQuery(window).resize(() => {
       clearTimeout(resizeTimeout)
@@ -219,13 +223,7 @@ export class AppConfig {
     })
   }
 
-  constructor() {
-    this._initResizeEvent()
-    this._initOnScreenSizeCallbacks()
-  }
-
   getConfig(): Object {
     return this.config
   }
 }
-

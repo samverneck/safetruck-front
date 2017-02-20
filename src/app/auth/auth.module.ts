@@ -5,11 +5,11 @@ import { NgModule } from '@angular/core'
 
 import { ROUTES } from './auth.routes'
 
-import { AuthPage } from './auth.component'
+import { AuthComponent } from './auth.component'
 
 @NgModule({
   declarations: [
-    AuthPage,
+    AuthComponent
   ],
   imports: [
     CommonModule,

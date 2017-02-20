@@ -29,7 +29,7 @@ declare var $: any
   ]
 })
 
-export class EquipmentTable {
+export class EquipmentTableComponent {
 
   @Input() data: IEquipment[]
   @Output() equipmentSelected: EventEmitter<any> = new EventEmitter()

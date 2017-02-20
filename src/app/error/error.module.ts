@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms'
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 
-import { ErrorComponent } from './error.component.ts'
+import { ErrorComponent } from './error.component'
 
 export const routes = [
   { path: '', component: ErrorComponent, pathMatch: 'full' }
@@ -16,7 +16,7 @@ export const routes = [
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule.forChild(routes),
+    RouterModule.forChild(routes)
   ]
 })
 export default class ErrorModule {

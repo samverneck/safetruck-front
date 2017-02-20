@@ -6,23 +6,34 @@ declare var $: any
 
 @Component({
   selector: 'login',
-  styleUrls: [ './login.styles.scss' ],
+  styleUrls: ['./login.styles.scss'],
   templateUrl: './login.template.html',
   encapsulation: ViewEncapsulation.None,
   host: {
     class: 'login-page app'
   }
 })
+export class LoginComponent {
 
-export class Login {
-  email: string
-  pass: string
-  constructor(
-    private auth: AuthService,
-    private router: Router
-  ) {}
+  public email: string
+  public pass: string
 
-  authenticateUser() {
+  /**
+   * Creates an instance of LoginComponent.
+   * @param {AuthService} auth
+   * @param {Router} router
+   *
+   * @memberOf LoginComponent
+   */
+  constructor(private auth: AuthService, private router: Router) { }
+
+  /**
+   *
+   *
+   *
+   * @memberOf LoginComponent
+   */
+  public authenticateUser() {
     $('.alert').hide()
     this.auth.login(this.email, this.pass)
       .toPromise()
@@ -33,9 +44,9 @@ export class Login {
           $('.alert').show('fast')
         }
       })
-      .catch(err => {
+      .catch(error => {
+        console.log(error)
         $('.alert').show('fast')
       })
   }
-
 }

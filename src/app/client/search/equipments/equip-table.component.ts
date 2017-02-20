@@ -26,7 +26,7 @@ import { EVechicleType } from '../../../equipment/equipment-enums/equipment-vehi
   ]
 })
 
-export class EquipmentTable {
+export class EquipmentTableComponent {
   @Input() data: Array<any>
 
   types = EquipmentType

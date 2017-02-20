@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ElementRef } from '@angular/core'
+import { Component, ViewEncapsulation, ElementRef, OnInit, HostBinding } from '@angular/core'
 import { Router } from '@angular/router'
 import { AppConfig } from '../app.config'
 
@@ -10,13 +10,13 @@ declare var Hammer: any
   encapsulation: ViewEncapsulation.None,
   templateUrl: './layout.template.html',
   host: {
-    '[class.nav-static]' : 'config.state["nav-static"]',
-    '[class.chat-sidebar-opened]' : 'chatOpened',
-    '[class.app]' : 'true',
+    '[class.nav-static]': 'config.state["nav-static"]',
+    '[class.chat-sidebar-opened]': 'chatOpened',
+    '[class.app]': 'true',
     id: 'app'
   }
 })
-export class Layout {
+export class LayoutComponent implements OnInit {
   config: any
   configFn: any
   $sidebar: any
@@ -25,8 +25,8 @@ export class Layout {
   chatOpened: boolean = false
 
   constructor(config: AppConfig,
-              el: ElementRef,
-              router: Router) {
+    el: ElementRef,
+    router: Router) {
     this.el = el
     this.config = config.getConfig()
     this.configFn = config
@@ -53,7 +53,7 @@ export class Layout {
         .addClass('active js-notification-added')
         .find('.fa-circle')
         .after('<span class="badge tag-danger ' +
-          'pull-right animated bounceInDown">3</span>')
+        'pull-right animated bounceInDown">3</span>')
     }, 1000)
   }
 
@@ -201,8 +201,8 @@ export class Layout {
       jQuery($triggerLink.data('parent'))
         .find('.collapse.in').not(jQuery(this)).collapse('hide')
     })
-    /* adding additional classes to navigation link li-parent
-     for several purposes. see navigation styles */
+      /* adding additional classes to navigation link li-parent
+       for several purposes. see navigation styles */
       .on('show.bs.collapse', function(e): void {
         // execute only if we're actually the .collapse element initiated event
         // return for bubbled events
@@ -210,11 +210,11 @@ export class Layout {
 
         jQuery(this).closest('li').addClass('open')
       }).on('hide.bs.collapse', function(e): void {
-      // execute only if we're actually the .collapse element initiated event
-      // return for bubbled events
-      if (e.target !== e.currentTarget) { return }
+        // execute only if we're actually the .collapse element initiated event
+        // return for bubbled events
+        if (e.target !== e.currentTarget) { return }
 
-      jQuery(this).closest('li').removeClass('open')
-    })
+        jQuery(this).closest('li').removeClass('open')
+      })
   }
 }

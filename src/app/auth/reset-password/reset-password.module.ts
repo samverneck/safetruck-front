@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms'
 
 import { RouterModule } from '@angular/router'
 
-import { ResetPassword } from './reset-password.component.ts'
+import { ResetPasswordComponent } from './reset-password.component'
 import { WidgetModule } from '../../layout/widget/widget.module'
 
 export const routes = [
-  { path: '', component: ResetPassword, pathMatch: 'full' }
+  { path: '', component: ResetPasswordComponent, pathMatch: 'full' }
 ]
 
 @NgModule({
@@ -19,7 +19,7 @@ export const routes = [
     WidgetModule
   ],
   declarations: [
-    ResetPassword
+    ResetPasswordComponent
   ]
 })
 export default class ResetPasswordModule {

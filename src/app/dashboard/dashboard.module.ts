@@ -5,11 +5,11 @@ import { RouterModule } from '@angular/router'
 
 import 'jquery.animate-number/jquery.animateNumber.js'
 
-import { Dashboard } from './dashboard.component.ts'
+import { DashboardComponent } from './dashboard.component'
 import { WidgetModule } from '../layout/widget/widget.module'
 
 export const routes = [
-  { path: '', component: Dashboard, pathMatch: 'full' }
+  { path: '', component: DashboardComponent, pathMatch: 'full' }
 ]
 
 @NgModule({
@@ -19,7 +19,7 @@ export const routes = [
     WidgetModule
   ],
   declarations: [
-    Dashboard
+    DashboardComponent
   ]
 })
 export default class DashboardModule {

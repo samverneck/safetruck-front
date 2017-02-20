@@ -23,14 +23,14 @@ declare var $: any
   providers: [ClientService, ValidationService, CepService]
 })
 
-export class ClientPage {
+export class ClientComponent {
   clients: Array<IClient>
   showTable: boolean
   viewMode: boolean
-  states: Array<{abbr: string, name: string}> = STATES
+  states: Array<{ abbr: string, name: string }> = STATES
   message = new Messages()
-  formUtils = new FormUtils
-  private clientId: string
+  formUtils = new FormUtils()
+  clientId: string
 
   constructor(
     private route: ActivatedRoute,
@@ -38,19 +38,19 @@ export class ClientPage {
     public validation: ValidationService,
     public cepService: CepService
   ) {
-      if (window.location.href.split('/')[5] === 'view') {
-        this.getClientData()
-        this.showTable = false
-        this.viewMode = true
-      }
-      if (window.location.href.split('/')[5] === 'register') {
-        this.showTable = true
-        this.viewMode = false
-        this.clientService.getAll().subscribe({
-          next: resp => this.clients = resp,
-          error: console.error
-        })
-      }
+    if (window.location.href.split('/')[5] === 'view') {
+      this.getClientData()
+      this.showTable = false
+      this.viewMode = true
+    }
+    if (window.location.href.split('/')[5] === 'register') {
+      this.showTable = true
+      this.viewMode = false
+      this.clientService.getAll().subscribe({
+        next: resp => this.clients = resp,
+        error: console.error
+      })
+    }
   }
 
   /**
@@ -75,7 +75,7 @@ export class ClientPage {
    */
   saveClient() {
     // Validando...
-    if (!this.validation.validateForm('#clientForm')) return
+    if (!this.validation.validateForm('#clientForm')) { return }
     // Obtendo dados do formulário
     let client: IClient = this.getFormData()
     // Fazendo POST/PUT para a apai
@@ -188,7 +188,7 @@ export class ClientPage {
    */
   getAddress(cep: string): void {
     cep = cep.replace(/\D/g, '')
-    if (!cep) return
+    if (!cep) { return }
     this.cepService.getAddress(cep).subscribe({
       next: (resp) => {
         if (resp.erro) {
@@ -262,7 +262,10 @@ export class ClientPage {
       if (params['id'] !== undefined) {
         this.clientService.getById(params['id']).subscribe({
           next: client => this.loadClientData(client),
-          error: err => window.history.back()
+          error: error => {
+            console.log(error)
+            window.history.back()
+          }
         })
         return
       }

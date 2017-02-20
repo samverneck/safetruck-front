@@ -1,11 +1,11 @@
-import { Directive, ElementRef } from '@angular/core'
+import { Directive, ElementRef, OnInit } from '@angular/core'
 declare var jQuery: any
 
-@Directive ({
+@Directive({
   selector: '[check-all]'
 })
 
-export class CheckAll {
+export class CheckAllDirective implements OnInit {
   $el: any
 
   constructor(el: ElementRef) {

@@ -11,8 +11,8 @@ import { IReportData } from './../interfaces/IReport'
 export class ReportService extends BaseService<IReportData> implements IBaseService {
 
   constructor(http: Http, auth: AuthService) {
-    super.setResource('reports')
     super(http, auth)
+    super.setResource('reports')
   }
 
   getReport(plaque: string, start, finish): Observable<IReportData> {

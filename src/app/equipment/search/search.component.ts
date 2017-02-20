@@ -12,7 +12,6 @@ import {
   animate
 } from '@angular/core'
 
-
 @Component({
   selector: 'equipment-search',
   encapsulation: ViewEncapsulation.None,
@@ -22,22 +21,22 @@ import {
   animations: [
     trigger('fadeInOut', [
       transition('void => *', [
-        style({opacity: 0}),
-        animate(200, style({opacity: 1}))
+        style({ opacity: 0 }),
+        animate(200, style({ opacity: 1 }))
       ]),
       transition('* => void', [
-        animate(200, style({opacity: 0}))
+        animate(200, style({ opacity: 0 }))
       ])
     ])
   ]
 })
 
-export class EquipmentSearchPage {
+export class EquipmentSearchComponent {
   searchText: string
   clients: IClient[]
   equipments: IEquipment[]
   msg = new Messages()
-  constructor(public equip: EquipmentService) {}
+  constructor(public equip: EquipmentService) { }
 
   search() {
     this.equip.getAll().subscribe(equips => {
@@ -51,7 +50,7 @@ export class EquipmentSearchPage {
       let plaque = equips.filter((eq) => {
         return (eq.install.plaque.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1)
       })
-      this.equipments = _.unionBy(code.concat(plaque) , 'id')
+      this.equipments = _.unionBy(code.concat(plaque), 'id')
     })
   }
 

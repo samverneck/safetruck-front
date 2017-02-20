@@ -29,7 +29,7 @@ declare var $: any
   ]
 })
 
-export class ClientTable {
+export class ClientTableComponent {
 
   @Input() data: IClient[]
   @Output() clientSelected: EventEmitter<any> = new EventEmitter()

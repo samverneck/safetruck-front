@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms'
 
 import { RouterModule } from '@angular/router'
 
-import { ForgotPassword } from './forgot-password.component.ts'
+import { ForgotPasswordComponent } from './forgot-password.component'
 import { WidgetModule } from '../../layout/widget/widget.module'
 
 export const routes = [
-  { path: '', component: ForgotPassword, pathMatch: 'full' }
+  { path: '', component: ForgotPasswordComponent, pathMatch: 'full' }
 ]
 
 @NgModule({
@@ -19,7 +19,7 @@ export const routes = [
     WidgetModule
   ],
   declarations: [
-    ForgotPassword
+    ForgotPasswordComponent
   ]
 })
 export default class ForgotPasswordModule {

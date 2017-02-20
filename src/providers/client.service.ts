@@ -10,7 +10,7 @@ import { IBaseService } from './../interfaces/IBaseService'
 export class ClientService extends BaseService<IClient> implements IBaseService {
 
   constructor(http: Http, auth: AuthService) {
-    super.setResource('clients')
     super(http, auth)
+    super.setResource('clients')
   }
 }

@@ -58,7 +58,7 @@ interface IDataReportPrint {
   ]
 })
 
-export class ReportPage implements OnInit {
+export class ReportComponent implements OnInit {
   report: IReportData
   plaques: string[]
   messages = new Messages()
@@ -96,7 +96,9 @@ export class ReportPage implements OnInit {
     // Obetém os valores do usuário
     this.times = this.getInputs()
     // Validação
-    if (!this.validate(this.times.plaque, this.times.start)) return
+    if (!this.validate(this.times.plaque, this.times.start)) {
+      return
+    }
     // Obtendo as datas
     let dates = this.convertDateToISO(this.times.start, this.times.finish)
     this.reportService.getReport(this.times.plaque, dates.start, dates.finish)
@@ -193,7 +195,9 @@ export class ReportPage implements OnInit {
 
     this.times = this.getInputs()
     // Validação
-    if (!this.validate(this.times.plaque, this.times.start)) return
+    if (!this.validate(this.times.plaque, this.times.start)) {
+      return
+    }
     // Obtendo as datas
     let dates = this.convertDateToISO(this.times.start, this.times.finish)
     this.reportService.getReportHtml(this.times.plaque, dates.start, dates.finish)
@@ -207,11 +211,11 @@ export class ReportPage implements OnInit {
               popup.document.write(html)
               this.emitDataPopup(popup)
               popup.window.history.pushState('relatorio', 'Relatório de conduta', '/app/report')
-              popup.onbeforeunload = function (event) {
+              popup.onbeforeunload = function(event) {
                 popup.close()
                 return '.\n'
               }
-              popup.onabort = function (event) {
+              popup.onabort = function(event) {
                 popup.document.close()
                 popup.close()
               }

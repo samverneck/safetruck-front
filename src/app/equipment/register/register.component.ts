@@ -22,7 +22,7 @@ declare var $: any
   providers: [EquipmentService, ValidationService, ClientService]
 })
 
-export class EquipmentRegisterPage implements OnInit {
+export class EquipmentRegisterComponent implements OnInit {
   equipments: Array<IEquipment>
   showTable: boolean
   viewMode: boolean
@@ -46,19 +46,19 @@ export class EquipmentRegisterPage implements OnInit {
       complete: () => { this.showTable = true }
     })
 
-    if (window.location.href.split('/')  [5] === 'view') {
-        this.getClientData()
-        this.showTable = false
-        this.viewMode = true
-      }
-      if (window.location.href.split('/')[5] === 'register') {
-        this.showTable = true
-        this.viewMode = false
-        this.clientService.getAll().subscribe({
-          next: resp => this.clients = resp,
-          error: console.error
-        })
-      }
+    if (window.location.href.split('/')[5] === 'view') {
+      this.getClientData()
+      this.showTable = false
+      this.viewMode = true
+    }
+    if (window.location.href.split('/')[5] === 'register') {
+      this.showTable = true
+      this.viewMode = false
+      this.clientService.getAll().subscribe({
+        next: resp => this.clients = resp,
+        error: console.error
+      })
+    }
 
   }
 
@@ -70,15 +70,17 @@ export class EquipmentRegisterPage implements OnInit {
     this.route.params.forEach((params: Params) => {
       if (params['id'] !== undefined) {
         this.equipService.getById(params['id']).subscribe({
-        next: (equipment) => this.loadEquipmentData(equipment),
-          error: err => window.history.back()
+          next: (equipment) => this.loadEquipmentData(equipment),
+          error: error => {
+            console.log(error)
+            window.history.back()
+          }
         })
         return
       }
       window.history.back()
     })
   }
-
 
   ngOnInit(): void {
     $('.date').datepicker({
@@ -99,7 +101,7 @@ export class EquipmentRegisterPage implements OnInit {
    */
   saveEquipament() {
     // Validando...
-    if (!this.validation.validateForm('#equipmentForm')) return
+    if (!this.validation.validateForm('#equipmentForm')) { return }
     // Obtendo os dados do formuulário
     let equipment: IEquipment = this.getFormData()
     // Fazendo o POST/PUT para api
@@ -130,7 +132,6 @@ export class EquipmentRegisterPage implements OnInit {
       }
     })
   }
-
 
   /**
    * Obtém a lista de equipamentos
@@ -208,7 +209,6 @@ export class EquipmentRegisterPage implements OnInit {
     return equipment
   }
 
-
   /**
    * Preenche os dados do formulário com os dados do equipamento clicado
    * @param {any} equipment
@@ -227,8 +227,6 @@ export class EquipmentRegisterPage implements OnInit {
     $('[name="admeasurement"]').val(equipment.install.admeasurement)
     $('[name="clientName"]').val(equipment.install.client.companyName)
   }
-
-
 
   toUpperPlaque() {
     $('[name="plaque"]').val($('[name="plaque"]').val().toUpperCase())

@@ -10,17 +10,17 @@ declare var swal: any
 
 @Component({
   selector: 'reset-password',
-  styleUrls: [ './reset-password.styles.scss' ],
+  styleUrls: ['./reset-password.styles.scss'],
   templateUrl: './reset-password.template.html',
   encapsulation: ViewEncapsulation.None
 })
 
-export class ResetPassword implements OnInit {
+export class ResetPasswordComponent implements OnInit {
+  password: string
+  confirm: string
   public path: string
   public errorMsg: string
   private token: string
-  private password: string
-  private confirm: string
   private email: string
 
   constructor(
@@ -28,7 +28,7 @@ export class ResetPassword implements OnInit {
     private auth: AuthService,
     private route: ActivatedRoute,
     public router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.path = window.location.href.split('/')[4]
@@ -44,7 +44,10 @@ export class ResetPassword implements OnInit {
             this.email = client.email
             this.token = params['token']
           })
-          .catch(err => this.router.navigate(['/auth/login']))
+          .catch(error => {
+            console.log(error)
+            this.router.navigate(['/auth/login'])
+          })
       }
     })
   }
@@ -63,7 +66,7 @@ export class ResetPassword implements OnInit {
     }
 
     this.http
-      .post(`${API_URL}/forgot/${this.token}`, {password: this.password})
+      .post(`${API_URL}/forgot/${this.token}`, { password: this.password })
       .toPromise()
       .then(res => {
         swal({
@@ -84,7 +87,7 @@ export class ResetPassword implements OnInit {
       .catch(err => {
         swal({
           title: 'Erro',
-          text:  this.path === 'forgot'
+          text: this.path === 'forgot'
             ? 'Houve algum problema ao atualizar sua senha. Tente novamente mais tarde'
             : 'Houve algum problema ao cadastrar sua senha. Tente novamente mais tarde',
           type: 'error'
@@ -94,7 +97,7 @@ export class ResetPassword implements OnInit {
   }
 
   getTokenInfo(token) {
-    return  this.http
+    return this.http
       .get(`${API_URL}/forgot/${token}`)
       .toPromise()
   }

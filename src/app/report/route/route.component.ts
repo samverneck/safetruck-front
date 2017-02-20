@@ -19,8 +19,6 @@ export class RouteComponent implements OnInit {
   @Input() dangerZones: Array<IReportDangerZonesData>
   @Input() times: any
 
-  constructor() { }
-
   ngOnInit() {
     this.initMap()
   }
@@ -85,7 +83,7 @@ export class RouteComponent implements OnInit {
       geodesic: true,
       strokeColor: '#0000FF',
       strokeOpacity: 1.0,
-      strokeWeight: 4,
+      strokeWeight: 4
     })
     let llbounds = new google.maps.LatLngBounds()
     flightPath.getPath().forEach((e) => {
@@ -171,7 +169,7 @@ export class RouteComponent implements OnInit {
       fillOpacity: 0.10,
       map: map,
       center: data.position,
-      radius: 200,
+      radius: 200
     })
   }
 
@@ -191,7 +189,7 @@ export class RouteComponent implements OnInit {
 
     let infoWin = new google.maps.InfoWindow({
       content: opt.content,
-      position: opt.position,
+      position: opt.position
     })
     // Adiciona um envento que abre a info ao clicar
     marker.addListener('click', () => {

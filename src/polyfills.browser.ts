@@ -1,8 +1,5 @@
 // Polyfills
-
 // import 'ie-shim'; // Internet Explorer 9 support
-
-
 // import 'core-js/es6';
 // Added parts of es6 which are necessary for your project or your browser support requirements.
 import 'core-js/es6/symbol'
@@ -31,8 +28,6 @@ import 'ts-helpers'
 
 if ('production' === ENV) {
   // Production
-
-
 } else {
   // Development
 

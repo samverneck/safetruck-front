@@ -1,23 +1,23 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 
-import { CheckAll } from './directives/check-all.directive'
-import { ProgressAnimate } from './directives/progress-animate.directive'
-import { DataTableDirectives } from 'angular2-datatable/datatable'
+import { CheckAllDirective } from './directives/check-all.directive'
+import { ProgressAnimateDirective } from './directives/progress-animate.directive'
+import { DataTableModule } from 'angular2-datatable'
 
 @NgModule({
   declarations: [
-    CheckAll,
-    DataTableDirectives,
-    ProgressAnimate
+    CheckAllDirective,
+    ProgressAnimateDirective
   ],
   exports: [
-    CheckAll,
-    DataTableDirectives,
-    ProgressAnimate
+    CheckAllDirective,
+    DataTableModule,
+    ProgressAnimateDirective
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    DataTableModule
   ]
 })
 export class UtilsModule {

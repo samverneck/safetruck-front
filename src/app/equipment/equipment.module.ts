@@ -12,33 +12,33 @@ import 'bootstrap-datepicker/dist/locales/bootstrap-datepicker.pt-BR.min.js'
 import 'messenger/build/js/messenger.js'
 import 'jasny-bootstrap/js/inputmask.js'
 
-import { EquipmentTable } from './table/table.component'
-import { EquipmentRegisterPage } from './register/register.component'
-import { EquipmentSearchPage } from './search/search.component'
+import { EquipmentTableComponent } from './table/table.component'
+import { EquipmentRegisterComponent } from './register/register.component'
+import { EquipmentSearchComponent } from './search/search.component'
 import { EquipmentTypeSelectComponent } from './equipment-enums/equipment-type.component'
 import { EquipmentOrientationSelectComponent } from './equipment-enums/equipment-orientation-component'
 import { EquipmentVehicleTypeSelectComponent } from './equipment-enums/equipment-vehicle-type-component'
-import { SearchEquipmentTable } from './search/tables/equipment-table.component'
+import { SearchEquipmentTableComponent } from './search/tables/equipment-table.component'
 import { SearchPipe } from './pipes/search-pipe'
 import { EnumPipe } from '../../pipes/enum-pipe'
 
 export const routes = [
-  {path: '', redirectTo: 'register', pathMatch: 'full'},
-  {path: 'register', component: EquipmentRegisterPage},
-  {path: 'search', component: EquipmentSearchPage},
-  {path: 'view/:id', component: EquipmentRegisterPage}
+  { path: '', redirectTo: 'register', pathMatch: 'full' },
+  { path: 'register', component: EquipmentRegisterComponent },
+  { path: 'search', component: EquipmentSearchComponent },
+  { path: 'view/:id', component: EquipmentRegisterComponent }
 ]
 
 @NgModule({
   declarations: [
-    EquipmentRegisterPage,
-    EquipmentSearchPage,
-    SearchEquipmentTable,
+    EquipmentRegisterComponent,
+    EquipmentSearchComponent,
+    SearchEquipmentTableComponent,
     EquipmentTypeSelectComponent,
     EquipmentOrientationSelectComponent,
     EquipmentVehicleTypeSelectComponent,
     SearchPipe,
-    EquipmentTable,
+    EquipmentTableComponent,
     EnumPipe
   ],
   imports: [
@@ -47,9 +47,9 @@ export const routes = [
     FormsModule,
     WidgetModule,
     UtilsModule,
-    RouterModule.forChild(routes),
+    RouterModule.forChild(routes)
   ],
-  schemas:  [ CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export default class EquipmentModule {
   static routes = routes

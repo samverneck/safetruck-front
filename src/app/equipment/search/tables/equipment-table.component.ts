@@ -1,10 +1,8 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core'
 
-
 import { Equipment } from '../../../../models/Equipment'
 import { EquipmentType } from '../../../../interfaces/IEquipment'
 import { Orientation, VehicleType } from '../../../../interfaces/IEquipmentInstall'
-
 
 @Component({
   selector: 'search-equipment-table',
@@ -13,7 +11,7 @@ import { Orientation, VehicleType } from '../../../../interfaces/IEquipmentInsta
   styleUrls: ['./equipment-table.styles.scss']
 })
 
-export class SearchEquipmentTable {
+export class SearchEquipmentTableComponent {
 
   @Input() data: Equipment[]
 
@@ -21,7 +19,4 @@ export class SearchEquipmentTable {
 
   orientations = Orientation
   vehicleTypes = VehicleType
-
-  constructor() {}
-
 }

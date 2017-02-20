@@ -1,43 +1,33 @@
-const helpers = require('./helpers');
-const webpackMerge = require('webpack-merge'); // used to merge webpack configs
-const commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
+const helpers = require('./helpers')
+const webpackMerge = require('webpack-merge') // used to merge webpack configs
+const environmentFactory = require('./webpack.common.js') // the settings that are common to prod and dev
 
 /**
  * Webpack Plugins
  */
-const ProvidePlugin = require('webpack/lib/ProvidePlugin');
-const DefinePlugin = require('webpack/lib/DefinePlugin');
-const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplacementPlugin');
-const IgnorePlugin = require('webpack/lib/IgnorePlugin');
-const DedupePlugin = require('webpack/lib/optimize/DedupePlugin');
-const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
-const WebpackMd5Hash = require('webpack-md5-hash');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const DefinePlugin = require('webpack/lib/DefinePlugin')
+const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplacementPlugin')
+const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin')
+const WebpackMd5Hash = require('webpack-md5-hash')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 /**
  * Webpack Constants
  */
-const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
-const HOST = process.env.HOST || 'localhost';
-const API_URL = process.env.API_URL || 'https://app.safetruck.com.br/api/v1';
-const PORT = process.env.PORT || 8080;
-const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
-  host: HOST,
-  port: PORT,
-  API_URL: API_URL,
+const ENV = process.env.NODE_ENV = process.env.ENV = 'production'
+const environment = environmentFactory.build({ env: ENV })
+
+const METADATA = webpackMerge(environment.metadata, {
+  host: process.env.HOST || 'localhost',
+  port: process.env.PORT || 8080,
+  API_URL: process.env.API_URL || 'https://app.safetruck.com.br/api/v1',
   ENV: ENV,
   HMR: false
-});
+})
 
-module.exports = function(env) {
-  return webpackMerge(commonConfig({env: ENV}), {
 
-    /**
-     * Switch loaders to debug mode.
-     *
-     * See: http://webpack.github.io/docs/configuration.html#debug
-     */
-    debug: false,
+module.exports = (env) => {
+  return webpackMerge(environment.config, {
 
     /**
      * Developer tool to enhance debugging
@@ -130,7 +120,7 @@ module.exports = function(env) {
           'ENV': JSON.stringify(METADATA.ENV),
           'API_URL': JSON.stringify(METADATA.API_URL),
           'NODE_ENV': JSON.stringify(METADATA.ENV),
-          'HMR': METADATA.HMR,
+          'HMR': METADATA.HMR
         }
       }),
 
@@ -157,11 +147,10 @@ module.exports = function(env) {
         // }, // debug
         // comments: true, //debug
 
-
-        beautify: false, //prod
-        mangle: { screw_ie8 : true, keep_fnames: true, except: ['$super'] }, //prod
-        compress: { screw_ie8: true }, //prod
-        comments: false //prod
+        beautify: false, // prod
+        mangle: { screw_ie8: true, keep_fnames: true, except: ['$super'] }, // prod
+        compress: { screw_ie8: true }, // prod
+        comments: false // prod
       }),
 
       /**
@@ -177,8 +166,8 @@ module.exports = function(env) {
       ),
 
       new CopyWebpackPlugin([
-            { from: 'src/print', to: 'print' }
-        ])
+        { from: 'src/print', to: 'print' }
+      ])
 
       /**
        * Plugin: IgnorePlugin
@@ -210,11 +199,11 @@ module.exports = function(env) {
      *
      * See: https://github.com/wbuchwalter/tslint-loader
      */
-    tslint: {
-      emitErrors: true,
-      failOnHint: true,
-      resourcePath: 'src'
-    },
+    // tslint: {
+    //   emitErrors: true,
+    //   failOnHint: true,
+    //   resourcePath: 'src'
+    // },
 
     /**
      * Html loader advanced options
@@ -231,7 +220,7 @@ module.exports = function(env) {
         [/\*/, /(?:)/],
         [/\[?\(?/, /(?:)/]
       ],
-      customAttrAssign: [/\)?\]?=/]
+      customAttrAssign: [/\)?]?=/]
     },
 
     /*
@@ -241,13 +230,12 @@ module.exports = function(env) {
      * See: https://webpack.github.io/docs/configuration.html#node
      */
     node: {
-      global: 'window',
+      global: true,
       crypto: 'empty',
       process: false,
       module: false,
       clearImmediate: false,
       setImmediate: false
     }
-
-  });
+  })
 }

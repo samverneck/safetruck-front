@@ -4,7 +4,6 @@ import * as $ from 'jquery'
 import { IClient } from './../../../interfaces/IClient'
 import { ClientService } from '../../../providers/client.service'
 
-
 @Component({
   selector: 'search-clients',
   encapsulation: ViewEncapsulation.None,
@@ -13,7 +12,7 @@ import { ClientService } from '../../../providers/client.service'
   providers: [ClientService]
 })
 
-export class SearchClientsPage {
+export class SearchClientsComponent {
   data: Array<IClient>
   equips: Array<any>
   dataLoaded: boolean
@@ -39,6 +38,4 @@ export class SearchClientsPage {
     table.children().removeClass('selected')
     td.toggleClass('selected')
   }
-
 }
-

@@ -12,6 +12,4 @@ export class EquipmentTypeSelectComponent {
 
   @Input() disabled: any
   @Input() validation: any
-
 }
-

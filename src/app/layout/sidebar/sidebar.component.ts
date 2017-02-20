@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core'
+import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core'
 import { Router, NavigationEnd } from '@angular/router'
 import { Location } from '@angular/common'
 
@@ -12,7 +12,7 @@ declare var jQuery: any
   templateUrl: './sidebar.template.html'
 })
 
-export class Sidebar implements OnInit {
+export class SidebarComponent implements OnInit, AfterViewInit {
   $el: any
   config: any
   router: Router
@@ -30,7 +30,7 @@ export class Sidebar implements OnInit {
     this.config = config.getConfig()
     this.router = router
     this.location = location
-    this. canView = this.checkUserPermissions()
+    this.canView = this.checkUserPermissions()
   }
 
   // Obtém os dados do usuário para saber se ele pode ver todos os menus

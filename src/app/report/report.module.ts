@@ -6,7 +6,7 @@ import { Ng2TableModule } from 'ng2-table'
 
 import { WidgetModule } from '../layout/widget/widget.module'
 import { UtilsModule } from '../layout/utils/utils.module'
-import { ReportPage } from './report.component'
+import { ReportComponent } from './report.component'
 import { PrintComponent } from './print/print.component'
 import { RouteComponent } from './route/route.component'
 
@@ -16,12 +16,12 @@ import 'bootstrap-datepicker/dist/locales/bootstrap-datepicker.pt-BR.min.js'
 import 'bootstrap-timepicker/js/bootstrap-timepicker.js'
 
 export const routes = [
-  {path: '', component: ReportPage}
+  {path: '', component: ReportComponent}
 ]
 
 @NgModule({
   declarations: [
-    ReportPage,
+    ReportComponent,
     RouteComponent,
     PrintComponent
   ],
@@ -31,7 +31,7 @@ export const routes = [
     WidgetModule,
     UtilsModule,
     Ng2TableModule,
-    RouterModule.forChild(routes),
+    RouterModule.forChild(routes)
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

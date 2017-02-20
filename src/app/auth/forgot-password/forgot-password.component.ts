@@ -7,20 +7,20 @@ declare var swal: any
 
 @Component({
   selector: 'forgot-password',
-  styleUrls: [ './forgot-password.styles.scss' ],
+  styleUrls: ['./forgot-password.styles.scss'],
   templateUrl: './forgot-password.template.html',
   encapsulation: ViewEncapsulation.None
 })
 
-export class ForgotPassword {
+export class ForgotPasswordComponent {
   email: string
   errorMsg: string
-  constructor(private http: Http) {}
+  constructor(private http: Http) { }
 
   sendEmail() {
     $('.alert').hide()
     if (this.validateEMail(this.email)) {
-     this.requestTokenByEmail({email: this.email})
+      this.requestTokenByEmail({ email: this.email })
         .then(res => {
           swal(
             'E-mail enviado',
@@ -28,7 +28,8 @@ export class ForgotPassword {
             'success'
           )
         })
-        .catch(err => {
+        .catch(error => {
+          console.log(error)
           this.errorMsg = 'O email informado não está cadastrado.'
           $('.alert').show('fast')
         })
@@ -39,13 +40,13 @@ export class ForgotPassword {
   }
 
   requestTokenByEmail(params) {
-    return  this.http
+    return this.http
       .post(`${API_URL}/forgot`, params)
       .toPromise()
   }
 
   getTokenInfo(token) {
-    return  this.http
+    return this.http
       .get(`${API_URL}/forgot/${token}`)
       .toPromise()
   }

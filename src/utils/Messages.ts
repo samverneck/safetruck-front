@@ -6,8 +6,6 @@ declare var swal: any
 type AlertType = 'warning' | 'error' | 'success' | 'info' | 'question'
 
 export class Messages {
-  constructor(){}
-
   /**
    * Exibe as notificações
    * @param {string} message
@@ -20,6 +18,7 @@ export class Messages {
       theme: 'air',
       extraClasses: 'messenger-fixed messenger-on-top messenger-on-right'
     }
+
     Messenger().post({
       message: message,
       type: type,
@@ -51,5 +50,3 @@ export class Messages {
   }
 
 }
-
-

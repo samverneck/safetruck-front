@@ -5,10 +5,10 @@ import { AuthService } from './../../../providers/auth.service'
 declare var jQuery: any
 
 @Component({
-  selector: '[navbar]',
+  selector: 'navbar',
   templateUrl: './navbar.template.html'
 })
-export class Navbar {
+export class NavbarComponent {
   @Output() toggleSidebarEvent: EventEmitter<any> = new EventEmitter()
   @Output() toggleChatEvent: EventEmitter<any> = new EventEmitter()
   $el: any
