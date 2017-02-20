@@ -37,7 +37,7 @@
     "watch": "npm run watch:dev",
     "webpack-dev-server": "webpack-dev-server",
     "webpack": "webpack",
-    "commitmsg": "validate-commit-msg",
+    "commitmsg": "validate-commit-msg"
   },
   "config": {
     "validate-commit-msg": {
@@ -177,5 +177,13 @@
   "engines": {
     "node": ">= 4.2.1",
     "npm": ">= 3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xdevelsistemas/safetruck-front.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xdevelsistemas/safetruck-front/issues"
+  },
+  "homepage": "https://github.com/xdevelsistemas/safetruck-front#readme"
 }
