@@ -14,16 +14,29 @@ declare var google: any
 })
 
 export class RouteComponent implements OnInit {
-  @Input() route: Array<any>
-  @Input() overSpeedings: Array<IReportOverSpeeding>
-  @Input() dangerZones: Array<IReportDangerZonesData>
-  @Input() times: any
 
-  ngOnInit() {
+  @Input() public route: Array<any>
+  @Input() public overSpeedings: Array<IReportOverSpeeding>
+  @Input() public dangerZones: Array<IReportDangerZonesData>
+  @Input() public times: any
+
+  /**
+   *
+   *
+   *
+   * @memberOf RouteComponent
+   */
+  public ngOnInit() {
     this.initMap()
   }
 
-  initMap() {
+  /**
+   *
+   *
+   *
+   * @memberOf RouteComponent
+   */
+  public initMap() {
     this.getMap().subscribe(map => {
       // Desenha a rota principal
       this.drawBaseRoute(map, this.route)
@@ -57,11 +70,11 @@ export class RouteComponent implements OnInit {
    * @returns {Observable <any>}
    * @memberOf RouteComponent
    */
-  getMap(): Observable <any> {
+  public getMap(): Observable<any> {
     let map$ = Observable.create(obs => {
       let map = new google.maps.Map(document.getElementById('map'), {
         zoom: 3,
-        center: {lat: 0, lng: -20},
+        center: { lat: 0, lng: -20 },
         mapTypeId: google.maps.MapTypeId.ROADMAP
       })
       obs.next(map)
@@ -77,7 +90,7 @@ export class RouteComponent implements OnInit {
    * @returns {void}
    * @memberOf RouteComponent
    */
-  drawBaseRoute(map, route): void {
+  public drawBaseRoute(map, route): void {
     let flightPath = new google.maps.Polyline({
       path: route,
       geodesic: true,
@@ -103,7 +116,7 @@ export class RouteComponent implements OnInit {
    * @returns {void}
    * @memberOf RouteComponent
    */
-  drawOverSpeedingsRoute(map, data): void {
+  public drawOverSpeedingsRoute(map, data): void {
     let line = new google.maps.Polyline({
       path: data.route,
       geodesic: true,
@@ -143,7 +156,7 @@ export class RouteComponent implements OnInit {
    * @returns {void}
    * @memberOf RouteComponent
    */
-  drawDangerZonesPoints(map, data): void {
+  public drawDangerZonesPoints(map, data): void {
     let date = moment(data.time).format('DD/MM/YYYY HH:mm:ss')
     let content = `
       <div id="content">
@@ -179,7 +192,7 @@ export class RouteComponent implements OnInit {
    * @returns {void}
    * @memberOf RouteComponent
    */
-  drawIcon(opt): void {
+  public drawIcon(opt): void {
     let marker = new google.maps.Marker({
       label: opt.label,
       icon: opt.icon,
@@ -205,7 +218,7 @@ export class RouteComponent implements OnInit {
    * @returns {void}
    * @memberOf RouteComponent
    */
-  drawStartAndFinish(opt): void {
+  public drawStartAndFinish(opt): void {
     let startMarker = moment(opt.start.date, 'DD/MM/YYYY h:mm A').format('DD/MM/YYYY HH:mm')
     let startMarkerCtn = `
       <div id="content">

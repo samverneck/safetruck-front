@@ -13,19 +13,24 @@ declare var jQuery: any
 })
 
 export class SidebarComponent implements OnInit, AfterViewInit {
-  $el: any
-  config: any
-  router: Router
-  location: Location
-  canView: boolean
 
-  constructor(
-    private auth: AuthService,
-    config: AppConfig,
-    el: ElementRef,
-    router: Router,
-    location: Location
-  ) {
+  public $el: any
+  public config: any
+  public router: Router
+  public location: Location
+  public canView: boolean
+
+  /**
+   * Creates an instance of SidebarComponent.
+   * @param {AuthService} auth
+   * @param {AppConfig} config
+   * @param {ElementRef} el
+   * @param {Router} router
+   * @param {Location} location
+   *
+   * @memberOf SidebarComponent
+   */
+  constructor(private auth: AuthService, config: AppConfig, el: ElementRef, router: Router, location: Location) {
     this.$el = jQuery(el.nativeElement)
     this.config = config.getConfig()
     this.router = router
@@ -33,12 +38,52 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     this.canView = this.checkUserPermissions()
   }
 
-  // Obtém os dados do usuário para saber se ele pode ver todos os menus
-  checkUserPermissions() {
+  /**
+   *
+   *
+   *
+   * @memberOf SidebarComponent
+   */
+  public ngOnInit(): void {
+    jQuery(window).on('sn:resize', this.initSidebarScroll.bind(this))
+    this.initSidebarScroll()
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.changeActiveNavigationItem(this.location)
+      }
+    })
+  }
+
+  /**
+   *
+   *
+   *
+   * @memberOf SidebarComponent
+   */
+  public ngAfterViewInit(): void {
+    this.changeActiveNavigationItem(this.location)
+  }
+
+  /**
+   *
+   * Obtém os dados do usuário para saber se ele pode ver todos os menus
+   *
+   * @returns
+   *
+   * @memberOf SidebarComponent
+   */
+  public checkUserPermissions() {
     return this.auth.user().isAdmin || false
   }
 
-  initSidebarScroll(): void {
+  /**
+   *
+   *
+   *
+   * @memberOf SidebarComponent
+   */
+  public initSidebarScroll(): void {
     let $sidebarContent = this.$el.find('.js-sidebar-content')
     if (this.$el.find('.slimScrollDiv').length !== 0) {
       $sidebarContent.slimscroll({
@@ -51,7 +96,14 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     })
   }
 
-  changeActiveNavigationItem(location): void {
+  /**
+   *
+   *
+   * @param {any} location
+   *
+   * @memberOf SidebarComponent
+   */
+  public changeActiveNavigationItem(location): void {
     let $newActiveLink = this.$el.find('a[href="' + location.path().split('?')[0] + '"]')
 
     // collapse .collapse only if new and old active links belong to different .collapse
@@ -66,20 +118,5 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     // uncollapse parent
     $newActiveLink.closest('.collapse').addClass('in').css('height', '')
       .siblings('a[data-toggle=collapse]').removeClass('collapsed')
-  }
-
-  ngAfterViewInit(): void {
-    this.changeActiveNavigationItem(this.location)
-  }
-
-  ngOnInit(): void {
-    jQuery(window).on('sn:resize', this.initSidebarScroll.bind(this))
-    this.initSidebarScroll()
-
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.changeActiveNavigationItem(this.location)
-      }
-    })
   }
 }

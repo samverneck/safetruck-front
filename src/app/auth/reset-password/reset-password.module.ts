@@ -23,5 +23,5 @@ export const routes = [
   ]
 })
 export default class ResetPasswordModule {
-  static routes = routes
+  public static routes = routes
 }

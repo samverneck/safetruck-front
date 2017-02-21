@@ -22,5 +22,5 @@ export const routes = [
   ]
 })
 export default class LoginModule {
-  static routes = routes
+  public static routes = routes
 }

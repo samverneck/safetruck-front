@@ -9,6 +9,7 @@ declare var $: any
   styleUrls: ['./login.styles.scss'],
   templateUrl: './login.template.html',
   encapsulation: ViewEncapsulation.None,
+  // tslint:disable-next-line:use-host-property-decorator
   host: {
     class: 'login-page app'
   }
@@ -25,7 +26,7 @@ export class LoginComponent {
    *
    * @memberOf LoginComponent
    */
-  constructor(private auth: AuthService, private router: Router) { }
+  public constructor(private auth: AuthService, private router: Router) { }
 
   /**
    *

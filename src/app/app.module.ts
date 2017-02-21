@@ -60,13 +60,28 @@ type StoreType = {
   ]
 })
 export class AppModule {
+
+  /**
+   * Creates an instance of AppModule.
+   * @param {ApplicationRef} appRef
+   * @param {AppState} appState
+   *
+   * @memberOf AppModule
+   */
   constructor(public appRef: ApplicationRef, public appState: AppState) { }
 
-  hmrOnInit(store: StoreType) {
+  /**
+   *
+   *
+   * @param {StoreType} store
+   *
+   * @memberOf AppModule
+   */
+  public hmrOnInit(store: StoreType) {
     if (!store || !store.state) { return }
     console.log('HMR store', JSON.stringify(store, null, 2))
     // set state
-    this.appState._state = store.state
+    this.appState.state = store.state
     // set input values
     if ('restoreInputValues' in store) {
       let restoreInputValues = store.restoreInputValues
@@ -78,10 +93,17 @@ export class AppModule {
     delete store.restoreInputValues
   }
 
-  hmrOnDestroy(store: StoreType) {
+  /**
+   *
+   *
+   * @param {StoreType} store
+   *
+   * @memberOf AppModule
+   */
+  public hmrOnDestroy(store: StoreType) {
     const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement)
     // save state
-    const state = this.appState._state
+    const state = this.appState.state
     store.state = state
     // recreate root elements
     store.disposeOldHosts = createNewHosts(cmpLocation)
@@ -91,7 +113,14 @@ export class AppModule {
     removeNgStyles()
   }
 
-  hmrAfterDestroy(store: StoreType) {
+  /**
+   *
+   *
+   * @param {StoreType} store
+   *
+   * @memberOf AppModule
+   */
+  public hmrAfterDestroy(store: StoreType) {
     // display new elements
     store.disposeOldHosts()
     delete store.disposeOldHosts

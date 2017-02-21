@@ -4,11 +4,11 @@ import { MarketType } from './../interfaces/IClient'
 
 export class Client {
   // tslint:disable:no-unused-variable
-  id: string
-  companyName: string // Razão social
-  tradingName: string // Nome Fantasia
-  adress: IAddress
-  contact: IContact
-  market: MarketType
-  shareDangerousPoints: boolean
+  public id: string
+  public companyName: string // Razão social
+  public tradingName: string // Nome Fantasia
+  public adress: IAddress
+  public contact: IContact
+  public market: MarketType
+  public shareDangerousPoints: boolean
 }

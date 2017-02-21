@@ -13,11 +13,24 @@ declare var swal: any
 })
 
 export class ForgotPasswordComponent {
-  email: string
-  errorMsg: string
+  public email: string
+  public errorMsg: string
+
+  /**
+   * Creates an instance of ForgotPasswordComponent.
+   * @param {Http} http
+   *
+   * @memberOf ForgotPasswordComponent
+   */
   constructor(private http: Http) { }
 
-  sendEmail() {
+  /**
+   *
+   *
+   *
+   * @memberOf ForgotPasswordComponent
+   */
+  public sendEmail() {
     $('.alert').hide()
     if (this.validateEMail(this.email)) {
       this.requestTokenByEmail({ email: this.email })
@@ -39,19 +52,43 @@ export class ForgotPasswordComponent {
     }
   }
 
-  requestTokenByEmail(params) {
+  /**
+   *
+   *
+   * @param {any} params
+   * @returns
+   *
+   * @memberOf ForgotPasswordComponent
+   */
+  public requestTokenByEmail(params) {
     return this.http
       .post(`${API_URL}/forgot`, params)
       .toPromise()
   }
 
-  getTokenInfo(token) {
+  /**
+   *
+   *
+   * @param {any} token
+   * @returns
+   *
+   * @memberOf ForgotPasswordComponent
+   */
+  public getTokenInfo(token) {
     return this.http
       .get(`${API_URL}/forgot/${token}`)
       .toPromise()
   }
 
-  validateEMail(email) {
+  /**
+   *
+   *
+   * @param {any} email
+   * @returns
+   *
+   * @memberOf ForgotPasswordComponent
+   */
+  public validateEMail(email) {
     return /^[\w\.\-]{3,}\@[a-zA-Z0-9\.\-]{3,}\.[A-Za-z]{2,}$/.test(email)
   }
 

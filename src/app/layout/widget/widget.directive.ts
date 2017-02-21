@@ -6,8 +6,14 @@ declare var jQuery: any
 })
 
 export class WidgetDirective implements OnInit {
-  $el: any
+  public $el: any
 
+  /**
+   * Creates an instance of WidgetDirective.
+   * @param {ElementRef} el
+   *
+   * @memberOf WidgetDirective
+   */
   constructor(el: ElementRef) {
     this.$el = jQuery(el.nativeElement)
     jQuery.fn.widgster.Constructor.DEFAULTS.bodySelector = '.widget-body'
@@ -26,7 +32,13 @@ export class WidgetDirective implements OnInit {
     })
   }
 
-  ngOnInit(): void {
+  /**
+   *
+   *
+   *
+   * @memberOf WidgetDirective
+   */
+  public ngOnInit(): void {
     this.$el.widgster()
   }
 }

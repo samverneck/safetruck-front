@@ -30,15 +30,28 @@ import {
     ])
   ]
 })
-
 export class EquipmentSearchComponent {
-  searchText: string
-  clients: IClient[]
-  equipments: IEquipment[]
-  msg = new Messages()
+
+  public searchText: string
+  public clients: IClient[]
+  public equipments: IEquipment[]
+  public msg = new Messages()
+
+  /**
+   * Creates an instance of EquipmentSearchComponent.
+   * @param {EquipmentService} equip
+   *
+   * @memberOf EquipmentSearchComponent
+   */
   constructor(public equip: EquipmentService) { }
 
-  search() {
+  /**
+   *
+   *
+   *
+   * @memberOf EquipmentSearchComponent
+   */
+  public search() {
     this.equip.getAll().subscribe(equips => {
       if (!this.searchText) {
         this.equipments = equips

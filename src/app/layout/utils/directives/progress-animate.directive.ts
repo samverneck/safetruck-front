@@ -6,13 +6,19 @@ declare var jQuery: any
 })
 
 export class ProgressAnimateDirective implements OnInit {
-  $el: any
+  public $el: any
 
   constructor(el: ElementRef) {
     this.$el = jQuery(el.nativeElement)
   }
 
-  ngOnInit(): void {
+  /**
+   *
+   *
+   *
+   * @memberOf ProgressAnimateDirective
+   */
+  public ngOnInit(): void {
 
     let width = this.$el.data('width')
     let $bar = this.$el

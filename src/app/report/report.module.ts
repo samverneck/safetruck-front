@@ -36,5 +36,5 @@ export const routes = [
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export default class ReportModule {
-  static routes = routes
+  public static routes = routes
 }

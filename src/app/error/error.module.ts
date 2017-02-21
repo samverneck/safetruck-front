@@ -20,5 +20,5 @@ export const routes = [
   ]
 })
 export default class ErrorModule {
-  static routes = routes
+  public static routes = routes
 }

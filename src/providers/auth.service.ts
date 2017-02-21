@@ -8,13 +8,28 @@ import * as decode from 'jwt-decode'
 export class AuthService {
   public token: string
 
+  /**
+   * Creates an instance of AuthService.
+   * @param {Http} http
+   *
+   * @memberOf AuthService
+   */
   constructor(private http: Http) {
     // set token if saved in local storage
     let currentUser = JSON.parse(localStorage.getItem('currentUser'))
     this.token = currentUser && currentUser.token
   }
 
-  login(email: string, password: string): Observable<boolean> {
+  /**
+   *
+   *
+   * @param {string} email
+   * @param {string} password
+   * @returns {Observable<boolean>}
+   *
+   * @memberOf AuthService
+   */
+  public login(email: string, password: string): Observable<boolean> {
     let headers = new Headers({ 'Content-Type': 'application/json' })
     let options = new RequestOptions({ headers: headers })
 
@@ -42,14 +57,27 @@ export class AuthService {
       })
   }
 
-  logout(): void {
+  /**
+   *
+   *
+   *
+   * @memberOf AuthService
+   */
+  public logout(): void {
     // clear token remove user from local storage to log user out
     this.token = null
     localStorage.removeItem('currentUser')
     localStorage.removeItem('userData')
   }
 
-  getHeaders() {
+  /**
+   *
+   *
+   * @returns
+   *
+   * @memberOf AuthService
+   */
+  public getHeaders() {
     let authToken = JSON.parse(localStorage.getItem('currentUser')).token
     let headers = new Headers()
     headers.append('Content-Type', 'application/json')
@@ -58,7 +86,14 @@ export class AuthService {
     return new RequestOptions({ headers: headers })
   }
 
-  user() {
+  /**
+   *
+   *
+   * @returns
+   *
+   * @memberOf AuthService
+   */
+  public user() {
     return localStorage.getItem('currentUser')
       ? decode(JSON.parse(localStorage.getItem('currentUser')).token)
       : false

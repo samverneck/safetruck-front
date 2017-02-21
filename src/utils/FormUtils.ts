@@ -9,7 +9,7 @@ export class FormUtils {
    *
    * @memberOf FormUtils
    */
-  serialize(formId: string) {
+  public serialize(formId: string) {
     let form = $(formId)
     let obj = {}
     let data = $(form).serializeArray()
@@ -35,7 +35,7 @@ export class FormUtils {
    *
    * @memberOf FormUtils
    */
-  slugfy(text) {
+  public slugfy(text) {
     return text.toString().toLowerCase()
       .replace(/\s+/g, '')            // Remove spaces
       .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
@@ -51,7 +51,7 @@ export class FormUtils {
    *
    * @memberOf FormUtils
    */
-  clear(formId: string) {
+  public clear(formId: string) {
     let form = $(formId)
     let el = form.serializeArray()
     form.trigger('reset')

@@ -11,13 +11,20 @@ import { ClientService } from '../../../providers/client.service'
   styleUrls: ['./search-clients.styles.scss'],
   providers: [ClientService]
 })
-
 export class SearchClientsComponent {
-  data: Array<IClient>
-  equips: Array<any>
-  dataLoaded: boolean
 
-  constructor(public clientService: ClientService) {
+  public data: Array<IClient>
+  public equips: Array<any>
+  public dataLoaded: boolean
+  public searchText: string
+
+  /**
+   * Creates an instance of SearchClientsComponent.
+   * @param {ClientService} clientService
+   *
+   * @memberOf SearchClientsComponent
+   */
+  public constructor(public clientService: ClientService) {
     this.clientService.getAll().subscribe({
       next: resp => {
         this.data = resp
@@ -27,12 +34,27 @@ export class SearchClientsComponent {
     })
   }
 
-  selected(row, client) {
+  /**
+   *
+   *
+   * @param {any} row
+   * @param {any} client
+   *
+   * @memberOf SearchClientsComponent
+   */
+  public selected(row, client) {
     this.equips = client.equipments
     this.toggleSelected(row)
   }
 
-  toggleSelected(row) {
+  /**
+   *
+   *
+   * @param {any} row
+   *
+   * @memberOf SearchClientsComponent
+   */
+  public toggleSelected(row) {
     let td = $(row.target.parentElement)
     let table = td.parent()
     table.children().removeClass('selected')

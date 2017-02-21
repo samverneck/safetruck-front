@@ -9,31 +9,55 @@ declare var jQuery: any
   templateUrl: './navbar.template.html'
 })
 export class NavbarComponent {
-  @Output() toggleSidebarEvent: EventEmitter<any> = new EventEmitter()
-  @Output() toggleChatEvent: EventEmitter<any> = new EventEmitter()
-  $el: any
-  config: any
 
-  constructor(
-    private auth: AuthService,
-    private router: Router,
-    el: ElementRef,
-    config: AppConfig
-  ) {
+  @Output() public toggleSidebarEvent: EventEmitter<any> = new EventEmitter()
+  @Output() public toggleChatEvent: EventEmitter<any> = new EventEmitter()
+  public $el: any
+  public config: any
+
+  /**
+   * Creates an instance of NavbarComponent.
+   * @param {AuthService} auth
+   * @param {Router} router
+   * @param {ElementRef} el
+   * @param {AppConfig} config
+   *
+   * @memberOf NavbarComponent
+   */
+  constructor(private auth: AuthService, private router: Router, el: ElementRef, config: AppConfig) {
     this.$el = jQuery(el.nativeElement)
     this.config = config.getConfig()
   }
 
-  logout() {
+  /**
+   *
+   *
+   *
+   * @memberOf NavbarComponent
+   */
+  public logout() {
     this.auth.logout()
     this.router.navigate(['/auth/login'])
   }
 
-  toggleSidebar(state): void {
+  /**
+   *
+   *
+   * @param {any} state
+   *
+   * @memberOf NavbarComponent
+   */
+  public toggleSidebar(state): void {
     this.toggleSidebarEvent.emit(state)
   }
 
-  toggleChat(): void {
+  /**
+   *
+   *
+   *
+   * @memberOf NavbarComponent
+   */
+  public toggleChat(): void {
     this.toggleChatEvent.emit(null)
   }
 }

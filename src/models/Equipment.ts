@@ -1,8 +1,8 @@
 export class Equipment {
-  id: string
-  code: string
-  plaque: string
-  vehicleType: string
-  equipmentType: string
-  orientation: string
+  public id: string
+  public code: string
+  public plaque: string
+  public vehicleType: string
+  public equipmentType: string
+  public orientation: string
 }

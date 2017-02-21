@@ -7,9 +7,8 @@ import { EquipmentType } from '../../../interfaces/IEquipment'
   templateUrl: './equipment-enums.html'
 })
 export class EquipmentTypeSelectComponent {
-  @Input() name: any
-  type = EquipmentType
-
-  @Input() disabled: any
-  @Input() validation: any
+  @Input() public name: any
+  @Input() public disabled: any
+  @Input() public validation: any
+  public type = EquipmentType
 }

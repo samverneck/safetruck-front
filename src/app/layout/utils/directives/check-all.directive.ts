@@ -6,13 +6,25 @@ declare var jQuery: any
 })
 
 export class CheckAllDirective implements OnInit {
-  $el: any
+  public $el: any
 
+  /**
+   * Creates an instance of CheckAllDirective.
+   * @param {ElementRef} el
+   *
+   * @memberOf CheckAllDirective
+   */
   constructor(el: ElementRef) {
     this.$el = jQuery(el.nativeElement)
   }
 
-  ngOnInit(): void {
+  /**
+   *
+   *
+   *
+   * @memberOf CheckAllDirective
+   */
+  public ngOnInit(): void {
     let $el = this.$el
     $el.on('click', function(): void {
       $el.closest('table').find('input[type=checkbox]')

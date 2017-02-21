@@ -19,42 +19,69 @@ declare var $: any
   animations: [
     trigger('fadeInOut', [
       transition('void => *', [
-        style({opacity: 0}),
-        animate(200, style({opacity: 1}))
+        style({ opacity: 0 }),
+        animate(200, style({ opacity: 1 }))
       ]),
       transition('* => void', [
-        animate(200, style({opacity: 0}))
+        animate(200, style({ opacity: 0 }))
       ])
     ])
   ]
 })
-
 export class EquipmentTableComponent {
 
-  @Input() data: IEquipment[]
-  @Output() equipmentSelected: EventEmitter<any> = new EventEmitter()
-  @Output() deleteEquipment: EventEmitter<any> = new EventEmitter()
+  @Input() public data: IEquipment[]
+  @Output() public equipmentSelected: EventEmitter<any> = new EventEmitter()
+  @Output() public deleteEquipment: EventEmitter<any> = new EventEmitter()
 
-  types = EquipmentType
+  public searchText: string
+  public types = EquipmentType
 
-  constructor(public equipmentService: EquipmentService) {
+  /**
+   * Creates an instance of EquipmentTableComponent.
+   * @param {EquipmentService} equipmentService
+   *
+   * @memberOf EquipmentTableComponent
+   */
+  public constructor(public equipmentService: EquipmentService) {
     console.log(this.data)
   }
 
-  delete(equipment) {
+  /**
+   *
+   *
+   * @param {any} equipment
+   *
+   * @memberOf EquipmentTableComponent
+   */
+  public delete(equipment) {
     this.deleteEquipment.emit(equipment)
   }
 
-  selected(element, equipment) {
+  /**
+   *
+   *
+   * @param {any} element
+   * @param {any} equipment
+   *
+   * @memberOf EquipmentTableComponent
+   */
+  public selected(element, equipment) {
     this.equipmentSelected.emit(equipment)
     this.toggleSelected(element)
   }
 
-  toggleSelected(element) {
+  /**
+   *
+   *
+   * @param {any} element
+   *
+   * @memberOf EquipmentTableComponent
+   */
+  public toggleSelected(element) {
     let td = $(element.target.parentElement)
     let table = td.parent()
     table.children().removeClass('selected')
     td.toggleClass('selected')
   }
-
 }

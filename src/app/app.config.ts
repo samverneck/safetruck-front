@@ -4,7 +4,7 @@ declare let jQuery: any
 
 @Injectable()
 export class AppConfig {
-  config = {
+  public config = {
     name: 'SafeTruck',
     title: 'Painel de Controle | SafeTruck',
     version: '0.0.1',
@@ -57,8 +57,8 @@ export class AppConfig {
     }
   }
 
-  _resizeCallbacks = []
-  _screenSizeCallbacks = {
+  private resizeCallbacks = []
+  private screenSizeCallbacks = {
     xs: { enter: [], exit: [] },
     sm: { enter: [], exit: [] },
     md: { enter: [], exit: [] },
@@ -66,18 +66,38 @@ export class AppConfig {
     xl: { enter: [], exit: [] }
   }
 
+  /**
+   * Creates an instance of AppConfig.
+   *
+   * @memberOf AppConfig
+   */
   constructor() {
-    this._initResizeEvent()
-    this._initOnScreenSizeCallbacks()
+    this.initResizeEvent()
+    this.initOnScreenSizeCallbacks()
   }
 
-  isScreen(size): boolean {
+  /**
+   *
+   *
+   * @param {any} size
+   * @returns {boolean}
+   *
+   * @memberOf AppConfig
+   */
+  public isScreen(size): boolean {
     let screenPx = window.innerWidth
     return (screenPx >= this.config.settings.screens[size + '-min'] || size === 'xs')
       && (screenPx <= this.config.settings.screens[size + '-max'] || size === 'xl')
   }
 
-  getScreenSize(): string {
+  /**
+   *
+   *
+   * @returns {string}
+   *
+   * @memberOf AppConfig
+   */
+  public getScreenSize(): string {
     let screenPx = window.innerWidth
     if (screenPx <= this.config.settings.screens['xs-max']) { return 'xs' }
     if ((screenPx >= this.config.settings.screens['sm-min'])
@@ -89,19 +109,38 @@ export class AppConfig {
     if (screenPx >= this.config.settings.screens['xl-min']) { return 'xl' }
   }
 
-  onScreenSize(size, fn, /* Boolean= */ onEnter): void {
+  /**
+   *
+   *
+   * @param {any} size
+   * @param {any} fn
+   * @param {any} onEnter
+   *
+   * @memberOf AppConfig
+   */
+  public onScreenSize(size, fn, /* Boolean= */ onEnter): void {
     onEnter = typeof onEnter !== 'undefined' ? onEnter : true
     if (typeof size === 'object') {
       for (let i = 0; i < size.length; i++) {
-        this._screenSizeCallbacks[size[i]][onEnter ? 'enter' : 'exit'].push(fn)
+        this.screenSizeCallbacks[size[i]][onEnter ? 'enter' : 'exit'].push(fn)
       }
     } else {
-      this._screenSizeCallbacks[size][onEnter ? 'enter' : 'exit'].push(fn)
+      this.screenSizeCallbacks[size][onEnter ? 'enter' : 'exit'].push(fn)
     }
 
   }
 
-  changeColor(color, ratio, darker): string {
+  /**
+   *
+   *
+   * @param {any} color
+   * @param {any} ratio
+   * @param {any} darker
+   * @returns {string}
+   *
+   * @memberOf AppConfig
+   */
+  public changeColor(color, ratio, darker): string {
     let pad = function(num, totalChars): number {
       let padVal = '0'
       num = num + ''
@@ -172,23 +211,77 @@ export class AppConfig {
       ].join('')
   }
 
-  lightenColor(color, ratio): any {
+  /**
+   *
+   *
+   * @param {any} color
+   * @param {any} ratio
+   * @returns {*}
+   *
+   * @memberOf AppConfig
+   */
+  public lightenColor(color, ratio): any {
     return this.changeColor(color, ratio, false)
   }
 
-  darkenColor(color, ratio): any {
+  /**
+   *
+   *
+   * @param {any} color
+   * @param {any} ratio
+   * @returns {*}
+   *
+   * @memberOf AppConfig
+   */
+  public darkenColor(color, ratio): any {
     return this.changeColor(color, ratio, true)
   }
 
-  max(array): any {
+  /**
+   *
+   *
+   * @param {any} array
+   * @returns {*}
+   *
+   * @memberOf AppConfig
+   */
+  public max(array): any {
     return Math.max.apply(null, array)
   }
 
-  min(array): any {
+  /**
+   *
+   *
+   * @param {any} array
+   * @returns {*}
+   *
+   * @memberOf AppConfig
+   */
+  public min(array): any {
     return Math.min.apply(null, array)
   }
 
-  _initResizeEvent(): void {
+  /**
+   *
+   *
+   * @returns {Object}
+   *
+   * @memberOf AppConfig
+   */
+  public getConfig(): Object {
+    return this.config
+  }
+
+  /***************************************** Private members *****************************************/
+
+  /**
+   *
+   *
+   * @private
+   *
+   * @memberOf AppConfig
+   */
+  private initResizeEvent(): void {
     let resizeTimeout
 
     jQuery(window).on('resize', () => {
@@ -199,7 +292,14 @@ export class AppConfig {
     })
   }
 
-  _initOnScreenSizeCallbacks(): void {
+  /**
+   *
+   *
+   * @private
+   *
+   * @memberOf AppConfig
+   */
+  private initOnScreenSizeCallbacks(): void {
     let resizeTimeout
     let prevSize = this.getScreenSize()
 
@@ -209,11 +309,11 @@ export class AppConfig {
         let size = this.getScreenSize()
         if (size !== prevSize) { // run only if something changed
           // run exit callbacks first
-          this._screenSizeCallbacks[prevSize].exit.forEach((fn) => {
+          this.screenSizeCallbacks[prevSize].exit.forEach((fn) => {
             fn(size, prevSize)
           })
           // run enter callbacks then
-          this._screenSizeCallbacks[size].enter.forEach((fn) => {
+          this.screenSizeCallbacks[size].enter.forEach((fn) => {
             fn(size, prevSize)
           })
           console.log('screen changed. new: ' + size + ', old: ' + prevSize)
@@ -221,9 +321,5 @@ export class AppConfig {
         prevSize = size
       }, 100)
     })
-  }
-
-  getConfig(): Object {
-    return this.config
   }
 }

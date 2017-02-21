@@ -23,19 +23,26 @@ declare var $: any
 })
 
 export class EquipmentRegisterComponent implements OnInit {
-  equipments: Array<IEquipment>
-  showTable: boolean
-  viewMode: boolean
-  messages = new Messages()
-  formUtils = new FormUtils()
-  clients: Array<IClient>
-  equipmentId: string
-  constructor(
-    private route: ActivatedRoute,
-    public equipService: EquipmentService,
-    public clientService: ClientService,
-    public validation: ValidationService
-  ) {
+
+  public equipments: Array<IEquipment>
+  public showTable: boolean
+  public viewMode: boolean
+  public messages = new Messages()
+  public formUtils = new FormUtils()
+  public clients: Array<IClient>
+  public equipmentId: string
+
+  /**
+   * Creates an instance of EquipmentRegisterComponent.
+   * @param {ActivatedRoute} route
+   * @param {EquipmentService} equipService
+   * @param {ClientService} clientService
+   * @param {ValidationService} validation
+   *
+   * @memberOf EquipmentRegisterComponent
+   */
+  constructor(private route: ActivatedRoute, public equipService: EquipmentService, public clientService: ClientService, public validation: ValidationService) {
+
     this.clientService.getAll().subscribe(resp => {
       this.clients = resp
     })
@@ -59,14 +66,31 @@ export class EquipmentRegisterComponent implements OnInit {
         error: console.error
       })
     }
+  }
 
+  /**
+   *
+   *
+   *
+   * @memberOf EquipmentRegisterComponent
+   */
+  public ngOnInit(): void {
+    $('.date').datepicker({
+      autoclose: true,
+      todayBtn: 'linked',
+      todayHighlight: true,
+      assumeNearbyYear: true,
+      placeholder: 'Selecione',
+      format: 'dd/mm/yyyy',
+      language: 'pt-BR'
+    })
   }
 
   /**
    * Carrega os dados do equipamento que através do parametro id
    * passado pela URL
    */
-  getClientData() {
+  public getClientData() {
     this.route.params.forEach((params: Params) => {
       if (params['id'] !== undefined) {
         this.equipService.getById(params['id']).subscribe({
@@ -82,24 +106,12 @@ export class EquipmentRegisterComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-    $('.date').datepicker({
-      autoclose: true,
-      todayBtn: 'linked',
-      todayHighlight: true,
-      assumeNearbyYear: true,
-      placeholder: 'Selecione',
-      format: 'dd/mm/yyyy',
-      language: 'pt-BR'
-    })
-  }
-
   /**
    * Criar ou altera um Equipamento
    * @returns
    * @memberOf EquipmentRegisterPage
    */
-  saveEquipament() {
+  public saveEquipament() {
     // Validando...
     if (!this.validation.validateForm('#equipmentForm')) { return }
     // Obtendo os dados do formuulário
@@ -137,7 +149,7 @@ export class EquipmentRegisterComponent implements OnInit {
    * Obtém a lista de equipamentos
    * @memberOf EquipmentRegisterPage
    */
-  updateEquipmentsTable(): void {
+  public updateEquipmentsTable(): void {
     this.showTable = false
     this.equipService.getAll().subscribe({
       next: (resp) => {
@@ -153,7 +165,7 @@ export class EquipmentRegisterComponent implements OnInit {
    * @param {IEquipment} equipment
    * @memberOf EquipmentRegisterPage
    */
-  deleteEquipment(equipment: IEquipment) {
+  public deleteEquipment(equipment: IEquipment) {
     swal({
       title: 'Deletar equipamento',
       text: `Tem certeza que deseja deletar o equipamento ${equipment.code}?`,
@@ -189,7 +201,7 @@ export class EquipmentRegisterComponent implements OnInit {
    * @returns {IEquipment}
    * @memberOf EquipmentRegisterPage
    */
-  getFormData(): IEquipment {
+  public getFormData(): IEquipment {
     let data = this.formUtils.serialize('#equipmentForm')
     let install: IEquipmentInstall = {
       vehicleType: data['vehicle'],
@@ -211,10 +223,12 @@ export class EquipmentRegisterComponent implements OnInit {
 
   /**
    * Preenche os dados do formulário com os dados do equipamento clicado
-   * @param {any} equipment
-   * @memberOf ClientPage
+   *
+   * @param {IEquipment} equipment
+   *
+   * @memberOf EquipmentRegisterComponent
    */
-  loadEquipmentData(equipment: IEquipment): void {
+  public loadEquipmentData(equipment: IEquipment): void {
     this.clearForm()
     this.equipmentId = equipment.id
     $('[name="code"]').val(equipment.code)
@@ -228,11 +242,23 @@ export class EquipmentRegisterComponent implements OnInit {
     $('[name="clientName"]').val(equipment.install.client.companyName)
   }
 
-  toUpperPlaque() {
+  /**
+   *
+   *
+   *
+   * @memberOf EquipmentRegisterComponent
+   */
+  public toUpperPlaque() {
     $('[name="plaque"]').val($('[name="plaque"]').val().toUpperCase())
   }
 
-  clearForm() {
+  /**
+   *
+   *
+   *
+   * @memberOf EquipmentRegisterComponent
+   */
+  public clearForm() {
     this.equipmentId = null
     this.formUtils.clear('#equipmentForm')
   }

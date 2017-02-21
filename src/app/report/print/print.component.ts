@@ -9,16 +9,34 @@ import { IReportData } from './../../../interfaces/IReport'
   styles: ['print.styles.scss']
 })
 export class PrintComponent {
-  @Input() data: IReportData
-  @Input() reportTimes: string
 
-  protocol = Date.now()
+  @Input() public data: IReportData
+  @Input() public reportTimes: string
 
-  formatDate(date) {
+  public protocol = Date.now()
+
+  /**
+   *
+   *
+   * @param {any} date
+   * @returns
+   *
+   * @memberOf PrintComponent
+   */
+  public formatDate(date) {
     return moment(date).format('DD/MM/YYYY HH:mm:ss')
   }
 
-  getOverSpeedingImg(start, finish) {
+  /**
+   *
+   *
+   * @param {any} start
+   * @param {any} finish
+   * @returns
+   *
+   * @memberOf PrintComponent
+   */
+  public getOverSpeedingImg(start, finish) {
     let api: string = 'https://maps.googleapis.com/maps/api/staticmap?'
     let key: string = '&key=AIzaSyCTyVqtTUEU9_G20pWMkmEo7b2vQe87M4k'
     let size: string = '&size=275x135'
@@ -28,11 +46,28 @@ export class PrintComponent {
     return api + size + labelStart + labelFinish + key
   }
 
-  getOverSpeedingLink(s, f) {
+  /**
+   *
+   *
+   * @param {any} s
+   * @param {any} f
+   * @returns
+   *
+   * @memberOf PrintComponent
+   */
+  public getOverSpeedingLink(s, f) {
     return `https://www.google.com/maps?&z=12&saddr=${s.lat},${s.lng}&daddr=${f.lat},${f.lng}&dirflg=h`
   }
 
-  getDangerZoneImg(position) {
+  /**
+   *
+   *
+   * @param {any} position
+   * @returns
+   *
+   * @memberOf PrintComponent
+   */
+  public getDangerZoneImg(position) {
     let api: string = 'https://maps.googleapis.com/maps/api/staticmap?'
     let key: string = '&key=AIzaSyCTyVqtTUEU9_G20pWMkmEo7b2vQe87M4k'
     let size: string = '&size=275x135'
@@ -42,7 +77,15 @@ export class PrintComponent {
     return api + size + latLon + key
   }
 
-  getDangerZoneLink(location) {
+  /**
+   *
+   *
+   * @param {any} location
+   * @returns
+   *
+   * @memberOf PrintComponent
+   */
+  public getDangerZoneLink(location) {
     return `https://www.google.com/maps?&z=12&q=${location.lat},${location.lng}`
   }
 }

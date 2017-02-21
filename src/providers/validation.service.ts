@@ -7,7 +7,7 @@ declare var $: any
 @Injectable()
 export class ValidationService {
 
-  messages = new Messages()
+  public messages = new Messages()
 
   /**
    *
@@ -17,7 +17,7 @@ export class ValidationService {
    *
    * @memberOf ValidationService
    */
-  showNotification(input, customMsg?) {
+  public showNotification(input, customMsg?) {
     // exibe a mensagem de erro informando o campo
     if ($(`[name="${input.name}"]`).attr('validate')) {
       let field = $(`[name="${input.name}"]`).attr('validate')
@@ -36,7 +36,7 @@ export class ValidationService {
    *
    * @memberOf ValidationService
    */
-  addErrorClass(name) {
+  public addErrorClass(name) {
     $(`[name="${name}"]`).addClass('error')
   }
 
@@ -47,7 +47,7 @@ export class ValidationService {
    *
    * @memberOf ValidationService
    */
-  removeErrorClass(name) {
+  public removeErrorClass(name) {
     $(`[name="${name}"]`).removeClass('error')
   }
 
@@ -59,7 +59,7 @@ export class ValidationService {
    *
    * @memberOf ValidationService
    */
-  validateForm(formId: string) {
+  public validateForm(formId: string) {
     let form = $(formId)
     let isValid: boolean = true
     let data = form.serializeArray()
@@ -96,7 +96,7 @@ export class ValidationService {
    *
    * @memberOf ValidationService
    */
-  isInvalidCommon(input) {
+  public isInvalidCommon(input) {
     if ($(`[name="${input.name}"]`).attr('validate')) {
       return input.value === ''
     }
@@ -112,7 +112,7 @@ export class ValidationService {
    *
    * @memberOf ValidationService
    */
-  isInvalidadeDate(input) {
+  public isInvalidadeDate(input) {
     // tslint:disable:max-line-length
     if (input.name === 'installation') {
       return !/^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/.test(input.value)
@@ -129,7 +129,7 @@ export class ValidationService {
    *
    * @memberOf ValidationService
    */
-  isValidCnpj(val) {
+  public isValidCnpj(val) {
     // tslint:disable:no-shadowed-variable
     // tslint:disable:no-conditional-assignment
     // tslint:disable:curly

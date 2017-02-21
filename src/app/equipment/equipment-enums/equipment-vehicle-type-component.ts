@@ -14,9 +14,9 @@ export enum EVechicleType {
   templateUrl: './equipment-enums.html'
 })
 export class EquipmentVehicleTypeSelectComponent {
-  @Input() name: any
-  @Input() disabled: any
-  @Input() validation: any
+  @Input() public name: any
+  @Input() public disabled: any
+  @Input() public validation: any
 
-  type = EVechicleType
+  public type = EVechicleType
 }

@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ElementRef, OnInit, HostBinding } from '@angular/core'
+import { Component, ViewEncapsulation, ElementRef, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { AppConfig } from '../app.config'
 
@@ -9,6 +9,7 @@ declare var Hammer: any
   selector: 'layout',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './layout.template.html',
+  // tslint:disable-next-line:use-host-property-decorator
   host: {
     '[class.nav-static]': 'config.state["nav-static"]',
     '[class.chat-sidebar-opened]': 'chatOpened',
@@ -17,23 +18,33 @@ declare var Hammer: any
   }
 })
 export class LayoutComponent implements OnInit {
-  config: any
-  configFn: any
-  $sidebar: any
-  el: ElementRef
-  router: Router
-  chatOpened: boolean = false
 
-  constructor(config: AppConfig,
-    el: ElementRef,
-    router: Router) {
-    this.el = el
+  public config: any
+  public configFn: any
+  public $sidebar: any
+  public chatOpened: boolean = false
+
+  /**
+   * Creates an instance of LayoutComponent.
+   * @param {AppConfig} config
+   * @param {ElementRef} el
+   * @param {Router} router
+   *
+   * @memberOf LayoutComponent
+   */
+  constructor(config: AppConfig, private el: ElementRef, private router: Router) {
     this.config = config.getConfig()
     this.configFn = config
-    this.router = router
   }
 
-  toggleSidebarListener(state): void {
+  /**
+   *
+   *
+   * @param {any} state
+   *
+   * @memberOf LayoutComponent
+   */
+  public toggleSidebarListener(state): void {
     let toggleNavigation = state === 'static'
       ? this.toggleNavigationState
       : this.toggleNavigationCollapseState
@@ -41,7 +52,13 @@ export class LayoutComponent implements OnInit {
     localStorage.setItem('nav-static', this.config.state['nav-static'])
   }
 
-  toggleChatListener(): void {
+  /**
+   *
+   *
+   *
+   * @memberOf LayoutComponent
+   */
+  public toggleChatListener(): void {
     jQuery(this.el.nativeElement).find('.chat-notification-sing').remove()
     this.chatOpened = !this.chatOpened
 
@@ -57,14 +74,26 @@ export class LayoutComponent implements OnInit {
     }, 1000)
   }
 
-  toggleNavigationState(): void {
+  /**
+   *
+   *
+   *
+   * @memberOf LayoutComponent
+   */
+  public toggleNavigationState(): void {
     this.config.state['nav-static'] = !this.config.state['nav-static']
     if (!this.config.state['nav-static']) {
       this.collapseNavigation()
     }
   }
 
-  expandNavigation(): void {
+  /**
+   *
+   *
+   *
+   * @memberOf LayoutComponent
+   */
+  public expandNavigation(): void {
     // this method only makes sense for non-static navigation state
     if (this.isNavigationStatic()
       && (this.configFn.isScreen('lg') || this.configFn.isScreen('xl'))) { return }
@@ -74,7 +103,13 @@ export class LayoutComponent implements OnInit {
       .siblings('[data-toggle=collapse]').removeClass('collapsed')
   }
 
-  collapseNavigation(): void {
+  /**
+   *
+   *
+   *
+   * @memberOf LayoutComponent
+   */
+  public collapseNavigation(): void {
     // this method only makes sense for non-static navigation state
     if (this.isNavigationStatic()
       && (this.configFn.isScreen('lg') || this.configFn.isScreen('xl'))) { return }
@@ -85,9 +120,12 @@ export class LayoutComponent implements OnInit {
   }
 
   /**
-   * Check and set navigation collapse according to screen size and navigation state
+   *
+   *
+   *
+   * @memberOf LayoutComponent
    */
-  checkNavigationState(): void {
+  public checkNavigationState(): void {
     if (this.isNavigationStatic()) {
       if (this.configFn.isScreen('sm')
         || this.configFn.isScreen('xs') || this.configFn.isScreen('md')) {
@@ -104,11 +142,24 @@ export class LayoutComponent implements OnInit {
     }
   }
 
-  isNavigationStatic(): boolean {
+  /**
+   *
+   *
+   * @returns {boolean}
+   *
+   * @memberOf LayoutComponent
+   */
+  public isNavigationStatic(): boolean {
     return this.config.state['nav-static'] === true
   }
 
-  toggleNavigationCollapseState(): void {
+  /**
+   *
+   *
+   *
+   * @memberOf LayoutComponent
+   */
+  public toggleNavigationCollapseState(): void {
     if (jQuery('layout').is('.nav-collapsed')) {
       this.expandNavigation()
     } else {
@@ -116,18 +167,13 @@ export class LayoutComponent implements OnInit {
     }
   }
 
-  _sidebarMouseEnter(): void {
-    if (this.configFn.isScreen('lg') || this.configFn.isScreen('xl')) {
-      this.expandNavigation()
-    }
-  }
-  _sidebarMouseLeave(): void {
-    if (this.configFn.isScreen('lg') || this.configFn.isScreen('xl')) {
-      this.collapseNavigation()
-    }
-  }
-
-  enableSwipeCollapsing(): void {
+  /**
+   *
+   *
+   *
+   * @memberOf LayoutComponent
+   */
+  public enableSwipeCollapsing(): void {
     let swipe = new Hammer(document.getElementById('content-wrap'))
     let d = this
 
@@ -152,14 +198,26 @@ export class LayoutComponent implements OnInit {
     })
   }
 
-  collapseNavIfSmallScreen(): void {
+  /**
+   *
+   *
+   *
+   * @memberOf LayoutComponent
+   */
+  public collapseNavIfSmallScreen(): void {
     if (this.configFn.isScreen('xs')
       || this.configFn.isScreen('sm') || this.configFn.isScreen('md')) {
       this.collapseNavigation()
     }
   }
 
-  ngOnInit(): void {
+  /**
+   *
+   *
+   *
+   * @memberOf LayoutComponent
+   */
+  public ngOnInit(): void {
 
     if (localStorage.getItem('nav-static') === 'true') {
       this.config.state['nav-static'] = true
@@ -172,8 +230,8 @@ export class LayoutComponent implements OnInit {
       e.preventDefault()
     })
 
-    this.$sidebar.on('mouseenter', this._sidebarMouseEnter.bind(this))
-    this.$sidebar.on('mouseleave', this._sidebarMouseLeave.bind(this))
+    this.$sidebar.on('mouseenter', this.sidebarMouseEnter.bind(this))
+    this.$sidebar.on('mouseleave', this.sidebarMouseLeave.bind(this))
 
     this.checkNavigationState()
 
@@ -216,5 +274,32 @@ export class LayoutComponent implements OnInit {
 
         jQuery(this).closest('li').removeClass('open')
       })
+  }
+
+  /**************************************** private *****************************************/
+  /**
+   *
+   *
+   * @private
+   *
+   * @memberOf LayoutComponent
+   */
+  private sidebarMouseEnter(): void {
+    if (this.configFn.isScreen('lg') || this.configFn.isScreen('xl')) {
+      this.expandNavigation()
+    }
+  }
+
+  /**
+   *
+   *
+   * @private
+   *
+   * @memberOf LayoutComponent
+   */
+  private sidebarMouseLeave(): void {
+    if (this.configFn.isScreen('lg') || this.configFn.isScreen('xl')) {
+      this.collapseNavigation()
+    }
   }
 }

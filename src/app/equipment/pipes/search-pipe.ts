@@ -6,7 +6,17 @@ import { IEquipment } from '../../../interfaces/IEquipment'
 })
 
 export class SearchPipe implements PipeTransform {
-  transform(value, args?): Array<IEquipment> {
+
+  /**
+   *
+   *
+   * @param {any} value
+   * @param {any} [args]
+   * @returns {Array<IEquipment>}
+   *
+   * @memberOf SearchPipe
+   */
+  public transform(value, args?): Array<IEquipment> {
     let searchText = new RegExp(args, 'ig')
     if (value) {
       return value.filter((equipment: IEquipment) => {

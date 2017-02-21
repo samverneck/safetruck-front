@@ -106,16 +106,16 @@ module.exports = {
              *
              * See: https://github.com/wbuchwalter/tslint-loader
              */
-            // {
-            //   test: /\.ts$/,
-            //   enforce: 'pre',
-            //   loader: 'tslint-loader',
-            //   options: {
-            //     emitErrors: false,
-            //     failOnHint: false,
-            //     resourcePath: 'src'
-            //   }
-            // },
+            {
+              test: /\.ts$/,
+              enforce: 'pre',
+              loader: 'tslint-loader',
+              include: 'src',
+              options: {
+                emitErrors: false,
+                failOnHint: false
+              }
+            },
 
             /*
             * Typescript loader support for .ts and Angular 2 async routes via .async.ts

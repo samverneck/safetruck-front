@@ -52,5 +52,5 @@ export const routes = [
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export default class EquipmentModule {
-  static routes = routes
+  public static routes = routes
 }

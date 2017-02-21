@@ -6,28 +6,55 @@ export type InteralStateType = {
 
 @Injectable()
 export class AppState {
-  _state: InteralStateType = {}
+
+  private internalState: InteralStateType = {}
 
   // already return a clone of the current state
   get state() {
-    return this._state = this._clone(this._state)
+    return this.internalState = this._clone(this.internalState)
   }
   // never allow mutation
   set state(value) {
     throw new Error('do not mutate the `.state` directly')
   }
 
-  get(prop?: any) {
+  /**
+   *
+   *
+   * @param {*} [prop]
+   * @returns
+   *
+   * @memberOf AppState
+   */
+  public get(prop?: any) {
     // use our state getter for the clone
     const state = this.state
     return state.hasOwnProperty(prop) ? state[prop] : state
   }
 
-  set(prop: string, value: any) {
+  /**
+   *
+   *
+   * @param {string} prop
+   * @param {*} value
+   * @returns
+   *
+   * @memberOf AppState
+   */
+  public set(prop: string, value: any) {
     // internally mutate our state
-    return this._state[prop] = value
+    return this.internalState[prop] = value
   }
 
+  /**
+   *
+   *
+   * @private
+   * @param {InteralStateType} object
+   * @returns
+   *
+   * @memberOf AppState
+   */
   private _clone(object: InteralStateType) {
     // simple object clone
     return JSON.parse(JSON.stringify(object))

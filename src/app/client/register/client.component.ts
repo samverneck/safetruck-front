@@ -24,13 +24,13 @@ declare var $: any
 })
 
 export class ClientComponent {
-  clients: Array<IClient>
-  showTable: boolean
-  viewMode: boolean
-  states: Array<{ abbr: string, name: string }> = STATES
-  message = new Messages()
-  formUtils = new FormUtils()
-  clientId: string
+  public clients: Array<IClient>
+  public showTable: boolean
+  public viewMode: boolean
+  public states: Array<{ abbr: string, name: string }> = STATES
+  public message = new Messages()
+  public formUtils = new FormUtils()
+  public clientId: string
 
   constructor(
     private route: ActivatedRoute,
@@ -57,7 +57,7 @@ export class ClientComponent {
    * Obtém a lista de clientes
    * @memberOf ClientPage
    */
-  updateClientsTable(): void {
+  public updateClientsTable(): void {
     this.showTable = false
     this.clientService.getAll().subscribe({
       next: (resp) => {
@@ -73,7 +73,7 @@ export class ClientComponent {
    * @returns
    * @memberOf ClientPage
    */
-  saveClient() {
+  public saveClient() {
     // Validando...
     if (!this.validation.validateForm('#clientForm')) { return }
     // Obtendo dados do formulário
@@ -112,7 +112,7 @@ export class ClientComponent {
    * @param {IClient} client
    * @memberOf ClientPage
    */
-  deleteClient(client: IClient) {
+  public deleteClient(client: IClient) {
     swal({
       title: 'Deletar cliente',
       text: `Tem certeza que deseja deletar o cliente ${client.tradingName}?`,
@@ -147,7 +147,7 @@ export class ClientComponent {
    * @returns {IClient}
    * @memberOf ClientPage
    */
-  getFormData(): IClient {
+  public getFormData(): IClient {
     // Obtendo os dados do formuário
     let data = this.formUtils.serialize('#clientForm')
 
@@ -186,7 +186,7 @@ export class ClientComponent {
    * @param {string} cep
    * @memberOf ClientPage
    */
-  getAddress(cep: string): void {
+  public getAddress(cep: string): void {
     cep = cep.replace(/\D/g, '')
     if (!cep) { return }
     this.cepService.getAddress(cep).subscribe({
@@ -214,7 +214,7 @@ export class ClientComponent {
    * Cria o Alias a partir do Nome Fantasia
    * @memberOf ClientPage
    */
-  slugify(): void {
+  public slugify(): void {
     let alias = $('[name="alias"]')
     if (!alias.val()) {
       let tradingName = $('[name="trading-name"]').val()
@@ -228,7 +228,7 @@ export class ClientComponent {
    * @param {any} client
    * @memberOf ClientPage
    */
-  loadClientData(client): void {
+  public loadClientData(client): void {
     this.clearForm()
     this.clientId = client.id
     $('[name="company-name"]').val(client.companyName)
@@ -257,7 +257,7 @@ export class ClientComponent {
    * passado pela URL
    * @memberOf ClientPage
    */
-  getClientData() {
+  public getClientData() {
     this.route.params.forEach((params: Params) => {
       if (params['id'] !== undefined) {
         this.clientService.getById(params['id']).subscribe({
@@ -277,7 +277,7 @@ export class ClientComponent {
    * Limpa os dados do formuário
    * @memberOf ClientPage
    */
-  clearForm(): void {
+  public clearForm(): void {
     this.clientId = null
     $('tbody').children().removeClass('selected')
     this.formUtils.clear('#clientForm')

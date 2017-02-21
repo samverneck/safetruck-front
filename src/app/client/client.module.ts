@@ -42,5 +42,5 @@ export const routes = [
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export default class ClientModule {
-  static routes = routes
+  public static routes = routes
 }

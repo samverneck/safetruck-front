@@ -16,21 +16,20 @@ import { EVechicleType } from '../../../equipment/equipment-enums/equipment-vehi
   animations: [
     trigger('fadeInOut', [
       transition('void => *', [
-        style({opacity: 0}),
-        animate(200, style({opacity: 1}))
+        style({ opacity: 0 }),
+        animate(200, style({ opacity: 1 }))
       ]),
       transition('* => void', [
-        animate(200, style({opacity: 0}))
+        animate(200, style({ opacity: 0 }))
       ])
     ])
   ]
 })
 
 export class EquipmentTableComponent {
-  @Input() data: Array<any>
+  @Input() public data: Array<any>
 
-  types = EquipmentType
-
-  orientations = Orientation
-  vehicleTypes = EVechicleType
+  public types = EquipmentType
+  public orientations = Orientation
+  public vehicleTypes = EVechicleType
 }

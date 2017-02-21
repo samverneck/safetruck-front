@@ -16,8 +16,8 @@ declare var swal: any
 })
 
 export class ResetPasswordComponent implements OnInit {
-  password: string
-  confirm: string
+  public password: string
+  public confirm: string
   public path: string
   public errorMsg: string
   private token: string
@@ -30,7 +30,13 @@ export class ResetPasswordComponent implements OnInit {
     public router: Router
   ) { }
 
-  ngOnInit(): void {
+  /**
+   *
+   *
+   *
+   * @memberOf ResetPasswordComponent
+   */
+  public ngOnInit(): void {
     this.path = window.location.href.split('/')[4]
     this.route.params.forEach((params: Params) => {
       if (params['token'] !== undefined) {
@@ -52,7 +58,13 @@ export class ResetPasswordComponent implements OnInit {
     })
   }
 
-  changePassword() {
+  /**
+   *
+   *
+   *
+   * @memberOf ResetPasswordComponent
+   */
+  public changePassword() {
     $('.alert').hide('fast')
     if (this.password !== this.confirm) {
       this.errorMsg = 'As senhas precisam ser iguais.'
@@ -96,7 +108,15 @@ export class ResetPasswordComponent implements OnInit {
       })
   }
 
-  getTokenInfo(token) {
+  /**
+   *
+   *
+   * @param {any} token
+   * @returns
+   *
+   * @memberOf ResetPasswordComponent
+   */
+  public getTokenInfo(token) {
     return this.http
       .get(`${API_URL}/forgot/${token}`)
       .toPromise()

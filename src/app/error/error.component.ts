@@ -6,18 +6,28 @@ import { Router } from '@angular/router'
   styleUrls: ['./error.style.scss'],
   templateUrl: './error.template.html',
   encapsulation: ViewEncapsulation.None,
+  // tslint:disable-next-line:use-host-property-decorator
   host: {
     class: 'error-page app'
   }
 })
 export class ErrorComponent {
-  router: Router
 
-  constructor(router: Router) {
-    this.router = router
-  }
+  /**
+   * Creates an instance of ErrorComponent.
+   * @param {Router} router
+   *
+   * @memberOf ErrorComponent
+   */
+  constructor(private router: Router) {}
 
-  searchResult(): void {
+  /**
+   *
+   *
+   *
+   * @memberOf ErrorComponent
+   */
+  public searchResult(): void {
     this.router.navigate(['/app', 'dashboard'])
   }
 }

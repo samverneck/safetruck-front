@@ -57,14 +57,21 @@ interface IDataReportPrint {
     ])
   ]
 })
-
 export class ReportComponent implements OnInit {
-  report: IReportData
-  plaques: string[]
-  messages = new Messages()
-  times: any
-  showReports: boolean
 
+  public report: IReportData
+  public plaques: string[]
+  public messages = new Messages()
+  public times: any
+  public showReports: boolean
+
+  /**
+   * Creates an instance of ReportComponent.
+   * @param {ReportService} reportService
+   * @param {Http} http
+   *
+   * @memberOf ReportComponent
+   */
   constructor(public reportService: ReportService, private http: Http) {
     // Obtém as placas cadastradas
     this.reportService.getPlaques().subscribe(plaques => {
@@ -72,7 +79,13 @@ export class ReportComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
+  /**
+   *
+   *
+   *
+   * @memberOf ReportComponent
+   */
+  public ngOnInit(): void {
     $('.date').datepicker({
       autoclose: true,
       todayBtn: 'linked',
@@ -89,9 +102,11 @@ export class ReportComponent implements OnInit {
 
   /**
    * Exibe o relatório
-   * @memberOf ReportPage
+   *
+   *
+   * @memberOf ReportComponent
    */
-  getReport(): void {
+  public getReport(): void {
     this.showReports = false
     // Obetém os valores do usuário
     this.times = this.getInputs()
@@ -114,7 +129,7 @@ export class ReportComponent implements OnInit {
    * @returns {{plaque: string, start: string, finish: string}}
    * @memberOf ReportPage
    */
-  getInputs(): { plaque: string, start: string, finish: string } {
+  public getInputs(): { plaque: string, start: string, finish: string } {
     let plaque = $('#plaque').val()
     let start = $('#start').val() + ' ' + $('#time-start').val() || moment().format('h:m A')
     let finish = $('#finish').val() + ' ' + $('#time-finish').val()
@@ -137,7 +152,7 @@ export class ReportComponent implements OnInit {
    * @returns
    * @memberOf ReportPage
    */
-  convertDateToISO(start: string, finish: string) {
+  public convertDateToISO(start: string, finish: string) {
     // Se não for informada uma data fim, o dia atual é informado
     start = moment(start, DATE_FORMAT).toISOString()
     finish
@@ -154,7 +169,7 @@ export class ReportComponent implements OnInit {
    * @returns {boolean}
    * @memberOf ReportPage
    */
-  validate(plaque: string, start: string): boolean {
+  public validate(plaque: string, start: string): boolean {
     // Remove a classe de erro
     this.removeErrorClass()
     // Valida se a placa foi informada
@@ -185,13 +200,19 @@ export class ReportComponent implements OnInit {
    * Remove a classe de erro dos elementos obrigatórios
    * @memberOf ReportPage
    */
-  removeErrorClass(): void {
+  public removeErrorClass(): void {
     $(`[name="plaque"]`).removeClass('error')
     $('#start').removeClass('error')
     $('time-start').removeClass('error')
   }
 
-  print(): void {
+  /**
+   *
+   *
+   *
+   * @memberOf ReportComponent
+   */
+  public print(): void {
 
     this.times = this.getInputs()
     // Validação

@@ -13,7 +13,7 @@ export class Messages {
    *
    * @memberOf Messages
    */
-  showNotification(message: string, type?: string) {
+  public showNotification(message: string, type?: string) {
     Messenger.options = {
       theme: 'air',
       extraClasses: 'messenger-fixed messenger-on-top messenger-on-right'
@@ -36,7 +36,7 @@ export class Messages {
    *
    * @memberOf Messages
    */
-  showAlert(title: string, text?: string, type?: AlertType, options?: Object) {
+  public showAlert(title: string, text?: string, type?: AlertType, options?: Object) {
     let alertOptions = {
       title: title,
       text: text || '',

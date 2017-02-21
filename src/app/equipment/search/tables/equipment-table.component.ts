@@ -10,13 +10,11 @@ import { Orientation, VehicleType } from '../../../../interfaces/IEquipmentInsta
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./equipment-table.styles.scss']
 })
-
 export class SearchEquipmentTableComponent {
 
-  @Input() data: Equipment[]
+  @Input() public data: Equipment[]
 
-  types = EquipmentType
-
-  orientations = Orientation
-  vehicleTypes = VehicleType
+  public types = EquipmentType
+  public orientations = Orientation
+  public vehicleTypes = VehicleType
 }
