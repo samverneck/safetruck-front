@@ -3,7 +3,7 @@
  */
 import { Component, ViewEncapsulation, OnInit } from '@angular/core'
 
-import { AppState } from './app.service'
+import { AppStateService } from './core'
 
 /*
  * App Component
@@ -19,7 +19,7 @@ import { AppState } from './app.service'
 })
 export class AppComponent implements OnInit {
 
-  constructor(public appState: AppState) { }
+  constructor(public appState: AppStateService) { }
 
   /**
    *

@@ -1,63 +1,34 @@
 import { NgModule, ApplicationRef } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
-import { FormsModule } from '@angular/forms'
 import { HttpModule } from '@angular/http'
-import { RouterModule } from '@angular/router'
+
+// modules
+import { CoreModule } from './core/core.module'
+import { AppRoutingModule } from './app-routing.module'
+import { AppStateService, StoreType } from './core'
+
+// components
+import { AppComponent } from './app.component'
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr'
 import { Autosize } from 'angular2-autosize'
-
-/*
- * Platform and Environment providers/directives/pipes
- */
-import { ENV_PROVIDERS } from './environment'
-import { ROUTES } from './app.routes'
-// App is our top level component
-import { AppComponent } from './app.component'
-import { APP_RESOLVER_PROVIDERS } from './app.resolver'
-import { AppState, InteralStateType } from './app.service'
-import { AppConfig } from './app.config'
-import { ErrorComponent } from './error/error.component'
-// App Providers
-import { AuthService } from './../providers/auth.service'
-import { AuthGuard } from './../guards/auth.guard'
-import { RouteGuard } from './../guards/route.guard'
-
-// Application wide providers
-const APP_PROVIDERS = [
-  ...APP_RESOLVER_PROVIDERS,
-  AuthGuard,
-  AuthService,
-  AppState,
-  AppConfig,
-  RouteGuard
-]
-
-type StoreType = {
-  state: InteralStateType,
-  restoreInputValues: () => void,
-  disposeOldHosts: () => void
-}
+import { ErrorComponent } from './features/error/error.component'
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
  */
 @NgModule({
-  bootstrap: [AppComponent],
-  declarations: [
-    AppComponent,
-    Autosize,
-    ErrorComponent
-  ],
   imports: [ // import Angular's modules
     BrowserModule,
-    FormsModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES, { useHash: false })
+    CoreModule,
+    AppRoutingModule
   ],
-  providers: [ // expose our Services and Providers into Angular's dependency injection
-    ENV_PROVIDERS,
-    APP_PROVIDERS
-  ]
+  declarations: [
+    AppComponent,
+    ErrorComponent,
+    Autosize
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 
@@ -68,7 +39,7 @@ export class AppModule {
    *
    * @memberOf AppModule
    */
-  constructor(public appRef: ApplicationRef, public appState: AppState) { }
+  constructor(public appRef: ApplicationRef, public appState: AppStateService) { }
 
   /**
    *

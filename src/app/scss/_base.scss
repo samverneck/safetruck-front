@@ -6,6 +6,8 @@ app, .app {
   display: block;
 }
 
+body {overflow-y:scroll;}
+
 .chat-sidebar-container {
   color: $text-color;
 }

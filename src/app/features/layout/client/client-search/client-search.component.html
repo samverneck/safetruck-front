@@ -1,0 +1,17 @@
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Clientes</li>
+  <li class="breadcrumb-item active">Pesquisar</li>
+</ol>
+<div class="row">
+  <div class="col-xs-12">
+    <client-grid 
+      *ngIf="clients"
+      [title]="'Pesquisar Clientes'" 
+      [data]="clients"
+      [showDeleteButton]="false"
+      (clientSelected)="selectClient($event)" 
+      (deleteClient)="deleteClient($event)">
+    </client-grid>
+    <equipment-grid [data]="selectedClient?.equipments" [showDeleteButton]="false"></equipment-grid>
+  </div>
+</div>

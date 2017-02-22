@@ -1,0 +1,65 @@
+<section class="widget" widget [@fadeInOut]>
+  <header>
+    <h4>{{title}}</h4>
+    <div class="widget-controls">
+      <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+      <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+    </div>
+  </header>
+  <div class="widget-body">
+    <div class="mt">
+
+      <search-field (change)="searchText=$event"> </search-field>
+
+      <table class="table table-striped table-hover dt-responsive nowrap" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+          <tr>
+            <th>
+              <mfDefaultSorter by="code">Código do equipamento</mfDefaultSorter>
+            </th>
+            <th class="hidden-md-down">
+              <mfDefaultSorter by="install.client.companyName">Cliente</mfDefaultSorter>
+            </th>
+            <th class="hidden-xs-down">
+              <mfDefaultSorter by="install.plaque">Placa</mfDefaultSorter>
+            </th>
+            <th class="hidden-xs-down">
+              <mfDefaultSorter by="type">Tipo</mfDefaultSorter>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let equipment of mf.data | search : searchText" (click)="selected($event, equipment)">
+            <td>{{equipment.code}}</td>
+            <td class="hidden-xs-down">
+              <a [routerLink]="['/app/clients/view/', equipment.install?.clientId]">
+              {{equipment.install.client?.companyName}}
+            </a>
+            </td>
+            <td class="hidden-xs-down">{{equipment.install.plaque}}</td>
+            <td class="hidden-xs-down">
+              {{types[equipment.type]}}
+            </td>
+            <td>
+              <button *ngIf="showDeleteButton" class="btn btn-xs mb-xs btn-danger" (click)="delete(equipment)">
+                <i class="glyphicon glyphicon-trash"></i>
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="(mf.data | search : searchText).length === 0">
+            <td colspan="100">
+              Sem resultados
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="12">
+              <mfBootstrapPaginator></mfBootstrapPaginator>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</section>

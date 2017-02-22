@@ -1,0 +1,14 @@
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Equipamentos</li>
+  <li class="breadcrumb-item active">Pesquisar</li>
+</ol>
+<div class="row">
+  <div class="col-xs-12">
+    <equipment-grid 
+      *ngIf="equipments" 
+      [title]="'Pesquisar Equipamentos'" 
+      [data]="equipments" 
+      [@fadeInOut]>
+    </equipment-grid>
+  </div>
+</div>

@@ -43,6 +43,11 @@ import * as _ from 'lodash'
  *
  */
 
+declare var $: any
+declare var swal: any
+declare var Messenger: any
+declare var google: any
+
 // support NodeJS modules without type definitions
 declare module '*'
 
