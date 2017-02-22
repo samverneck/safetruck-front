@@ -29,7 +29,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let equipment of mf.data | search : searchText" (click)="selected($event, equipment)">
+          <tr *ngFor="let equipment of mf.data | search : searchText" (click)="selected(equipment)" [class.selected]="equipment===selectedEquipment" >
             <td>{{equipment.code}}</td>
             <td class="hidden-xs-down">
               <a [routerLink]="['/app/clients/view/', equipment.install?.clientId]">

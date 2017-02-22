@@ -161,7 +161,7 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-    <client-grid *ngIf="clients && showTable" [data]="clients" (clientSelected)="loadClientData($event)" (deleteClient)="deleteClient($event)">
+    <client-grid *ngIf="clients && showTable" [data]="clients" (onSelectClient)="loadClientData($event)" (onDeleteClient)="deleteClient($event)">
     </client-grid>
   </div>
 </div>

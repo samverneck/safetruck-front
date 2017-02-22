@@ -14,8 +14,10 @@ export class ClientGridComponent {
   @Input() public data: Client[]
   @Input() public title: string = 'Clientes'
   @Input() public showDeleteButton: boolean = true
-  @Output() public clientSelected: EventEmitter<Client> = new EventEmitter()
-  @Output() public deleteClient: EventEmitter<Client> = new EventEmitter()
+  @Output() public onSelectClient: EventEmitter<Client> = new EventEmitter()
+  @Output() public onDeleteClient: EventEmitter<Client> = new EventEmitter()
+
+  public selectedClient: Client | undefined
 
   /**
    * Creates an instance of ClientTableComponent.
@@ -23,9 +25,7 @@ export class ClientGridComponent {
    *
    * @memberOf ClientTableComponent
    */
-  public constructor(public clientService: ClientService) {
-    console.log(this.data)
-  }
+  public constructor(public clientService: ClientService) {}
 
   /**
    *
@@ -35,33 +35,19 @@ export class ClientGridComponent {
    * @memberOf ClientTableComponent
    */
   public delete(client: Client) {
-    this.deleteClient.emit(client)
+    this.onDeleteClient.emit(client)
   }
+
 
   /**
    *
    *
-   * @param {any} element
-   * @param {any} client
+   * @param {Client} client
    *
-   * @memberOf ClientTableComponent
+   * @memberOf ClientGridComponent
    */
-  public selected(element, client: Client) {
-    this.clientSelected.emit(client)
-    this.toggleSelected(element)
-  }
-
-  /**
-   *
-   *
-   * @param {any} element
-   *
-   * @memberOf ClientTableComponent
-   */
-  public toggleSelected(element) {
-    let td = $(element.target.parentElement)
-    let table = td.parent()
-    table.children().removeClass('selected')
-    td.toggleClass('selected')
+  public selected(client: Client) {
+    this.selectedClient = client
+    this.onSelectClient.emit(client)
   }
 }

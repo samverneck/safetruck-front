@@ -14,9 +14,10 @@ export class EquipmentGridComponent {
   @Input() public data: Equipment[]
   @Input() public title: string = 'Equipamentos'
   @Input() public showDeleteButton: boolean = true
-  @Output() public equipmentSelected: EventEmitter<Equipment> = new EventEmitter()
-  @Output() public deleteEquipment: EventEmitter<Equipment> = new EventEmitter()
+  @Output() public onSelectEquipment: EventEmitter<Equipment> = new EventEmitter()
+  @Output() public onDeleteEquipment: EventEmitter<Equipment> = new EventEmitter()
 
+  public selectedEquipment: Equipment | undefined
   public types = EquipmentType
 
   /**
@@ -25,9 +26,7 @@ export class EquipmentGridComponent {
    *
    * @memberOf EquipmentTableComponent
    */
-  public constructor(public equipmentService: EquipmentService) {
-    console.log(this.data)
-  }
+  public constructor(public equipmentService: EquipmentService) {}
 
   /**
    *
@@ -37,33 +36,18 @@ export class EquipmentGridComponent {
    * @memberOf EquipmentTableComponent
    */
   public delete(equipment: Equipment) {
-    this.deleteEquipment.emit(equipment)
+    this.onDeleteEquipment.emit(equipment)
   }
 
   /**
    *
    *
-   * @param {any} element
-   * @param {any} equipment
+   * @param {Equipment} equipment
    *
-   * @memberOf EquipmentTableComponent
+   * @memberOf EquipmentGridComponent
    */
-  public selected(element, equipment: Equipment) {
-    this.equipmentSelected.emit(equipment)
-    this.toggleSelected(element)
-  }
-
-  /**
-   *
-   *
-   * @param {any} element
-   *
-   * @memberOf EquipmentTableComponent
-   */
-  private toggleSelected(element) {
-    let td = $(element.target.parentElement)
-    let table = td.parent()
-    table.children().removeClass('selected')
-    td.toggleClass('selected')
+  public selected(equipment: Equipment) {
+    this.selectedEquipment = equipment
+    this.onSelectEquipment.emit(equipment)
   }
 }

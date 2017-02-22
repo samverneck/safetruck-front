@@ -9,9 +9,12 @@
       [title]="'Pesquisar Clientes'" 
       [data]="clients"
       [showDeleteButton]="false"
-      (clientSelected)="selectClient($event)" 
-      (deleteClient)="deleteClient($event)">
+      (onSelectClient)="selectClient($event)" 
+      (onDeleteClient)="deleteClient($event)">
     </client-grid>
-    <equipment-grid [data]="selectedClient?.equipments" [showDeleteButton]="false"></equipment-grid>
+    <equipment-grid  
+     [data]="selectedClient?.equipments"
+     [showDeleteButton]="false">
+     </equipment-grid>
   </div>
 </div>

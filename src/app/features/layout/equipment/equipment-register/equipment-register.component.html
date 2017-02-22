@@ -99,7 +99,7 @@
 </div>
 <div class="row" *ngIf="equipments && showTable && !viewMode">
   <div class="col-xs-12">
-    <equipment-grid [data]="equipments" (equipmentSelected)="loadEquipmentData($event)" (deleteEquipment)="deleteEquipment($event)">
+    <equipment-grid [data]="equipments" (onSelectEquipment)="loadEquipmentData($event)" (onDeleteEquipment)="deleteEquipment($event)">
     </equipment-grid>
   </div>
 </div>

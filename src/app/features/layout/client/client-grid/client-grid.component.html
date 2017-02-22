@@ -35,7 +35,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let client of mf.data | search : searchText" (click)="selected($event, client)">
+          <tr *ngFor="let client of mf.data | search : searchText" (click)="selected(client)"  [class.selected]="client===selectedClient">
             <td>{{client.companyName}}</td>
             <td class="hidden-sm-down">{{client.contact.responsible}}</td>
             <td class="hidden-xs-down">{{client.contact.email}}</td>
