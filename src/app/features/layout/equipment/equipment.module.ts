@@ -9,12 +9,9 @@ import { EquipmentComponent } from './equipment.component'
 import { EquipmentGridComponent } from './equipment-grid/equipment-grid.component'
 import { EquipmentRegisterComponent } from './equipment-register/equipment-register.component'
 import { EquipmentSearchComponent } from './equipment-search/equipment-search.component'
-import { EquipmentTypeSelectComponent } from './equipment-enums/equipment-type.component'
-import { EquipmentOrientationSelectComponent } from './equipment-enums/equipment-orientation.component'
-import { EquipmentVehicleTypeSelectComponent } from './equipment-enums/equipment-vehicle-type.component'
 
 // shared pipes and services
-import { SearchPipe, EnumPipe, EquipmentService } from './shared'
+import { SearchPipe, EquipmentService } from './shared'
 
 // libs
 import 'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'
@@ -28,11 +25,7 @@ import 'jasny-bootstrap/js/inputmask.js'
     EquipmentGridComponent,
     EquipmentRegisterComponent,
     EquipmentSearchComponent,
-    EquipmentTypeSelectComponent,
-    EquipmentOrientationSelectComponent,
-    EquipmentVehicleTypeSelectComponent,
-    SearchPipe,
-    EnumPipe
+    SearchPipe
   ],
   imports: [
     SharedModule,

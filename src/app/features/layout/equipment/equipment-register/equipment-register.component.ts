@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core'
 import { ActivatedRoute, Params } from '@angular/router'
 
 import { ValidationService, MessagesService, FormService } from '../../../../core'
-import { EquipmentService, Equipment, EquipmentInstall } from '../shared'
+import { EquipmentService, Equipment, EquipmentInstall, Orientation, EVechicleType, EquipmentType } from '../shared'
 import { ClientService, Client } from '../../client/shared'
 
 @Component({
@@ -19,6 +19,11 @@ export class EquipmentRegisterComponent implements OnInit {
   public viewMode: boolean = false
   public clients: Client[]
   public equipmentId: string
+  public types = {
+    orientation: Orientation,
+    vehicleType: EVechicleType,
+    equipmentType: EquipmentType
+  }
 
   /**
    * Creates an instance of EquipmentRegisterComponent.

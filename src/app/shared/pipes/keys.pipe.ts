@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core'
 
-@Pipe({ name: 'keys'})
-export class EnumPipe implements PipeTransform {
+@Pipe({ name: 'keys' })
+export class KeysPipe implements PipeTransform {
 
   /**
    *
@@ -19,8 +19,6 @@ export class EnumPipe implements PipeTransform {
         let isValueProperty = parseInt(enumMember, 10) >= 0
         if (isValueProperty) {
           keys.push({ key: enumMember, value: value[enumMember] })
-          // Uncomment if you want log
-          // console.log("enum member: ", value[enumMember]);
         }
       }
     }

@@ -1,20 +1,26 @@
 import 'jquery-slimscroll'
 
+// 3td part
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { HttpModule } from '@angular/http'
 import { FormsModule } from '@angular/forms'
 import { RouterModule } from '@angular/router'
-
 import { TooltipModule } from 'ng2-bootstrap'
 import { DataTableModule } from 'angular2-datatable'
 import { Ng2TableModule } from 'ng2-table'
 
-import { CheckAllDirective } from './check-all.directive'
-import { ProgressAnimateDirective } from './progress-animate.directive'
-import { WidgetDirective } from './widget.directive'
+// directives
+import { CheckAllDirective } from './directives/check-all.directive'
+import { ProgressAnimateDirective } from './directives/progress-animate.directive'
+import { WidgetDirective } from './directives/widget.directive'
 
+// components
 import { SearchFieldComponent } from './components/search-field/search-field.component'
+import { SelectEnumComponent } from './components/select-enum/select-enum.component'
+
+// pipes
+import { KeysPipe } from './pipes/keys.pipe'
 
 @NgModule({
   imports: [
@@ -30,7 +36,9 @@ import { SearchFieldComponent } from './components/search-field/search-field.com
     CheckAllDirective,
     ProgressAnimateDirective,
     WidgetDirective,
-    SearchFieldComponent
+    SearchFieldComponent,
+    SelectEnumComponent,
+    KeysPipe
   ],
   exports: [
     CommonModule,
@@ -43,7 +51,10 @@ import { SearchFieldComponent } from './components/search-field/search-field.com
     ProgressAnimateDirective,
     WidgetDirective,
 
-    SearchFieldComponent
+    SearchFieldComponent,
+    SelectEnumComponent,
+
+    KeysPipe
   ]
 })
 export class SharedModule {

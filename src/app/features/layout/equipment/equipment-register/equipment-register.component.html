@@ -36,24 +36,21 @@
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Tipo de veículo</label>
             <div class="col-md-3 col-xs-12">
-              <equipment-vehicle-type-select [disabled]="viewMode" name="vehicle" validate="Tipo de veículo">
-              </equipment-vehicle-type-select>
+              <select-enum [disabled]="viewMode" [enumType]="types.vehicleType" name="vehicle" validate="Tipo de veículo"></select-enum>
             </div>
           </div>
           <!--Tipo de equipamento-->
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Tipo de equipamento</label>
             <div class="col-md-3 col-xs-12">
-              <equipment-type-select [disabled]="viewMode" name="equipment" validate="Tipo de equipamento">
-              </equipment-type-select>
+              <select-enum [disabled]="viewMode" [enumType]="types.equipmentType" name="equipment" validate="Tipo de equipamento"></select-enum>
             </div>
           </div>
           <!--Orientação-->
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Orientação</label>
             <div class="col-md-3 col-xs-12">
-              <equipment-orientation-select [disabled]="viewMode" name="orientation" validate="Orientação">
-              </equipment-orientation-select>
+              <select-enum [disabled]="viewMode" [enumType]="types.orientation" name="orientation" validate="Orientação"></select-enum>
             </div>
           </div>
           <!--Cliente-->
@@ -102,10 +99,7 @@
 </div>
 <div class="row" *ngIf="equipments && showTable && !viewMode">
   <div class="col-xs-12">
-    <equipment-grid 
-      [data]="equipments"
-      (equipmentSelected)="loadEquipmentData($event)"
-      (deleteEquipment)="deleteEquipment($event)">
-      </equipment-grid>
+    <equipment-grid [data]="equipments" (equipmentSelected)="loadEquipmentData($event)" (deleteEquipment)="deleteEquipment($event)">
+    </equipment-grid>
   </div>
 </div>

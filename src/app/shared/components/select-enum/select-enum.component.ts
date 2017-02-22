@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core'
 @Component({
   selector: 'select-enum',
   providers: [],
-  templateUrl: './select-enum.html'
+  templateUrl: './select-enum.component.html'
 })
 export class SelectEnumComponent {
   @Input() public name: string

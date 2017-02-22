@@ -2,7 +2,6 @@
 export * from './equipment.service'
 
 // pipes
-export * from './enum.pipe'
 export * from './search.pipe'
 
 // models
