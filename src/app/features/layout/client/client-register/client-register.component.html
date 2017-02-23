@@ -1,13 +1,13 @@
 <ol class="breadcrumb">
   <li class="breadcrumb-item">Clientes</li>
-  <li class="breadcrumb-item active">{{viewMode ? 'Visualizar' : 'Cadastro'}}</li>
+  <li class="breadcrumb-item active">{{viewMode? 'Visualizar' : 'Cadastro'}}</li>
 </ol>
 <div class="row">
   <div class="col-xs-12">
     <section class="widget" widget>
       <header>
         <h5>
-          <span *ngIf="!viewMode">{{clientId ? 'Atualizar Cliente' : 'Cadastrar Novo Cliente'}}</span>
+          <span *ngIf="!viewMode">{{clientId?  'Atualizar Cliente' : 'Cadastrar Novo Cliente'}}</span>
           <span *ngIf="viewMode">Visualizar Cliente</span>
         </h5>
         <div class="widget-controls">
@@ -16,32 +16,43 @@
         </div>
       </header>
       <div class="widget-body">
-        <form class="form-horizontal form-label-left" id="clientForm">
+        <!--<pre *ngIf="errors">
+          {{ errors | json }}
+       </pre>-->
+        <!--<pre>
+          {{ client | json }}
+        </pre>-->
+        <form class="form-horizontal form-label-left" id="clientForm" #clientForm="ngForm" (ngSubmit)="saveClient()" novalidate>
           <fieldset>
             <legend>Dados do Cliente</legend>
             <div class="row">
               <!--Razão Social-->
               <div class="form-group col-md-6 col-xs-12">
                 <label>Razão Social</label>
-                <input [disabled]="viewMode" type="text" class="form-control" name="company-name" validate="Razão Social">
+                <validation-message [error]="errors['companyName']"></validation-message>
+                <input [disabled]="viewMode" type="text" class="form-control" [(ngModel)]="client.companyName" name="companyName" required>
               </div>
               <!--Nome Fantasia-->
               <div class="form-group col-md-6 col-xs-12">
                 <label>Nome Fantasia</label>
-                <input [disabled]="viewMode" type="text" class="form-control" name="trading-name" validate="Nome Fantasia" (blur)="slugify()">
+                <validation-message [error]="errors['tradingName']"></validation-message>
+                <input [disabled]="viewMode" type="text" class="form-control" [(ngModel)]="client.tradingName" name="tradingName" required
+                  (blur)="fillAlias()">
               </div>
             </div>
             <div class="row">
               <!--CNPJ-->
               <div class="form-group col-md-6 col-xs-12">
                 <label>CNPJ</label>
-                <input [disabled]="viewMode" type="text" class="form-control" placeholder="__.___.___/____-__" data-mask="99.999.999/9999-99"
-                  name="cnpj" validate="CNPJ">
+                <validation-message [error]="errors['cnpj']"></validation-message>
+                <input [disabled]="viewMode" type="text" class="form-control" [(ngModel)]="client.cnpj" name="cnpj" [textMask]="{mask: masks.cnpj}"
+                  required>
               </div>
               <!--Alias-->
               <div class="form-group col-md-6 col-xs-12">
                 <label>Alias</label>
-                <input [disabled]="viewMode" type="text" class="form-control" name="alias" validate="Alias">
+                <validation-message [error]="errors['alias']"></validation-message>
+                <input [disabled]="viewMode" type="text" class="form-control" [(ngModel)]="client.alias" name="alias" required>
               </div>
             </div>
           </fieldset>
@@ -51,35 +62,43 @@
               <!--CEP-->
               <div class="form-group col-md-3 col-xs-12">
                 <label>CEP</label>
-                <input [disabled]="viewMode" type="text" class="form-control" placeholder="__.___-___" data-mask="99.999-999" #zipcode name="zipcode"
-                  validate="CEP" (blur)="getAddress(zipcode.value)">
+                <validation-message [error]="errors['address.zipcode']"></validation-message>
+                <input [disabled]="viewMode" type="text" class="form-control" [(ngModel)]="client.address.zipcode" [textMask]="{mask: masks.zipcode}"
+                  name="address.zipcode" (blur)="getAddress(zipcode.value)" #zipcode required>
               </div>
               <!--Logradouro-->
               <div class="form-group col-md-6 col-xs-12">
                 <label>Logradouro</label>
-                <input [disabled]="viewMode" type="text" class="form-control" name="address" validate="Logradouro">
+                <validation-message [error]="errors['address.address']"></validation-message>
+                <input [disabled]="viewMode" type="text" class="form-control" [(ngModel)]="client.address.address" name="address.address"
+                  required>
               </div>
               <!--Número-->
               <div class="form-group col-md-3 col-xs-12">
                 <label>Número</label>
-                <input [disabled]="viewMode" type="number" class="form-control" name="num" validate="Número">
+                <validation-message [error]="errors['address.num']"></validation-message>
+                <input [disabled]="viewMode" type="number" class="form-control" [(ngModel)]="client.address.num" name="address.num" required>
               </div>
             </div>
             <div class="row">
               <!--Bairro-->
               <div class="form-group col-md-6 col-xs-12">
                 <label>Bairro</label>
-                <input [disabled]="viewMode" type="text" class="form-control" name="district" validate="Bairro">
+                <validation-message [error]="errors['address.district']"></validation-message>
+                <input [disabled]="viewMode" type="text" class="form-control" [(ngModel)]="client.address.district" name="address.district"
+                  required>
               </div>
               <!--Cidade-->
               <div class="form-group col-md-4 col-xs-12">
                 <label>Cidade</label>
-                <input [disabled]="viewMode" type="text" class="form-control" name="city" validate="Cidade">
+                <validation-message [error]="errors['address.city']"></validation-message>
+                <input [disabled]="viewMode" type="text" class="form-control" [(ngModel)]="client.address.city" name="address.city" required>
               </div>
               <!--Estado-->
               <div class="form-group col-md-2 col-xs-12">
                 <label>Estado</label>
-                <select [disabled]="viewMode" class="form-control" name="state" validate="Estado">
+                <validation-message [error]="errors['address.state']"></validation-message>
+                <select [disabled]="viewMode" class="form-control" [(ngModel)]="client.address.state" name="address.state" required>
                   <option value="" hidden>Selecione...</option>
                   <option *ngFor="let state of states" [value]="state.abbr">{{state.abbr}}</option>
                 </select>
@@ -89,7 +108,7 @@
               <!--Complemento-->
               <div class="form-group col-xs-12">
                 <label>Complemento</label>
-                <input [disabled]="viewMode" type="text" class="form-control" name="complement">
+                <input [disabled]="viewMode" type="text" class="form-control" [(ngModel)]="client.address.complement" name="address.complement">
               </div>
             </div>
           </fieldset>
@@ -99,20 +118,24 @@
             <div class="row">
               <div class="form-group col-xs-12">
                 <label>Responsável</label>
-                <input [disabled]="viewMode" type="text" class="form-control" name="responsible" validate="Responsável">
+                <validation-message [error]="errors['contact.responsible']"></validation-message>
+                <input [disabled]="viewMode" type="text" class="form-control" [(ngModel)]="client.contact.responsible" name="contact.responsible"
+                  required>
               </div>
             </div>
             <div class="row">
               <!--Telefone-->
               <div class="form-group col-md-6 col-xs-12">
                 <label>Telefone</label>
-                <input [disabled]="viewMode" type="text" class="form-control" placeholder="(__) ____-____" data-mask="(99) 9999-9999" name="phone"
-                  validate="Telefone">
+                <validation-message [error]="errors['contact.phone']"></validation-message>
+                <input [disabled]="viewMode" type="text" class="form-control" [(ngModel)]="client.contact.phone" name="contact.phone" [textMask]="{mask: masks.phone}"
+                  required>
               </div>
               <!--E-mail-->
               <div class="form-group col-md-6 col-xs-12">
                 <label>E-mail</label>
-                <input [disabled]="viewMode" type="email" class="form-control" name="email" validate="E-mail">
+                <validation-message [error]="errors['contact.email']"></validation-message>
+                <input [disabled]="viewMode" type="email" class="form-control" [(ngModel)]="client.contact.email" name="contact.email" required>
               </div>
             </div>
           </fieldset>
@@ -122,7 +145,8 @@
               <!--Mercado-->
               <div class="form-group col-md-4 col-xs-12">
                 <label>Mercado</label>
-                <select [disabled]="viewMode" class="form-control" name="market" validate="Mercado">
+                <validation-message [error]="errors['market']"></validation-message>
+                <select [disabled]="viewMode" class="form-control" [(ngModel)]="client.market" name="market" required>
                   <option value="" hidden>Selecione...</option>
                   <option value="0">Seguradora</option>
                   <option value="1">Transportadora</option>
@@ -132,14 +156,16 @@
               <!--Velocidade Máxima-->
               <div class="form-group col-md-4 col-xs-12">
                 <label>Velocidade Máxima</label>
-                <input [disabled]="viewMode" type="text" class="form-control" name="limit" validate="Velocidade Máxima">
+                <validation-message [error]="errors['limit']"></validation-message>
+                <input [disabled]="viewMode" type="text" class="form-control" [(ngModel)]="client.limit" name="limit" required>
               </div>
               <!--Pontos perigosos-->
               <div class="form-group col-md-4 col-xs-12">
                 <label>Pontos perigosos</label>
                 <div class="input-group">
                   <span class="input-group-addon beautiful">
-                    <input [disabled]="viewMode" type="checkbox" name="danger-points">
+                    <validation-message [error]="errors['shareDangerousPoints']"></validation-message>
+                    <input [disabled]="viewMode" type="checkbox" [(ngModel)]="client.shareDangerousPoints" name="shareDangerousPoints">
                   </span>
                   <span class="form-control">Compartilhar pontos perigosos</span>
                 </div>
@@ -147,11 +173,11 @@
             </div>
           </fieldset>
           <div class="form-actions" *ngIf="!viewMode">
-            <button type="button" class="btn btn-default btn-rounded pull-xs-right" (click)="clearForm()">
+            <button type="button" class="btn btn-default btn-rounded pull-xs-right" (click)="clearForm();clientForm.reset()">
               {{clientId ? 'Cancelar' : 'Limpar'}}
             </button>
-            <button type="submit" class="btn btn-primary btn-rounded" (click)="saveClient()">
-              {{clientId ? 'Atualizar' : 'Cadastrar'}}
+            <button type="submit" class="btn btn-primary btn-rounded" [disabled]="!clientForm.form.valid">
+              {{clientId ?  'Atualizar' : 'Cadastrar'}}
             </button>
           </div>
         </form>
@@ -161,7 +187,7 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-    <client-grid *ngIf="clients && showTable" [data]="clients" (onSelectClient)="loadClientData($event)" (onDeleteClient)="deleteClient($event)">
+    <client-grid *ngIf="clients && !viewMode" [data]="clients" (onSelectClient)="selectClient($event)" (onDeleteClient)="deleteClient($event)">
     </client-grid>
   </div>
 </div>

@@ -44,7 +44,14 @@ export class CepService {
    * @memberOf CepService
    */
   private extractData(res: Response) {
-    let body = res.json()
-    return body
+    let address = res.json()
+    return address.erro ? address : {
+      address: address.logradouro,
+      zipcode: address.cep,
+      city: address.localidade,
+      district: address.bairro,
+      complement: address.complemento,
+      state: address.uf
+    }
   }
 }

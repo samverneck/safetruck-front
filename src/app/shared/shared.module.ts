@@ -1,4 +1,5 @@
 import 'jquery-slimscroll'
+import 'angular2-text-mask'
 
 // 3td part
 import { NgModule } from '@angular/core'
@@ -9,6 +10,7 @@ import { RouterModule } from '@angular/router'
 import { TooltipModule } from 'ng2-bootstrap'
 import { DataTableModule } from 'angular2-datatable'
 import { Ng2TableModule } from 'ng2-table'
+import { TextMaskModule } from 'angular2-text-mask'
 
 // directives
 import { CheckAllDirective } from './directives/check-all.directive'
@@ -18,6 +20,7 @@ import { WidgetDirective } from './directives/widget.directive'
 // components
 import { SearchFieldComponent } from './components/search-field/search-field.component'
 import { SelectEnumComponent } from './components/select-enum/select-enum.component'
+import { ValiationMessageComponent } from './components/validation-message/validation-message'
 
 // pipes
 import { KeysPipe } from './pipes/keys.pipe'
@@ -30,7 +33,8 @@ import { KeysPipe } from './pipes/keys.pipe'
     DataTableModule,
     Ng2TableModule,
     HttpModule,
-    RouterModule
+    RouterModule,
+    TextMaskModule
   ],
   declarations: [
     CheckAllDirective,
@@ -46,6 +50,7 @@ import { KeysPipe } from './pipes/keys.pipe'
     FormsModule,
     DataTableModule,
     Ng2TableModule,
+    TextMaskModule,
 
     CheckAllDirective,
     ProgressAnimateDirective,
@@ -53,6 +58,7 @@ import { KeysPipe } from './pipes/keys.pipe'
 
     SearchFieldComponent,
     SelectEnumComponent,
+    ValiationMessageComponent,
 
     KeysPipe
   ]

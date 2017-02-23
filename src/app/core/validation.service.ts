@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { NgForm } from '@angular/forms'
 import 'rxjs/add/operator/map'
 
 import { MessagesService } from './messages.service'
@@ -134,24 +135,109 @@ export class ValidationService {
    *
    * @memberOf ValidationService
    */
-  public isValidCnpj(val) {
+  public isValidCnpj(cnpj) {
     // tslint:disable:no-shadowed-variable
     // tslint:disable:no-conditional-assignment
     // tslint:disable:curly
     // tslint:disable:one-variable-per-declaration
     // tslint:disable:no-constant-condition
-    let b = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
-    let c, n
-    if ((c = c.replace(/[^\d]/g, '')).length !== 14)
+    cnpj = cnpj.replace(/[^\d]+/g, '')
+
+    if (cnpj === '') return false
+
+    if (cnpj.length !== 14)
       return false
-    if (/0{14}/.test(c))
+
+    // Elimina CNPJs invalidos conhecidos
+    if (cnpj === '00000000000000' ||
+      cnpj === '11111111111111' ||
+      cnpj === '22222222222222' ||
+      cnpj === '33333333333333' ||
+      cnpj === '44444444444444' ||
+      cnpj === '55555555555555' ||
+      cnpj === '66666666666666' ||
+      cnpj === '77777777777777' ||
+      cnpj === '88888888888888' ||
+      cnpj === '99999999999999')
       return false
-    for (let i = 0, n = 0; i < 12; n += c[i] * b[++i]);
-    if (c[12] !== (((n %= 11) < 2) ? 0 : 11 - n))
+
+    // Valida DVs
+    let tamanho = cnpj.length - 2
+    let numeros = cnpj.substring(0, tamanho)
+    let digitos = cnpj.substring(tamanho)
+    let soma = 0
+    let pos = tamanho - 7
+    for (let i = tamanho; i >= 1; i--) {
+      soma += numeros.charAt(tamanho - i) * pos--
+      if (pos < 2)
+        pos = 9
+    }
+    let resultado = soma % 11 < 2 ? 0 : 11 - soma % 11
+    if (resultado !== digitos.charAt(0))
       return false
-    for (let i = 0, n = 0; i <= 12; n += c[i] * b[i++]);
-    if (c[13] !== (((n %= 11) < 2) ? 0 : 11 - n))
+
+    tamanho = tamanho + 1
+    numeros = cnpj.substring(0, tamanho)
+    soma = 0
+    pos = tamanho - 7
+    for (let i = tamanho; i >= 1; i--) {
+      soma += numeros.charAt(tamanho - i) * pos--
+      if (pos < 2)
+        pos = 9
+    }
+    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11
+    if (resultado !== digitos.charAt(1))
       return false
+
     return true
+  }
+
+
+  /**
+   *
+   *
+   * @param {FormGroup} form
+   * @param {*} validationMessages
+   * @param {*} [data]
+   * @returns
+   *
+   * @memberOf ClientRegisterComponent
+   */
+  public getFormErrors(ngForm: NgForm, validationMessages: any) {
+    if (!ngForm) {
+      return
+    }
+    const form = ngForm.form
+
+    // build form errors Object from validationMessages Object (same structure)
+    let errors = Object.assign({}, ...Object.keys(validationMessages).map(key => ({ [key]: '' })))
+
+    for (const field in errors) {
+      const control = form.controls[field]
+      if (control && control.dirty && !control.valid) {
+        const messages = validationMessages[field]
+        for (const key in control.errors) {
+          errors[field] += `${messages[key]} `
+        }
+      }
+    }
+
+    return errors
+  }
+
+  /**
+   *
+   *
+   * @returns {string}
+   *
+   * @memberOf ClientRegisterComponent
+   */
+  public getValidationMessage(errors): string {
+    return Object.keys(errors).map(key => {
+      const error = errors[key]
+      if (error) {
+        return `- ${error}`
+      }
+    }).join('<br>')
   }
 }

@@ -1,13 +1,12 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core'
-import { ActivatedRoute, Params } from '@angular/router'
+import { Component, ViewEncapsulation, OnInit, AfterViewChecked, ViewChild } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
+import { NgForm } from '@angular/forms'
 
 import { ValidationService, CepService, MessagesService, FormService, STATES } from '../../../../core'
 
 import {
   ClientService,
-  Client,
-  Contact,
-  Address
+  Client
 } from '../shared'
 
 @Component({
@@ -16,13 +15,77 @@ import {
   styleUrls: ['./client-register.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ClientRegisterComponent implements OnInit {
+export class ClientRegisterComponent implements OnInit, AfterViewChecked {
 
-  public clients: Array<Client>
-  public showTable: boolean
+  @ViewChild('clientForm') public currentForm: NgForm
+  public clientForm: NgForm
+  public clients: Client[]
+  public client: Client = { address: {}, contact: {} } as Client
   public viewMode: boolean
-  public states: Array<{ abbr: string, name: string }> = STATES
-  public clientId: string
+  public states: { abbr: string, name: string }[] = STATES
+  public errors = {}
+  public masks = {
+    cnpj: [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/],
+    zipcode: [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/],
+    phone: (userInput) => {
+      let numbers = userInput.match(/\d/g)
+      let numberLength = 0
+      if (numbers) {
+        numberLength = numbers.join('').length
+      }
+      if (numberLength > 10) {
+        return ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+      } else {
+        return ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+      }
+    }
+  }
+
+  public validationMessages = {
+    'companyName': {
+      'required': 'Obrigatório'
+    },
+    'tradingName': {
+      'required': 'Obrigatório'
+    },
+    'cnpj': {
+      'required': 'Obrigatório'
+    },
+    'alias': {
+      'required': 'Obrigatório'
+    },
+    'market': {
+      'required': 'Obrigatório'
+    },
+    'address.zipcode': {
+      'required': 'Obrigatório'
+    },
+    'address.address': {
+      'required': 'Obrigatório'
+    },
+    'address.num': {
+      'required': 'Obrigatório'
+    },
+    'address.district': {
+      'required': 'Obrigatório'
+    },
+    'address.city': {
+      'required': 'Obrigatório'
+    },
+    'address.state': {
+      'required': 'Obrigatório'
+    },
+    'contact.responsible': {
+      'required': 'Obrigatório'
+    },
+    'contact.phone': {
+      'required': 'Obrigatório'
+    },
+    'contact.email': {
+      'required': 'Obrigatório'
+    }
+  }
+
 
   /**
    * Creates an instance of ClientComponent.
@@ -49,33 +112,56 @@ export class ClientRegisterComponent implements OnInit {
    * @memberOf ClientComponent
    */
   public ngOnInit(): void {
-    if (window.location.href.split('/')[5] === 'view') {
-      this.getClientData()
-      this.showTable = false
-      this.viewMode = true
+    const id = this.route.snapshot.params['id']
+    this.viewMode = !!id
+
+    if (this.viewMode) {
+      this.getClient(id)
+    } else {
+      this.getAllClients()
     }
-    if (window.location.href.split('/')[5] === 'register') {
-      this.showTable = true
-      this.viewMode = false
-      this.clientService.getAll().subscribe({
-        next: resp => this.clients = resp,
-        error: console.error
-      })
-    }
+  }
+
+  /**
+   *
+   *
+   *
+   * @memberOf ClientRegisterComponent
+   */
+  public ngAfterViewChecked() {
+    this.formChanged()
+  }
+
+  /**
+   *
+   *
+   *
+   * @memberOf ClientRegisterComponent
+   */
+  public formChanged() {
+    if (this.currentForm === this.clientForm) { return }
+    this.clientForm = this.currentForm
+    this.clientForm.valueChanges.subscribe(() => this.updateErrors())
+  }
+
+  /**
+   *
+   *
+   *
+   * @memberOf ClientRegisterComponent
+   */
+  public updateErrors() {
+    this.errors = this.validation.getFormErrors(this.clientForm, this.validationMessages)
   }
 
   /**
    * Obtém a lista de clientes
    * @memberOf ClientPage
    */
-  public updateClientsTable(): void {
-    this.showTable = false
+  public getAllClients(): void {
     this.clientService.getAll().subscribe({
-      next: (resp) => {
-        this.clients = resp
-        this.showTable = true
-      },
-      error: console.error
+      next: clients => this.clients = clients,
+      error: error => this.handleError(error)
     })
   }
 
@@ -85,37 +171,27 @@ export class ClientRegisterComponent implements OnInit {
    * @memberOf ClientPage
    */
   public saveClient() {
-    // Validando...
-    if (!this.validation.validateForm('#clientForm')) { return }
-    // Obtendo dados do formulário
-    let client: Client = this.getFormData()
-    // Fazendo POST/PUT para a apai
-    this.clientService.save(client).subscribe({
-      next: (response) => {
-        this.updateClientsTable()
-        this.messages.showAlert(
-          client.id ? 'Atualizado' : 'Cadastrado',
-          client.id
-            ? 'O cliente foi atualizado com sucesso.'
-            : 'O cliente foi cadastrado com sucesso.',
-          'success'
-        )
-      },
-      error: (err) => {
-        this.updateClientsTable()
-        this.messages.showAlert(
-          'Erro',
-          client.id
-            ? 'Ocorreu um erro ao atualizar o cliente. ' + err
-            : 'Ocorreu um erro ao cadastrar o cliente. ' + err,
-          'error'
-        )
-        console.error('Erro: ', err)
-      },
-      complete: () => {
-        this.clearForm()
-      }
-    })
+
+    if (this.clientForm.invalid) {
+      const validationMessage = this.validation.getValidationMessage(this.errors)
+      this.messages.showNotification(validationMessage, 'error')
+      return
+    }
+
+    const onSuccess = response => {
+      this.messages.showAlert(this.client.id ? 'Atualizado' : 'Cadastrado', 'O cliente foi salvo com sucesso.', 'success')
+      this.clearForm()
+    }
+
+    const onError = error => {
+      this.messages.showAlert('Erro', `Não foi possível salvar o cliente: ${error}`, 'error')
+    }
+
+    const onComplete = () => {
+      this.getAllClients()
+    }
+
+    this.clientService.save(this.client).subscribe({ next: onSuccess, error: onError, complete: onComplete })
   }
 
   /**
@@ -134,7 +210,7 @@ export class ClientRegisterComponent implements OnInit {
     }).then(() => {
       this.clientService.delete(client).subscribe({
         next: (resp) => {
-          this.updateClientsTable()
+          this.getAllClients()
           swal(
             'Deletado!',
             `O cliente ${client.tradingName} foi deletado com sucesso.`,
@@ -142,7 +218,6 @@ export class ClientRegisterComponent implements OnInit {
           )
         },
         error: (err) => {
-          console.error(err)
           swal(
             'Erro!',
             `Ocorreu um erro ao deletar o cliente. ${err}`,
@@ -154,45 +229,6 @@ export class ClientRegisterComponent implements OnInit {
   }
 
   /**
-   * Obtém os dados do formulário e faz um parse
-   * @returns {IClient}
-   * @memberOf ClientPage
-   */
-  public getFormData(): Client {
-    // Obtendo os dados do formuário
-    let data = this.formUtils.serialize('#clientForm')
-
-    let address: Address = {
-      address: data['address'],
-      num: data['num'],
-      district: data['district'],
-      city: data['city'],
-      state: data['state'],
-      zipcode: data['zipcode'],
-      complement: data['complement']
-    }
-    let contact: Contact = {
-      responsible: data['responsible'],
-      phone: data['phone'],
-      email: data['email']
-    }
-    let client: Client = {
-      id: this.clientId ? this.clientId : null,
-      companyName: data['company-name'],
-      tradingName: data['trading-name'],
-      alias: data['alias'],
-      cnpj: data['cnpj'],
-      market: data['market'],
-      limit: data['limit'],
-      shareDangerousPoints: data['danger-points'] || false,
-      address: address,
-      contact: contact
-    }
-
-    return client
-  }
-
-  /**
    * Obtém o endereço a partir do CEP digitado
    * @param {string} cep
    * @memberOf ClientPage
@@ -200,20 +236,14 @@ export class ClientRegisterComponent implements OnInit {
   public getAddress(cep: string): void {
     cep = cep.replace(/\D/g, '')
     if (!cep) { return }
+
     this.cepService.getAddress(cep).subscribe({
-      next: (resp) => {
-        if (resp.erro) {
-          this.messages.showNotification(
-            'CEP não encontrado ou inválido. Por favor informe o endereço manualmente.',
-            'error'
-          )
-          return
+      next: (address) => {
+        if (address.erro) {
+          this.messages.showNotification('CEP não encontrado ou inválido. Por favor informe o endereço manualmente.', 'error')
+        } else {
+          this.client.address = address
         }
-        $('[name="address"]').val(resp.logradouro)
-        $('[name="district"]').val(resp.bairro)
-        $('[name="city"]').val(resp.localidade)
-        $('[name="state"]').val(resp.uf)
-        $('[name="num"]').focus()
       },
       error: (err) => {
         console.error('Erro ao obter CEP:', err)
@@ -225,42 +255,8 @@ export class ClientRegisterComponent implements OnInit {
    * Cria o Alias a partir do Nome Fantasia
    * @memberOf ClientPage
    */
-  public slugify(): void {
-    let alias = $('[name="alias"]')
-    if (!alias.val()) {
-      let tradingName = $('[name="trading-name"]').val()
-      let slug = this.formUtils.slugfy(tradingName)
-      alias.val(slug)
-    }
-  }
-
-  /**
-   * Preenche os dados do formulário com os dados do cliente clicado
-   * @param {any} client
-   * @memberOf ClientPage
-   */
-  public loadClientData(client): void {
-    this.clearForm()
-    this.clientId = client.id
-    $('[name="company-name"]').val(client.companyName)
-    $('[name="trading-name"]').val(client.tradingName)
-    $('[name="alias"]').val(client.alias)
-    $('[name="cnpj"]').val(client.cnpj)
-    $('[name="zipcode"]').val(client.address.zipcode)
-    $('[name="address"]').val(client.address.address)
-    $('[name="num"]').val(client.address.num)
-    $('[name="district"]').val(client.address.district)
-    $('[name="city"]').val(client.address.city)
-    $('[name="state"]').val(client.address.state)
-    $('[name="complement"]').val(client.address.complement)
-    $('[name="responsible"]').val(client.contact.responsible)
-    $('[name="email"]').val(client.contact.email)
-    $('[name="phone"]').val(client.contact.phone)
-    $('[name="market"]').val(client.market)
-    $('[name="limit"]').val(client.limit)
-    client.shareDangerousPoints
-      ? $('[name="danger-points"]').prop('checked', true)
-      : $('[name="danger-points"]').prop('checked', false)
+  public fillAlias(): void {
+    this.client.alias = this.client.alias || this.formUtils.slugger(this.client.tradingName)
   }
 
   /**
@@ -268,20 +264,22 @@ export class ClientRegisterComponent implements OnInit {
    * passado pela URL
    * @memberOf ClientPage
    */
-  public getClientData() {
-    this.route.params.forEach((params: Params) => {
-      if (params['id'] !== undefined) {
-        this.clientService.getById(params['id']).subscribe({
-          next: client => this.loadClientData(client),
-          error: error => {
-            console.log(error)
-            window.history.back()
-          }
-        })
-        return
-      }
-      window.history.back()
+  public getClient(id: number) {
+    this.clientService.getById(id).subscribe({
+      next: client => this.client = client,
+      error: error => this.handleError(error)
     })
+  }
+
+  /**
+   *
+   *
+   * @param {Client} client
+   *
+   * @memberOf ClientRegisterComponent
+   */
+  public selectClient(client: Client) {
+    this.client = $.extend(true, {}, client)
   }
 
   /**
@@ -289,9 +287,18 @@ export class ClientRegisterComponent implements OnInit {
    * @memberOf ClientPage
    */
   public clearForm(): void {
-    this.clientId = null
-    $('tbody').children().removeClass('selected')
-    this.formUtils.clear('#clientForm')
+    this.client = { id: this.client.id, address: {}, contact: {} } as Client
   }
 
+  /**
+   *
+   *
+   * @private
+   * @param {*} error
+   *
+   * @memberOf ClientRegisterComponent
+   */
+  private handleError(error: any): void {
+    console.log(error)
+  }
 }
