@@ -16,7 +16,7 @@ const environment = environmentFactory.build({ env: ENV })
 
 const METADATA = webpackMerge(environment.metadata, {
   host: process.env.HOST || 'localhost',
-  API_URL: process.env.API_URL || 'http://sandbox.safetruck.com.br/api/v1',
+  API_URL: process.env.API_URL || 'https://app.safetruck.com.br/api/v1',
   port: process.env.PORT || 3000,
   ENV: ENV
 })
