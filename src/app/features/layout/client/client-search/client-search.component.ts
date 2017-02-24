@@ -2,10 +2,10 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core'
 
 import { ClientService, Client } from '../shared'
 
-@Component({
+@Component( {
   selector: 'client-search',
   templateUrl: './client-search.component.html',
-  styleUrls: ['./client-search.component.scss'],
+  styleUrls: [ './client-search.component.scss' ],
   encapsulation: ViewEncapsulation.None
 })
 export class ClientSearchComponent implements OnInit {
@@ -19,7 +19,7 @@ export class ClientSearchComponent implements OnInit {
    *
    * @memberOf SearchClientsComponent
    */
-  public constructor(public clientService: ClientService) { }
+  public constructor( public clientService: ClientService ) { }
 
   /**
    *
@@ -28,7 +28,7 @@ export class ClientSearchComponent implements OnInit {
    * @memberOf ClientSearchComponent
    */
   public ngOnInit(): void {
-    this.clientService.getAll().subscribe({
+    this.clientService.getAll().subscribe( {
       next: resp => this.clients = resp,
       error: console.error
     })
@@ -41,8 +41,8 @@ export class ClientSearchComponent implements OnInit {
    *
    * @memberOf ClientSearchComponent
    */
-  public selectClient(client): void {
-    console.log(client.equipments)
+  public selectClient( client ): void {
+    console.log( client.equipments )
     this.selectedClient = client
   }
 }

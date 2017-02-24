@@ -26,13 +26,13 @@ import 'zone.js/dist/zone'
 // Typescript emit helpers polyfill
 import 'ts-helpers'
 
-if ('production' === ENV) {
+if ( 'production' === ENV ) {
   // Production
 } else {
   // Development
 
   Error.stackTraceLimit = Infinity
 
-  require('zone.js/dist/long-stack-trace-zone')
+  require( 'zone.js/dist/long-stack-trace-zone' )
 
 }

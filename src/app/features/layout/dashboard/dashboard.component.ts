@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 
-@Component({
+@Component( {
   selector: 'dashboard',
   templateUrl: './dashboard.component.html'
 })

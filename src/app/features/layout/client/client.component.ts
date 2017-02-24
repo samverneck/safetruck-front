@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 
-@Component({
+@Component( {
   template: `
   <router-outlet></router-outlet>`
 })
-export class ClientComponent {}
+export class ClientComponent { }

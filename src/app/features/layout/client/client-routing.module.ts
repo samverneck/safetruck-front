@@ -5,7 +5,7 @@ import { ClientComponent } from './client.component'
 import { ClientRegisterComponent } from './client-register/client-register.component'
 import { ClientSearchComponent } from './client-search/client-search.component'
 
-export const clientRoutes: Routes = [{
+export const clientRoutes: Routes = [ {
   path: 'clients',
   component: ClientComponent,
   children: [
@@ -16,11 +16,11 @@ export const clientRoutes: Routes = [{
   ]
 }]
 
-@NgModule({
+@NgModule( {
   imports: [
     RouterModule
     // RouterModule.forChild(clientRoutes)
   ],
-  exports: [RouterModule]
+  exports: [ RouterModule ]
 })
 export class ClientRoutingModule { }

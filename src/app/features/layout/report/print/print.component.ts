@@ -3,10 +3,10 @@ import * as moment from 'moment'
 
 import { ReportData } from '../shared'
 
-@Component({
+@Component( {
   selector: 'print-page',
   templateUrl: 'print.component.html',
-  styles: ['print.component.scss']
+  styles: [ 'print.component.scss' ]
 })
 export class PrintComponent {
 
@@ -23,8 +23,8 @@ export class PrintComponent {
    *
    * @memberOf PrintComponent
    */
-  public formatDate(date) {
-    return moment(date).format('DD/MM/YYYY HH:mm:ss')
+  public formatDate( date ) {
+    return moment( date ).format( 'DD/MM/YYYY HH:mm:ss' )
   }
 
   /**
@@ -36,7 +36,7 @@ export class PrintComponent {
    *
    * @memberOf PrintComponent
    */
-  public getOverSpeedingImg(start, finish) {
+  public getOverSpeedingImg( start, finish ) {
     let api: string = 'https://maps.googleapis.com/maps/api/staticmap?'
     let key: string = '&key=AIzaSyCTyVqtTUEU9_G20pWMkmEo7b2vQe87M4k'
     let size: string = '&size=275x135'
@@ -55,7 +55,7 @@ export class PrintComponent {
    *
    * @memberOf PrintComponent
    */
-  public getOverSpeedingLink(s, f) {
+  public getOverSpeedingLink( s, f ) {
     return `https://www.google.com/maps?&z=12&saddr=${s.lat},${s.lng}&daddr=${f.lat},${f.lng}&dirflg=h`
   }
 
@@ -67,7 +67,7 @@ export class PrintComponent {
    *
    * @memberOf PrintComponent
    */
-  public getDangerZoneImg(position) {
+  public getDangerZoneImg( position ) {
     let api: string = 'https://maps.googleapis.com/maps/api/staticmap?'
     let key: string = '&key=AIzaSyCTyVqtTUEU9_G20pWMkmEo7b2vQe87M4k'
     let size: string = '&size=275x135'
@@ -85,7 +85,7 @@ export class PrintComponent {
    *
    * @memberOf PrintComponent
    */
-  public getDangerZoneLink(location) {
+  public getDangerZoneLink( location ) {
     return `https://www.google.com/maps?&z=12&q=${location.lat},${location.lng}`
   }
 }

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core'
-@Component({
+@Component( {
   selector: 'select-enum',
   providers: [],
   templateUrl: './select-enum.component.html'

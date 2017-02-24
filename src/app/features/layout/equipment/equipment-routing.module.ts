@@ -5,7 +5,7 @@ import { EquipmentComponent } from './equipment.component'
 import { EquipmentRegisterComponent } from './equipment-register/equipment-register.component'
 import { EquipmentSearchComponent } from './equipment-search/equipment-search.component'
 
-export const equipmentRoutes: Routes = [{
+export const equipmentRoutes: Routes = [ {
   path: 'equipments',
   component: EquipmentComponent,
   children: [
@@ -16,11 +16,11 @@ export const equipmentRoutes: Routes = [{
   ]
 }]
 
-@NgModule({
+@NgModule( {
   imports: [
     RouterModule
     // RouterModule.forChild(equipmentRoutes)
   ],
-  exports: [RouterModule]
+  exports: [ RouterModule ]
 })
-export class EquipmentRoutingModule {}
+export class EquipmentRoutingModule { }

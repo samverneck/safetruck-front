@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation, ElementRef, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { AppConfig } from '../../core'
 
-@Component({
+@Component( {
   selector: 'layout',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './layout.component.html',
@@ -29,7 +29,7 @@ export class LayoutComponent implements OnInit {
    *
    * @memberOf LayoutComponent
    */
-  constructor(config: AppConfig, private el: ElementRef, private router: Router) {
+  constructor( config: AppConfig, private el: ElementRef, private router: Router ) {
     this.config = config.getConfig()
     this.configFn = config
   }
@@ -41,12 +41,12 @@ export class LayoutComponent implements OnInit {
    *
    * @memberOf LayoutComponent
    */
-  public toggleSidebarListener(state): void {
+  public toggleSidebarListener( state ): void {
     let toggleNavigation = state === 'static'
       ? this.toggleNavigationState
       : this.toggleNavigationCollapseState
-    toggleNavigation.apply(this)
-    localStorage.setItem('nav-static', this.config.state['nav-static'])
+    toggleNavigation.apply( this )
+    localStorage.setItem( 'nav-static', this.config.state[ 'nav-static' ] )
   }
 
   /**
@@ -56,19 +56,19 @@ export class LayoutComponent implements OnInit {
    * @memberOf LayoutComponent
    */
   public toggleChatListener(): void {
-    $(this.el.nativeElement).find('.chat-notification-sing').remove()
+    $( this.el.nativeElement ).find( '.chat-notification-sing' ).remove()
     this.chatOpened = !this.chatOpened
 
     setTimeout(() => {
       // demo: add class & badge to indicate incoming messages from contact
       // .js-notification-added ensures notification added only once
-      $('.chat-sidebar-user-group:first-of-type ' +
-        '.list-group-item:first-child:not(.js-notification-added)')
-        .addClass('active js-notification-added')
-        .find('.fa-circle')
-        .after('<span class="badge tag-danger ' +
-        'pull-right animated bounceInDown">3</span>')
-    }, 1000)
+      $( '.chat-sidebar-user-group:first-of-type ' +
+        '.list-group-item:first-child:not(.js-notification-added)' )
+        .addClass( 'active js-notification-added' )
+        .find( '.fa-circle' )
+        .after( '<span class="badge tag-danger ' +
+        'pull-right animated bounceInDown">3</span>' )
+    }, 1000 )
   }
 
   /**
@@ -78,8 +78,8 @@ export class LayoutComponent implements OnInit {
    * @memberOf LayoutComponent
    */
   public toggleNavigationState(): void {
-    this.config.state['nav-static'] = !this.config.state['nav-static']
-    if (!this.config.state['nav-static']) {
+    this.config.state[ 'nav-static' ] = !this.config.state[ 'nav-static' ]
+    if ( !this.config.state[ 'nav-static' ] ) {
       this.collapseNavigation()
     }
   }
@@ -92,12 +92,12 @@ export class LayoutComponent implements OnInit {
    */
   public expandNavigation(): void {
     // this method only makes sense for non-static navigation state
-    if (this.isNavigationStatic()
-      && (this.configFn.isScreen('lg') || this.configFn.isScreen('xl'))) { return }
+    if ( this.isNavigationStatic()
+      && ( this.configFn.isScreen( 'lg' ) || this.configFn.isScreen( 'xl' ) ) ) { return }
 
-    $('layout').removeClass('nav-collapsed')
-    this.$sidebar.find('.active .active').closest('.collapse').collapse('show')
-      .siblings('[data-toggle=collapse]').removeClass('collapsed')
+    $( 'layout' ).removeClass( 'nav-collapsed' )
+    this.$sidebar.find( '.active .active' ).closest( '.collapse' ).collapse( 'show' )
+      .siblings( '[data-toggle=collapse]' ).removeClass( 'collapsed' )
   }
 
   /**
@@ -108,12 +108,12 @@ export class LayoutComponent implements OnInit {
    */
   public collapseNavigation(): void {
     // this method only makes sense for non-static navigation state
-    if (this.isNavigationStatic()
-      && (this.configFn.isScreen('lg') || this.configFn.isScreen('xl'))) { return }
+    if ( this.isNavigationStatic()
+      && ( this.configFn.isScreen( 'lg' ) || this.configFn.isScreen( 'xl' ) ) ) { return }
 
-    $('layout').addClass('nav-collapsed')
-    this.$sidebar.find('.collapse.in').collapse('hide')
-      .siblings('[data-toggle=collapse]').addClass('collapsed')
+    $( 'layout' ).addClass( 'nav-collapsed' )
+    this.$sidebar.find( '.collapse.in' ).collapse( 'hide' )
+      .siblings( '[data-toggle=collapse]' ).addClass( 'collapsed' )
   }
 
   /**
@@ -123,16 +123,16 @@ export class LayoutComponent implements OnInit {
    * @memberOf LayoutComponent
    */
   public checkNavigationState(): void {
-    if (this.isNavigationStatic()) {
-      if (this.configFn.isScreen('sm')
-        || this.configFn.isScreen('xs') || this.configFn.isScreen('md')) {
+    if ( this.isNavigationStatic() ) {
+      if ( this.configFn.isScreen( 'sm' )
+        || this.configFn.isScreen( 'xs' ) || this.configFn.isScreen( 'md' ) ) {
         this.collapseNavigation()
       }
     } else {
-      if (this.configFn.isScreen('lg') || this.configFn.isScreen('xl')) {
+      if ( this.configFn.isScreen( 'lg' ) || this.configFn.isScreen( 'xl' ) ) {
         setTimeout(() => {
           this.collapseNavigation()
-        }, this.config.settings.navCollapseTimeout)
+        }, this.config.settings.navCollapseTimeout )
       } else {
         this.collapseNavigation()
       }
@@ -147,7 +147,7 @@ export class LayoutComponent implements OnInit {
    * @memberOf LayoutComponent
    */
   public isNavigationStatic(): boolean {
-    return this.config.state['nav-static'] === true
+    return this.config.state[ 'nav-static' ] === true
   }
 
   /**
@@ -157,7 +157,7 @@ export class LayoutComponent implements OnInit {
    * @memberOf LayoutComponent
    */
   public toggleNavigationCollapseState(): void {
-    if ($('layout').is('.nav-collapsed')) {
+    if ( $( 'layout' ).is( '.nav-collapsed' ) ) {
       this.expandNavigation()
     } else {
       this.collapseNavigation()
@@ -171,25 +171,25 @@ export class LayoutComponent implements OnInit {
    * @memberOf LayoutComponent
    */
   public enableSwipeCollapsing(): void {
-    let swipe = new Hammer(document.getElementById('content-wrap'))
+    let swipe = new Hammer( document.getElementById( 'content-wrap' ) )
     let d = this
 
-    swipe.on('swipeleft', () => {
+    swipe.on( 'swipeleft', () => {
       setTimeout(() => {
-        if (d.configFn.isScreen('md')) { return }
+        if ( d.configFn.isScreen( 'md' ) ) { return }
 
-        if (!$('layout').is('.nav-collapsed')) {
+        if ( !$( 'layout' ).is( '.nav-collapsed' ) ) {
           d.collapseNavigation()
         }
       })
     })
 
-    swipe.on('swiperight', () => {
-      if (d.configFn.isScreen('md')) { return }
+    swipe.on( 'swiperight', () => {
+      if ( d.configFn.isScreen( 'md' ) ) { return }
 
-      if ($('layout').is('.chat-sidebar-opened')) { return }
+      if ( $( 'layout' ).is( '.chat-sidebar-opened' ) ) { return }
 
-      if ($('layout').is('.nav-collapsed')) {
+      if ( $( 'layout' ).is( '.nav-collapsed' ) ) {
         d.expandNavigation()
       }
     })
@@ -202,8 +202,8 @@ export class LayoutComponent implements OnInit {
    * @memberOf LayoutComponent
    */
   public collapseNavIfSmallScreen(): void {
-    if (this.configFn.isScreen('xs')
-      || this.configFn.isScreen('sm') || this.configFn.isScreen('md')) {
+    if ( this.configFn.isScreen( 'xs' )
+      || this.configFn.isScreen( 'sm' ) || this.configFn.isScreen( 'md' ) ) {
       this.collapseNavigation()
     }
   }
@@ -216,60 +216,60 @@ export class LayoutComponent implements OnInit {
    */
   public ngOnInit(): void {
 
-    if (localStorage.getItem('nav-static') === 'true') {
-      this.config.state['nav-static'] = true
+    if ( localStorage.getItem( 'nav-static' ) === 'true' ) {
+      this.config.state[ 'nav-static' ] = true
     }
 
-    let $el = $(this.el.nativeElement)
-    this.$sidebar = $el.find('[sidebar]')
+    let $el = $( this.el.nativeElement )
+    this.$sidebar = $el.find( '[sidebar]' )
 
-    $el.find('a[href="#"]').on('click', (e) => {
+    $el.find( 'a[href="#"]' ).on( 'click', ( e ) => {
       e.preventDefault()
     })
 
-    this.$sidebar.on('mouseenter', this.sidebarMouseEnter.bind(this))
-    this.$sidebar.on('mouseleave', this.sidebarMouseLeave.bind(this))
+    this.$sidebar.on( 'mouseenter', this.sidebarMouseEnter.bind( this ) )
+    this.$sidebar.on( 'mouseleave', this.sidebarMouseLeave.bind( this ) )
 
     this.checkNavigationState()
 
-    this.$sidebar.on('click', () => {
-      if ($('layout').is('.nav-collapsed')) {
+    this.$sidebar.on( 'click', () => {
+      if ( $( 'layout' ).is( '.nav-collapsed' ) ) {
         this.expandNavigation()
       }
     })
 
     this.router.events.subscribe(() => {
       this.collapseNavIfSmallScreen()
-      window.scrollTo(0, 0)
+      window.scrollTo( 0, 0 )
     })
 
-    if ('ontouchstart' in window) {
+    if ( 'ontouchstart' in window ) {
       this.enableSwipeCollapsing()
     }
 
-    this.$sidebar.find('.collapse').on('show.bs.collapse', function(e): void {
+    this.$sidebar.find( '.collapse' ).on( 'show.bs.collapse', function ( e ): void {
       // execute only if we're actually the .collapse element initiated event
       // return for bubbled events
-      if (e.target !== e.currentTarget) { return }
+      if ( e.target !== e.currentTarget ) { return }
 
-      let $triggerLink = $(this).prev('[data-toggle=collapse]')
-      $($triggerLink.data('parent'))
-        .find('.collapse.in').not($(this)).collapse('hide')
+      let $triggerLink = $( this ).prev( '[data-toggle=collapse]' )
+      $( $triggerLink.data( 'parent' ) )
+        .find( '.collapse.in' ).not( $( this ) ).collapse( 'hide' )
     })
       /* adding additional classes to navigation link li-parent
        for several purposes. see navigation styles */
-      .on('show.bs.collapse', function(e): void {
+      .on( 'show.bs.collapse', function ( e ): void {
         // execute only if we're actually the .collapse element initiated event
         // return for bubbled events
-        if (e.target !== e.currentTarget) { return }
+        if ( e.target !== e.currentTarget ) { return }
 
-        $(this).closest('li').addClass('open')
-      }).on('hide.bs.collapse', function(e): void {
+        $( this ).closest( 'li' ).addClass( 'open' )
+      }).on( 'hide.bs.collapse', function ( e ): void {
         // execute only if we're actually the .collapse element initiated event
         // return for bubbled events
-        if (e.target !== e.currentTarget) { return }
+        if ( e.target !== e.currentTarget ) { return }
 
-        $(this).closest('li').removeClass('open')
+        $( this ).closest( 'li' ).removeClass( 'open' )
       })
   }
 
@@ -282,7 +282,7 @@ export class LayoutComponent implements OnInit {
    * @memberOf LayoutComponent
    */
   private sidebarMouseEnter(): void {
-    if (this.configFn.isScreen('lg') || this.configFn.isScreen('xl')) {
+    if ( this.configFn.isScreen( 'lg' ) || this.configFn.isScreen( 'xl' ) ) {
       this.expandNavigation()
     }
   }
@@ -295,7 +295,7 @@ export class LayoutComponent implements OnInit {
    * @memberOf LayoutComponent
    */
   private sidebarMouseLeave(): void {
-    if (this.configFn.isScreen('lg') || this.configFn.isScreen('xl')) {
+    if ( this.configFn.isScreen( 'lg' ) || this.configFn.isScreen( 'xl' ) ) {
       this.collapseNavigation()
     }
   }

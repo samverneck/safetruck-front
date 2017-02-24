@@ -16,7 +16,7 @@ import { ErrorComponent } from './features/error/error.component'
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
  */
-@NgModule({
+@NgModule( {
   imports: [ // import Angular's modules
     BrowserModule,
     HttpModule,
@@ -28,7 +28,7 @@ import { ErrorComponent } from './features/error/error.component'
     ErrorComponent,
     Autosize
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule {
 
@@ -39,7 +39,7 @@ export class AppModule {
    *
    * @memberOf AppModule
    */
-  constructor(public appRef: ApplicationRef, public appState: AppStateService) { }
+  constructor( public appRef: ApplicationRef, public appState: AppStateService ) { }
 
   /**
    *
@@ -48,15 +48,15 @@ export class AppModule {
    *
    * @memberOf AppModule
    */
-  public hmrOnInit(store: StoreType) {
-    if (!store || !store.state) { return }
-    console.log('HMR store', JSON.stringify(store, null, 2))
+  public hmrOnInit( store: StoreType ) {
+    if ( !store || !store.state ) { return }
+    console.log( 'HMR store', JSON.stringify( store, null, 2 ) )
     // set state
     this.appState.state = store.state
     // set input values
-    if ('restoreInputValues' in store) {
+    if ( 'restoreInputValues' in store ) {
       let restoreInputValues = store.restoreInputValues
-      setTimeout(restoreInputValues)
+      setTimeout( restoreInputValues )
     }
 
     this.appRef.tick()
@@ -71,13 +71,13 @@ export class AppModule {
    *
    * @memberOf AppModule
    */
-  public hmrOnDestroy(store: StoreType) {
-    const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement)
+  public hmrOnDestroy( store: StoreType ) {
+    const cmpLocation = this.appRef.components.map( cmp => cmp.location.nativeElement )
     // save state
     const state = this.appState.state
     store.state = state
     // recreate root elements
-    store.disposeOldHosts = createNewHosts(cmpLocation)
+    store.disposeOldHosts = createNewHosts( cmpLocation )
     // save input values
     store.restoreInputValues = createInputTransfer()
     // remove styles
@@ -91,7 +91,7 @@ export class AppModule {
    *
    * @memberOf AppModule
    */
-  public hmrAfterDestroy(store: StoreType) {
+  public hmrAfterDestroy( store: StoreType ) {
     // display new elements
     store.disposeOldHosts()
     delete store.disposeOldHosts

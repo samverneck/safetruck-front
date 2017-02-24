@@ -10,7 +10,7 @@ export class AuthGuard implements CanActivate {
    *
    * @memberOf AuthGuard
    */
-  constructor(private router: Router) { }
+  constructor( private router: Router ) { }
 
   /**
    *
@@ -20,13 +20,13 @@ export class AuthGuard implements CanActivate {
    * @memberOf AuthGuard
    */
   public canActivate() {
-    if (localStorage.getItem('currentUser')) {
+    if ( localStorage.getItem( 'currentUser' ) ) {
       // logged in so return true
       return true
     }
 
     // not logged in so redirect to login page
-    this.router.navigate(['/auth/login'])
+    this.router.navigate( [ '/auth/login' ] )
     return false
   }
 }

@@ -10,15 +10,15 @@ import {
   Client
 } from '../shared'
 
-@Component({
+@Component( {
   selector: 'client-register',
   templateUrl: './client-register.component.html',
-  styleUrls: ['./client-register.component.scss'],
+  styleUrls: [ './client-register.component.scss' ],
   encapsulation: ViewEncapsulation.None
 })
 export class ClientRegisterComponent implements OnInit, AfterViewChecked {
 
-  @ViewChild('clientForm') public currentForm: NgForm
+  @ViewChild( 'clientForm' ) public currentForm: NgForm
   public clientForm: NgForm
   public clients: Client[]
   public client: Client = { address: {}, contact: {}, shareDangerousPoints: false } as Client
@@ -26,18 +26,18 @@ export class ClientRegisterComponent implements OnInit, AfterViewChecked {
   public states: { abbr: string, name: string }[] = STATES
   public errors = {}
   public masks = {
-    cnpj: [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/],
-    zipcode: [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/],
-    phone: (userInput) => {
-      let numbers = userInput.match(/\d/g)
+    cnpj: [ /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/ ],
+    zipcode: [ /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/ ],
+    phone: ( userInput ) => {
+      let numbers = userInput.match( /\d/g )
       let numberLength = 0
-      if (numbers) {
-        numberLength = numbers.join('').length
+      if ( numbers ) {
+        numberLength = numbers.join( '' ).length
       }
-      if (numberLength > 10) {
-        return ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+      if ( numberLength > 10 ) {
+        return [ '(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/ ]
       } else {
-        return ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+        return [ '(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/ ]
       }
     }
   }
@@ -141,11 +141,11 @@ export class ClientRegisterComponent implements OnInit, AfterViewChecked {
    * @memberOf ClientComponent
    */
   public ngOnInit(): void {
-    const id = this.route.snapshot.params['id']
+    const id = this.route.snapshot.params[ 'id' ]
     this.viewMode = !!id
 
-    if (this.viewMode) {
-      this.getClient(id)
+    if ( this.viewMode ) {
+      this.getClient( id )
     } else {
       this.getAllClients()
     }
@@ -168,9 +168,9 @@ export class ClientRegisterComponent implements OnInit, AfterViewChecked {
    * @memberOf ClientRegisterComponent
    */
   public formChanged() {
-    if (this.currentForm === this.clientForm) { return }
+    if ( this.currentForm === this.clientForm ) { return }
     this.clientForm = this.currentForm
-    this.clientForm.valueChanges.subscribe(() => this.updateErrors())
+    this.clientForm.valueChanges.subscribe(() => this.updateErrors() )
   }
 
   /**
@@ -180,7 +180,7 @@ export class ClientRegisterComponent implements OnInit, AfterViewChecked {
    * @memberOf ClientRegisterComponent
    */
   public updateErrors() {
-    this.errors = this.validation.getFormErrors(this.clientForm, this.validationMessages)
+    this.errors = this.validation.getFormErrors( this.clientForm, this.validationMessages )
   }
 
   /**
@@ -188,9 +188,9 @@ export class ClientRegisterComponent implements OnInit, AfterViewChecked {
    * @memberOf ClientPage
    */
   public getAllClients(): void {
-    this.clientService.getAll().subscribe({
+    this.clientService.getAll().subscribe( {
       next: clients => this.clients = clients,
-      error: error => this.handleError(error)
+      error: error => this.handleError( error )
     })
   }
 
@@ -201,26 +201,26 @@ export class ClientRegisterComponent implements OnInit, AfterViewChecked {
    */
   public saveClient() {
 
-    if (this.clientForm.invalid) {
-      const validationMessage = this.validation.getValidationMessage(this.errors)
-      this.messages.showNotification(validationMessage, 'error')
+    if ( this.clientForm.invalid ) {
+      const validationMessage = this.validation.getValidationMessage( this.errors )
+      this.messages.showNotification( validationMessage, 'error' )
       return
     }
 
     const onSuccess = response => {
-      this.messages.showAlert(this.client.id ? 'Atualizado' : 'Cadastrado', 'O cliente foi salvo com sucesso.', 'success')
+      this.messages.showAlert( this.client.id ? 'Atualizado' : 'Cadastrado', 'O cliente foi salvo com sucesso.', 'success' )
       this.clearForm()
     }
 
     const onError = error => {
-      this.messages.showAlert('Erro', `Não foi possível salvar o cliente: ${error}`, 'error')
+      this.messages.showAlert( 'Erro', `Não foi possível salvar o cliente: ${error}`, 'error' )
     }
 
     const onComplete = () => {
       this.getAllClients()
     }
 
-    this.clientService.save(this.client).subscribe({ next: onSuccess, error: onError, complete: onComplete })
+    this.clientService.save( this.client ).subscribe( { next: onSuccess, error: onError, complete: onComplete })
   }
 
   /**
@@ -228,8 +228,8 @@ export class ClientRegisterComponent implements OnInit, AfterViewChecked {
    * @param {IClient} client
    * @memberOf ClientPage
    */
-  public deleteClient(client: Client) {
-    swal({
+  public deleteClient( client: Client ) {
+    swal( {
       title: 'Deletar cliente',
       text: `Tem certeza que deseja deletar o cliente ${client.tradingName}?`,
       type: 'warning',
@@ -237,8 +237,8 @@ export class ClientRegisterComponent implements OnInit, AfterViewChecked {
       cancelButtonText: 'Não',
       confirmButtonText: 'Sim'
     }).then(() => {
-      this.clientService.delete(client).subscribe({
-        next: (resp) => {
+      this.clientService.delete( client ).subscribe( {
+        next: ( resp ) => {
           this.getAllClients()
           swal(
             'Deletado!',
@@ -246,7 +246,7 @@ export class ClientRegisterComponent implements OnInit, AfterViewChecked {
             'success'
           )
         },
-        error: (err) => {
+        error: ( err ) => {
           swal(
             'Erro!',
             `Ocorreu um erro ao deletar o cliente. ${err}`,
@@ -254,7 +254,7 @@ export class ClientRegisterComponent implements OnInit, AfterViewChecked {
           )
         }
       })
-    }).catch((err) => err)
+    }).catch(( err ) => err )
   }
 
   /**
@@ -262,16 +262,16 @@ export class ClientRegisterComponent implements OnInit, AfterViewChecked {
    * @param {string} cep
    * @memberOf ClientPage
    */
-  public getAddress(zipcode: string): void {
-    this.cepService.getAddress(zipcode).subscribe({
-      next: (address) => {
-        if (address.erro) {
-          this.messages.showNotification('CEP não encontrado ou inválido. Por favor informe o endereço manualmente.', 'error')
+  public getAddress( zipcode: string ): void {
+    this.cepService.getAddress( zipcode ).subscribe( {
+      next: ( address ) => {
+        if ( address.erro ) {
+          this.messages.showNotification( 'CEP não encontrado ou inválido. Por favor informe o endereço manualmente.', 'error' )
         } else {
           this.client.address = address
         }
       },
-      error: error => this.handleError(error)
+      error: error => this.handleError( error )
     })
   }
 
@@ -280,7 +280,7 @@ export class ClientRegisterComponent implements OnInit, AfterViewChecked {
    * @memberOf ClientPage
    */
   public fillAlias(): void {
-    this.client.alias = this.client.alias || this.formUtils.slugger(this.client.tradingName)
+    this.client.alias = this.client.alias || this.formUtils.slugger( this.client.tradingName )
   }
 
   /**
@@ -288,12 +288,13 @@ export class ClientRegisterComponent implements OnInit, AfterViewChecked {
    * passado pela URL
    * @memberOf ClientPage
    */
-  public getClient(id: number) {
-    this.clientService.getById(id).subscribe({
+  public getClient( id: number ) {
+    this.clientService.getById( id ).subscribe( {
       next: client => this.client = client,
-      error: error => this.handleError(error)
+      error: error => this.handleError( error )
     })
   }
+
 
   /**
    *
@@ -302,8 +303,8 @@ export class ClientRegisterComponent implements OnInit, AfterViewChecked {
    *
    * @memberOf ClientRegisterComponent
    */
-  public selectClient(client: Client) {
-    this.client = _.merge({}, client)
+  public selectClient( client: Client ) {
+    this.client = _.merge( {}, client )
   }
 
   /**
@@ -323,7 +324,7 @@ export class ClientRegisterComponent implements OnInit, AfterViewChecked {
    *
    * @memberOf ClientRegisterComponent
    */
-  private handleError(error: any): void {
-    console.error(error)
+  private handleError( error: any ): void {
+    console.error( error )
   }
 }

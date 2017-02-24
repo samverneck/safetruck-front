@@ -5,11 +5,11 @@ import * as moment from 'moment'
 
 import { ReportOverSpeeding, ReportDangerZonesData } from '../shared'
 
-@Component({
+@Component( {
   encapsulation: ViewEncapsulation.None,
   selector: 'route',
   templateUrl: './route.component.html',
-  styleUrls: ['./route.component.scss']
+  styleUrls: [ './route.component.scss' ]
 })
 export class RouteComponent implements OnInit {
 
@@ -35,29 +35,29 @@ export class RouteComponent implements OnInit {
    * @memberOf RouteComponent
    */
   public initMap() {
-    this.getMap().subscribe(map => {
+    this.getMap().subscribe( map => {
       // Desenha a rota principal
-      this.drawBaseRoute(map, this.route)
+      this.drawBaseRoute( map, this.route )
       // Adiciona os marcadores de Início e Fim
-      this.drawStartAndFinish({
+      this.drawStartAndFinish( {
         map: map,
         start: {
           date: this.times.start,
-          latLng: _.head(this.route)
+          latLng: _.head( this.route )
         },
         finish: {
           date: this.times.finish,
-          latLng: _.last(this.route)
+          latLng: _.last( this.route )
         }
       })
       // Zonas perigosas
-      this.dangerZones.map(dz => {
-        this.drawDangerZonesPoints(map, dz)
+      this.dangerZones.map( dz => {
+        this.drawDangerZonesPoints( map, dz )
       })
       // Excessos de velocidade
-      this.overSpeedings.map(overSpeeding => {
-        overSpeeding.data.map(data => {
-          this.drawOverSpeedingsRoute(map, data)
+      this.overSpeedings.map( overSpeeding => {
+        overSpeeding.data.map( data => {
+          this.drawOverSpeedingsRoute( map, data )
         })
       })
     })
@@ -69,13 +69,13 @@ export class RouteComponent implements OnInit {
    * @memberOf RouteComponent
    */
   public getMap(): Observable<any> {
-    let map$ = Observable.create(obs => {
-      let map = new google.maps.Map(document.getElementById('map'), {
+    let map$ = Observable.create( obs => {
+      let map = new google.maps.Map( document.getElementById( 'map' ), {
         zoom: 3,
         center: { lat: 0, lng: -20 },
         mapTypeId: google.maps.MapTypeId.ROADMAP
       })
-      obs.next(map)
+      obs.next( map )
     })
 
     return map$
@@ -88,8 +88,8 @@ export class RouteComponent implements OnInit {
    * @returns {void}
    * @memberOf RouteComponent
    */
-  public drawBaseRoute(map, route): void {
-    let flightPath = new google.maps.Polyline({
+  public drawBaseRoute( map, route ): void {
+    let flightPath = new google.maps.Polyline( {
       path: route,
       geodesic: true,
       strokeColor: '#0000FF',
@@ -97,13 +97,13 @@ export class RouteComponent implements OnInit {
       strokeWeight: 4
     })
     let llbounds = new google.maps.LatLngBounds()
-    flightPath.getPath().forEach((e) => {
-      llbounds.extend(e)
+    flightPath.getPath().forEach(( e ) => {
+      llbounds.extend( e )
     })
-    flightPath.setMap(map)
+    flightPath.setMap( map )
     // Centraliza o mapa na rota
-    map.setCenter(llbounds.getCenter())
-    map.fitBounds(llbounds)
+    map.setCenter( llbounds.getCenter() )
+    map.fitBounds( llbounds )
   }
 
   /**
@@ -114,18 +114,18 @@ export class RouteComponent implements OnInit {
    * @returns {void}
    * @memberOf RouteComponent
    */
-  public drawOverSpeedingsRoute(map, data): void {
-    let line = new google.maps.Polyline({
+  public drawOverSpeedingsRoute( map, data ): void {
+    let line = new google.maps.Polyline( {
       path: data.route,
       geodesic: true,
       strokeColor: '#FF0000',
       strokeOpacity: 0.6,
       strokeWeight: 6
     })
-    line.setMap(map)
+    line.setMap( map )
     // Ícone
-    let start = moment(data.start).format('DD/MM/YYYY HH:mm:ss')
-    let finish = moment(data.finish).format('DD/MM/YYYY HH:mm:ss')
+    let start = moment( data.start ).format( 'DD/MM/YYYY HH:mm:ss' )
+    let finish = moment( data.finish ).format( 'DD/MM/YYYY HH:mm:ss' )
     let content = `
       <div id="content">
         <div id="siteNotice"></div>
@@ -137,11 +137,11 @@ export class RouteComponent implements OnInit {
         </div>
       </div>
     `
-    this.drawIcon({
+    this.drawIcon( {
       map: map,
       icon: 'https://maps.google.com/mapfiles/ms/micons/caution.png',
       // Posiciona o ícone no meio da rota
-      position: data.route[Math.round((data.route.length) / 2)],
+      position: data.route[ Math.round(( data.route.length ) / 2 ) ],
       content: content
     })
   }
@@ -154,8 +154,8 @@ export class RouteComponent implements OnInit {
    * @returns {void}
    * @memberOf RouteComponent
    */
-  public drawDangerZonesPoints(map, data): void {
-    let date = moment(data.time).format('DD/MM/YYYY HH:mm:ss')
+  public drawDangerZonesPoints( map, data ): void {
+    let date = moment( data.time ).format( 'DD/MM/YYYY HH:mm:ss' )
     let content = `
       <div id="content">
         <div id="siteNotice"></div>
@@ -166,13 +166,13 @@ export class RouteComponent implements OnInit {
         </div>
       </div>
     `
-    this.drawIcon({
+    this.drawIcon( {
       map: map,
       icon: 'https://maps.google.com/mapfiles/kml/pal3/icon42.png',
       position: data.position,
       content: content
     })
-    new google.maps.Circle({
+    new google.maps.Circle( {
       strokeColor: '#FF0000',
       strokeOpacity: 0.8,
       strokeWeight: 1,
@@ -190,21 +190,21 @@ export class RouteComponent implements OnInit {
    * @returns {void}
    * @memberOf RouteComponent
    */
-  public drawIcon(opt): void {
-    let marker = new google.maps.Marker({
+  public drawIcon( opt ): void {
+    let marker = new google.maps.Marker( {
       label: opt.label,
       icon: opt.icon,
       map: opt.map,
       position: opt.position
     })
 
-    let infoWin = new google.maps.InfoWindow({
+    let infoWin = new google.maps.InfoWindow( {
       content: opt.content,
       position: opt.position
     })
     // Adiciona um envento que abre a info ao clicar
-    marker.addListener('click', () => {
-      infoWin.open(opt.map, marker)
+    marker.addListener( 'click', () => {
+      infoWin.open( opt.map, marker )
     })
   }
 
@@ -216,8 +216,8 @@ export class RouteComponent implements OnInit {
    * @returns {void}
    * @memberOf RouteComponent
    */
-  public drawStartAndFinish(opt): void {
-    let startMarker = moment(opt.start.date, 'DD/MM/YYYY h:mm A').format('DD/MM/YYYY HH:mm')
+  public drawStartAndFinish( opt ): void {
+    let startMarker = moment( opt.start.date, 'DD/MM/YYYY h:mm A' ).format( 'DD/MM/YYYY HH:mm' )
     let startMarkerCtn = `
       <div id="content">
         <div id="siteNotice"></div>
@@ -227,7 +227,7 @@ export class RouteComponent implements OnInit {
         </div>
       </div>
     `
-    let finishMarker = moment(opt.finish.date, 'DD/MM/YYYY h:mm A').format('DD/MM/YYYY HH:mm')
+    let finishMarker = moment( opt.finish.date, 'DD/MM/YYYY h:mm A' ).format( 'DD/MM/YYYY HH:mm' )
     let finishMarkerCtn = `
       <div id="content">
         <div id="siteNotice"></div>
@@ -237,13 +237,13 @@ export class RouteComponent implements OnInit {
         </div>
       </div>
     `
-    this.drawIcon({
+    this.drawIcon( {
       map: opt.map,
       label: 'I',
       position: opt.start.latLng,
       content: startMarkerCtn
     })
-    this.drawIcon({
+    this.drawIcon( {
       map: opt.map,
       label: 'F',
       position: opt.finish.latLng,

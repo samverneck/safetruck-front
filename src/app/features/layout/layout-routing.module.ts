@@ -10,22 +10,22 @@ const layoutRoutes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    canActivate: [AuthGuard],
+    canActivate: [ AuthGuard ],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', canActivate: [RouteGuard], loadChildren: () => System.import('./dashboard/dashboard.module') },
-      { path: 'report', loadChildren: () => System.import('./report/report.module') },
+      { path: 'dashboard', canActivate: [ RouteGuard ], loadChildren: () => System.import( './dashboard/dashboard.module' ) },
+      { path: 'report', loadChildren: () => System.import( './report/report.module' ) },
       ...ClientModule.ROUTES,
       ...EquipmentModule.ROUTES
     ]
   }
 ]
 
-@NgModule({
+@NgModule( {
   imports: [
     RouterModule,
-    RouterModule.forChild(layoutRoutes)
+    RouterModule.forChild( layoutRoutes )
   ],
-  exports: [RouterModule]
+  exports: [ RouterModule ]
 })
 export class LayoutRoutingModule { }

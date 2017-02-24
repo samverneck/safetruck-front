@@ -19,7 +19,7 @@ import 'bootstrap-datepicker/dist/locales/bootstrap-datepicker.pt-BR.min.js'
 import 'messenger/build/js/messenger.js'
 import 'jasny-bootstrap/js/inputmask.js'
 
-@NgModule({
+@NgModule( {
   declarations: [
     EquipmentComponent,
     EquipmentGridComponent,
@@ -37,7 +37,7 @@ import 'jasny-bootstrap/js/inputmask.js'
   exports: [
     EquipmentGridComponent
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class EquipmentModule {
   public static ROUTES = equipmentRoutes

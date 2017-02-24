@@ -14,13 +14,13 @@ export class MessagesService {
    *
    * @memberOf Messages
    */
-  public showNotification(message: string, type?: string) {
+  public showNotification( message: string, type?: string ) {
     Messenger.options = {
       theme: 'air',
       extraClasses: 'messenger-fixed messenger-on-top messenger-on-right'
     }
 
-    Messenger().post({
+    Messenger().post( {
       message: message,
       type: type,
       showCloseButton: true,
@@ -37,17 +37,17 @@ export class MessagesService {
    *
    * @memberOf Messages
    */
-  public showAlert(title: string, text?: string, type?: AlertType, options?: Object) {
+  public showAlert( title: string, text?: string, type?: AlertType, options?: Object ) {
     let alertOptions = {
       title: title,
       text: text || '',
       type: type || ''
     }
     // inclui em alertOption as demais opções em options
-    for (let key in options) {
-      alertOptions[key] = options[key]
+    for ( let key in options ) {
+      alertOptions[ key ] = options[ key ]
     }
-    swal(alertOptions).catch((err) => err)
+    swal( alertOptions ).catch(( err ) => err )
   }
 
 }

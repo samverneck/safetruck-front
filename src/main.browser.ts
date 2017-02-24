@@ -15,11 +15,11 @@ import { AppModule } from './app'
  */
 export function main(): Promise<any> {
   return platformBrowserDynamic()
-    .bootstrapModule(AppModule)
-    .then(decorateModuleRef)
-    .catch(error => console.error(error))
+    .bootstrapModule( AppModule )
+    .then( decorateModuleRef )
+    .catch( error => console.error( error ) )
 }
 
 // needed for hmr
 // in prod this is replace for document ready
-bootloader(main)
+bootloader( main )

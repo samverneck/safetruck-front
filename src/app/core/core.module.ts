@@ -20,8 +20,8 @@ import { MessagesService } from './messages.service'
 import { ENV_PROVIDERS } from './environment'
 import { APP_RESOLVER_PROVIDERS } from './app.resolver'
 
-@NgModule({
-  imports: [CommonModule, HttpModule],
+@NgModule( {
+  imports: [ CommonModule, HttpModule ],
   providers: [
     ...APP_RESOLVER_PROVIDERS,
     ...ENV_PROVIDERS,
@@ -45,9 +45,9 @@ export class CoreModule {
    *
    * @memberOf CoreModule
    */
-  constructor( @Optional() @SkipSelf() parentModule: CoreModule) {
-    if (parentModule) {
-      throw new Error('CoreModule is already loaded. Import it in the AppModule only')
+  constructor( @Optional() @SkipSelf() parentModule: CoreModule ) {
+    if ( parentModule ) {
+      throw new Error( 'CoreModule is already loaded. Import it in the AppModule only' )
     }
   }
 }

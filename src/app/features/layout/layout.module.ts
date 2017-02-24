@@ -16,7 +16,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component'
 // services
 import { ClientService } from './client/shared'
 
-@NgModule({
+@NgModule( {
   imports: [
     SharedModule,
     ClientModule,

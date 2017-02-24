@@ -4,7 +4,7 @@ import { Location } from '@angular/common'
 
 import { AppConfig, AuthService } from '../../../../core'
 
-@Component({
+@Component( {
   selector: 'sidebar',
   templateUrl: './sidebar.component.html'
 })
@@ -26,8 +26,8 @@ export class SidebarComponent implements OnInit, AfterViewInit {
    *
    * @memberOf SidebarComponent
    */
-  constructor(private auth: AuthService, config: AppConfig, el: ElementRef, router: Router, location: Location) {
-    this.$el = $(el.nativeElement)
+  constructor( private auth: AuthService, config: AppConfig, el: ElementRef, router: Router, location: Location ) {
+    this.$el = $( el.nativeElement )
     this.config = config.getConfig()
     this.router = router
     this.location = location
@@ -41,12 +41,12 @@ export class SidebarComponent implements OnInit, AfterViewInit {
    * @memberOf SidebarComponent
    */
   public ngOnInit(): void {
-    $(window).on('sn:resize', this.initSidebarScroll.bind(this))
+    $( window ).on( 'sn:resize', this.initSidebarScroll.bind( this ) )
     this.initSidebarScroll()
 
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.changeActiveNavigationItem(this.location)
+    this.router.events.subscribe(( event ) => {
+      if ( event instanceof NavigationEnd ) {
+        this.changeActiveNavigationItem( this.location )
       }
     })
   }
@@ -58,7 +58,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
    * @memberOf SidebarComponent
    */
   public ngAfterViewInit(): void {
-    this.changeActiveNavigationItem(this.location)
+    this.changeActiveNavigationItem( this.location )
   }
 
   /**
@@ -80,13 +80,13 @@ export class SidebarComponent implements OnInit, AfterViewInit {
    * @memberOf SidebarComponent
    */
   public initSidebarScroll(): void {
-    let $sidebarContent = this.$el.find('.js-sidebar-content')
-    if (this.$el.find('.slimScrollDiv').length !== 0) {
-      $sidebarContent.slimscroll({
+    let $sidebarContent = this.$el.find( '.js-sidebar-content' )
+    if ( this.$el.find( '.slimScrollDiv' ).length !== 0 ) {
+      $sidebarContent.slimscroll( {
         destroy: true
       })
     }
-    $sidebarContent.slimscroll({
+    $sidebarContent.slimscroll( {
       height: window.innerHeight,
       size: '4px'
     })
@@ -99,20 +99,20 @@ export class SidebarComponent implements OnInit, AfterViewInit {
    *
    * @memberOf SidebarComponent
    */
-  public changeActiveNavigationItem(location): void {
-    let $newActiveLink = this.$el.find('a[href="' + location.path().split('?')[0] + '"]')
+  public changeActiveNavigationItem( location ): void {
+    let $newActiveLink = this.$el.find( 'a[href="' + location.path().split( '?' )[ 0 ] + '"]' )
 
     // collapse .collapse only if new and old active links belong to different .collapse
-    if (!$newActiveLink.is('.active > .collapse > li > a')) {
-      this.$el.find('.active .active').closest('.collapse').collapse('hide')
+    if ( !$newActiveLink.is( '.active > .collapse > li > a' ) ) {
+      this.$el.find( '.active .active' ).closest( '.collapse' ).collapse( 'hide' )
     }
-    this.$el.find('.sidebar-nav .active').removeClass('active')
+    this.$el.find( '.sidebar-nav .active' ).removeClass( 'active' )
 
-    $newActiveLink.closest('li').addClass('active')
-      .parents('li').addClass('active')
+    $newActiveLink.closest( 'li' ).addClass( 'active' )
+      .parents( 'li' ).addClass( 'active' )
 
     // uncollapse parent
-    $newActiveLink.closest('.collapse').addClass('in').css('height', '')
-      .siblings('a[data-toggle=collapse]').removeClass('collapsed')
+    $newActiveLink.closest( '.collapse' ).addClass( 'in' ).css( 'height', '' )
+      .siblings( 'a[data-toggle=collapse]' ).removeClass( 'collapsed' )
   }
 }

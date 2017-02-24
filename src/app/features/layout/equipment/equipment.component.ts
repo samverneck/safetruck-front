@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 
-@Component({
+@Component( {
   template: `<router-outlet></router-outlet>`
 })
-export class EquipmentComponent {}
+export class EquipmentComponent { }

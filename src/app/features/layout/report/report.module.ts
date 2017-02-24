@@ -14,7 +14,7 @@ import 'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'
 import 'bootstrap-datepicker/dist/locales/bootstrap-datepicker.pt-BR.min.js'
 import 'bootstrap-timepicker/js/bootstrap-timepicker.js'
 
-@NgModule({
+@NgModule( {
   imports: [
     SharedModule,
     ReportRoutingModule
@@ -24,6 +24,6 @@ import 'bootstrap-timepicker/js/bootstrap-timepicker.js'
     RouteComponent,
     PrintComponent
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export default class ReportModule { }

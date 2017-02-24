@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core'
 import { FormService } from '../../core/form.service'
 
-@Pipe({ name: 'slugfy' })
+@Pipe( { name: 'slugfy' })
 export class SlugfyPipe implements PipeTransform {
 
   /**
@@ -10,7 +10,7 @@ export class SlugfyPipe implements PipeTransform {
    *
    * @memberOf SlugifyPipe
    */
-  constructor(private utils: FormService) { }
+  constructor( private utils: FormService ) { }
 
   /**
    *
@@ -21,9 +21,9 @@ export class SlugfyPipe implements PipeTransform {
    *
    * @memberOf EnumPipe
    */
-  public transform(value): any {
-    if (value) {
-      return this.utils.slugger(value)
+  public transform( value ): any {
+    if ( value ) {
+      return this.utils.slugger( value )
     }
   }
 }

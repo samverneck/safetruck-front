@@ -14,8 +14,8 @@ export class EquipmentService extends BaseService<Equipment> {
    *
    * @memberOf EquipmentService
    */
-  constructor(http: Http, auth: AuthService) {
-    super(http, auth)
-    super.setResource('equipments')
+  constructor( http: Http, auth: AuthService ) {
+    super( http, auth )
+    super.setResource( 'equipments' )
   }
 }

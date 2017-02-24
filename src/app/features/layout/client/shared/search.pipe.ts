@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core'
 
-@Pipe({ name: 'search' })
+@Pipe( { name: 'search' })
 export class SearchPipe implements PipeTransform {
 
   /**
@@ -12,13 +12,13 @@ export class SearchPipe implements PipeTransform {
    *
    * @memberOf SearchPipe
    */
-  public transform(value, args?): Array<any> {
-    let searchText = new RegExp(args, 'ig')
-    if (value) {
-      return value.filter(client => {
-        if (client.companyName || client.cnpj) {
-          return client.companyName.search(searchText) !== -1
-            || client.cnpj.search(searchText) !== -1
+  public transform( value, args?): Array<any> {
+    let searchText = new RegExp( args, 'ig' )
+    if ( value ) {
+      return value.filter( client => {
+        if ( client.companyName || client.cnpj ) {
+          return client.companyName.search( searchText ) !== -1
+            || client.cnpj.search( searchText ) !== -1
         }
       })
     }

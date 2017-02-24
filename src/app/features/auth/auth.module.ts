@@ -11,7 +11,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { LoginComponent } from './login/login.component'
 import { ResetPasswordComponent } from './reset-password/reset-password.component'
 
-@NgModule({
+@NgModule( {
   declarations: [
     AuthComponent,
     ForgotPasswordComponent,
@@ -31,10 +31,10 @@ export default class AuthModule {
    *
    * @memberOf AuthModule
    */
-  constructor(private router: Router) {
+  constructor( private router: Router ) {
     // Caso o usuário esteja logado, redireciona para o dashboard
-    if (localStorage.getItem('currentUser')) {
-      this.router.navigate(['/app'])
+    if ( localStorage.getItem( 'currentUser' ) ) {
+      this.router.navigate( [ '/app' ] )
       return
     }
   }

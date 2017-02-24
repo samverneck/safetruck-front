@@ -2,9 +2,9 @@ import { Component, ViewEncapsulation } from '@angular/core'
 import { Http } from '@angular/http'
 import 'rxjs/add/operator/toPromise'
 
-@Component({
+@Component( {
   selector: 'forgot-password',
-  styleUrls: ['./forgot-password.component.scss'],
+  styleUrls: [ './forgot-password.component.scss' ],
   templateUrl: './forgot-password.component.html',
   encapsulation: ViewEncapsulation.None
 })
@@ -19,7 +19,7 @@ export class ForgotPasswordComponent {
    *
    * @memberOf ForgotPasswordComponent
    */
-  constructor(private http: Http) { }
+  constructor( private http: Http ) { }
 
   /**
    *
@@ -28,24 +28,24 @@ export class ForgotPasswordComponent {
    * @memberOf ForgotPasswordComponent
    */
   public sendEmail() {
-    $('.alert').hide()
-    if (this.validateEMail(this.email)) {
-      this.requestTokenByEmail({ email: this.email })
-        .then(res => {
+    $( '.alert' ).hide()
+    if ( this.validateEMail( this.email ) ) {
+      this.requestTokenByEmail( { email: this.email })
+        .then( res => {
           swal(
             'E-mail enviado',
             'Em instantes você receberá um email com as informações para alteração da sua senha',
             'success'
           )
         })
-        .catch(error => {
-          console.log(error)
+        .catch( error => {
+          console.log( error )
           this.errorMsg = 'O email informado não está cadastrado.'
-          $('.alert').show('fast')
+          $( '.alert' ).show( 'fast' )
         })
     } else {
       this.errorMsg = 'O email informado não é um endereço de e-mail válido'
-      $('.alert').show('fast')
+      $( '.alert' ).show( 'fast' )
     }
   }
 
@@ -57,9 +57,9 @@ export class ForgotPasswordComponent {
    *
    * @memberOf ForgotPasswordComponent
    */
-  public requestTokenByEmail(params) {
+  public requestTokenByEmail( params ) {
     return this.http
-      .post(`${API_URL}/forgot`, params)
+      .post( `${API_URL}/forgot`, params )
       .toPromise()
   }
 
@@ -71,9 +71,9 @@ export class ForgotPasswordComponent {
    *
    * @memberOf ForgotPasswordComponent
    */
-  public getTokenInfo(token) {
+  public getTokenInfo( token ) {
     return this.http
-      .get(`${API_URL}/forgot/${token}`)
+      .get( `${API_URL}/forgot/${token}` )
       .toPromise()
   }
 
@@ -85,8 +85,8 @@ export class ForgotPasswordComponent {
    *
    * @memberOf ForgotPasswordComponent
    */
-  public validateEMail(email) {
-    return /^[\w\.\-]{3,}\@[a-zA-Z0-9\.\-]{3,}\.[A-Za-z]{2,}$/.test(email)
+  public validateEMail( email ) {
+    return /^[\w\.\-]{3,}\@[a-zA-Z0-9\.\-]{3,}\.[A-Za-z]{2,}$/.test( email )
   }
 
 }

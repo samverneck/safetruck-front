@@ -83,10 +83,10 @@ export class AppConfig {
    *
    * @memberOf AppConfig
    */
-  public isScreen(size): boolean {
+  public isScreen( size ): boolean {
     let screenPx = window.innerWidth
-    return (screenPx >= this.config.settings.screens[size + '-min'] || size === 'xs')
-      && (screenPx <= this.config.settings.screens[size + '-max'] || size === 'xl')
+    return ( screenPx >= this.config.settings.screens[ size + '-min' ] || size === 'xs' )
+      && ( screenPx <= this.config.settings.screens[ size + '-max' ] || size === 'xl' )
   }
 
   /**
@@ -98,14 +98,14 @@ export class AppConfig {
    */
   public getScreenSize(): string {
     let screenPx = window.innerWidth
-    if (screenPx <= this.config.settings.screens['xs-max']) { return 'xs' }
-    if ((screenPx >= this.config.settings.screens['sm-min'])
-      && (screenPx <= this.config.settings.screens['sm-max'])) { return 'sm' }
-    if ((screenPx >= this.config.settings.screens['md-min'])
-      && (screenPx <= this.config.settings.screens['md-max'])) { return 'md' }
-    if ((screenPx >= this.config.settings.screens['lg-min'])
-      && (screenPx <= this.config.settings.screens['lg-max'])) { return 'lg' }
-    if (screenPx >= this.config.settings.screens['xl-min']) { return 'xl' }
+    if ( screenPx <= this.config.settings.screens[ 'xs-max' ] ) { return 'xs' }
+    if ( ( screenPx >= this.config.settings.screens[ 'sm-min' ] )
+      && ( screenPx <= this.config.settings.screens[ 'sm-max' ] ) ) { return 'sm' }
+    if ( ( screenPx >= this.config.settings.screens[ 'md-min' ] )
+      && ( screenPx <= this.config.settings.screens[ 'md-max' ] ) ) { return 'md' }
+    if ( ( screenPx >= this.config.settings.screens[ 'lg-min' ] )
+      && ( screenPx <= this.config.settings.screens[ 'lg-max' ] ) ) { return 'lg' }
+    if ( screenPx >= this.config.settings.screens[ 'xl-min' ] ) { return 'xl' }
   }
 
   /**
@@ -117,14 +117,14 @@ export class AppConfig {
    *
    * @memberOf AppConfig
    */
-  public onScreenSize(size, fn, /* Boolean= */ onEnter): void {
+  public onScreenSize( size, fn, /* Boolean= */ onEnter ): void {
     onEnter = typeof onEnter !== 'undefined' ? onEnter : true
-    if (typeof size === 'object') {
-      for (let i = 0; i < size.length; i++) {
-        this.screenSizeCallbacks[size[i]][onEnter ? 'enter' : 'exit'].push(fn)
+    if ( typeof size === 'object' ) {
+      for ( let i = 0; i < size.length; i++ ) {
+        this.screenSizeCallbacks[ size[ i ] ][ onEnter ? 'enter' : 'exit' ].push( fn )
       }
     } else {
-      this.screenSizeCallbacks[size][onEnter ? 'enter' : 'exit'].push(fn)
+      this.screenSizeCallbacks[ size ][ onEnter ? 'enter' : 'exit' ].push( fn )
     }
 
   }
@@ -139,26 +139,26 @@ export class AppConfig {
    *
    * @memberOf AppConfig
    */
-  public changeColor(color, ratio, darker): string {
-    let pad = function(num, totalChars): number {
+  public changeColor( color, ratio, darker ): string {
+    let pad = function ( num, totalChars ): number {
       let padVal = '0'
       num = num + ''
-      while (num.length < totalChars) {
+      while ( num.length < totalChars ) {
         num = padVal + num
       }
       return num
     }
     // Trim trailing/leading whitespace
-    color = color.replace(/^\s*|\s*$/, '')
+    color = color.replace( /^\s*|\s*$/, '' )
 
     // Expand three-digit hex
-    color = color.replace(/^#?([a-f0-9])([a-f0-9])([a-f0-9])$/i, '#$1$1$2$2$3$3')
+    color = color.replace( /^#?([a-f0-9])([a-f0-9])([a-f0-9])$/i, '#$1$1$2$2$3$3' )
 
     // Calculate ratio
-    let difference = Math.round(ratio * 256) * (darker ? -1 : 1)
+    let difference = Math.round( ratio * 256 ) * ( darker ? -1 : 1 )
 
     // Determine if input is RGB(A)
-    let rgb = color.match(new RegExp(`^rgba?\\(\\s*
+    let rgb = color.match( new RegExp( `^rgba?\\(\\s*
       '(\\d|[1-9]\\d|1\\d{2}|2[0-4][0-9]|25[0-5])
       '\\s*,\\s*
       '(\\d|[1-9]\\d|1\\d{2}|2[0-4][0-9]|25[0-5])
@@ -167,47 +167,47 @@ export class AppConfig {
       '(?:\\s*,\\s*
       '(0|1|0?\\.\\d+))?
       '\\s*\\)$`
-      , 'i'))
+      , 'i' ) )
 
-    let alpha = !!rgb && rgb[4] !== null ? rgb[4] : null
+    let alpha = !!rgb && rgb[ 4 ] !== null ? rgb[ 4 ] : null
 
     // Convert hex to decimal
-    let decimal = rgb ? [rgb[1], rgb[2], rgb[3]] : color.replace(
+    let decimal = rgb ? [ rgb[ 1 ], rgb[ 2 ], rgb[ 3 ] ] : color.replace(
       /^#?([a-f0-9][a-f0-9])([a-f0-9][a-f0-9])([a-f0-9][a-f0-9])/i,
-      function(): string {
-        return parseInt(arguments[1], 16) + ',' +
-          parseInt(arguments[2], 16) + ',' +
-          parseInt(arguments[3], 16)
+      function (): string {
+        return parseInt( arguments[ 1 ], 16 ) + ',' +
+          parseInt( arguments[ 2 ], 16 ) + ',' +
+          parseInt( arguments[ 3 ], 16 )
       }
-    ).split(/,/)
+    ).split( /,/ )
 
     // Return RGB(A)
     return rgb ?
-      'rgb' + (alpha !== null ? 'a' : '') + '(' +
-      Math[darker ? 'max' : 'min'](
-        parseInt(decimal[0], 10) + difference, darker ? 0 : 255
+      'rgb' + ( alpha !== null ? 'a' : '' ) + '(' +
+      Math[ darker ? 'max' : 'min' ](
+        parseInt( decimal[ 0 ], 10 ) + difference, darker ? 0 : 255
       ) + ', ' +
-      Math[darker ? 'max' : 'min'](
-        parseInt(decimal[1], 10) + difference, darker ? 0 : 255
+      Math[ darker ? 'max' : 'min' ](
+        parseInt( decimal[ 1 ], 10 ) + difference, darker ? 0 : 255
       ) + ', ' +
-      Math[darker ? 'max' : 'min'](
-        parseInt(decimal[2], 10) + difference, darker ? 0 : 255
+      Math[ darker ? 'max' : 'min' ](
+        parseInt( decimal[ 2 ], 10 ) + difference, darker ? 0 : 255
       ) +
-      (alpha !== null ? ', ' + alpha : '') +
+      ( alpha !== null ? ', ' + alpha : '' ) +
       ')' :
       // Return hex
       [
         '#',
-        pad(Math[darker ? 'max' : 'min'](
-          parseInt(decimal[0], 10) + difference, darker ? 0 : 255
-        ).toString(16), 2),
-        pad(Math[darker ? 'max' : 'min'](
-          parseInt(decimal[1], 10) + difference, darker ? 0 : 255
-        ).toString(16), 2),
-        pad(Math[darker ? 'max' : 'min'](
-          parseInt(decimal[2], 10) + difference, darker ? 0 : 255
-        ).toString(16), 2)
-      ].join('')
+        pad( Math[ darker ? 'max' : 'min' ](
+          parseInt( decimal[ 0 ], 10 ) + difference, darker ? 0 : 255
+        ).toString( 16 ), 2 ),
+        pad( Math[ darker ? 'max' : 'min' ](
+          parseInt( decimal[ 1 ], 10 ) + difference, darker ? 0 : 255
+        ).toString( 16 ), 2 ),
+        pad( Math[ darker ? 'max' : 'min' ](
+          parseInt( decimal[ 2 ], 10 ) + difference, darker ? 0 : 255
+        ).toString( 16 ), 2 )
+      ].join( '' )
   }
 
   /**
@@ -219,8 +219,8 @@ export class AppConfig {
    *
    * @memberOf AppConfig
    */
-  public lightenColor(color, ratio): any {
-    return this.changeColor(color, ratio, false)
+  public lightenColor( color, ratio ): any {
+    return this.changeColor( color, ratio, false )
   }
 
   /**
@@ -232,8 +232,8 @@ export class AppConfig {
    *
    * @memberOf AppConfig
    */
-  public darkenColor(color, ratio): any {
-    return this.changeColor(color, ratio, true)
+  public darkenColor( color, ratio ): any {
+    return this.changeColor( color, ratio, true )
   }
 
   /**
@@ -244,8 +244,8 @@ export class AppConfig {
    *
    * @memberOf AppConfig
    */
-  public max(array): any {
-    return Math.max.apply(null, array)
+  public max( array ): any {
+    return Math.max.apply( null, array )
   }
 
   /**
@@ -256,8 +256,8 @@ export class AppConfig {
    *
    * @memberOf AppConfig
    */
-  public min(array): any {
-    return Math.min.apply(null, array)
+  public min( array ): any {
+    return Math.min.apply( null, array )
   }
 
   /**
@@ -283,11 +283,11 @@ export class AppConfig {
   private initResizeEvent(): void {
     let resizeTimeout
 
-    jQuery(window).on('resize', () => {
-      clearTimeout(resizeTimeout)
+    jQuery( window ).on( 'resize', () => {
+      clearTimeout( resizeTimeout )
       resizeTimeout = setTimeout(() => {
-        jQuery(window).trigger('sn:resize')
-      }, 100)
+        jQuery( window ).trigger( 'sn:resize' )
+      }, 100 )
     })
   }
 
@@ -302,23 +302,23 @@ export class AppConfig {
     let resizeTimeout
     let prevSize = this.getScreenSize()
 
-    jQuery(window).resize(() => {
-      clearTimeout(resizeTimeout)
+    jQuery( window ).resize(() => {
+      clearTimeout( resizeTimeout )
       resizeTimeout = setTimeout(() => {
         let size = this.getScreenSize()
-        if (size !== prevSize) { // run only if something changed
+        if ( size !== prevSize ) { // run only if something changed
           // run exit callbacks first
-          this.screenSizeCallbacks[prevSize].exit.forEach((fn) => {
-            fn(size, prevSize)
+          this.screenSizeCallbacks[ prevSize ].exit.forEach(( fn ) => {
+            fn( size, prevSize )
           })
           // run enter callbacks then
-          this.screenSizeCallbacks[size].enter.forEach((fn) => {
-            fn(size, prevSize)
+          this.screenSizeCallbacks[ size ].enter.forEach(( fn ) => {
+            fn( size, prevSize )
           })
-          console.log('screen changed. new: ' + size + ', old: ' + prevSize)
+          console.log( 'screen changed. new: ' + size + ', old: ' + prevSize )
         }
         prevSize = size
-      }, 100)
+      }, 100 )
     })
   }
 }

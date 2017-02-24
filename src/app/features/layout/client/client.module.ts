@@ -15,7 +15,7 @@ import { SearchPipe } from './shared'
 // libs
 import 'jasny-bootstrap/js/inputmask.js'
 
-@NgModule({
+@NgModule( {
   imports: [
     SharedModule,
     EquipmentModule,
@@ -28,7 +28,7 @@ import 'jasny-bootstrap/js/inputmask.js'
     ClientSearchComponent,
     SearchPipe
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class ClientModule {
   public static ROUTES = clientRoutes

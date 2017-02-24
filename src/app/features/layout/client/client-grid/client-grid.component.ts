@@ -3,11 +3,11 @@ import { Component, EventEmitter, Output, Input } from '@angular/core'
 import { fadeInOut } from '../../../../core'
 import { ClientService, Client } from '../shared'
 
-@Component({
+@Component( {
   selector: 'client-grid',
   templateUrl: './client-grid.component.html',
-  styleUrls: ['./client-grid.component.scss'],
-  animations: [fadeInOut]
+  styleUrls: [ './client-grid.component.scss' ],
+  animations: [ fadeInOut ]
 })
 export class ClientGridComponent {
 
@@ -25,7 +25,7 @@ export class ClientGridComponent {
    *
    * @memberOf ClientTableComponent
    */
-  public constructor(public clientService: ClientService) {}
+  public constructor( public clientService: ClientService ) { }
 
   /**
    *
@@ -34,8 +34,8 @@ export class ClientGridComponent {
    *
    * @memberOf ClientTableComponent
    */
-  public delete(client: Client) {
-    this.onDeleteClient.emit(client)
+  public delete( client: Client ) {
+    this.onDeleteClient.emit( client )
   }
 
   /**
@@ -45,8 +45,8 @@ export class ClientGridComponent {
    *
    * @memberOf ClientGridComponent
    */
-  public selected(client: Client) {
+  public selected( client: Client ) {
     this.selectedClient = client
-    this.onSelectClient.emit(client)
+    this.onSelectClient.emit( client )
   }
 }

@@ -14,8 +14,8 @@ export class ClientService extends BaseService<Client> {
    *
    * @memberOf ClientService
    */
-  constructor(http: Http, auth: AuthService) {
-    super(http, auth)
-    super.setResource('clients')
+  constructor( http: Http, auth: AuthService ) {
+    super( http, auth )
+    super.setResource( 'clients' )
   }
 }

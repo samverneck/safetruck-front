@@ -3,6 +3,8 @@
   "editor.tabSize": 2,
   "javascript.validate.enable": false,
   "standard.enable": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
   // Enable/disable default TypeScript formatter.
   "typescript.format.enable": true,
   // Defines space handling after a comma delimiter.
@@ -16,9 +18,9 @@
   // Defines space handling after function keyword for anonymous functions.
   "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
   // Defines space handling after opening and before closing non empty parenthesis.
-  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
   // Defines space handling after opening and before closing non empty brackets.
-  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": false,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
   // Defines space handling after opening and before closing template string braces. Requires TypeScript >= 2.0.6.
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": false,
   // Defines space handling after opening and before closing JSX expression braces. Requires TypeScript >= 2.0.6.
@@ -40,9 +42,9 @@
   // Defines space handling after function keyword for anonymous functions.
   "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
   // Defines space handling after opening and before closing non empty parenthesis.
-  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
   // Defines space handling after opening and before closing non empty brackets.
-  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": false,
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
   // Defines space handling after opening and before closing template string braces. Requires TypeScript >= 2.0.6.
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": false,
   // Defines space handling after opening and before closing JSX expression braces. Requires TypeScript >= 2.0.6.

@@ -48,11 +48,11 @@
             </div>
           </div>
         </div>
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary btn-rounded" (click)="getReport()">
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary btn-rounded" (click)="getReport()">
               Gerar relatório
             </button>
-          </div>
+        </div>
       </form>
     </section>
   </div>
@@ -74,12 +74,7 @@
       </header>
       <div class="widget-body">
         <div class="map-container">
-          <route 
-            [route]="report.route"
-            [times]="times"
-            [overSpeedings]="report.overSpeedings"
-            [dangerZones]="report.dangerZones"
-          ></route>
+          <route [route]="report.route" [times]="times" [overSpeedings]="report.overSpeedings" [dangerZones]="report.dangerZones"></route>
         </div>
       </div>
     </section>

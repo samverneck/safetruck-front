@@ -15,9 +15,9 @@ export class ReportService extends BaseService<ReportData> {
    *
    * @memberOf ReportService
    */
-  constructor(http: Http, auth: AuthService) {
-    super(http, auth)
-    super.setResource('reports')
+  constructor( http: Http, auth: AuthService ) {
+    super( http, auth )
+    super.setResource( 'reports' )
   }
 
   /**
@@ -30,11 +30,11 @@ export class ReportService extends BaseService<ReportData> {
    *
    * @memberOf ReportService
    */
-  public getReport(plaque: string, start, finish): Observable<ReportData> {
+  public getReport( plaque: string, start, finish ): Observable<ReportData> {
     return this.http
-      .get(`${API_URL}/report?plaque=${plaque}&&dtIni=${start}&dtEnd=${finish}`, this.headerOptions)
-      .map(this.extractData)
-      .catch(this.handleError)
+      .get( `${API_URL}/report?plaque=${plaque}&&dtIni=${start}&dtEnd=${finish}`, this.headerOptions )
+      .map( this.extractData )
+      .catch( this.handleError )
   }
 
   /**
@@ -47,11 +47,11 @@ export class ReportService extends BaseService<ReportData> {
    *
    * @memberOf ReportService
    */
-  public getReportHtml(plaque: string, start, finish): Observable<string> {
+  public getReportHtml( plaque: string, start, finish ): Observable<string> {
     return this.http
-      .get(`${API_URL}/report/printable?plaque=${plaque}&&dtIni=${start}&dtEnd=${finish}`, this.headerOptions)
-      .map(this.extractDataHtml)
-      .catch(this.handleError)
+      .get( `${API_URL}/report/printable?plaque=${plaque}&&dtIni=${start}&dtEnd=${finish}`, this.headerOptions )
+      .map( this.extractDataHtml )
+      .catch( this.handleError )
   }
 
   /**
@@ -63,12 +63,12 @@ export class ReportService extends BaseService<ReportData> {
    */
   public getPlaques(): Observable<any> {
     return this.http
-      .get(`${API_URL}/equipments`, this.headerOptions)
-      .map(data => {
+      .get( `${API_URL}/equipments`, this.headerOptions )
+      .map( data => {
         return data.json()
-          .filter(equip => equip.install)
-          .map(equip => equip.install.plaque)
+          .filter( equip => equip.install )
+          .map( equip => equip.install.plaque )
       })
-      .catch(this.handleError)
+      .catch( this.handleError )
   }
 }

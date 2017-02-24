@@ -13,7 +13,7 @@ export class RouteGuard implements CanActivate {
    *
    * @memberOf RouteGuard
    */
-  constructor(private router: Router, private auth: AuthService) { }
+  constructor( private router: Router, private auth: AuthService ) { }
 
   /**
    *
@@ -23,10 +23,10 @@ export class RouteGuard implements CanActivate {
    * @memberOf RouteGuard
    */
   public canActivate(): boolean {
-    if (this.auth.user().isAdmin) {
+    if ( this.auth.user().isAdmin ) {
       return true
     }
-    this.router.navigate(['/app/report'])
+    this.router.navigate( [ '/app/report' ] )
     return false
   }
 }

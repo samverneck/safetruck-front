@@ -3,7 +3,7 @@ import { Router } from '@angular/router'
 
 import { AuthService, AppConfig } from './../../../../core'
 
-@Component({
+@Component( {
   selector: 'navbar',
   templateUrl: './navbar.component.html'
 })
@@ -23,8 +23,8 @@ export class NavbarComponent {
    *
    * @memberOf NavbarComponent
    */
-  constructor(private auth: AuthService, private router: Router, el: ElementRef, config: AppConfig) {
-    this.$el = $(el.nativeElement)
+  constructor( private auth: AuthService, private router: Router, el: ElementRef, config: AppConfig ) {
+    this.$el = $( el.nativeElement )
     this.config = config.getConfig()
   }
 
@@ -36,7 +36,7 @@ export class NavbarComponent {
    */
   public logout() {
     this.auth.logout()
-    this.router.navigate(['/auth/login'])
+    this.router.navigate( [ '/auth/login' ] )
   }
 
   /**
@@ -46,8 +46,8 @@ export class NavbarComponent {
    *
    * @memberOf NavbarComponent
    */
-  public toggleSidebar(state): void {
-    this.toggleSidebarEvent.emit(state)
+  public toggleSidebar( state ): void {
+    this.toggleSidebarEvent.emit( state )
   }
 
   /**
@@ -57,6 +57,6 @@ export class NavbarComponent {
    * @memberOf NavbarComponent
    */
   public toggleChat(): void {
-    this.toggleChatEvent.emit(null)
+    this.toggleChatEvent.emit( null )
   }
 }

@@ -1,9 +1,9 @@
 import { Component, ViewEncapsulation } from '@angular/core'
 import { Router } from '@angular/router'
 
-@Component({
+@Component( {
   selector: 'error',
-  styleUrls: ['./error.component.scss'],
+  styleUrls: [ './error.component.scss' ],
   templateUrl: './error.component.html',
   encapsulation: ViewEncapsulation.None,
   // tslint:disable-next-line:use-host-property-decorator
@@ -19,7 +19,7 @@ export class ErrorComponent {
    *
    * @memberOf ErrorComponent
    */
-  constructor(private router: Router) {}
+  constructor( private router: Router ) { }
 
   /**
    *
@@ -28,6 +28,6 @@ export class ErrorComponent {
    * @memberOf ErrorComponent
    */
   public searchResult(): void {
-    this.router.navigate(['/app', 'dashboard'])
+    this.router.navigate( [ '/app', 'dashboard' ] )
   }
 }

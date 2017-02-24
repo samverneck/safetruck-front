@@ -14,9 +14,9 @@ export class AuthService {
    *
    * @memberOf AuthService
    */
-  constructor(private http: Http) {
+  constructor( private http: Http ) {
     // set token if saved in local storage
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'))
+    let currentUser = JSON.parse( localStorage.getItem( 'currentUser' ) )
     this.token = currentUser && currentUser.token
   }
 
@@ -29,23 +29,23 @@ export class AuthService {
    *
    * @memberOf AuthService
    */
-  public login(email: string, password: string): Observable<boolean> {
-    let headers = new Headers({ 'Content-Type': 'application/json' })
-    let options = new RequestOptions({ headers: headers })
+  public login( email: string, password: string ): Observable<boolean> {
+    let headers = new Headers( { 'Content-Type': 'application/json' })
+    let options = new RequestOptions( { headers: headers })
 
-    return this.http.post(`${API_URL}/login`, { email: email, password: password }, options)
-      .map((response: Response) => {
+    return this.http.post( `${API_URL}/login`, { email: email, password: password }, options )
+      .map(( response: Response ) => {
         // login successful if there's a jwt token in the response
         let token = response.json()
 
-        if (token) {
+        if ( token ) {
           // set token property
           this.token = token
           // store email and jwt token in local storage to
           // keep user logged in between page refreshes
           localStorage.setItem(
             'currentUser',
-            JSON.stringify({ email: email, token: token })
+            JSON.stringify( { email: email, token: token })
           )
 
           // return true to indicate successful login
@@ -66,8 +66,8 @@ export class AuthService {
   public logout(): void {
     // clear token remove user from local storage to log user out
     this.token = null
-    localStorage.removeItem('currentUser')
-    localStorage.removeItem('userData')
+    localStorage.removeItem( 'currentUser' )
+    localStorage.removeItem( 'userData' )
   }
 
   /**
@@ -78,12 +78,12 @@ export class AuthService {
    * @memberOf AuthService
    */
   public getHeaders() {
-    let authToken = JSON.parse(localStorage.getItem('currentUser')).token
+    let authToken = JSON.parse( localStorage.getItem( 'currentUser' ) ).token
     let headers = new Headers()
-    headers.append('Content-Type', 'application/json')
-    headers.append('Authorization', authToken)
+    headers.append( 'Content-Type', 'application/json' )
+    headers.append( 'Authorization', authToken )
 
-    return new RequestOptions({ headers: headers })
+    return new RequestOptions( { headers: headers })
   }
 
   /**
@@ -94,8 +94,8 @@ export class AuthService {
    * @memberOf AuthService
    */
   public user() {
-    return localStorage.getItem('currentUser')
-      ? decode(JSON.parse(localStorage.getItem('currentUser')).token)
+    return localStorage.getItem( 'currentUser' )
+      ? decode( JSON.parse( localStorage.getItem( 'currentUser' ) ).token )
       : false
   }
 

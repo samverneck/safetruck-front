@@ -1,6 +1,6 @@
 
 import { Component, Input } from '@angular/core'
-@Component({
+@Component( {
   selector: 'validation-message',
   providers: [],
   templateUrl: './validation-message.html'

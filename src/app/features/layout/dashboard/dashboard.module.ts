@@ -10,7 +10,7 @@ import { DashboardComponent } from './dashboard.component'
 // libs
 import 'jquery.animate-number/jquery.animateNumber.js'
 
-@NgModule({
+@NgModule( {
   imports: [
     SharedModule,
     DashboardRoutingModule

@@ -7,10 +7,10 @@ export const dashboardRoutes: Routes = [
   { path: '', component: DashboardComponent, pathMatch: 'full' }
 ]
 
-@NgModule({
+@NgModule( {
   imports: [
     RouterModule,
-    RouterModule.forChild(dashboardRoutes)
+    RouterModule.forChild( dashboardRoutes )
   ],
   exports: [
     RouterModule

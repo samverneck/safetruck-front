@@ -16,9 +16,9 @@ export class UserService extends BaseService<User> {
    *
    * @memberOf UserService
    */
-  constructor(http: Http, auth: AuthService) {
-    super(http, auth)
-    super.setResource('me')
+  constructor( http: Http, auth: AuthService ) {
+    super( http, auth )
+    super.setResource( 'me' )
   }
 
   /**
@@ -31,8 +31,8 @@ export class UserService extends BaseService<User> {
    */
   public me(): Observable<User> {
     return this.http
-      .get(`${API_URL}/${this.resource}`, this.headerOptions)
-      .map(this.extractData)
-      .catch(this.handleError)
+      .get( `${API_URL}/${this.resource}`, this.headerOptions )
+      .map( this.extractData )
+      .catch( this.handleError )
   }
 }

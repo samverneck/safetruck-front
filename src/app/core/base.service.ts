@@ -22,7 +22,7 @@ export class BaseService<T extends BaseModel> {
    *
    * @memberOf BaseService
    */
-  constructor(public http: Http, public auth: AuthService) {
+  constructor( public http: Http, public auth: AuthService ) {
     this.headerOptions = this.auth.getHeaders()
   }
 
@@ -33,7 +33,7 @@ export class BaseService<T extends BaseModel> {
    *
    * @memberOf BaseService
    */
-  public setResource(resource: string): void {
+  public setResource( resource: string ): void {
     this.resource = resource
   }
 
@@ -45,11 +45,11 @@ export class BaseService<T extends BaseModel> {
    *
    * @memberOf BaseService
    */
-  public save(model: T): Observable<T> {
-    if (model.id) {
-      return this.update(model)
+  public save( model: T ): Observable<T> {
+    if ( model.id ) {
+      return this.update( model )
     }
-    return this.create(model)
+    return this.create( model )
   }
 
   /**
@@ -60,11 +60,11 @@ export class BaseService<T extends BaseModel> {
    *
    * @memberOf BaseService
    */
-  public create(model: T): Observable<T> {
+  public create( model: T ): Observable<T> {
     return this.http
-      .post(`${API_URL}/${this.resource}`, model, this.headerOptions)
-      .map(this.extractData)
-      .catch(this.handleError)
+      .post( `${API_URL}/${this.resource}`, model, this.headerOptions )
+      .map( this.extractData )
+      .catch( this.handleError )
   }
 
   /**
@@ -75,11 +75,11 @@ export class BaseService<T extends BaseModel> {
    *
    * @memberOf BaseService
    */
-  public update(model: T): Observable<T> {
+  public update( model: T ): Observable<T> {
     return this.http
-      .put(`${API_URL}/${this.resource}/${model.id}`, model, this.headerOptions)
-      .map(this.extractData)
-      .catch(this.handleError)
+      .put( `${API_URL}/${this.resource}/${model.id}`, model, this.headerOptions )
+      .map( this.extractData )
+      .catch( this.handleError )
   }
 
   /**
@@ -90,11 +90,11 @@ export class BaseService<T extends BaseModel> {
    *
    * @memberOf BaseService
    */
-  public delete(model: T): Observable<T> {
+  public delete( model: T ): Observable<T> {
     return this.http
-      .delete(`${API_URL}/${this.resource}/${model.id}`, this.headerOptions)
-      .map(this.extractData)
-      .catch(this.handleError)
+      .delete( `${API_URL}/${this.resource}/${model.id}`, this.headerOptions )
+      .map( this.extractData )
+      .catch( this.handleError )
   }
 
   /**
@@ -106,9 +106,9 @@ export class BaseService<T extends BaseModel> {
    */
   public getAll(): Observable<T[]> {
     return this.http
-      .get(`${API_URL}/${this.resource}`, this.headerOptions)
-      .map(this.extractData)
-      .catch(this.handleError)
+      .get( `${API_URL}/${this.resource}`, this.headerOptions )
+      .map( this.extractData )
+      .catch( this.handleError )
   }
 
   /**
@@ -119,11 +119,11 @@ export class BaseService<T extends BaseModel> {
    *
    * @memberOf BaseService
    */
-  public getById(id): Observable<T> {
+  public getById( id ): Observable<T> {
     return this.http
-      .get(`${API_URL}/${this.resource}/${id}`, this.headerOptions)
-      .map(this.extractData)
-      .catch(this.handleError)
+      .get( `${API_URL}/${this.resource}/${id}`, this.headerOptions )
+      .map( this.extractData )
+      .catch( this.handleError )
   }
 
   /**
@@ -134,7 +134,7 @@ export class BaseService<T extends BaseModel> {
    *
    * @memberOf BaseService
    */
-  public extractData(res: Response) {
+  public extractData( res: Response ) {
     let body = res.json()
     return body
   }
@@ -147,7 +147,7 @@ export class BaseService<T extends BaseModel> {
    *
    * @memberOf BaseService
    */
-  public extractDataHtml(res: Response) {
+  public extractDataHtml( res: Response ) {
     let body = res.text()
     return body
   }
@@ -160,14 +160,14 @@ export class BaseService<T extends BaseModel> {
    *
    * @memberOf BaseService
    */
-  public handleError(error: Response | any) {
+  public handleError( error: Response | any ) {
     let errMsg: string
-    if (error instanceof Response) {
+    if ( error instanceof Response ) {
       const body = error.json() || ''
-      errMsg = body.message || JSON.stringify(body)
+      errMsg = body.message || JSON.stringify( body )
     } else {
       errMsg = error.message ? error.message : error.toString()
     }
-    return Observable.throw(errMsg)
+    return Observable.throw( errMsg )
   }
 }

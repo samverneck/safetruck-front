@@ -7,13 +7,13 @@ export const routes: Routes = [
   { path: '', component: ReportComponent }
 ]
 
-@NgModule({
+@NgModule( {
   imports: [
     RouterModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild( routes )
   ],
   exports: [
     RouterModule
   ]
 })
-export class ReportRoutingModule {}
+export class ReportRoutingModule { }

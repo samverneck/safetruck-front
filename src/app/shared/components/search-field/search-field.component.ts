@@ -1,6 +1,6 @@
 import { Component, Output, Input, EventEmitter } from '@angular/core'
 
-@Component({
+@Component( {
   selector: 'search-field',
   templateUrl: './search-field.component.html',
   styles: [
@@ -21,7 +21,7 @@ export class SearchFieldComponent {
    *
    * @memberOf SearchFieldComponent
    */
-  public update(text: string) {
-    this.change.emit(text)
+  public update( text: string ) {
+    this.change.emit( text )
   }
 }

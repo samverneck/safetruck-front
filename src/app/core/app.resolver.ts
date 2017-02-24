@@ -15,8 +15,8 @@ export class DataResolver implements Resolve<any> {
    *
    * @memberOf DataResolver
    */
-  public resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return Observable.of({ res: 'I am data' })
+  public resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ) {
+    return Observable.of( { res: 'I am data' })
   }
 }
 

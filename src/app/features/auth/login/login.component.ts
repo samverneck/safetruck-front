@@ -3,9 +3,9 @@ import { Router } from '@angular/router'
 
 import { AuthService } from './../../../core'
 
-@Component({
+@Component( {
   selector: 'login',
-  styleUrls: ['./login.component.scss'],
+  styleUrls: [ './login.component.scss' ],
   templateUrl: './login.component.html',
   encapsulation: ViewEncapsulation.None,
   // tslint:disable-next-line:use-host-property-decorator
@@ -25,7 +25,7 @@ export class LoginComponent {
    *
    * @memberOf LoginComponent
    */
-  public constructor(private auth: AuthService, private router: Router) { }
+  public constructor( private auth: AuthService, private router: Router ) { }
 
   /**
    *
@@ -34,19 +34,19 @@ export class LoginComponent {
    * @memberOf LoginComponent
    */
   public authenticateUser() {
-    $('.alert').hide()
-    this.auth.login(this.email, this.pass)
+    $( '.alert' ).hide()
+    this.auth.login( this.email, this.pass )
       .toPromise()
-      .then(result => {
-        if (result === true) {
-          this.router.navigate(['/app'])
+      .then( result => {
+        if ( result === true ) {
+          this.router.navigate( [ '/app' ] )
         } else {
-          $('.alert').show('fast')
+          $( '.alert' ).show( 'fast' )
         }
       })
-      .catch(error => {
-        console.log(error)
-        $('.alert').show('fast')
+      .catch( error => {
+        console.log( error )
+        $( '.alert' ).show( 'fast' )
       })
   }
 }

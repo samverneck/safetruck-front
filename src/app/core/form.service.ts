@@ -10,18 +10,18 @@ export class FormService {
    *
    * @memberOf FormUtils
    */
-  public serialize(formId: string) {
-    let form = $(formId)
+  public serialize( formId: string ) {
+    let form = $( formId )
     let obj = {}
-    let data = $(form).serializeArray()
-    data.map((input) => {
-      if (obj[input.name] !== undefined) {
-        if (!obj[input.name].push) {
-          obj[input.name] = [obj[input.name]]
+    let data = $( form ).serializeArray()
+    data.map(( input ) => {
+      if ( obj[ input.name ] !== undefined ) {
+        if ( !obj[ input.name ].push ) {
+          obj[ input.name ] = [ obj[ input.name ] ]
         }
-        obj[input.name].push(input.value || '')
+        obj[ input.name ].push( input.value || '' )
       } else {
-        obj[input.name] = input.value || ''
+        obj[ input.name ] = input.value || ''
       }
     })
 
@@ -36,13 +36,13 @@ export class FormService {
    *
    * @memberOf FormUtils
    */
-  public slugger(str: string) {
+  public slugger( str: string ) {
     return str || ''.toLowerCase()
-      .replace(/\s+/g, '')            // Remove spaces
-      .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-      .replace(/\-\-+/g, '')          // Remove multiple -
-      .replace(/^-+/, '')             // Trim - from start of text
-      .replace(/-+$/, '')             // Trim - from end of text
+      .replace( /\s+/g, '' )            // Remove spaces
+      .replace( /[^\w\-]+/g, '' )       // Remove all non-word chars
+      .replace( /\-\-+/g, '' )          // Remove multiple -
+      .replace( /^-+/, '' )             // Trim - from start of text
+      .replace( /-+$/, '' )             // Trim - from end of text
   }
 
   /**
@@ -52,12 +52,12 @@ export class FormService {
    *
    * @memberOf FormUtils
    */
-  public clear(formId: string) {
-    let form = $(formId)
+  public clear( formId: string ) {
+    let form = $( formId )
     let el = form.serializeArray()
-    form.trigger('reset')
-    el.map((input) => {
-      $(`[name="${input.name}"]`).removeClass('error')
+    form.trigger( 'reset' )
+    el.map(( input ) => {
+      $( `[name="${input.name}"]` ).removeClass( 'error' )
     })
   }
 }

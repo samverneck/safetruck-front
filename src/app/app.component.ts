@@ -9,7 +9,7 @@ import { AppStateService } from './core'
  * App Component
  * Top Level Component
  */
-@Component({
+@Component( {
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
   styleUrls: [
@@ -19,7 +19,7 @@ import { AppStateService } from './core'
 })
 export class AppComponent implements OnInit {
 
-  constructor(public appState: AppStateService) { }
+  constructor( public appState: AppStateService ) { }
 
   /**
    *

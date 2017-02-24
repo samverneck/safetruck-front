@@ -6,9 +6,9 @@ import 'rxjs/add/operator/toPromise'
 
 import { AuthService } from './../../../core'
 
-@Component({
+@Component( {
   selector: 'reset-password',
-  styleUrls: ['./reset-password.component.scss'],
+  styleUrls: [ './reset-password.component.scss' ],
   templateUrl: './reset-password.component.html',
   encapsulation: ViewEncapsulation.None
 })
@@ -45,22 +45,22 @@ export class ResetPasswordComponent implements OnInit {
    * @memberOf ResetPasswordComponent
    */
   public ngOnInit(): void {
-    this.path = window.location.href.split('/')[4]
-    this.route.params.forEach((params: Params) => {
-      if (params['token'] !== undefined) {
-        this.getTokenInfo(params['token'])
-          .then(token => {
+    this.path = window.location.href.split( '/' )[ 4 ]
+    this.route.params.forEach(( params: Params ) => {
+      if ( params[ 'token' ] !== undefined ) {
+        this.getTokenInfo( params[ 'token' ] )
+          .then( token => {
             let client = token.json()
-            if (!client.active) {
-              this.router.navigate(['/auth/login'])
+            if ( !client.active ) {
+              this.router.navigate( [ '/auth/login' ] )
               return
             }
             this.email = client.email
-            this.token = params['token']
+            this.token = params[ 'token' ]
           })
-          .catch(error => {
-            console.log(error)
-            this.router.navigate(['/auth/login'])
+          .catch( error => {
+            console.log( error )
+            this.router.navigate( [ '/auth/login' ] )
           })
       }
     })
@@ -73,23 +73,23 @@ export class ResetPasswordComponent implements OnInit {
    * @memberOf ResetPasswordComponent
    */
   public changePassword() {
-    $('.alert').hide('fast')
-    if (this.password !== this.confirm) {
+    $( '.alert' ).hide( 'fast' )
+    if ( this.password !== this.confirm ) {
       this.errorMsg = 'As senhas precisam ser iguais.'
-      $('.alert').show('fast')
+      $( '.alert' ).show( 'fast' )
       return
     }
-    if (this.password.length < 6) {
+    if ( this.password.length < 6 ) {
       this.errorMsg = 'A senha deve conter pelo menos 6 caracteres.'
-      $('.alert').show('fast')
+      $( '.alert' ).show( 'fast' )
       return
     }
 
     this.http
-      .post(`${API_URL}/forgot/${this.token}`, { password: this.password })
+      .post( `${API_URL}/forgot/${this.token}`, { password: this.password })
       .toPromise()
-      .then(res => {
-        swal({
+      .then( res => {
+        swal( {
           title: this.path === 'forgot'
             ? 'Senha alterada'
             : 'Senha cadastrada',
@@ -98,21 +98,21 @@ export class ResetPasswordComponent implements OnInit {
             : 'A sua senha foi criada com sucesso.',
           type: 'success'
         }).then(() => {
-          this.auth.login(this.email, this.password)
+          this.auth.login( this.email, this.password )
             .toPromise()
-            .then(resp => this.router.navigate(['/app']))
+            .then( resp => this.router.navigate( [ '/app' ] ) )
         })
       }
       )
-      .catch(err => {
-        swal({
+      .catch( err => {
+        swal( {
           title: 'Erro',
           text: this.path === 'forgot'
             ? 'Houve algum problema ao atualizar sua senha. Tente novamente mais tarde'
             : 'Houve algum problema ao cadastrar sua senha. Tente novamente mais tarde',
           type: 'error'
         })
-        console.error(err)
+        console.error( err )
       })
   }
 
@@ -124,9 +124,9 @@ export class ResetPasswordComponent implements OnInit {
    *
    * @memberOf ResetPasswordComponent
    */
-  public getTokenInfo(token) {
+  public getTokenInfo( token ) {
     return this.http
-      .get(`${API_URL}/forgot/${token}`)
+      .get( `${API_URL}/forgot/${token}` )
       .toPromise()
   }
 

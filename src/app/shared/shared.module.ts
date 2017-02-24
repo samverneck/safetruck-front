@@ -29,7 +29,7 @@ import { ValidationMessageComponent } from './components/validation-message/vali
 import { KeysPipe } from './pipes/keys.pipe'
 import { SlugfyPipe } from './pipes/slugfy.pipe'
 
-@NgModule({
+@NgModule( {
   imports: [
     CommonModule,
     TooltipModule.forRoot(),

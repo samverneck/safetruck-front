@@ -9,7 +9,6 @@
       "never"
     ],
     "member-access": true,
-
     // Angular style guide via codelizer
     "directive-selector": [
       false,

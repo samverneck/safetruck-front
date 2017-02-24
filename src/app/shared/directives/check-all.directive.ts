@@ -1,6 +1,6 @@
 import { Directive, ElementRef, OnInit } from '@angular/core'
 
-@Directive({ selector: '[check-all]' })
+@Directive( { selector: '[check-all]' })
 export class CheckAllDirective implements OnInit {
   public $el: any
 
@@ -10,8 +10,8 @@ export class CheckAllDirective implements OnInit {
    *
    * @memberOf CheckAllDirective
    */
-  constructor(el: ElementRef) {
-    this.$el = $(el.nativeElement)
+  constructor( el: ElementRef ) {
+    this.$el = $( el.nativeElement )
   }
 
   /**
@@ -22,9 +22,9 @@ export class CheckAllDirective implements OnInit {
    */
   public ngOnInit(): void {
     let $el = this.$el
-    $el.on('click', function(): void {
-      $el.closest('table').find('input[type=checkbox]')
-        .not(this).prop('checked', $(this).prop('checked'))
+    $el.on( 'click', function (): void {
+      $el.closest( 'table' ).find( 'input[type=checkbox]' )
+        .not( this ).prop( 'checked', $( this ).prop( 'checked' ) )
     })
   }
 }

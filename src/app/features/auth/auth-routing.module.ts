@@ -20,11 +20,11 @@ const authRoutes: Routes = [
   }
 ]
 
-@NgModule({
+@NgModule( {
   imports: [
     RouterModule,
-    RouterModule.forChild(authRoutes)
+    RouterModule.forChild( authRoutes )
   ],
-  exports: [RouterModule]
+  exports: [ RouterModule ]
 })
 export class AuthRoutingModule { }

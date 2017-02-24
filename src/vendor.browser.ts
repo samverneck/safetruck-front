@@ -23,7 +23,7 @@ import 'bootstrap'
 import 'widgster'
 import 'pace'
 
-if ('production' === ENV) {
+if ( 'production' === ENV ) {
   //
 } else {
   //

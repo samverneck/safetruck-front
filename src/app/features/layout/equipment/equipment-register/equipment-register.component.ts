@@ -5,10 +5,10 @@ import { ValidationService, MessagesService, FormService } from '../../../../cor
 import { EquipmentService, Equipment, EquipmentInstall, Orientation, EVechicleType, EquipmentType } from '../shared'
 import { ClientService, Client } from '../../client/shared'
 
-@Component({
+@Component( {
   selector: 'equipment-register',
   templateUrl: './equipment-register.component.html',
-  styleUrls: ['./equipment-register.component.scss', '../../../../scss/notifications.scss'],
+  styleUrls: [ './equipment-register.component.scss', '../../../../scss/notifications.scss' ],
   encapsulation: ViewEncapsulation.None
 })
 
@@ -34,12 +34,12 @@ export class EquipmentRegisterComponent implements OnInit {
    *
    * @memberOf EquipmentRegisterComponent
    */
-  constructor(public route: ActivatedRoute,
+  constructor( public route: ActivatedRoute,
     public equipmentService: EquipmentService,
     public clientService: ClientService,
     public validation: ValidationService,
     public messages: MessagesService,
-    public formUtils: FormService) { }
+    public formUtils: FormService ) { }
 
   /**
    *
@@ -49,23 +49,23 @@ export class EquipmentRegisterComponent implements OnInit {
    */
   public ngOnInit(): void {
 
-    this.clientService.getAll().subscribe({
+    this.clientService.getAll().subscribe( {
       next: clients => this.clients = clients,
       error: console.error
     })
 
-    this.equipmentService.getAll().subscribe({
+    this.equipmentService.getAll().subscribe( {
       next: equipments => this.equipments = equipments,
       complete: () => { this.showTable = true },
       error: console.error
     })
 
-    if (window.location.href.split('/')[5] === 'view') {
+    if ( window.location.href.split( '/' )[ 5 ] === 'view' ) {
       this.getClientData()
       this.showTable = false
       this.viewMode = true
     }
-    if (window.location.href.split('/')[5] === 'register') {
+    if ( window.location.href.split( '/' )[ 5 ] === 'register' ) {
       this.showTable = true
       this.viewMode = false
       // this.clientService.getAll().subscribe({
@@ -74,7 +74,7 @@ export class EquipmentRegisterComponent implements OnInit {
       // })
     }
 
-    $('.date').datepicker({
+    $( '.date' ).datepicker( {
       autoclose: true,
       todayBtn: 'linked',
       todayHighlight: true,
@@ -90,12 +90,12 @@ export class EquipmentRegisterComponent implements OnInit {
    * passado pela URL
    */
   public getClientData() {
-    this.route.params.forEach((params: Params) => {
-      if (params['id'] !== undefined) {
-        this.equipmentService.getById(params['id']).subscribe({
-          next: (equipment) => this.loadEquipmentData(equipment),
+    this.route.params.forEach(( params: Params ) => {
+      if ( params[ 'id' ] !== undefined ) {
+        this.equipmentService.getById( params[ 'id' ] ).subscribe( {
+          next: ( equipment ) => this.loadEquipmentData( equipment ),
           error: error => {
-            console.log(error)
+            console.log( error )
             window.history.back()
           }
         })
@@ -112,12 +112,12 @@ export class EquipmentRegisterComponent implements OnInit {
    */
   public saveEquipament() {
     // Validando...
-    if (!this.validation.validateForm('#equipmentForm')) { return }
+    if ( !this.validation.validateForm( '#equipmentForm' ) ) { return }
     // Obtendo os dados do formuulário
     let equipment: Equipment = this.getFormData()
     // Fazendo o POST/PUT para api
-    this.equipmentService.save(equipment).subscribe({
-      next: (response) => {
+    this.equipmentService.save( equipment ).subscribe( {
+      next: ( response ) => {
         this.updateEquipmentsTable()
         this.messages.showAlert(
           equipment.id ? 'Atualizado' : 'Cadastrado',
@@ -128,7 +128,7 @@ export class EquipmentRegisterComponent implements OnInit {
         )
         // console.info(response)
       },
-      error: (err) => {
+      error: ( err ) => {
         this.messages.showAlert(
           'Erro',
           equipment.id
@@ -136,7 +136,7 @@ export class EquipmentRegisterComponent implements OnInit {
             : `Ocorreu um erro ao cadastrar o equipamento. ${err}.`,
           'error'
         )
-        console.error(err)
+        console.error( err )
       },
       complete: () => {
         this.clearForm()
@@ -150,8 +150,8 @@ export class EquipmentRegisterComponent implements OnInit {
    */
   public updateEquipmentsTable(): void {
     this.showTable = false
-    this.equipmentService.getAll().subscribe({
-      next: (resp) => {
+    this.equipmentService.getAll().subscribe( {
+      next: ( resp ) => {
         this.equipments = resp
         this.showTable = true
       },
@@ -164,8 +164,8 @@ export class EquipmentRegisterComponent implements OnInit {
    * @param {Equipment} equipment
    * @memberOf EquipmentRegisterPage
    */
-  public deleteEquipment(equipment: Equipment) {
-    swal({
+  public deleteEquipment( equipment: Equipment ) {
+    swal( {
       title: 'Deletar equipamento',
       text: `Tem certeza que deseja deletar o equipamento ${equipment.code}?`,
       type: 'warning',
@@ -173,18 +173,18 @@ export class EquipmentRegisterComponent implements OnInit {
       cancelButtonText: 'Não',
       confirmButtonText: 'Sim'
     }).then(() => {
-      this.equipmentService.delete(equipment).subscribe({
-        next: (resp) => {
+      this.equipmentService.delete( equipment ).subscribe( {
+        next: ( resp ) => {
           this.updateEquipmentsTable()
-          console.log(resp)
+          console.log( resp )
           swal(
             'Deletado!',
             `O cliente ${equipment.code} foi deletado com sucesso.`,
             'success'
           )
         },
-        error: (err) => {
-          console.error(err)
+        error: ( err ) => {
+          console.error( err )
           swal(
             'Erro!',
             `Ocorreu um erro ao deletar o equipamento. ${err}`,
@@ -192,7 +192,7 @@ export class EquipmentRegisterComponent implements OnInit {
           )
         }
       })
-    }).catch((err) => err)
+    }).catch(( err ) => err )
   }
 
   /**
@@ -201,19 +201,19 @@ export class EquipmentRegisterComponent implements OnInit {
    * @memberOf EquipmentRegisterPage
    */
   public getFormData(): Equipment {
-    let data = this.formUtils.serialize('#equipmentForm')
+    let data = this.formUtils.serialize( '#equipmentForm' )
     let install: EquipmentInstall = {
-      vehicleType: data['vehicle'],
-      plaque: data['plaque'],
-      orientation: data['orientation'],
-      clientId: data['client-id'],
-      installation: data['installation'],
-      admeasurement: data['admeasurement']
+      vehicleType: data[ 'vehicle' ],
+      plaque: data[ 'plaque' ],
+      orientation: data[ 'orientation' ],
+      clientId: data[ 'client-id' ],
+      installation: data[ 'installation' ],
+      admeasurement: data[ 'admeasurement' ]
     }
     let equipment: Equipment = {
       id: this.equipmentId ? this.equipmentId : null,
-      code: data['code'],
-      type: data['equipment'],
+      code: data[ 'code' ],
+      type: data[ 'equipment' ],
       install: install
     }
 
@@ -227,18 +227,18 @@ export class EquipmentRegisterComponent implements OnInit {
    *
    * @memberOf EquipmentRegisterComponent
    */
-  public loadEquipmentData(equipment: Equipment): void {
+  public loadEquipmentData( equipment: Equipment ): void {
     this.clearForm()
     this.equipmentId = equipment.id
-    $('[name="code"]').val(equipment.code)
-    $('[name="plaque"]').val(equipment.install.plaque)
-    $('[name="vehicle"]').val(equipment.install.vehicleType)
-    $('[name="equipment"]').val(equipment.type)
-    $('[name="orientation"]').val(equipment.install.orientation)
-    $('[name="client-id"]').val(equipment.install.clientId)
-    $('[name="installation"]').val(equipment.install.installation)
-    $('[name="admeasurement"]').val(equipment.install.admeasurement)
-    $('[name="clientName"]').val(equipment.install.client.companyName)
+    $( '[name="code"]' ).val( equipment.code )
+    $( '[name="plaque"]' ).val( equipment.install.plaque )
+    $( '[name="vehicle"]' ).val( equipment.install.vehicleType )
+    $( '[name="equipment"]' ).val( equipment.type )
+    $( '[name="orientation"]' ).val( equipment.install.orientation )
+    $( '[name="client-id"]' ).val( equipment.install.clientId )
+    $( '[name="installation"]' ).val( equipment.install.installation )
+    $( '[name="admeasurement"]' ).val( equipment.install.admeasurement )
+    $( '[name="clientName"]' ).val( equipment.install.client.companyName )
   }
 
   /**
@@ -248,7 +248,7 @@ export class EquipmentRegisterComponent implements OnInit {
    * @memberOf EquipmentRegisterComponent
    */
   public toUpperPlaque() {
-    $('[name="plaque"]').val($('[name="plaque"]').val().toUpperCase())
+    $( '[name="plaque"]' ).val( $( '[name="plaque"]' ).val().toUpperCase() )
   }
 
   /**
@@ -259,6 +259,6 @@ export class EquipmentRegisterComponent implements OnInit {
    */
   public clearForm() {
     this.equipmentId = null
-    this.formUtils.clear('#equipmentForm')
+    this.formUtils.clear( '#equipmentForm' )
   }
 }
