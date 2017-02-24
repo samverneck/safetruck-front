@@ -20,7 +20,7 @@ import { WidgetDirective } from './directives/widget.directive'
 // components
 import { SearchFieldComponent } from './components/search-field/search-field.component'
 import { SelectEnumComponent } from './components/select-enum/select-enum.component'
-import { ValiationMessageComponent } from './components/validation-message/validation-message'
+import { ValidationMessageComponent } from './components/validation-message/validation-message'
 
 // pipes
 import { KeysPipe } from './pipes/keys.pipe'
@@ -42,6 +42,7 @@ import { KeysPipe } from './pipes/keys.pipe'
     WidgetDirective,
     SearchFieldComponent,
     SelectEnumComponent,
+    ValidationMessageComponent,
     KeysPipe
   ],
   exports: [
@@ -58,7 +59,7 @@ import { KeysPipe } from './pipes/keys.pipe'
 
     SearchFieldComponent,
     SelectEnumComponent,
-    ValiationMessageComponent,
+    ValidationMessageComponent,
 
     KeysPipe
   ]

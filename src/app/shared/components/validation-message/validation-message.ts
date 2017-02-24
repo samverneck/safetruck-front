@@ -5,6 +5,6 @@ import { Component, Input } from '@angular/core'
   providers: [],
   templateUrl: './validation-message.html'
 })
-export class ValiationMessageComponent {
+export class ValidationMessageComponent {
   @Input() public error: any
 }
