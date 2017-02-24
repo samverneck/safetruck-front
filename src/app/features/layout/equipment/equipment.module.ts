@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 
 // modules
-import { EquipmentRoutingModule, equipmentRoutes } from './equipment-routing.module'
+import { EquipmentRoutingModule } from './equipment-routing.module'
 import { SharedModule } from '../../../shared/shared.module'
 
 // components
@@ -39,6 +39,4 @@ import 'jasny-bootstrap/js/inputmask.js'
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
-export class EquipmentModule {
-  public static ROUTES = equipmentRoutes
-}
+export default class EquipmentModule { }

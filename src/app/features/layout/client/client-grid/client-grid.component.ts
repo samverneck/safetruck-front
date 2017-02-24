@@ -13,7 +13,7 @@ export class ClientGridComponent {
 
   @Input() public data: Client[]
   @Input() public title: string = 'Clientes'
-  @Input() public showDeleteButton: boolean = true
+  @Input() public readOnlyMode: boolean = true
   @Output() public onSelectClient: EventEmitter<Client> = new EventEmitter()
   @Output() public onDeleteClient: EventEmitter<Client> = new EventEmitter()
 
@@ -45,8 +45,18 @@ export class ClientGridComponent {
    *
    * @memberOf ClientGridComponent
    */
-  public selected( client: Client ) {
+  public select( client: Client ) {
     this.selectedClient = client
     this.onSelectClient.emit( client )
+  }
+
+  /**
+   *
+   *
+   *
+   * @memberOf ClientGridComponent
+   */
+  public unselect() {
+    this.selectedClient = undefined
   }
 }

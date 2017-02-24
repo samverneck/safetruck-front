@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
 import { LayoutComponent } from './layout.component'
-import { ClientModule } from './client/client.module'
-import { EquipmentModule } from './equipment/equipment.module'
 import { AuthGuard, RouteGuard } from '../../core'
 
 const layoutRoutes: Routes = [
@@ -14,9 +12,9 @@ const layoutRoutes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', canActivate: [ RouteGuard ], loadChildren: () => System.import( './dashboard/dashboard.module' ) },
-      { path: 'report', loadChildren: () => System.import( './report/report.module' ) },
-      ...ClientModule.ROUTES,
-      ...EquipmentModule.ROUTES
+      { path: 'clients', loadChildren: () => System.import( './client/client.module' ) },
+      { path: 'equipments', loadChildren: () => System.import( './equipment/equipment.module' ) },
+      { path: 'report', loadChildren: () => System.import( './report/report.module' ) }
     ]
   }
 ]

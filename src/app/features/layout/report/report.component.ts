@@ -191,11 +191,11 @@ export class ReportComponent implements OnInit {
               popup.document.write( html )
               this.emitDataPopup( popup )
               popup.window.history.pushState( 'relatorio', 'Relatório de conduta', '/app/report' )
-              popup.onbeforeunload = function ( event ) {
+              popup.onbeforeunload = function( event ) {
                 popup.close()
                 return '.\n'
               }
-              popup.onabort = function ( event ) {
+              popup.onabort = function( event ) {
                 popup.document.close()
                 popup.close()
               }

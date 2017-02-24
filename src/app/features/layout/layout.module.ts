@@ -5,8 +5,6 @@ import { NgModule } from '@angular/core'
 // modules
 import { SharedModule } from '../../shared/shared.module'
 import { LayoutRoutingModule } from './layout-routing.module'
-import { ClientModule } from './client/client.module'
-import { EquipmentModule } from './equipment/equipment.module'
 
 // cmoponents
 import { LayoutComponent } from './layout.component'
@@ -19,8 +17,6 @@ import { ClientService } from './client/shared'
 @NgModule( {
   imports: [
     SharedModule,
-    ClientModule,
-    EquipmentModule,
     LayoutRoutingModule
   ],
   declarations: [

@@ -3,17 +3,17 @@ import { Component, EventEmitter, Output, Input } from '@angular/core'
 import { fadeInOut } from '../../../../core'
 import { EquipmentService, Equipment, EquipmentType } from '../shared'
 
-@Component({
+@Component( {
   selector: 'equipment-grid',
   templateUrl: './equipment-grid.component.html',
-  styleUrls: ['./equipment-grid.component.scss'],
-  animations: [fadeInOut]
+  styleUrls: [ './equipment-grid.component.scss' ],
+  animations: [ fadeInOut ]
 })
 export class EquipmentGridComponent {
 
   @Input() public data: Equipment[]
+  @Input() public readOnlyMode: boolean = false
   @Input() public title: string = 'Equipamentos'
-  @Input() public showDeleteButton: boolean = true
   @Output() public onSelectEquipment: EventEmitter<Equipment> = new EventEmitter()
   @Output() public onDeleteEquipment: EventEmitter<Equipment> = new EventEmitter()
 
@@ -26,7 +26,7 @@ export class EquipmentGridComponent {
    *
    * @memberOf EquipmentTableComponent
    */
-  public constructor(public equipmentService: EquipmentService) {}
+  public constructor( public equipmentService: EquipmentService ) { }
 
   /**
    *
@@ -35,8 +35,8 @@ export class EquipmentGridComponent {
    *
    * @memberOf EquipmentTableComponent
    */
-  public delete(equipment: Equipment) {
-    this.onDeleteEquipment.emit(equipment)
+  public delete( equipment: Equipment ) {
+    this.onDeleteEquipment.emit( equipment )
   }
 
   /**
@@ -46,8 +46,8 @@ export class EquipmentGridComponent {
    *
    * @memberOf EquipmentGridComponent
    */
-  public selected(equipment: Equipment) {
+  public select( equipment: Equipment ) {
     this.selectedEquipment = equipment
-    this.onSelectEquipment.emit(equipment)
+    this.onSelectEquipment.emit( equipment )
   }
 }

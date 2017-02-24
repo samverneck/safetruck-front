@@ -140,7 +140,7 @@ export class AppConfig {
    * @memberOf AppConfig
    */
   public changeColor( color, ratio, darker ): string {
-    let pad = function ( num, totalChars ): number {
+    let pad = function( num, totalChars ): number {
       let padVal = '0'
       num = num + ''
       while ( num.length < totalChars ) {
@@ -174,7 +174,7 @@ export class AppConfig {
     // Convert hex to decimal
     let decimal = rgb ? [ rgb[ 1 ], rgb[ 2 ], rgb[ 3 ] ] : color.replace(
       /^#?([a-f0-9][a-f0-9])([a-f0-9][a-f0-9])([a-f0-9][a-f0-9])/i,
-      function (): string {
+      function(): string {
         return parseInt( arguments[ 1 ], 16 ) + ',' +
           parseInt( arguments[ 2 ], 16 ) + ',' +
           parseInt( arguments[ 3 ], 16 )

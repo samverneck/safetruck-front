@@ -22,7 +22,7 @@ export class CheckAllDirective implements OnInit {
    */
   public ngOnInit(): void {
     let $el = this.$el
-    $el.on( 'click', function (): void {
+    $el.on( 'click', function(): void {
       $el.closest( 'table' ).find( 'input[type=checkbox]' )
         .not( this ).prop( 'checked', $( this ).prop( 'checked' ) )
     })

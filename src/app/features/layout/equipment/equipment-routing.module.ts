@@ -6,7 +6,7 @@ import { EquipmentRegisterComponent } from './equipment-register/equipment-regis
 import { EquipmentSearchComponent } from './equipment-search/equipment-search.component'
 
 export const equipmentRoutes: Routes = [ {
-  path: 'equipments',
+  path: '',
   component: EquipmentComponent,
   children: [
     { path: '', redirectTo: 'register' },
@@ -18,8 +18,8 @@ export const equipmentRoutes: Routes = [ {
 
 @NgModule( {
   imports: [
-    RouterModule
-    // RouterModule.forChild(equipmentRoutes)
+    RouterModule,
+    RouterModule.forChild( equipmentRoutes )
   ],
   exports: [ RouterModule ]
 })

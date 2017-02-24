@@ -1,13 +1,13 @@
 <ol class="breadcrumb">
   <li class="breadcrumb-item">Clientes</li>
-  <li class="breadcrumb-item active">Cadastro</li>
+  <li class="breadcrumb-item active">Visualizar</li>
 </ol>
-<div class="row">
+<div class="row" *ngIf="client">
   <div class="col-xs-12">
     <section class="widget" widget>
       <header>
         <h5>
-          <span>{{client?.id ?  'Atualizar Cliente' : 'Cadastrar Novo Cliente'}}</span>
+          <span>Exibindo {{client.companyName}}</span>
         </h5>
         <div class="widget-controls">
           <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
@@ -15,7 +15,7 @@
         </div>
       </header>
       <div class="widget-body">
-        <client-form [client]="client" (onSubmit)="saveClient($event)" (onCancel)="cancel()" (onZipCodeError)="notifyZipCodeError($event)">
+        <client-form [client]="client" [readOnlyMode]="true">
         </client-form>
       </div>
     </section>
@@ -23,7 +23,7 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-    <client-grid *ngIf="clients" [data]="clients" (onSelectClient)="selectClient($event)" (onDeleteClient)="deleteClient($event)">
-    </client-grid>
+    <equipment-grid *ngIf="client" [data]="client.equipments" [readOnlyMode]="true">
+    </equipment-grid>
   </div>
 </div>
