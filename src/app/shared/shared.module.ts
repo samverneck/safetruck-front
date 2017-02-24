@@ -24,6 +24,7 @@ import { ValidationMessageComponent } from './components/validation-message/vali
 
 // pipes
 import { KeysPipe } from './pipes/keys.pipe'
+import { SlugfyPipe } from './pipes/slugfy.pipe'
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import { KeysPipe } from './pipes/keys.pipe'
     SearchFieldComponent,
     SelectEnumComponent,
     ValidationMessageComponent,
-    KeysPipe
+    KeysPipe,
+    SlugfyPipe
   ],
   exports: [
     CommonModule,
@@ -61,7 +63,8 @@ import { KeysPipe } from './pipes/keys.pipe'
     SelectEnumComponent,
     ValidationMessageComponent,
 
-    KeysPipe
+    KeysPipe,
+    SlugfyPipe
   ]
 })
 export class SharedModule {
