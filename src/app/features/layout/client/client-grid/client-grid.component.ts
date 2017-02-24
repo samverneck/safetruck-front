@@ -38,7 +38,6 @@ export class ClientGridComponent {
     this.onDeleteClient.emit(client)
   }
 
-
   /**
    *
    *

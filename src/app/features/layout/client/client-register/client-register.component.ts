@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation, OnInit, AfterViewChecked, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { NgForm } from '@angular/forms'
+import * as _ from 'lodash'
 
 import { ValidationService, CepService, MessagesService, FormService, STATES } from '../../../../core'
 
@@ -20,7 +21,7 @@ export class ClientRegisterComponent implements OnInit, AfterViewChecked {
   @ViewChild('clientForm') public currentForm: NgForm
   public clientForm: NgForm
   public clients: Client[]
-  public client: Client = { address: {}, contact: {} } as Client
+  public client: Client = { address: {}, contact: {}, shareDangerousPoints: false } as Client
   public viewMode: boolean
   public states: { abbr: string, name: string }[] = STATES
   public errors = {}
@@ -43,22 +44,48 @@ export class ClientRegisterComponent implements OnInit, AfterViewChecked {
 
   public validationMessages = {
     'companyName': {
-      'required': 'Obrigatório'
+      'required': 'Obrigatório',
+      'minlength': 'Mínimo 3'
     },
     'tradingName': {
-      'required': 'Obrigatório'
+      'required': 'Obrigatório',
+      'minlength': 'Mínimo 3'
     },
     'cnpj': {
-      'required': 'Obrigatório'
+      'required': 'Obrigatório',
+      'cnpj': '00.000.000/0000.00'
     },
     'alias': {
-      'required': 'Obrigatório'
+      'required': 'Obrigatório', // só pode ter lowercase/letras e numeros
+      'minlength': 'Mínimo 3',
+      'maxlength': 'Máximo 56',
+      'pattern': 'Alias inválido'
     },
     'market': {
       'required': 'Obrigatório'
     },
-    'address.zipcode': {
+    'limit': {
       'required': 'Obrigatório'
+    },
+    'forwardAcceleration': {
+      'required': 'Obrigatório'
+    },
+    'braking': {
+      'required': 'Obrigatório'
+    },
+    'lateralAcceleration': {
+      'required': 'Obrigatório'
+    },
+    'verticalAcceleration': {
+      'required': 'Obrigatório'
+    },
+    'movingAverage': {
+      'required': 'Obrigatório',
+      'min': 'Mínimo 1'
+    },
+    'address.zipcode': {
+      'required': 'Obrigatório',
+      'zipcode': '00.000-000'
     },
     'address.address': {
       'required': 'Obrigatório'
@@ -76,16 +103,18 @@ export class ClientRegisterComponent implements OnInit, AfterViewChecked {
       'required': 'Obrigatório'
     },
     'contact.responsible': {
-      'required': 'Obrigatório'
+      'required': 'Obrigatório',
+      'minlength': 'Mínimo 6'
     },
     'contact.phone': {
-      'required': 'Obrigatório'
+      'required': 'Obrigatório',
+      'phone': '(00) 0000-0000'
     },
     'contact.email': {
-      'required': 'Obrigatório'
+      'required': 'Obrigatório',
+      'email': 'Email inválido'
     }
   }
-
 
   /**
    * Creates an instance of ClientComponent.
@@ -233,11 +262,8 @@ export class ClientRegisterComponent implements OnInit, AfterViewChecked {
    * @param {string} cep
    * @memberOf ClientPage
    */
-  public getAddress(cep: string): void {
-    cep = cep.replace(/\D/g, '')
-    if (!cep) { return }
-
-    this.cepService.getAddress(cep).subscribe({
+  public getAddress(zipcode: string): void {
+    this.cepService.getAddress(zipcode).subscribe({
       next: (address) => {
         if (address.erro) {
           this.messages.showNotification('CEP não encontrado ou inválido. Por favor informe o endereço manualmente.', 'error')
@@ -245,9 +271,7 @@ export class ClientRegisterComponent implements OnInit, AfterViewChecked {
           this.client.address = address
         }
       },
-      error: (err) => {
-        console.error('Erro ao obter CEP:', err)
-      }
+      error: error => this.handleError(error)
     })
   }
 
@@ -279,7 +303,7 @@ export class ClientRegisterComponent implements OnInit, AfterViewChecked {
    * @memberOf ClientRegisterComponent
    */
   public selectClient(client: Client) {
-    this.client = $.extend(true, {}, client)
+    this.client = _.merge({}, client)
   }
 
   /**
@@ -287,7 +311,8 @@ export class ClientRegisterComponent implements OnInit, AfterViewChecked {
    * @memberOf ClientPage
    */
   public clearForm(): void {
-    this.client = { id: this.client.id, address: {}, contact: {} } as Client
+    this.clientForm.form.reset()
+    this.client = { address: {}, contact: {}, shareDangerousPoints: false } as Client
   }
 
   /**
@@ -299,6 +324,6 @@ export class ClientRegisterComponent implements OnInit, AfterViewChecked {
    * @memberOf ClientRegisterComponent
    */
   private handleError(error: any): void {
-    console.log(error)
+    console.error(error)
   }
 }

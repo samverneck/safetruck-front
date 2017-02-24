@@ -231,11 +231,11 @@ angular2-template-loader@^0.6.2:
   dependencies:
     loader-utils "^0.2.15"
 
-angular2-text-mask@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/angular2-text-mask/-/angular2-text-mask-5.0.0.tgz#beb0e7f44d134fb6c184e67baa7750b876ae0477"
+angular2-text-mask@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/angular2-text-mask/-/angular2-text-mask-4.1.0.tgz#f24cb09dd92720005f493c88e0d2f232c12f9ca8"
   dependencies:
-    text-mask-core "^2.0.0"
+    text-mask-core "^1.0.0"
 
 animate.css@^3.5.2:
   version "3.5.2"
@@ -4639,9 +4639,9 @@ tether@^1.1.1:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/tether/-/tether-1.4.0.tgz#0f9fa171f75bf58485d8149e94799d7ae74d1c1a"
 
-text-mask-core@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/text-mask-core/-/text-mask-core-2.0.0.tgz#96ec045df92a65b4d8df7aee671f67cb81c80b0b"
+text-mask-core@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/text-mask-core/-/text-mask-core-1.1.0.tgz#03051e3807cc3719f02aef35b9a88c2093b7d386"
 
 text-table@~0.2.0:
   version "0.2.0"
