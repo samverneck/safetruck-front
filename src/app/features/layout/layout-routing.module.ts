@@ -12,9 +12,9 @@ const layoutRoutes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', canActivate: [ RouteGuard ], loadChildren: () => System.import( './dashboard/dashboard.module' ) },
-      { path: 'clients', loadChildren: () => System.import( './client/client.module' ) },
-      { path: 'equipments', loadChildren: () => System.import( './equipment/equipment.module' ) },
-      { path: 'report', loadChildren: () => System.import( './report/report.module' ) }
+      { path: 'clients', canActivate: [ RouteGuard ], loadChildren: () => System.import( './client/client.module' ) },
+      { path: 'equipments', canActivate: [ RouteGuard ], loadChildren: () => System.import( './equipment/equipment.module' ) },
+      { path: 'report', canActivate: [ RouteGuard ], loadChildren: () => System.import( './report/report.module' ) }
     ]
   }
 ]
