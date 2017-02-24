@@ -110,10 +110,11 @@ module.exports = {
               test: /\.ts$/,
               enforce: 'pre',
               loader: 'tslint-loader',
-              include: 'src',
+              include: helpers.root('src'),
               options: {
                 emitErrors: false,
-                failOnHint: false
+                failOnHint: false,
+                fix: true
               }
             },
 
