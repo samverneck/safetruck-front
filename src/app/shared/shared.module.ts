@@ -16,7 +16,10 @@ import { TextMaskModule } from 'angular2-text-mask'
 import { CheckAllDirective } from './directives/check-all.directive'
 import { ProgressAnimateDirective } from './directives/progress-animate.directive'
 import { WidgetDirective } from './directives/widget.directive'
-
+import { CnpjValidatorDirective } from './directives/cnpj-validator.directive'
+import { ZipCodeValidatorDirective } from './directives/zipcode-validator.directive'
+import { EmailValidatorDirective } from './directives/email-validator.directive'
+import { PhoneValidatorDirective } from './directives/phone-validator.directive'
 // components
 import { SearchFieldComponent } from './components/search-field/search-field.component'
 import { SelectEnumComponent } from './components/select-enum/select-enum.component'
@@ -41,9 +44,15 @@ import { SlugfyPipe } from './pipes/slugfy.pipe'
     CheckAllDirective,
     ProgressAnimateDirective,
     WidgetDirective,
+    CnpjValidatorDirective,
+    ZipCodeValidatorDirective,
+    EmailValidatorDirective,
+    PhoneValidatorDirective,
+
     SearchFieldComponent,
     SelectEnumComponent,
     ValidationMessageComponent,
+
     KeysPipe,
     SlugfyPipe
   ],
@@ -58,6 +67,10 @@ import { SlugfyPipe } from './pipes/slugfy.pipe'
     CheckAllDirective,
     ProgressAnimateDirective,
     WidgetDirective,
+    CnpjValidatorDirective,
+    ZipCodeValidatorDirective,
+    EmailValidatorDirective,
+    PhoneValidatorDirective,
 
     SearchFieldComponent,
     SelectEnumComponent,
