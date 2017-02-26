@@ -112,6 +112,7 @@
     "pace": "git+https://github.com/HubSpot/pace.git#v0.7.7",
     "parsleyjs": "^2.6.2",
     "rxjs": "^5.1.1",
+    "sass-resources-loader": "^1.2.0",
     "widgster": "^0.0.3",
     "zone.js": "^0.7.7"
   },

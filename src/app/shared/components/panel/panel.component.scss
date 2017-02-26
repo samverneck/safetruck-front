@@ -1,7 +1,3 @@
-@import "../../../../../node_modules/bootstrap/scss/bootstrap";
-@import "../../../scss/variables";
-@import "../../../scss/mixins";
-
 :host /deep/ .widget{
   position: relative;
   margin-bottom: $widget-padding-vertical;

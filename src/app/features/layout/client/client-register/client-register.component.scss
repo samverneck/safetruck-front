@@ -1,11 +1,3 @@
-@import "../../../../../../node_modules/jasny-bootstrap/dist/css/jasny-bootstrap";
-@import "../../../../../../node_modules/bootstrap/scss/_variables";
-@import "../../../../../../node_modules/bootstrap/scss/mixins";
-@import "../../../../scss/variables";
-@import "../../../../scss/mixins";
-@import "../../../../scss/notifications.scss";
-
-
 // .error{
 //   border-color: $brand-danger;
 //   @include box-shadow(inset 0 1px 1px rgba($brand-danger,.075));
@@ -154,7 +146,7 @@
 
 .dropzone{
   border: 2px dashed #ccc;
-  @include border-radius($border-radius);
+  border-radius: $border-radius;
 }
 
 /**

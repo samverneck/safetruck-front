@@ -8,7 +8,7 @@ import { ClientService, Client } from '../../client/shared'
 @Component( {
   selector: 'equipment-register',
   templateUrl: './equipment-register.component.html',
-  styleUrls: [ './equipment-register.component.scss', '../../../../scss/notifications.scss' ],
+  styleUrls: [ './equipment-register.component.scss' ],
   encapsulation: ViewEncapsulation.None
 })
 
