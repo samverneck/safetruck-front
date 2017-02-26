@@ -24,6 +24,7 @@ import { PhoneValidatorDirective } from './directives/phone-validator.directive'
 import { SearchFieldComponent } from './components/search-field/search-field.component'
 import { SelectEnumComponent } from './components/select-enum/select-enum.component'
 import { ValidationMessageComponent } from './components/validation-message/validation-message'
+import { PanelComponent } from './components/panel/panel.component'
 
 // pipes
 import { KeysPipe } from './pipes/keys.pipe'
@@ -52,6 +53,7 @@ import { SlugfyPipe } from './pipes/slugfy.pipe'
     SearchFieldComponent,
     SelectEnumComponent,
     ValidationMessageComponent,
+    PanelComponent,
 
     KeysPipe,
     SlugfyPipe
@@ -75,6 +77,7 @@ import { SlugfyPipe } from './pipes/slugfy.pipe'
     SearchFieldComponent,
     SelectEnumComponent,
     ValidationMessageComponent,
+    PanelComponent,
 
     KeysPipe,
     SlugfyPipe

@@ -1,65 +1,71 @@
 <div class="row">
   <div class="col-xl-4 col-lg-6 col-xs-12">
-    <section class="widget" widget>
-      <header>
+    <panel>
+      <panel-header>
         <h5>
           Gerenciamento de <span class="fw-semi-bold">Clientes</span>
         </h5>
-        <div class="widget-controls">
-          <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
-          <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
-        </div>
-      </header>
-      <div class="widget-body">
+      </panel-header>
+      <panel-content>
         <p class="fs-mini text-muted">
           Área destinada ao gerenciamento de clientes.
         </p>
         <p>
           <button type="button" class="btn btn-info btn-block" [routerLink]="['/app/clients']">Abrir</button>
         </p>
-      </div>
-    </section>
+      </panel-content>
+    </panel>
   </div>
   <div class="col-xl-4 col-lg-6 col-xs-12">
-    <section class="widget" widget>
-      <header>
+    <panel>
+      <panel-header>
         <h5>
           Gerenciamento de <span class="fw-semi-bold">Equipamentos</span>
         </h5>
-        <div class="widget-controls">
-          <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
-          <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
-        </div>
-      </header>
-      <div class="widget-body">
+      </panel-header>
+      <panel-content>
         <p class="fs-mini text-muted">
-          Área destinada ao gerenciamento de Equipamentos.
+          Área destinada ao gerenciamento de equipamentos.
         </p>
         <p>
           <button type="button" class="btn btn-info btn-block" [routerLink]="['/app/equipments']">Abrir</button>
         </p>
-      </div>
-    </section>
+      </panel-content>
+    </panel>
+  </div>
+
+  <div class="col-xl-4 col-lg-6 col-xs-12">
+    <panel>
+      <panel-header>
+        <h5>
+          Gerenciamento de <span class="fw-semi-bold">Usuários</span>
+        </h5>
+      </panel-header>
+      <panel-content>
+        <p class="fs-mini text-muted">
+          Área destinada ao gerenciamento de usuários.
+        </p>
+        <p>
+          <button type="button" class="btn btn-info btn-block" [routerLink]="['/app/users']">Abrir</button>
+        </p>
+      </panel-content>
+    </panel>
   </div>
   <div class="col-xl-4 col-lg-6 col-xs-12">
-    <section class="widget" widget>
-      <header>
+    <panel>
+      <panel-header>
         <h5>
-          Emissão de <span class="fw-semi-bold">Relatórios</span>
+          Gerenciamento de <span class="fw-semi-bold">Relatórios</span>
         </h5>
-        <div class="widget-controls">
-          <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
-          <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
-        </div>
-      </header>
-      <div class="widget-body">
+      </panel-header>
+      <panel-content>
         <p class="fs-mini text-muted">
-          Área para emissão e visualização de relatórios.
+          Área destinada ao gerenciamento de relatórios.
         </p>
         <p>
           <button type="button" class="btn btn-info btn-block" [routerLink]="['/app/report']">Abrir</button>
         </p>
-      </div>
-    </section>
+      </panel-content>
+    </panel>
   </div>
 </div>

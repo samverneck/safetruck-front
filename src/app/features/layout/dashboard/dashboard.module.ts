@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core'
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 
 // modules
 import { DashboardRoutingModule } from './dashboard-routing.module'
@@ -17,6 +17,9 @@ import 'jquery.animate-number/jquery.animateNumber.js'
   ],
   declarations: [
     DashboardComponent
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ]
 })
 export default class DashboardModule { }

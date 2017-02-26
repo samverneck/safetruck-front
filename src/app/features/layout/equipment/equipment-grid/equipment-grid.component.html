@@ -1,12 +1,8 @@
-<section class="widget" widget [@fadeInOut]>
-  <header>
+<panel widget [@fadeInOut]>
+  <panel-header>
     <h5>{{title}}</h5>
-    <div class="widget-controls">
-      <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
-      <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
-    </div>
-  </header>
-  <div class="widget-body">
+  </panel-header>
+  <panel-content>
     <div class="mt">
 
       <search-field (change)="searchText=$event"> </search-field>
@@ -61,5 +57,5 @@
         </tfoot>
       </table>
     </div>
-  </div>
-</section>
+  </panel-content>
+</panel>

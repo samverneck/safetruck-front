@@ -4,21 +4,15 @@
 </ol>
 <div class="row" *ngIf="client">
   <div class="col-xs-12">
-    <section class="widget" widget>
-      <header>
-        <h5>
-          <span>Exibindo {{client.companyName}}</span>
-        </h5>
-        <div class="widget-controls">
-          <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
-          <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
-        </div>
-      </header>
-      <div class="widget-body">
+    <panel>
+      <panel-header>
+        <h5>Exibindo {{client.companyName}}</h5>
+      </panel-header>
+      <panel-content>
         <client-form [client]="client" [readOnlyMode]="true">
         </client-form>
-      </div>
-    </section>
+      </panel-content>
+    </panel>
   </div>
 </div>
 <div class="row">

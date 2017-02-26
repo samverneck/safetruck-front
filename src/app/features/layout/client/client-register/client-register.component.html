@@ -4,21 +4,17 @@
 </ol>
 <div class="row">
   <div class="col-xs-12">
-    <section class="widget" widget>
-      <header>
+    <panel>
+      <panel-header>
         <h5>
-          <span>{{client?.id ?  'Atualizar Cliente' : 'Cadastrar Novo Cliente'}}</span>
+          <i class="glyphicon glyphicon-user"></i> | {{client?.id ? 'Atualizar Cliente' : 'Cadastrar Novo Cliente'}}
         </h5>
-        <div class="widget-controls">
-          <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
-          <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
-        </div>
-      </header>
-      <div class="widget-body">
+      </panel-header>
+      <panel-content>
         <client-form [client]="client" (onSubmit)="saveClient($event)" (onCancel)="cancel()" (onZipCodeError)="notifyZipCodeError($event)">
         </client-form>
-      </div>
-    </section>
+      </panel-content>
+    </panel>
   </div>
 </div>
 <div class="row">
