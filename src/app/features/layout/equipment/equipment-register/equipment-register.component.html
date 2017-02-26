@@ -24,67 +24,68 @@
           <div class="form-group row">
             <label class="form-control-label col-md-3 col-xs-12">Placa do veículo</label>
             <div class="col-md-3 col-xs-12">
-              <input [disabled]="viewMode" type="text" class="form-control uppercase" name="plaque" validate="Placa do veículo" data-mask="aaa9999"
-                (blur)="toUpperPlaque()">
+              <input [disabled]="viewMode" type="text" class="form-control uppercase" name="plaque" validate="Placa do veículo" [textMask]="{mask: masks.plaque}"
+                (blur)=" toUpperPlaque() ">
             </div>
           </div>
           <!--Tipo de veículo-->
-          <div class="form-group row">
-            <label class="form-control-label col-md-3 col-xs-12">Tipo de veículo</label>
-            <div class="col-md-3 col-xs-12">
-              <select-enum [disabled]="viewMode" [enumType]="types.vehicleType" name="vehicle" validate="Tipo de veículo"></select-enum>
+          <div class="form-group row ">
+            <label class="form-control-label col-md-3 col-xs-12 ">Tipo de veículo</label>
+            <div class="col-md-3 col-xs-12 ">
+              <select-enum [disabled]="viewMode " [enumType]="types.vehicleType " name="vehicle " validate="Tipo de veículo "></select-enum>
             </div>
           </div>
           <!--Tipo de equipamento-->
-          <div class="form-group row">
-            <label class="form-control-label col-md-3 col-xs-12">Tipo de equipamento</label>
-            <div class="col-md-3 col-xs-12">
-              <select-enum [disabled]="viewMode" [enumType]="types.equipmentType" name="equipment" validate="Tipo de equipamento"></select-enum>
+          <div class="form-group row ">
+            <label class="form-control-label col-md-3 col-xs-12 ">Tipo de equipamento</label>
+            <div class="col-md-3 col-xs-12 ">
+              <select-enum [disabled]="viewMode " [enumType]="types.equipmentType " name="equipment " validate="Tipo de
+                equipamento "></select-enum>
             </div>
           </div>
           <!--Orientação-->
-          <div class="form-group row">
-            <label class="form-control-label col-md-3 col-xs-12">Orientação</label>
-            <div class="col-md-3 col-xs-12">
-              <select-enum [disabled]="viewMode" [enumType]="types.orientation" name="orientation" validate="Orientação"></select-enum>
+          <div class="form-group row ">
+            <label class="form-control-label col-md-3 col-xs-12 ">Orientação</label>
+            <div class="col-md-3 col-xs-12 ">
+              <select-enum [disabled]="viewMode " [enumType]="types.orientation " name="orientation " validate="Orientação "></select-enum>
             </div>
           </div>
           <!--Cliente-->
-          <div class="form-group row">
-            <label class="form-control-label col-md-3 col-xs-12">Cliente</label>
-            <div class="col-md-3 col-xs-12">
-              <select [hidden]="viewMode" class="form-control" name="client-id" validate="Cliente">
-                <option value="" hidden>Selecione...</option>
-                <option *ngFor="let client of clients" [value]="client.id">{{client.companyName}}</option>
+          <div class="form-group row ">
+            <label class="form-control-label col-md-3 col-xs-12 ">Cliente</label>
+            <div class="col-md-3 col-xs-12 ">
+              <select [hidden]="viewMode " class="form-control " name="client-id " validate="Cliente ">
+                <option value=" " hidden>Selecione...</option>
+                <option *ngFor="let client of clients " [value]="client.id ">{{client.companyName}}</option>
               </select>
-              <input [hidden]="!viewMode" type="text" name="clientName" class="form-control" validate="Cliente" disabled>
+              <input [hidden]="!viewMode " type="text " name="clientName " class="form-control " validate="Cliente " disabled>
             </div>
           </div>
           <!--Data da instalação-->
-          <div class="form-group row">
-            <label class="form-control-label col-md-3 col-xs-12">Data da instalação</label>
-            <div class="input-group col-md-3 col-xs-12 date" data-provide="datepicker">
-              <input [disabled]="viewMode" type="text" class="form-control" name="installation" validate="Data da instalação">
-              <div class="input-group-addon">
-                <span class="icon"><i class="fa fa-calendar"></i></span>
+          <div class="form-group row ">
+            <label class="form-control-label col-md-3 col-xs-12 ">Data da instalação</label>
+            <div class="input-group col-md-3 col-xs-12 date " data-provide="datepicker ">
+              <input [disabled]="viewMode " type="text " class="form-control " name="installation " validate="Data da instalação ">
+              <div class="input-group-addon ">
+                <span class="icon "><i class="fa fa-calendar "></i></span>
               </div>
             </div>
           </div>
           <!--Data da alteração do tacógrafo-->
-          <div class="form-group row">
-            <label class="form-control-label col-md-3 col-xs-12">Data de aferição do tacógrafo</label>
-            <div class="input-group col-md-3 col-xs-12 date" data-provide="datepicker">
-              <input [disabled]="viewMode" type="text" class="form-control" name="admeasurement">
-              <div class="input-group-addon">
-                <span class="icon"><i class="fa fa-calendar"></i></span>
+          <div class="form-group row ">
+            <label class="form-control-label col-md-3 col-xs-12 ">Data de aferição do tacógrafo</label>
+            <div class="input-group col-md-3 col-xs-12 date " data-provide="datepicker ">
+              <input [disabled]="viewMode " type="text " class="form-control " name="admeasurement ">
+              <div class="input-group-addon ">
+                <span class="icon "><i class="fa fa-calendar "></i></span>
               </div>
             </div>
           </div>
-          <div class="form-actions" *ngIf="!viewMode">
-            <button type="button" class="btn btn-default btn-rounded pull-xs-right" (click)="clearForm()">
+          <div class="form-actions " *ngIf="!viewMode ">
+            <button type="button " class="btn btn-default btn-rounded pull-xs-right " (click)="clearForm() ">
               {{equipmentId ? 'Cancelar' : 'Limpar'}}
             </button>
-            <button type="submit" class="btn btn-primary btn-rounded" (click)="saveEquipament()">
+            <button type="submit " class="btn btn-primary btn-rounded " (click)="saveEquipament() ">
               {{equipmentId ? 'Atualizar' : 'Cadastrar'}}
             </button>
           </div>
@@ -93,9 +94,9 @@
     </panel>
   </div>
 </div>
-<div class="row" *ngIf="equipments && showTable && !viewMode">
-  <div class="col-xs-12">
-    <equipment-grid [data]="equipments" (onSelectEquipment)="loadEquipmentData($event)" (onDeleteEquipment)="deleteEquipment($event)">
+<div class="row " *ngIf="equipments && showTable && !viewMode ">
+  <div class="col-xs-12 ">
+    <equipment-grid [data]="equipments " (onSelectEquipment)="loadEquipmentData($event) " (onDeleteEquipment)="deleteEquipment($event) ">
     </equipment-grid>
   </div>
 </div>

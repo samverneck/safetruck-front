@@ -2074,10 +2074,6 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/graceful-readlink/-/graceful-readlink-1.0.1.tgz#4cafad76bc62f02fa039b2f94e9a3dd3a391a725"
 
-hammerjs@^2.0.8:
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/hammerjs/-/hammerjs-2.0.8.tgz#04ef77862cff2bb79d30f7692095930222bf60f1"
-
 handle-thing@^1.2.4:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/handle-thing/-/handle-thing-1.2.5.tgz#fd7aad726bf1a5fd16dfc29b2f7a6601d27139c4"
@@ -2589,19 +2585,11 @@ istanbul-lib-instrument@^1.1.3:
     istanbul-lib-coverage "^1.0.0"
     semver "^5.3.0"
 
-jasny-bootstrap@^3.1.3:
-  version "3.1.3"
-  resolved "https://registry.yarnpkg.com/jasny-bootstrap/-/jasny-bootstrap-3.1.3.tgz#b072a681d50c649762c9543c7a6093d9baa2f87b"
-
 jodid25519@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/jodid25519/-/jodid25519-1.0.2.tgz#06d4912255093419477d425633606e0e90782967"
   dependencies:
     jsbn "~0.1.0"
-
-jquery-flot@^0.8.3:
-  version "0.8.3"
-  resolved "https://registry.yarnpkg.com/jquery-flot/-/jquery-flot-0.8.3.tgz#a273acf43f13190f6e78701869ee24bfef12c22a"
 
 jquery-slimscroll@^1.3.8:
   version "1.3.8"
@@ -2609,21 +2597,13 @@ jquery-slimscroll@^1.3.8:
   dependencies:
     jquery ">= 1.7"
 
-jquery-sparkline@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/jquery-sparkline/-/jquery-sparkline-2.4.0.tgz#1be8b7b704dd3857152708aefb1d4a4b3a69fb33"
-
-"jquery-ui@git+https://github.com/jquery/jquery-ui.git#1.11.4":
-  version "1.11.4"
-  resolved "git+https://github.com/jquery/jquery-ui.git#d6713024e16de90ea71dc0544ba34e1df01b4d8a"
-
 jquery.animate-number@^0.0.14:
   version "0.0.14"
   resolved "https://registry.yarnpkg.com/jquery.animate-number/-/jquery.animate-number-0.0.14.tgz#9263bb87e3c9ac2e2fc173d16ebd607589ad3198"
   dependencies:
     jquery ">= 1.7.0"
 
-"jquery@1.9.1 - 3", "jquery@>= 1.7", "jquery@>= 1.7.0", jquery@>=1.3.2, jquery@>=1.7.1, jquery@>=1.8.0, jquery@^3.1.1:
+"jquery@1.9.1 - 3", "jquery@>= 1.7", "jquery@>= 1.7.0", jquery@>=1.3.2, jquery@>=1.7.1, jquery@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.1.1.tgz#347c1c21c7e004115e0a4da32cece041fad3c8a3"
 
@@ -3106,10 +3086,6 @@ moment@2.17.1, moment@^2.17.1:
   version "2.17.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.17.1.tgz#fed9506063f36b10f066c8b59a144d7faebe1d82"
 
-morris.js@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/morris.js/-/morris.js-0.5.0.tgz#725767135cfae059aae75999bb2ce6a1c5d1b44b"
-
 ms@0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.1.tgz#9cd13c03adbff25b65effde7ce864ee952017098"
@@ -3484,12 +3460,6 @@ parse5@^3.0.1:
 parseurl@~1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/parseurl/-/parseurl-1.3.1.tgz#c8ab8c9223ba34888aa64a297b28853bec18da56"
-
-parsleyjs@^2.6.2:
-  version "2.6.2"
-  resolved "https://registry.yarnpkg.com/parsleyjs/-/parsleyjs-2.6.2.tgz#4ef3bac6cc925c19d4691e1d2c9a684ffd00a663"
-  dependencies:
-    jquery ">=1.8.0"
 
 path-browserify@0.0.0:
   version "0.0.0"

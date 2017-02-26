@@ -17,7 +17,6 @@ import { SearchPipe, EquipmentService } from './shared'
 import 'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'
 import 'bootstrap-datepicker/dist/locales/bootstrap-datepicker.pt-BR.min.js'
 import 'messenger/build/js/messenger.js'
-import 'jasny-bootstrap/js/inputmask.js'
 
 @NgModule( {
   declarations: [

@@ -24,6 +24,9 @@ export class EquipmentRegisterComponent implements OnInit {
     vehicleType: EVechicleType,
     equipmentType: EquipmentType
   }
+  public masks = {
+    plaque: [ /[a-zA-Z]/, /[a-zA-Z]/, /[a-zA-Z]/, /\d/, /\d/, /\d/, /\d/ ]
+  }
 
   /**
    * Creates an instance of EquipmentRegisterComponent.

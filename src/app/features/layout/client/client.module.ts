@@ -14,9 +14,6 @@ import { ClientSearchComponent } from './client-search/client-search.component'
 import { ClientViewComponent } from './client-view/client-view.component'
 import { SearchPipe } from './shared'
 
-// libs
-import 'jasny-bootstrap/js/inputmask.js'
-
 @NgModule( {
   imports: [
     SharedModule,
