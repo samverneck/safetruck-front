@@ -14,6 +14,7 @@ const layoutRoutes: Routes = [
       { path: 'dashboard', canActivate: [ RouteGuard ], loadChildren: () => System.import( './dashboard/dashboard.module' ) },
       { path: 'clients', canActivate: [ RouteGuard ], loadChildren: () => System.import( './client/client.module' ) },
       { path: 'equipments', canActivate: [ RouteGuard ], loadChildren: () => System.import( './equipment/equipment.module' ) },
+      { path: 'users', canActivate: [ RouteGuard ], loadChildren: () => System.import( './users/users.module' ) },
       { path: 'report', canActivate: [ RouteGuard ], loadChildren: () => System.import( './report/report.module' ) }
     ]
   }

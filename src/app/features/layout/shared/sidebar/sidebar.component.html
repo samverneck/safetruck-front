@@ -39,6 +39,19 @@
         <li><a [routerLink]="['equipments/search']">Pesquisa</a></li>
       </ul>
     </li>
+    <li *ngIf="canView">
+      <a class="collapsed" data-target="#sidebar-users" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="glyphicon glyphicon-user"></i>
+        </span>
+        <span>Usuários</span>
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-users" class="collapse">
+        <li><a [routerLink]="['users/register']">Cadastro</a></li>
+        <li><a [routerLink]="['users/search']">Pesquisa</a></li>
+      </ul>
+    </li>
     <li>
       <a class="collapsed" data-target="#sidebar-report" data-toggle="collapse" data-parent="#sidebar">
         <span class="icon">
