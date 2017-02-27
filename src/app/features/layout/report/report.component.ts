@@ -3,7 +3,7 @@ import { Http } from '@angular/http'
 import * as _ from 'lodash'
 import * as moment from 'moment'
 
-import { ReportService, ReportData, DataReportPrint } from './shared'
+import { ReportService, ReportData, DataReportPrint, Filter } from './shared'
 import { MessagesService, fadeInOut } from './../../../core'
 
 const DATE_FORMAT = 'DD/MM/YYYY h:mm A'
@@ -20,8 +20,7 @@ export class ReportComponent implements OnInit {
 
   public report: ReportData
   public plaques: string[]
-  public times: any
-  public showReports: boolean
+  public filter: Filter
 
   /**
    * Creates an instance of ReportComponent.
@@ -66,20 +65,16 @@ export class ReportComponent implements OnInit {
    * @memberOf ReportComponent
    */
   public getReport(): void {
-    this.showReports = false
     // Obetém os valores do usuário
-    this.times = this.getInputs()
+    this.filter = this.buildFilter()
+
     // Validação
-    if ( !this.validate( this.times.plaque, this.times.start ) ) {
+    if ( !this.validate( this.filter.plaque, this.filter.start ) ) {
       return
     }
     // Obtendo as datas
-    let dates = this.convertDateToISO( this.times.start, this.times.finish )
-    this.reportService.getReport( this.times.plaque, dates.start, dates.finish )
-      .subscribe( report => {
-        this.report = report
-        this.showReports = true
-      })
+    this.reportService.generateReport( this.filter )
+      .subscribe( report => this.report = report )
   }
 
   /**
@@ -88,7 +83,7 @@ export class ReportComponent implements OnInit {
    * @returns {{plaque: string, start: string, finish: string}}
    * @memberOf ReportPage
    */
-  public getInputs(): { plaque: string, start: string, finish: string } {
+  public buildFilter(): Filter {
     let plaque = $( '#plaque' ).val()
     let start = $( '#start' ).val() + ' ' + $( '#time-start' ).val() || moment().format( 'h:m A' )
     let finish = $( '#finish' ).val() + ' ' + $( '#time-finish' ).val()
@@ -101,58 +96,8 @@ export class ReportComponent implements OnInit {
       finish = moment().format( DATE_FORMAT )
     }
 
-    return { plaque: plaque, start: start, finish: finish }
-  }
-
-  /**
-   * Coverte a data para o formato ISO
-   * @param {string} start
-   * @param {string} finish
-   * @returns
-   * @memberOf ReportPage
-   */
-  public convertDateToISO( start: string, finish: string ) {
-    // Se não for informada uma data fim, o dia atual é informado
-    start = moment( start, DATE_FORMAT ).toISOString()
-    finish
-      ? finish = moment( finish, DATE_FORMAT ).toISOString()
-      : finish = moment().toISOString()
-
-    return { start: start, finish: finish }
-  }
-
-  /**
-   * Faz a validação dos campos do formulário
-   * @param {string} plaque
-   * @param {string} start
-   * @returns {boolean}
-   * @memberOf ReportPage
-   */
-  public validate( plaque: string, start: string ): boolean {
-    // Remove a classe de erro
-    this.removeErrorClass()
-    // Valida se a placa foi informada
-    if ( !plaque ) {
-      $( `[name="plaque"]` ).addClass( 'error' )
-      this.messages.showNotification( 'Você deve selecionar uma placa.', 'error' )
-      return false
-    }
-    // Valida se a data inicial foi informada
-    if ( !start ) {
-      $( '#start' ).addClass( 'error' )
-      $( '#time-start' ).addClass( 'error' )
-      this.messages.showNotification( 'Você deve selecionar uma data de início.', 'error' )
-      return false
-    }
-    // Verifica se a data informada é válida
-    if ( !moment( start, DATE_FORMAT ).isValid() || moment( start, DATE_FORMAT ).isAfter( moment() ) ) {
-      $( '#start' ).addClass( 'error' )
-      $( '#time-start' ).addClass( 'error' )
-      this.messages.showNotification( 'A data de ínicio não é válida', 'error' )
-      return false
-    }
-
-    return true
+    let dates = this.convertDateToISO( start, finish )
+    return { plaque: plaque, ...dates }
   }
 
   /**
@@ -173,14 +118,14 @@ export class ReportComponent implements OnInit {
    */
   public print(): void {
 
-    this.times = this.getInputs()
+    this.filter = this.buildFilter()
     // Validação
-    if ( !this.validate( this.times.plaque, this.times.start ) ) {
+    if ( !this.validate( this.filter.plaque, this.filter.start ) ) {
       return
     }
     // Obtendo as datas
-    let dates = this.convertDateToISO( this.times.start, this.times.finish )
-    this.reportService.getReportHtml( this.times.plaque, dates.start, dates.finish )
+    let dates = this.convertDateToISO( this.filter.start, this.filter.finish )
+    this.reportService.getReportHtml( this.filter.plaque, dates.start, dates.finish )
       .subscribe( html => {
         let popup: Window
         if ( window ) {
@@ -251,8 +196,8 @@ export class ReportComponent implements OnInit {
             relacaoKmAc: this.report.overSpeedingsXKmAcumulated || 0,
             zonPerig: this.report.passOverDangerZones || 0
           },
-          inicio: this.times.start.toString(),
-          termino: this.times.finish.toString(),
+          inicio: this.filter.start.toString(),
+          termino: this.filter.finish.toString(),
           nomeArquivo: 'Arquivo sem nome',
           placa: this.report.plaque,
           protocolo: Date.now().toString()
@@ -262,4 +207,57 @@ export class ReportComponent implements OnInit {
       ( popup.window as any ).readyToPrint = true
     })
   }
+
+
+  /**
+   * Coverte a data para o formato ISO
+   * @param {string} start
+   * @param {string} finish
+   * @returns
+   * @memberOf ReportPage
+   */
+  private convertDateToISO( start: string, finish: string ) {
+    // Se não for informada uma data fim, o dia atual é informado
+    start = moment( start, DATE_FORMAT ).toISOString()
+    finish
+      ? finish = moment( finish, DATE_FORMAT ).toISOString()
+      : finish = moment().toISOString()
+
+    return { start: start, finish: finish }
+  }
+
+  /**
+   * Faz a validação dos campos do formulário
+   * @param {string} plaque
+   * @param {string} start
+   * @returns {boolean}
+   * @memberOf ReportPage
+   */
+  private validate( plaque: string, start: string ): boolean {
+    // Remove a classe de erro
+    this.removeErrorClass()
+    // Valida se a placa foi informada
+    if ( !plaque ) {
+      $( `[name="plaque"]` ).addClass( 'error' )
+      this.messages.showNotification( 'Você deve selecionar uma placa.', 'error' )
+      return false
+    }
+    // Valida se a data inicial foi informada
+    if ( !start ) {
+      $( '#start' ).addClass( 'error' )
+      $( '#time-start' ).addClass( 'error' )
+      this.messages.showNotification( 'Você deve selecionar uma data de início.', 'error' )
+      return false
+    }
+    // Verifica se a data informada é válida
+    if ( !moment( start ).isValid() || moment( start ).isAfter( moment() ) ) {
+      $( '#start' ).addClass( 'error' )
+      $( '#time-start' ).addClass( 'error' )
+      this.messages.showNotification( 'A data de ínicio não é válida', 'error' )
+      return false
+    }
+
+    return true
+  }
+
 }

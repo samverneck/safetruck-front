@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core'
 import { Http } from '@angular/http'
 import { Observable } from 'rxjs/Observable'
 
-import { ReportData } from './models/Report'
 import { AuthService, BaseService } from '../../../../core'
+import { Filter } from './models/Filter'
+import { ReportData } from './models/Report'
 
 @Injectable()
 export class ReportService extends BaseService<ReportData> {
@@ -30,9 +31,9 @@ export class ReportService extends BaseService<ReportData> {
    *
    * @memberOf ReportService
    */
-  public getReport( plaque: string, start, finish ): Observable<ReportData> {
+  public generateReport( filter: Filter ): Observable<ReportData> {
     return this.http
-      .get( `${API_URL}/report?plaque=${plaque}&&dtIni=${start}&dtEnd=${finish}`, this.headerOptions )
+      .get( `${API_URL}/report?plaque=${filter.plaque}&&dtIni=${filter.start}&dtEnd=${filter.finish}`, this.headerOptions )
       .map( this.extractData )
       .catch( this.handleError )
   }

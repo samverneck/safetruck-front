@@ -6,8 +6,8 @@ import { ReportRoutingModule } from './report-routing.module'
 
 // components
 import { ReportComponent } from './report.component'
-import { PrintComponent } from './print/print.component'
-import { RouteComponent } from './route/route.component'
+import { OffensesListComponent } from './offenses-list/offenses-list.component'
+import { VehicleRouteComponent } from './vehicle-route/vehicle-route.component'
 
 // libs
 import 'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'
@@ -21,8 +21,8 @@ import 'bootstrap-timepicker/js/bootstrap-timepicker.js'
   ],
   declarations: [
     ReportComponent,
-    RouteComponent,
-    PrintComponent
+    VehicleRouteComponent,
+    OffensesListComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

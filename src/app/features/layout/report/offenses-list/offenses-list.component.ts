@@ -4,11 +4,11 @@ import * as moment from 'moment'
 import { ReportData } from '../shared'
 
 @Component( {
-  selector: 'print-page',
-  templateUrl: 'print.component.html',
-  styles: [ 'print.component.scss' ]
+  selector: 'offenses-list',
+  templateUrl: 'offenses-list.component.html',
+  styles: [ 'offenses-list.component.scss' ]
 })
-export class PrintComponent {
+export class OffensesListComponent {
 
   @Input() public data: ReportData
   @Input() public reportTimes: string

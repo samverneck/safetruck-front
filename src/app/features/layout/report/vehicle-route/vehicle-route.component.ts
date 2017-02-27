@@ -7,16 +7,16 @@ import { ReportOverSpeeding, ReportDangerZonesData } from '../shared'
 
 @Component( {
   encapsulation: ViewEncapsulation.None,
-  selector: 'route',
-  templateUrl: './route.component.html',
-  styleUrls: [ './route.component.scss' ]
+  selector: 'vehicle-route',
+  templateUrl: './vehicle-route.component.html',
+  styleUrls: [ './vehicle-route.component.scss' ]
 })
-export class RouteComponent implements OnInit {
+export class VehicleRouteComponent implements OnInit {
 
-  @Input() public route: Array<any>
-  @Input() public overSpeedings: Array<ReportOverSpeeding>
-  @Input() public dangerZones: Array<ReportDangerZonesData>
+  @Input() public route: any[]
   @Input() public times: any
+  @Input() public overSpeedings: ReportOverSpeeding[]
+  @Input() public dangerZones: ReportDangerZonesData[]
 
   /**
    *
