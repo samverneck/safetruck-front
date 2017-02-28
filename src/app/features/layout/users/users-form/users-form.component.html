@@ -37,10 +37,10 @@
     </fieldset>
 
     <div class="form-actions">
-      <button type="button" class="st-btn st-border-bottom st-default st-social btn btn-default btn-rounded pull-xs-right" (click)="onCancelClick()">
+      <button type="button" class="btn btn-default btn-rounded pull-xs-right" (click)="onCancelClick()">
             {{user.id ? 'Cancelar' : 'Limpar'}}
       </button>
-      <button type="submit" class="st-btn st-border-bottom st-default st-social btn btn-primary btn-rounded" [disabled]="!userForm.form.valid">
+      <button type="submit" class="btn btn-primary btn-rounded" [disabled]="!userForm.form.valid">
             {{user.id ?  'Atualizar' : 'Cadastrar'}}
       </button>
     </div>

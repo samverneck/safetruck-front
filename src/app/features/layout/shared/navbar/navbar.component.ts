@@ -10,7 +10,6 @@ import { AuthService, AppConfig } from './../../../../core'
 export class NavbarComponent {
 
   @Output() public toggleSidebarEvent: EventEmitter<any> = new EventEmitter()
-  @Output() public toggleChatEvent: EventEmitter<any> = new EventEmitter()
   public $el: any
   public config: any
 
@@ -48,15 +47,5 @@ export class NavbarComponent {
    */
   public toggleSidebar( state ): void {
     this.toggleSidebarEvent.emit( state )
-  }
-
-  /**
-   *
-   *
-   *
-   * @memberOf NavbarComponent
-   */
-  public toggleChat(): void {
-    this.toggleChatEvent.emit( null )
   }
 }

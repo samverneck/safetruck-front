@@ -10,7 +10,6 @@ import { AppConfig } from '../../core'
   // tslint:disable-next-line:use-host-property-decorator
   host: {
     '[class.nav-static]': 'config.state["nav-static"]',
-    '[class.chat-sidebar-opened]': 'chatOpened',
     '[class.app]': 'true',
     id: 'app'
   }
@@ -20,7 +19,6 @@ export class LayoutComponent implements OnInit {
   public config: any
   public configFn: any
   public $sidebar: any
-  public chatOpened: boolean = false
 
   /**
    * Creates an instance of LayoutComponent.
@@ -117,28 +115,6 @@ export class LayoutComponent implements OnInit {
       : this.toggleNavigationCollapseState
     toggleNavigation.apply( this )
     localStorage.setItem( 'nav-static', this.config.state[ 'nav-static' ] )
-  }
-
-  /**
-   *
-   *
-   *
-   * @memberOf LayoutComponent
-   */
-  public toggleChatListener(): void {
-    $( this.el.nativeElement ).find( '.chat-notification-sing' ).remove()
-    this.chatOpened = !this.chatOpened
-
-    setTimeout(() => {
-      // demo: add class & badge to indicate incoming messages from contact
-      // .js-notification-added ensures notification added only once
-      $( '.chat-sidebar-user-group:first-of-type ' +
-        '.list-group-item:first-child:not(.js-notification-added)' )
-        .addClass( 'active js-notification-added' )
-        .find( '.fa-circle' )
-        .after( '<span class="badge tag-danger ' +
-        'pull-right animated bounceInDown">3</span>' )
-    }, 1000 )
   }
 
   /**
@@ -257,8 +233,6 @@ export class LayoutComponent implements OnInit {
     swipe.on( 'swiperight', () => {
       if ( d.configFn.isScreen( 'md' ) ) { return }
 
-      if ( $( 'layout' ).is( '.chat-sidebar-opened' ) ) { return }
-
       if ( $( 'layout' ).is( '.nav-collapsed' ) ) {
         d.expandNavigation()
       }
@@ -329,5 +303,7 @@ export class LayoutComponent implements OnInit {
     this.breadcrumbService.addFriendlyNameForRoute( '/app/users/register', 'Cadastro' )
 
     this.breadcrumbService.addFriendlyNameForRoute( '/app/report', 'Relatório de Conduta' )
+
+    this.breadcrumbService.addFriendlyNameForRoute( '/app/dashboard', 'Dashboard' )
   }
 }
