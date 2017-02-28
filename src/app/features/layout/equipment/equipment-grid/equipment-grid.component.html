@@ -22,24 +22,25 @@
             <th class="hidden-xs-down">
               <mfDefaultSorter by="type">Tipo</mfDefaultSorter>
             </th>
+            <th *ngIf="!readOnlyMode"></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let equipment of mf.data | search : searchText" (click)="select(equipment)" [class.selected]="equipment===selectedEquipment">
-            <td>{{equipment.code}}</td>
+            <td class="main-column">{{equipment.code}}</td>
             <td class="hidden-xs-down">
               <a [routerLink]="['/app/clients/view/', equipment.install?.clientId]">
               {{equipment.install.client?.companyName}}
             </a>
             </td>
-            <td class="hidden-xs-down">{{equipment.install.plaque}}</td>
+            <td class="hidden-xs-down">
+              <span class="badge badge-default">{{equipment.install.plaque}}</span>
+            </td>
             <td class="hidden-xs-down">
               {{types[equipment.type]}}
             </td>
-            <td>
-              <button *ngIf="!readOnlyMode" class="btn btn-xs mb-xs btn-danger" (click)="delete(equipment)">
-                <i class="glyphicon glyphicon-trash"></i>
-              </button>
+            <td *ngIf="!readOnlyMode">
+              <btn-delete (click)="delete(equipment)"></btn-delete>
             </td>
           </tr>
           <tr *ngIf="(mf.data | search : searchText).length === 0">

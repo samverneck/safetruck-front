@@ -22,7 +22,9 @@ export class UsersRegisterComponent implements OnInit {
    *
    * @memberOf UserRegisterComponent
    */
-  constructor( private userService: UsersService, private messages: MessagesService ) { }
+  constructor(
+    private userService: UsersService,
+    private messages: MessagesService ) { }
 
   /**
    *
@@ -31,7 +33,7 @@ export class UsersRegisterComponent implements OnInit {
    * @memberOf UserComponent
    */
   public ngOnInit(): void {
-    // this.getAllUsers()
+    this.getAllUsers()
   }
 
   /**

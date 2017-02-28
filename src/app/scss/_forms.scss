@@ -1,37 +1,43 @@
+.ng-valid[required],
+.ng-valid.required {
+    border-left: 2px solid #42A948;
+    /* green */
+}
 
-.ng-valid[required], .ng-valid.required  {
-  border-left: 2px solid #42A948; /* green */
-}
 .ng-pristine[required],
-.ng-invalid[required], 
+.ng-invalid[required],
 .ng-pristine.required,
-.ng-invalid.required  {
-  border-left: 1px solid $brand-danger; /* green */
+.ng-invalid.required {
+    border-left: 1px solid $brand-danger;
+    /* green */
 }
-.ng-dirty.ng-invalid:not(form)  {
-  // border-left: 5px solid #a94442; /* red */
-  border-color: $brand-danger;
-  @include box-shadow(inset 0 1px 1px rgba($brand-danger,.075));
+
+.ng-dirty.ng-invalid:not(form) {
+    // border-left: 5px solid #a94442; /* red */
+    border-color: $brand-danger;
+    @include box-shadow(inset 0 1px 1px rgba($brand-danger, .075));
 }
 
 .error-message {
-  color: #a03330;
-  font-size: 11px;
-  font-weight: 400;
-  float: right;
-  margin-top: 8px;
+    color: #a03330;
+    font-size: 11px;
+    font-weight: 400;
+    float: right;
+    margin-top: 8px;
 }
 
 // bootstrap overrides
 .form-control {
     font-weight: 400;
-    -webkit-box-shadow: inset -2px -5px 6px -5px rgba(0,0,0,0.09);
-    -moz-box-shadow: inset -2px -5px 6px -5px rgba(0,0,0,0.09);
-    box-shadow: inset -2px -5px 6px -5px rgba(0,0,0,0.09);
+    -webkit-box-shadow: inset -2px -5px 6px -5px rgba(0, 0, 0, 0.09);
+    -moz-box-shadow: inset -2px -5px 6px -5px rgba(0, 0, 0, 0.09);
+    box-shadow: inset -2px -5px 6px -5px rgba(0, 0, 0, 0.09);
 }
+
 .btn-rounded {
     border-radius: 3px;
 }
+
 .btn-primary {
     color: #fff;
     background-color: #313131;

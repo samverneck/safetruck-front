@@ -942,3 +942,37 @@ button:focus {
 input#table-search-input:focus {
     outline: 0 !important;
 }
+
+tr.selected {
+    font-weight: 600 !important;
+    color: goldenrod;
+}
+
+.mt table tr {
+    cursor: pointer
+}
+
+.mt table td.main-column {
+    // color: goldenrod
+}
+
+.mt table td.main-column,
+.mt table tr {
+    font-weight: 400
+}
+
+.table>thead>tr>th {
+    text-transform: capitalize;
+}
+
+mfDefaultSorter>a {
+    color: $gray;
+    &:hover {
+        color: $gray;
+        text-decoration: none;
+    }
+}
+
+.text-center {
+    text-align: center
+}

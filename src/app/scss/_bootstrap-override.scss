@@ -981,7 +981,6 @@ pre {
     white-space: nowrap;
     text-align: center;
     background-color: $gray;
-    border-radius: 100px;
     // Empty badges collapse automatically (not available in IE8)
     &:empty {
         display: none;
@@ -1005,4 +1004,9 @@ pre {
     .nav-pills>li>a>& {
         margin-left: 3px;
     }
+}
+
+label {
+    display: inline-block;
+    margin-bottom: .2rem;
 }

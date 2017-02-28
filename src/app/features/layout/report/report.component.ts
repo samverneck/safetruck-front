@@ -208,7 +208,6 @@ export class ReportComponent implements OnInit {
     })
   }
 
-
   /**
    * Coverte a data para o formato ISO
    * @param {string} start

@@ -25,6 +25,7 @@ import { SearchFieldComponent } from './components/search-field/search-field.com
 import { SelectEnumComponent } from './components/select-enum/select-enum.component'
 import { ValidationMessageComponent } from './components/validation-message/validation-message'
 import { PanelComponent } from './components/panel/panel.component'
+import { BtnDeleteComponent } from './components/btn-delete/btn-delete.component'
 
 // pipes
 import { KeysPipe } from './pipes/keys.pipe'
@@ -50,6 +51,7 @@ import { SlugfyPipe } from './pipes/slugfy.pipe'
     EmailValidatorDirective,
     PhoneValidatorDirective,
 
+    BtnDeleteComponent,
     SearchFieldComponent,
     SelectEnumComponent,
     ValidationMessageComponent,
@@ -74,6 +76,7 @@ import { SlugfyPipe } from './pipes/slugfy.pipe'
     EmailValidatorDirective,
     PhoneValidatorDirective,
 
+    BtnDeleteComponent,
     SearchFieldComponent,
     SelectEnumComponent,
     ValidationMessageComponent,

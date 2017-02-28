@@ -1,9 +1,7 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core'
-import * as _ from 'lodash'
 
 import { fadeInOut } from '../../../../core'
 import { EquipmentService, Equipment } from '../shared'
-import { Client } from '../../client/shared'
 
 @Component( {
   selector: 'equipment-search',
@@ -14,8 +12,6 @@ import { Client } from '../../client/shared'
 })
 export class EquipmentSearchComponent implements OnInit {
 
-  public searchText: string
-  public clients: Client[]
   public equipments: Equipment[]
 
   /**
@@ -43,19 +39,7 @@ export class EquipmentSearchComponent implements OnInit {
    * @memberOf EquipmentSearchComponent
    */
   public search() {
-    this.equipmentsService.getAll().subscribe( equips => {
-      if ( !this.searchText ) {
-        this.equipments = equips
-        return
-      }
-      let code = equips.filter(( eq ) => {
-        return ( eq.code.toLowerCase().indexOf( this.searchText.toLowerCase() ) > -1 )
-      })
-      let plaque = equips.filter(( eq ) => {
-        return ( eq.install.plaque.toLowerCase().indexOf( this.searchText.toLowerCase() ) > -1 )
-      })
-      this.equipments = _.unionBy( code.concat( plaque ), 'id' )
-    })
+    this.equipmentsService.getAll().subscribe( equipments => this.equipments = equipments )
   }
 
 }

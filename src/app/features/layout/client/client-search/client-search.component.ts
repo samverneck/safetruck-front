@@ -28,10 +28,7 @@ export class ClientSearchComponent implements OnInit {
    * @memberOf ClientSearchComponent
    */
   public ngOnInit(): void {
-    this.clientService.getAll().subscribe( {
-      next: resp => this.clients = resp,
-      error: console.error
-    })
+    this.clientService.getAll().subscribe( resp => this.clients = resp, error => console.error( error ) )
   }
 
   /**
@@ -42,7 +39,6 @@ export class ClientSearchComponent implements OnInit {
    * @memberOf ClientSearchComponent
    */
   public selectClient( client ): void {
-    console.log( client.equipments )
     this.selectedClient = client
   }
 }

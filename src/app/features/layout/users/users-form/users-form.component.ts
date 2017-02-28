@@ -1,6 +1,7 @@
-import { Component, Output, Input, EventEmitter, ViewChild, AfterViewChecked } from '@angular/core'
+import { Component, Output, Input, EventEmitter, ViewChild, AfterViewChecked, OnInit } from '@angular/core'
 import { NgForm } from '@angular/forms'
 
+import { ClientService, Client } from '../../client/shared'
 import { ValidationService } from '../../../../core'
 import { User } from '../shared'
 
@@ -8,7 +9,7 @@ import { User } from '../shared'
   selector: 'users-form',
   templateUrl: 'users-form.component.html'
 })
-export class UsersFormComponent implements AfterViewChecked {
+export class UsersFormComponent implements OnInit, AfterViewChecked {
   @Output() public onSubmit = new EventEmitter<User>()
   @Output() public onCancel = new EventEmitter<any>()
   @Input() public user: User
@@ -17,17 +18,19 @@ export class UsersFormComponent implements AfterViewChecked {
   public userForm: NgForm
   public errors = {}
 
+  public clients: Client[]
+
   public validationMessages = {
     'name': {
       'required': 'Obrigatório',
       'minlength': 'Mínimo 6'
     },
-    'role': {
-      'required': 'Obrigatório'
-    },
     'email': {
       'required': 'Obrigatório',
       'email': 'Email inválido'
+    },
+    'clientId': {
+      'required': 'Obrigatório'
     }
   }
 
@@ -38,7 +41,36 @@ export class UsersFormComponent implements AfterViewChecked {
    *
    * @memberOf UsersFormComponent
    */
-  constructor( public validation: ValidationService ) { }
+  constructor( public validation: ValidationService, private clientService: ClientService ) { }
+
+  /**
+   *
+   *
+   *
+   * @memberOf UsersFormComponent
+   */
+  public ngOnInit(): void {
+    this.getAllClients()
+  }
+
+  /**
+   * Obtém a lista de clientes
+   * @memberOf ClientPage
+   */
+  public getAllClients(): void {
+    this.clientService.getAll().subscribe( clients => this.clients = clients, error => this.handleError( error ) )
+  }
+
+  /**
+   *
+   *
+   * @param {number} clientId
+   *
+   * @memberOf UsersFormComponent
+   */
+  public updateClient( clientId: number ) {
+    this.user.client = this.clients.find( c => c.id === this.user.clientId )
+  }
 
   /**
    *
@@ -58,6 +90,10 @@ export class UsersFormComponent implements AfterViewChecked {
    */
   public onSubmitClick() {
     if ( this.userForm.valid ) {
+      this.user.username = 'username'
+      this.user.password = 'password'
+      this.user.newPassword = 'password'
+
       this.onSubmit.emit( this.user )
     }
   }
@@ -95,5 +131,17 @@ export class UsersFormComponent implements AfterViewChecked {
    */
   private updateErrors() {
     this.errors = this.validation.getFormErrors( this.userForm, this.validationMessages )
+  }
+
+  /**
+   *
+   *
+   * @private
+   * @param {*} error
+   *
+   * @memberOf UserRegisterComponent
+   */
+  private handleError( error: any ): void {
+    console.error( error )
   }
 }

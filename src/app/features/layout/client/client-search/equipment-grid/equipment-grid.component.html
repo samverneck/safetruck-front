@@ -13,33 +13,35 @@
             <th class="hidden-xs-down">
               <mfDefaultSorter by="install.plaque">Placa</mfDefaultSorter>
             </th>
-            <th class="hidden-md-down">
+            <th class="hidden-md-down text-center">
               <mfDefaultSorter by="install.vehicleType">Veículo</mfDefaultSorter>
             </th>
-            <th class="hidden-xs-down">
+            <th class="text-center">
               <mfDefaultSorter by="type">Tipo</mfDefaultSorter>
             </th>
-            <th class="hidden-xs-down">
+            <th class="hidden-xs-down text-center">
               <mfDefaultSorter by="install.orientation">Orientação</mfDefaultSorter>
             </th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let equipment of mf.data">
-            <td>{{equipment.code}}</td>
-            <td class="hidden-xs-down">{{equipment.install.plaque}}</td>
+            <td class="main-column">{{equipment.code}}</td>
             <td class="hidden-xs-down">
+              <span class="badge badge-default">{{equipment.install.plaque}}</span>
+            </td>
+            <td class="hidden-xs-down text-center">
               {{equipmentTypes[equipment.type]}}
             </td>
-            <td class="hidden-xs-down">
+            <td class="hidden-xs-down text-center">
               {{vehicleTypes[equipment.install.vehicleType]}}
             </td>
-            <td class="hidden-xs-down">
+            <td class="hidden-xs-down text-center">
               {{orientations[equipment.install.orientation]}}
             </td>
           </tr>
           <tr *ngIf="mf.data.length === 0">
-            <td colspan="100">
+            <td colspan="100" class="text-center">
               Sem resultados
             </td>
           </tr>

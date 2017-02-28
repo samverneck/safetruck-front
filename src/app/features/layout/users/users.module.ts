@@ -8,10 +8,9 @@ import { UsersRoutingModule } from './users-routing.module'
 import { UsersComponent } from './users.component'
 import { UsersFormComponent } from './users-form/users-form.component'
 import { UsersGridComponent } from './users-grid/users-grid.component'
-import { UsersSearchComponent } from './users-search/users-search.component'
 import { UsersRegisterComponent } from './users-register/users-register.component'
 
-import { UsersService } from './shared'
+import { UsersService, SearchPipe } from './shared'
 
 @NgModule( {
   imports: [ SharedModule, UsersRoutingModule ],
@@ -19,8 +18,8 @@ import { UsersService } from './shared'
     UsersComponent,
     UsersFormComponent,
     UsersRegisterComponent,
-    UsersSearchComponent,
-    UsersGridComponent
+    UsersGridComponent,
+    SearchPipe
   ],
   providers: [
     UsersService
