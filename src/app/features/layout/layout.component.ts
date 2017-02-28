@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation, ElementRef, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
+import { BreadcrumbService } from 'ng2-breadcrumb/ng2-breadcrumb'
 import { AppConfig } from '../../core'
 
 @Component( {
@@ -23,15 +24,84 @@ export class LayoutComponent implements OnInit {
 
   /**
    * Creates an instance of LayoutComponent.
+   *
+   * @param {BreadcrumbService} breadcrumbService
    * @param {AppConfig} config
    * @param {ElementRef} el
    * @param {Router} router
    *
    * @memberOf LayoutComponent
    */
-  constructor( config: AppConfig, private el: ElementRef, private router: Router ) {
+  constructor( private breadcrumbService: BreadcrumbService, config: AppConfig, private el: ElementRef, private router: Router ) {
     this.config = config.getConfig()
     this.configFn = config
+  }
+
+  /**
+   *
+   *
+   *
+   * @memberOf LayoutComponent
+   */
+  public ngOnInit(): void {
+
+    this.configureBreadCrumb()
+
+    if ( localStorage.getItem( 'nav-static' ) === 'true' ) {
+      this.config.state[ 'nav-static' ] = true
+    }
+
+    let $el = $( this.el.nativeElement )
+    this.$sidebar = $el.find( '[sidebar]' )
+
+    $el.find( 'a[href="#"]' ).on( 'click', ( e ) => {
+      e.preventDefault()
+    })
+
+    this.$sidebar.on( 'mouseenter', this.sidebarMouseEnter.bind( this ) )
+    this.$sidebar.on( 'mouseleave', this.sidebarMouseLeave.bind( this ) )
+
+    this.checkNavigationState()
+
+    this.$sidebar.on( 'click', () => {
+      if ( $( 'layout' ).is( '.nav-collapsed' ) ) {
+        this.expandNavigation()
+      }
+    })
+
+    this.router.events.subscribe(() => {
+      this.collapseNavIfSmallScreen()
+      window.scrollTo( 0, 0 )
+    })
+
+    if ( 'ontouchstart' in window ) {
+      this.enableSwipeCollapsing()
+    }
+
+    this.$sidebar.find( '.collapse' ).on( 'show.bs.collapse', function( e ): void {
+      // execute only if we're actually the .collapse element initiated event
+      // return for bubbled events
+      if ( e.target !== e.currentTarget ) { return }
+
+      let $triggerLink = $( this ).prev( '[data-toggle=collapse]' )
+      $( $triggerLink.data( 'parent' ) )
+        .find( '.collapse.in' ).not( $( this ) ).collapse( 'hide' )
+    })
+      /* adding additional classes to navigation link li-parent
+       for several purposes. see navigation styles */
+      .on( 'show.bs.collapse', function( e ): void {
+        // execute only if we're actually the .collapse element initiated event
+        // return for bubbled events
+        if ( e.target !== e.currentTarget ) { return }
+
+        $( this ).closest( 'li' ).addClass( 'open' )
+      }).on( 'hide.bs.collapse', function( e ): void {
+        // execute only if we're actually the .collapse element initiated event
+        // return for bubbled events
+        if ( e.target !== e.currentTarget ) { return }
+
+        $( this ).closest( 'li' ).removeClass( 'open' )
+      })
   }
 
   /**
@@ -208,71 +278,6 @@ export class LayoutComponent implements OnInit {
     }
   }
 
-  /**
-   *
-   *
-   *
-   * @memberOf LayoutComponent
-   */
-  public ngOnInit(): void {
-
-    if ( localStorage.getItem( 'nav-static' ) === 'true' ) {
-      this.config.state[ 'nav-static' ] = true
-    }
-
-    let $el = $( this.el.nativeElement )
-    this.$sidebar = $el.find( '[sidebar]' )
-
-    $el.find( 'a[href="#"]' ).on( 'click', ( e ) => {
-      e.preventDefault()
-    })
-
-    this.$sidebar.on( 'mouseenter', this.sidebarMouseEnter.bind( this ) )
-    this.$sidebar.on( 'mouseleave', this.sidebarMouseLeave.bind( this ) )
-
-    this.checkNavigationState()
-
-    this.$sidebar.on( 'click', () => {
-      if ( $( 'layout' ).is( '.nav-collapsed' ) ) {
-        this.expandNavigation()
-      }
-    })
-
-    this.router.events.subscribe(() => {
-      this.collapseNavIfSmallScreen()
-      window.scrollTo( 0, 0 )
-    })
-
-    if ( 'ontouchstart' in window ) {
-      this.enableSwipeCollapsing()
-    }
-
-    this.$sidebar.find( '.collapse' ).on( 'show.bs.collapse', function( e ): void {
-      // execute only if we're actually the .collapse element initiated event
-      // return for bubbled events
-      if ( e.target !== e.currentTarget ) { return }
-
-      let $triggerLink = $( this ).prev( '[data-toggle=collapse]' )
-      $( $triggerLink.data( 'parent' ) )
-        .find( '.collapse.in' ).not( $( this ) ).collapse( 'hide' )
-    })
-      /* adding additional classes to navigation link li-parent
-       for several purposes. see navigation styles */
-      .on( 'show.bs.collapse', function( e ): void {
-        // execute only if we're actually the .collapse element initiated event
-        // return for bubbled events
-        if ( e.target !== e.currentTarget ) { return }
-
-        $( this ).closest( 'li' ).addClass( 'open' )
-      }).on( 'hide.bs.collapse', function( e ): void {
-        // execute only if we're actually the .collapse element initiated event
-        // return for bubbled events
-        if ( e.target !== e.currentTarget ) { return }
-
-        $( this ).closest( 'li' ).removeClass( 'open' )
-      })
-  }
-
   /**************************************** private *****************************************/
   /**
    *
@@ -298,5 +303,31 @@ export class LayoutComponent implements OnInit {
     if ( this.configFn.isScreen( 'lg' ) || this.configFn.isScreen( 'xl' ) ) {
       this.collapseNavigation()
     }
+  }
+
+  /**
+   *
+   *
+   * @private
+   *
+   * @memberOf LayoutComponent
+   */
+  private configureBreadCrumb() {
+    this.breadcrumbService.addFriendlyNameForRoute( '/app', 'Safe Truck' )
+    this.breadcrumbService.addFriendlyNameForRoute( '/app/clients', 'Clientes' )
+    this.breadcrumbService.addFriendlyNameForRoute( '/app/clients/register', 'Cadastro' )
+    this.breadcrumbService.addFriendlyNameForRoute( '/app/clients/search', 'Pesquisa' )
+    this.breadcrumbService.addFriendlyNameForRouteRegex( '/app/clients/view', 'Detalhes' )
+    this.breadcrumbService.addFriendlyNameForRouteRegex( '/app/clients/view/[a-zA-Z]', '' )
+
+    this.breadcrumbService.addFriendlyNameForRoute( '/app/equipments', 'Equipamentos' )
+    this.breadcrumbService.addFriendlyNameForRoute( '/app/equipments/register', 'Cadastro' )
+    this.breadcrumbService.addFriendlyNameForRoute( '/app/equipments/search', 'Pesquisa' )
+    this.breadcrumbService.addFriendlyNameForRouteRegex( '/app/equipments/view/', 'Detalhes' )
+
+    this.breadcrumbService.addFriendlyNameForRoute( '/app/users', 'Usuários' )
+    this.breadcrumbService.addFriendlyNameForRoute( '/app/users/register', 'Cadastro' )
+
+    this.breadcrumbService.addFriendlyNameForRoute( '/app/report', 'Relatório de Conduta' )
   }
 }

@@ -11,6 +11,7 @@ import { TooltipModule } from 'ng2-bootstrap'
 import { DataTableModule } from 'angular2-datatable'
 import { Ng2TableModule } from 'ng2-table'
 import { TextMaskModule } from 'angular2-text-mask'
+import { Ng2BreadcrumbModule } from 'ng2-breadcrumb/ng2-breadcrumb'
 
 // directives
 import { CheckAllDirective } from './directives/check-all.directive'
@@ -35,6 +36,7 @@ import { SlugfyPipe } from './pipes/slugfy.pipe'
   imports: [
     CommonModule,
     TooltipModule.forRoot(),
+    Ng2BreadcrumbModule.forRoot(),
     FormsModule,
     DataTableModule,
     Ng2TableModule,
@@ -67,6 +69,7 @@ import { SlugfyPipe } from './pipes/slugfy.pipe'
     DataTableModule,
     Ng2TableModule,
     TextMaskModule,
+    Ng2BreadcrumbModule,
 
     CheckAllDirective,
     ProgressAnimateDirective,
