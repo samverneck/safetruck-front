@@ -4,6 +4,8 @@ import { Observable } from 'rxjs'
 import 'rxjs/add/operator/toPromise'
 import * as decode from 'jwt-decode'
 
+import { User } from '../features/layout/users/shared'
+
 @Injectable()
 export class AuthService {
   public token: string
@@ -37,16 +39,14 @@ export class AuthService {
       .map(( response: Response ) => {
         // login successful if there's a jwt token in the response
         let token = response.json()
+        console.log( decode( token ) )
 
         if ( token ) {
           // set token property
           this.token = token
           // store email and jwt token in local storage to
           // keep user logged in between page refreshes
-          localStorage.setItem(
-            'currentUser',
-            JSON.stringify( { email: email, token: token })
-          )
+          localStorage.setItem( 'currentUser', JSON.stringify( { email: email, token: token }) )
 
           // return true to indicate successful login
           return true
@@ -93,7 +93,7 @@ export class AuthService {
    *
    * @memberOf AuthService
    */
-  public user() {
+  public user(): User {
     return localStorage.getItem( 'currentUser' )
       ? decode( JSON.parse( localStorage.getItem( 'currentUser' ) ).token )
       : false

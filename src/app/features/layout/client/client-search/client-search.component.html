@@ -3,7 +3,7 @@
     <client-grid *ngIf="clients" [title]="'Pesquisar Clientes'" [data]="clients" [readOnlyMode]="true" (onSelectClient)="selectClient($event)"
       (onDeleteClient)="deleteClient($event)">
       </client-grid>
-      <equipment-grid [data]="selectedClient?.equipments">
+      <equipment-grid *ngIf="selectedClient" [data]="selectedClient?.equipments">
       </equipment-grid>
   </div>
 </div>

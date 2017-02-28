@@ -1,5 +1,4 @@
 import { BaseModel } from '../../../../../core'
-import { UserRole } from './UserRole'
 import { Client } from '../../../client/shared'
 
 export interface User extends BaseModel {
@@ -11,5 +10,4 @@ export interface User extends BaseModel {
   password: string
   newPassword?: string
   isAdmin: boolean
-  type: UserRole
 }

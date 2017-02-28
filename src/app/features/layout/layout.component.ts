@@ -297,7 +297,8 @@ export class LayoutComponent implements OnInit {
     this.breadcrumbService.addFriendlyNameForRoute( '/app/equipments', 'Equipamentos' )
     this.breadcrumbService.addFriendlyNameForRoute( '/app/equipments/register', 'Cadastro' )
     this.breadcrumbService.addFriendlyNameForRoute( '/app/equipments/search', 'Pesquisa' )
-    this.breadcrumbService.addFriendlyNameForRouteRegex( '/app/equipments/view/', 'Detalhes' )
+    this.breadcrumbService.addFriendlyNameForRouteRegex( '/app/equipments/view', 'Detalhes' )
+    this.breadcrumbService.addFriendlyNameForRouteRegex( '/app/equipments/view/[a-zA-Z]', '' )
 
     this.breadcrumbService.addFriendlyNameForRoute( '/app/users', 'Usuários' )
     this.breadcrumbService.addFriendlyNameForRoute( '/app/users/register', 'Cadastro' )

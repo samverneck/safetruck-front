@@ -10,7 +10,6 @@ import { HttpModule } from '@angular/http'
 import { AuthService } from './auth.service'
 import { ValidationService } from './validation.service'
 import { CepService } from './cep.service'
-import { UserService } from './user.service'
 import { RouteGuard } from './guards/route.guard'
 import { AuthGuard } from './guards/auth.guard'
 import { AppStateService } from './app-state.service'
@@ -29,7 +28,6 @@ import { APP_RESOLVER_PROVIDERS } from './app.resolver'
     AuthService,
     ValidationService,
     CepService,
-    UserService,
     RouteGuard,
     AuthGuard,
     AppConfig,

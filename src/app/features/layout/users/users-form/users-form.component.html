@@ -4,7 +4,7 @@
       <!--<legend>Dados do Usuário</legend>-->
       <div class="row">
 
-        <div class="form-group col-xl-5 col-md-6 col-xs-12">
+        <div class="form-group col-xl-3 col-lg-4 col-md-6 col-xs-12">
           <label>Cliente</label>
           <validation-message [error]="errors['clientId']"></validation-message>
           <select class="form-control" [(ngModel)]="user.clientId" name="clientId" (change)="updateClient(clientId.value)" required
@@ -14,18 +14,18 @@
             </select>
         </div>
         <!--Razão Social-->
-        <div class="form-group col-xl-5 col-md-6 col-xs-12">
+        <div class="form-group col-xl-3 col-lg-4 col-md-6 col-xs-12">
           <label>Nome</label>
           <validation-message [error]="errors['name']"></validation-message>
           <input [disabled]="readOnlyMode" type="text" class="form-control" [(ngModel)]="user.name" name="name" minlength="6" required>
         </div>
-        <div class="form-group col-xl-5 col-md-6 col-xs-12">
+        <div class="form-group col-xl-3 col-lg-4 col-md-6 col-xs-12">
           <label>E-mail</label>
           <validation-message [error]="errors['email']"></validation-message>
           <input [disabled]="readOnlyMode" type="email" class="form-control" [(ngModel)]="user.email" name="email" email required>
         </div>
-        <div class="form-group col-xl-5 col-md-6 col-xs-12">
-          <label>Tipo de Usuário</label>
+        <div class="form-group col-xl-3 col-lg-4 col-md-6 col-xs-12">
+          <label>Perfil</label>
           <div class="input-group">
             <span class="input-group-addon beautiful">
               <input [disabled]="readOnlyMode" type="checkbox" [(ngModel)]="user.isAdmin" name="isAdmin">
@@ -37,10 +37,10 @@
     </fieldset>
 
     <div class="form-actions">
-      <button type="button" class="btn btn-default btn-rounded pull-xs-right" (click)="onCancelClick()">
+      <button type="button" class="btn btn-default btn-rounded" (click)="onCancelClick()">
             {{user.id ? 'Cancelar' : 'Limpar'}}
       </button>
-      <button type="submit" class="btn btn-primary btn-rounded" [disabled]="!userForm.form.valid">
+      <button type="submit" class="btn btn-primary btn-rounded" [disabled]="!userForm.valid">
             {{user.id ?  'Atualizar' : 'Cadastrar'}}
       </button>
     </div>

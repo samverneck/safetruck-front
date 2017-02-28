@@ -5,7 +5,14 @@ import { AuthService, AppConfig } from './../../../../core'
 
 @Component( {
   selector: 'navbar',
-  templateUrl: './navbar.component.html'
+  templateUrl: './navbar.component.html',
+  styles: [ `
+    .user-info {
+      line-height:52px;
+    }
+
+    .user-info i { line-height: 50px; }
+  `]
 })
 export class NavbarComponent {
 
@@ -27,6 +34,16 @@ export class NavbarComponent {
     this.config = config.getConfig()
   }
 
+  /**
+   *
+   *
+   * @readonly
+   *
+   * @memberOf LayoutComponent
+   */
+  public get user() {
+    return this.auth.user()
+  }
   /**
    *
    *

@@ -90,10 +90,6 @@ export class UsersFormComponent implements OnInit, AfterViewChecked {
    */
   public onSubmitClick() {
     if ( this.userForm.valid ) {
-      this.user.username = 'username'
-      this.user.password = 'password'
-      this.user.newPassword = 'password'
-
       this.onSubmit.emit( this.user )
     }
   }

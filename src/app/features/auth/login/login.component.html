@@ -15,14 +15,8 @@
     </div>
 
     <div class="clearfix">
-      <div class="btn-toolbar pull-xs-right m-t-1">
-        <button type="submit" class="btn btn-inverse btn-sm" (click)="authenticateUser()">Entrar</button>
-      </div>
-    </div>
-    <div class="row m-t-1">
-      <div class="col-md-6 offset-md-3">
-        <a class="mr-n-lg" [routerLink]="['/auth/forgot']">Esqueci minha senha</a>
-      </div>
+      <a class="pull-xs-left btn-forgot" [routerLink]="['/auth/forgot']">Esqueci minha senha</a>
+      <button type="submit" class="btn btn-inverse pull-xs-right" (click)="authenticateUser()">Entrar</button>
     </div>
   </form>
 </div>
