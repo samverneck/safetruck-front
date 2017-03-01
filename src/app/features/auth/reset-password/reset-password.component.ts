@@ -2,7 +2,6 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { Http } from '@angular/http'
 import * as $ from 'jquery'
-import 'rxjs/add/operator/toPromise'
 
 import { AuthService } from './../../../core'
 
@@ -11,7 +10,7 @@ import { AuthService } from './../../../core'
   styleUrls: [ './reset-password.component.scss' ],
   templateUrl: './reset-password.component.html',
   encapsulation: ViewEncapsulation.None
-})
+} )
 
 export class ResetPasswordComponent implements OnInit {
 
@@ -57,13 +56,13 @@ export class ResetPasswordComponent implements OnInit {
             }
             this.email = client.email
             this.token = params[ 'token' ]
-          })
+          } )
           .catch( error => {
             console.log( error )
             this.router.navigate( [ '/auth/login' ] )
-          })
+          } )
       }
-    })
+    } )
   }
 
   /**
@@ -86,7 +85,7 @@ export class ResetPasswordComponent implements OnInit {
     }
 
     this.http
-      .post( `${API_URL}/forgot/${this.token}`, { password: this.password })
+      .post( `${API_URL}/forgot/${this.token}`, { password: this.password } )
       .toPromise()
       .then( res => {
         swal( {
@@ -97,11 +96,11 @@ export class ResetPasswordComponent implements OnInit {
             ? 'A sua senha foi alterada com sucesso.'
             : 'A sua senha foi criada com sucesso.',
           type: 'success'
-        }).then(() => {
+        } ).then(() => {
           this.auth.login( this.email, this.password )
             .toPromise()
             .then( resp => this.router.navigate( [ '/app' ] ) )
-        })
+        } )
       }
       )
       .catch( err => {
@@ -111,9 +110,9 @@ export class ResetPasswordComponent implements OnInit {
             ? 'Houve algum problema ao atualizar sua senha. Tente novamente mais tarde'
             : 'Houve algum problema ao cadastrar sua senha. Tente novamente mais tarde',
           type: 'error'
-        })
+        } )
         console.error( err )
-      })
+      } )
   }
 
   /**

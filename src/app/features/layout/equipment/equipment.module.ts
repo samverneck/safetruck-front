@@ -9,13 +9,15 @@ import { EquipmentComponent } from './equipment.component'
 import { EquipmentGridComponent } from './equipment-grid/equipment-grid.component'
 import { EquipmentRegisterComponent } from './equipment-register/equipment-register.component'
 import { EquipmentSearchComponent } from './equipment-search/equipment-search.component'
+import { EquipmentViewComponent } from './equipment-view/equipment-view.component'
+import { EquipmentFormComponent } from './equipment-form/equipment-form.component'
 
 // shared pipes and services
 import { SearchPipe, EquipmentService } from './shared'
 
 // libs
-import 'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'
-import 'bootstrap-datepicker/dist/locales/bootstrap-datepicker.pt-BR.min.js'
+// import 'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'
+// import 'bootstrap-datepicker/dist/locales/bootstrap-datepicker.pt-BR.min.js'
 
 @NgModule( {
   declarations: [
@@ -23,6 +25,8 @@ import 'bootstrap-datepicker/dist/locales/bootstrap-datepicker.pt-BR.min.js'
     EquipmentGridComponent,
     EquipmentRegisterComponent,
     EquipmentSearchComponent,
+    EquipmentFormComponent,
+    EquipmentViewComponent,
     SearchPipe
   ],
   imports: [

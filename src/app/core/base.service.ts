@@ -1,13 +1,9 @@
 import { Injectable } from '@angular/core'
 import { Http, Response, RequestOptions } from '@angular/http'
-import { Observable } from 'rxjs/Observable'
+import { Observable } from 'rxjs/Rx'
 
 import { BaseModel } from './models/BaseModel'
 import { AuthService } from './auth.service'
-
-import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/catch'
-import 'rxjs/add/observable/throw'
 
 @Injectable()
 export class BaseService<T extends BaseModel> {

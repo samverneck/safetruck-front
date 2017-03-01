@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core'
 import { NgForm } from '@angular/forms'
-import 'rxjs/add/operator/map'
 
 import { MessagesService } from './messages.service'
 
@@ -75,21 +74,21 @@ export class ValidationService {
       this.removeErrorClass( input.name )
       if ( this.isInvalidCommon( input ) ) {
         this.addErrorClass( input.name )
-        errors.unshift( { input: input, customMsg: null })
+        errors.unshift( { input: input, customMsg: null } )
         isValid = false
       }
       if ( this.isInvalidadeDate( input ) ) {
         let field = $( `[name="${input.name}"]` ).attr( 'validate' )
         this.addErrorClass( input.name )
-        errors.unshift( { input: input, customMsg: `A data informada em ${field} não é válida` })
+        errors.unshift( { input: input, customMsg: `A data informada em ${field} não é válida` } )
         isValid = false
       }
-    })
+    } )
 
     // exibe os alertas
     errors.map( err => {
       this.showNotification( err.input, err.customMsg )
-    })
+    } )
 
     return isValid
   }
@@ -209,7 +208,7 @@ export class ValidationService {
     const form = ngForm.form
 
     // build form errors Object from validationMessages Object (same structure)
-    let errors = Object.assign( {}, ...Object.keys( validationMessages ).map( key => ( { [ key ]: '' }) ) )
+    let errors = Object.assign( {}, ...Object.keys( validationMessages ).map( key => ( { [ key ]: '' } ) ) )
 
     for ( const field in errors ) {
       const control = form.controls[ field ]
@@ -237,6 +236,6 @@ export class ValidationService {
       if ( error ) {
         return `- ${error}`
       }
-    }).join( '<br>' )
+    } ).join( '<br>' )
   }
 }

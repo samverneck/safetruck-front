@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Http, Headers, Response, RequestOptions } from '@angular/http'
 import { Observable } from 'rxjs'
-import 'rxjs/add/operator/toPromise'
 import * as decode from 'jwt-decode'
 
 import { User } from '../features/layout/users/shared'
@@ -94,9 +93,15 @@ export class AuthService {
    * @memberOf AuthService
    */
   public user(): User {
-    return localStorage.getItem( 'currentUser' )
+    const user: User = localStorage.getItem( 'currentUser' )
       ? decode( JSON.parse( localStorage.getItem( 'currentUser' ) ).token )
       : false
+
+    if ( user ) {
+      user.isSafeTruck = user.clientId === 'SJgzWBGhHx'
+    }
+
+    return user
   }
 
 }

@@ -1,9 +1,9 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core'
-import { ActivatedRoute, Params } from '@angular/router'
+import { Component, ViewEncapsulation, OnInit, ViewChild } from '@angular/core'
+import * as _ from 'lodash'
 
-import { ValidationService, MessagesService, FormService } from '../../../../core'
-import { EquipmentService, Equipment, EquipmentInstall, Orientation, EVechicleType, EquipmentType } from '../shared'
-import { ClientService, Client } from '../../client/shared'
+import { MessagesService } from '../../../../core'
+import { EquipmentService, Equipment } from '../shared'
+import { EquipmentGridComponent } from '../equipment-grid/equipment-grid.component'
 
 @Component( {
   selector: 'equipment-register',
@@ -14,20 +14,9 @@ import { ClientService, Client } from '../../client/shared'
 
 export class EquipmentRegisterComponent implements OnInit {
 
+  @ViewChild( EquipmentGridComponent ) public equipmentGrid: EquipmentGridComponent
   public equipments: Equipment[]
-  public showTable: boolean = false
-  public viewMode: boolean = false
-  public clients: Client[]
-  public equipmentId: string
-  public types = {
-    orientation: Orientation,
-    vehicleType: EVechicleType,
-    equipmentType: EquipmentType
-  }
-  public masks = {
-    plaque: [ /[a-zA-Z]/, /[a-zA-Z]/, /[a-zA-Z]/, /\d/, /\d/, /\d/, /\d/ ]
-  }
-
+  public equipment: Equipment = this.newEquipment()
   /**
    * Creates an instance of EquipmentRegisterComponent.
    * @param {ActivatedRoute} route
@@ -37,12 +26,7 @@ export class EquipmentRegisterComponent implements OnInit {
    *
    * @memberOf EquipmentRegisterComponent
    */
-  constructor( public route: ActivatedRoute,
-    public equipmentService: EquipmentService,
-    public clientService: ClientService,
-    public validation: ValidationService,
-    public messages: MessagesService,
-    public formUtils: FormService ) { }
+  constructor( public equipmentService: EquipmentService, public messages: MessagesService ) { }
 
   /**
    *
@@ -51,61 +35,17 @@ export class EquipmentRegisterComponent implements OnInit {
    * @memberOf EquipmentRegisterComponent
    */
   public ngOnInit(): void {
-
-    this.clientService.getAll().subscribe( {
-      next: clients => this.clients = clients,
-      error: console.error
-    })
-
-    this.equipmentService.getAll().subscribe( {
-      next: equipments => this.equipments = equipments,
-      complete: () => { this.showTable = true },
-      error: console.error
-    })
-
-    if ( window.location.href.split( '/' )[ 5 ] === 'view' ) {
-      this.getClientData()
-      this.showTable = false
-      this.viewMode = true
-    }
-    if ( window.location.href.split( '/' )[ 5 ] === 'register' ) {
-      this.showTable = true
-      this.viewMode = false
-      // this.clientService.getAll().subscribe({
-      //   next: clients => this.clients = clients,
-      //   error: console.error
-      // })
-    }
-
-    $( '.date' ).datepicker( {
-      autoclose: true,
-      todayBtn: 'linked',
-      todayHighlight: true,
-      assumeNearbyYear: true,
-      placeholder: 'Selecione',
-      format: 'dd/mm/yyyy',
-      language: 'pt-BR'
-    })
+    this.getAllEquipments()
   }
 
   /**
-   * Carrega os dados do equipamento que através do parametro id
-   * passado pela URL
+   *
+   *
+   *
+   * @memberOf EquipmentRegisterComponent
    */
-  public getClientData() {
-    this.route.params.forEach(( params: Params ) => {
-      if ( params[ 'id' ] !== undefined ) {
-        this.equipmentService.getById( params[ 'id' ] ).subscribe( {
-          next: ( equipment ) => this.loadEquipmentData( equipment ),
-          error: error => {
-            console.log( error )
-            window.history.back()
-          }
-        })
-        return
-      }
-      window.history.back()
-    })
+  public getAllEquipments(): void {
+    this.equipmentService.getAll().subscribe( equipments => this.equipments = equipments, error => this.handleError( error ) )
   }
 
   /**
@@ -113,53 +53,21 @@ export class EquipmentRegisterComponent implements OnInit {
    * @returns
    * @memberOf EquipmentRegisterPage
    */
-  public saveEquipament() {
-    // Validando...
-    if ( !this.validation.validateForm( '#equipmentForm' ) ) { return }
-    // Obtendo os dados do formuulário
-    let equipment: Equipment = this.getFormData()
-    // Fazendo o POST/PUT para api
-    this.equipmentService.save( equipment ).subscribe( {
-      next: ( response ) => {
-        this.updateEquipmentsTable()
-        this.messages.showAlert(
-          equipment.id ? 'Atualizado' : 'Cadastrado',
-          equipment.id
-            ? 'O equipamento foi atualizado com sucesso.'
-            : 'O equipamento foi cadastrado com sucesso.',
-          'success'
-        )
-        // console.info(response)
-      },
-      error: ( err ) => {
-        this.messages.showAlert(
-          'Erro',
-          equipment.id
-            ? `Ocorreu um erro ao atualizar o equipamento. ${err}.`
-            : `Ocorreu um erro ao cadastrar o equipamento. ${err}.`,
-          'error'
-        )
-        console.error( err )
-      },
-      complete: () => {
-        this.clearForm()
-      }
-    })
-  }
+  public saveEquipment( equipment: Equipment ) {
 
-  /**
-   * Obtém a lista de equipamentos
-   * @memberOf EquipmentRegisterPage
-   */
-  public updateEquipmentsTable(): void {
-    this.showTable = false
-    this.equipmentService.getAll().subscribe( {
-      next: ( resp ) => {
-        this.equipments = resp
-        this.showTable = true
-      },
-      error: console.error
-    })
+    const onSuccess = response => {
+      this.messages.showAlert( equipment.id ? 'Atualizado' : 'Cadastrado', 'O equipamento foi salvo com sucesso.', 'success' )
+    }
+
+    const onError = error => {
+      this.messages.showAlert( 'Erro', `Não foi possível salvar o equipamento: ${error}`, 'error' )
+    }
+
+    const onComplete = () => {
+      this.getAllEquipments()
+    }
+
+    this.equipmentService.save( equipment ).subscribe( onSuccess, onError, onComplete )
   }
 
   /**
@@ -178,19 +86,17 @@ export class EquipmentRegisterComponent implements OnInit {
     }).then(() => {
       this.equipmentService.delete( equipment ).subscribe( {
         next: ( resp ) => {
-          this.updateEquipmentsTable()
-          console.log( resp )
+          this.getAllEquipments()
           swal(
             'Deletado!',
-            `O cliente ${equipment.code} foi deletado com sucesso.`,
+            `O equipamento ${equipment.code} foi deletado com sucesso.`,
             'success'
           )
         },
-        error: ( err ) => {
-          console.error( err )
+        error: ( error ) => {
           swal(
             'Erro!',
-            `Ocorreu um erro ao deletar o equipamento. ${err}`,
+            `Ocorreu um erro ao deletar o equipamento. ${error}`,
             'error'
           )
         }
@@ -199,69 +105,48 @@ export class EquipmentRegisterComponent implements OnInit {
   }
 
   /**
-   * Obtem os dados do form
+   *
+   *
+   * @param {Equipment} client
+   *
+   * @memberOf EquipmentRegisterComponent
+   */
+  public selectEquipment( equipment: Equipment ) {
+    this.equipment = _.merge( {}, equipment )
+  }
+
+  /**
+   *
+   *
+   *
+   * @memberOf EquipmentRegisterComponent
+   */
+  public cancel() {
+    this.equipment = this.newEquipment()
+    this.equipmentGrid.unselect()
+    this.messages.showNotification( 'Edição cancelada', 'success' )
+  }
+
+  /**
+   *
+   *
    * @returns {Equipment}
-   * @memberOf EquipmentRegisterPage
-   */
-  public getFormData(): Equipment {
-    let data = this.formUtils.serialize( '#equipmentForm' )
-    let install: EquipmentInstall = {
-      vehicleType: data[ 'vehicle' ],
-      plaque: data[ 'plaque' ],
-      orientation: data[ 'orientation' ],
-      clientId: data[ 'client-id' ],
-      installation: data[ 'installation' ],
-      admeasurement: data[ 'admeasurement' ]
-    }
-    let equipment: Equipment = {
-      id: this.equipmentId ? this.equipmentId : null,
-      code: data[ 'code' ],
-      type: data[ 'equipment' ],
-      install: install
-    }
-
-    return equipment
-  }
-
-  /**
-   * Preenche os dados do formulário com os dados do equipamento clicado
-   *
-   * @param {Equipment} equipment
    *
    * @memberOf EquipmentRegisterComponent
    */
-  public loadEquipmentData( equipment: Equipment ): void {
-    this.clearForm()
-    this.equipmentId = equipment.id
-    $( '[name="code"]' ).val( equipment.code )
-    $( '[name="plaque"]' ).val( equipment.install.plaque )
-    $( '[name="vehicle"]' ).val( equipment.install.vehicleType )
-    $( '[name="equipment"]' ).val( equipment.type )
-    $( '[name="orientation"]' ).val( equipment.install.orientation )
-    $( '[name="client-id"]' ).val( equipment.install.clientId )
-    $( '[name="installation"]' ).val( equipment.install.installation )
-    $( '[name="admeasurement"]' ).val( equipment.install.admeasurement )
-    $( '[name="clientName"]' ).val( equipment.install.client.companyName )
+  public newEquipment(): Equipment {
+    return { install: {} } as Equipment
   }
 
   /**
    *
    *
+   * @private
+   * @param {*} error
    *
    * @memberOf EquipmentRegisterComponent
    */
-  public toUpperPlaque() {
-    $( '[name="plaque"]' ).val( $( '[name="plaque"]' ).val().toUpperCase() )
-  }
-
-  /**
-   *
-   *
-   *
-   * @memberOf EquipmentRegisterComponent
-   */
-  public clearForm() {
-    this.equipmentId = null
-    this.formUtils.clear( '#equipmentForm' )
+  private handleError( error: any ): void {
+    console.error( error )
   }
 }

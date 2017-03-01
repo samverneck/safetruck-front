@@ -27,11 +27,17 @@
         </thead>
         <tbody>
           <tr *ngFor="let equipment of mf.data | search : searchText" (click)="select(equipment)" [class.selected]="equipment===selectedEquipment">
-            <td class="main-column">{{equipment.code}}</td>
+            <td class="main-column">
+              <a *ngIf="showLinks" [routerLink]="['/app/equipments/view/', equipment.id]">
+                {{equipment.code}}
+              </a>
+              <span *ngIf="!showLinks">{{equipment.code}}</span>
+            </td>
             <td class="hidden-xs-down">
-              <a [routerLink]="['/app/clients/view/', equipment.install?.clientId]">
-              {{equipment.install.client?.companyName}}
-            </a>
+              <a *ngIf="showLinks" [routerLink]="['/app/clients/view/', equipment.install?.clientId]">
+                {{equipment.install.client?.companyName}}
+              </a>
+              <span *ngIf="!showLinks">{{equipment.install.client?.companyName}}</span>
             </td>
             <td class="hidden-xs-down">
               <span class="badge badge-default">{{equipment.install.plaque}}</span>

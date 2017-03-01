@@ -1,0 +1,13 @@
+<div class="row" *ngIf="equipment">
+  <div class="col-xs-12">
+    <panel>
+      <panel-header>
+        <h5>Exibindo equipamento: {{equipment.code}}</h5>
+      </panel-header>
+      <panel-content>
+        <equipment-form [equipment]="equipment" [readOnlyMode]="true">
+        </equipment-form>
+      </panel-content>
+    </panel>
+  </div>
+</div>

@@ -13,6 +13,7 @@ export class EquipmentGridComponent {
 
   @Input() public data: Equipment[]
   @Input() public readOnlyMode: boolean = false
+  @Input() public showLinks: boolean = false
   @Input() public title: string = 'Equipamentos'
   @Output() public onSelectEquipment: EventEmitter<Equipment> = new EventEmitter()
   @Output() public onDeleteEquipment: EventEmitter<Equipment> = new EventEmitter()
@@ -49,5 +50,15 @@ export class EquipmentGridComponent {
   public select( equipment: Equipment ) {
     this.selectedEquipment = equipment
     this.onSelectEquipment.emit( equipment )
+  }
+
+  /**
+   *
+   *
+   *
+   * @memberOf EquipmentGridComponent
+   */
+  public unselect() {
+    this.selectedEquipment = undefined
   }
 }

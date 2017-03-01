@@ -10,7 +10,8 @@ import { HttpModule } from '@angular/http'
 import { AuthService } from './auth.service'
 import { ValidationService } from './validation.service'
 import { CepService } from './cep.service'
-import { RouteGuard } from './guards/route.guard'
+import { IsSafeTruckGuard } from './guards/is-safe-truck.guard'
+import { IsAdminGuard } from './guards/is-admin.guard'
 import { AuthGuard } from './guards/auth.guard'
 import { AppStateService } from './app-state.service'
 import { AppConfig } from './app.config'
@@ -28,7 +29,8 @@ import { APP_RESOLVER_PROVIDERS } from './app.resolver'
     AuthService,
     ValidationService,
     CepService,
-    RouteGuard,
+    IsSafeTruckGuard,
+    IsAdminGuard,
     AuthGuard,
     AppConfig,
     FormService,

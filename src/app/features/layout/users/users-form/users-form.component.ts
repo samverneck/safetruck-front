@@ -8,7 +8,7 @@ import { User } from '../shared'
 @Component( {
   selector: 'users-form',
   templateUrl: 'users-form.component.html'
-})
+} )
 export class UsersFormComponent implements OnInit, AfterViewChecked {
   @Output() public onSubmit = new EventEmitter<User>()
   @Output() public onCancel = new EventEmitter<any>()
@@ -90,6 +90,7 @@ export class UsersFormComponent implements OnInit, AfterViewChecked {
    */
   public onSubmitClick() {
     if ( this.userForm.valid ) {
+      this.user.username = this.user.username || this.user.email
       this.onSubmit.emit( this.user )
     }
   }

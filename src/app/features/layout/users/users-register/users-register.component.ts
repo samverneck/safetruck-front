@@ -8,7 +8,7 @@ import { UsersService, User } from '../shared'
 @Component( {
   templateUrl: 'users-register.component.html',
   encapsulation: ViewEncapsulation.None
-})
+} )
 export class UsersRegisterComponent implements OnInit {
 
   // @ViewChild( UsersGridComponent ) public usersGrid: UsersGridComponent
@@ -79,7 +79,7 @@ export class UsersRegisterComponent implements OnInit {
       showCancelButton: true,
       cancelButtonText: 'Não',
       confirmButtonText: 'Sim'
-    }).then(() => {
+    } ).then(() => {
       this.userService.delete( user ).subscribe( {
         next: ( resp ) => {
           this.getAllUsers()
@@ -96,8 +96,8 @@ export class UsersRegisterComponent implements OnInit {
             'error'
           )
         }
-      })
-    }).catch(( err ) => err )
+      } )
+    } ).catch(( err ) => err )
   }
 
   /**
@@ -131,7 +131,7 @@ export class UsersRegisterComponent implements OnInit {
    * @memberOf UserRegisterComponent
    */
   public newUser(): User {
-    return {} as User
+    return { isAdmin: false } as User
   }
 
   /**

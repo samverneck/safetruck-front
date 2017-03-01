@@ -12,7 +12,8 @@ export * from './form.service'
 
 // guards
 export * from './guards/auth.guard'
-export * from './guards/route.guard'
+export * from './guards/is-safe-truck.guard'
+export * from './guards/is-admin.guard'
 
 // resolvers
 export * from './app.resolver'

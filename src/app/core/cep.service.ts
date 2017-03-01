@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Http, Response } from '@angular/http'
-import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/catch'
+import { Observable } from 'rxjs/Rx'
 
 @Injectable()
 export class CepService {
@@ -44,7 +42,7 @@ export class CepService {
           complement: address.complemento,
           state: address.uf
         }
-      })
+      } )
       .catch(( error: any ) => Observable.throw( error.json().error || 'Server error' ) )
   }
 }
