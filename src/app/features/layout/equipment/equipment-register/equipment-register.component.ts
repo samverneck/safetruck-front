@@ -10,7 +10,7 @@ import { EquipmentGridComponent } from '../equipment-grid/equipment-grid.compone
   templateUrl: './equipment-register.component.html',
   styleUrls: [ './equipment-register.component.scss' ],
   encapsulation: ViewEncapsulation.None
-})
+} )
 
 export class EquipmentRegisterComponent implements OnInit {
 
@@ -83,7 +83,7 @@ export class EquipmentRegisterComponent implements OnInit {
       showCancelButton: true,
       cancelButtonText: 'Não',
       confirmButtonText: 'Sim'
-    }).then(() => {
+    } ).then(() => {
       this.equipmentService.delete( equipment ).subscribe( {
         next: ( resp ) => {
           this.getAllEquipments()
@@ -100,8 +100,8 @@ export class EquipmentRegisterComponent implements OnInit {
             'error'
           )
         }
-      })
-    }).catch(( err ) => err )
+      } )
+    } ).catch(( err ) => err )
   }
 
   /**
@@ -135,7 +135,7 @@ export class EquipmentRegisterComponent implements OnInit {
    * @memberOf EquipmentRegisterComponent
    */
   public newEquipment(): Equipment {
-    return { install: {} } as Equipment
+    return { install: { plaque: '' } } as Equipment
   }
 
   /**
