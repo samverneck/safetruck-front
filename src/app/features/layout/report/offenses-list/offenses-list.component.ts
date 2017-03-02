@@ -7,7 +7,7 @@ import { ReportData } from '../shared'
   selector: 'offenses-list',
   templateUrl: 'offenses-list.component.html',
   styles: [ 'offenses-list.component.scss' ]
-})
+} )
 export class OffensesListComponent {
 
   @Input() public data: ReportData
@@ -38,7 +38,7 @@ export class OffensesListComponent {
    */
   public getOverSpeedingImg( start, finish ) {
     let api: string = 'https://maps.googleapis.com/maps/api/staticmap?'
-    let key: string = '&key=AIzaSyCTyVqtTUEU9_G20pWMkmEo7b2vQe87M4k'
+    let key: string = `&key=${GOOGLE_MAPS_API_KEY}`
     let size: string = '&size=275x135'
     let labelStart: string = `&markers=color:green%7Clabel:I%7C${start.lat},${start.lng}`
     let labelFinish: string = `&markers=color:red%7Clabel:F%7C${finish.lat},${finish.lng}`
@@ -69,7 +69,7 @@ export class OffensesListComponent {
    */
   public getDangerZoneImg( position ) {
     let api: string = 'https://maps.googleapis.com/maps/api/staticmap?'
-    let key: string = '&key=AIzaSyCTyVqtTUEU9_G20pWMkmEo7b2vQe87M4k'
+    let key: string = `&key=${GOOGLE_MAPS_API_KEY}`
     let size: string = '&size=275x135'
     let icon: string = 'http://chart.apis.google.com/chart?chst=d_map_pin_icon%26chld=caution%257Cff0000%7C'
     let latLon: string = `&markers=icon:${icon}${position.lat},${position.lng}`

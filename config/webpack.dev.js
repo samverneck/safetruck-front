@@ -94,6 +94,7 @@ module.exports = (options) => {
         'ENV': JSON.stringify(METADATA.ENV),
         'API_URL': JSON.stringify(METADATA.API_URL),
         'HMR': METADATA.HMR,
+        'GOOGLE_MAPS_API_KEY': JSON.stringify(METADATA.GOOGLE_MAPS_API_KEY),
         'process.env': {
           'ENV': JSON.stringify(METADATA.ENV),
           'API_URL': JSON.stringify(METADATA.API_URL),

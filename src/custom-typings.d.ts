@@ -52,6 +52,7 @@ declare module '*'
 // Extra variables that live on Global that will be replaced by webpack DefinePlugin
 declare var ENV: string
 declare var API_URL: string
+declare var GOOGLE_MAPS_API_KEY: string
 declare var HMR: boolean
 declare var System: SystemJS
 
