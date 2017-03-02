@@ -57,6 +57,9 @@ export class ReportComponent implements OnInit, AfterViewChecked {
    */
   public ngOnInit(): void {
 
+    this.filter.start = moment().subtract( 1, 'hours' ).toDate()
+    this.filter.finish = new Date()
+
     // Obtém as placas cadastradas
     this.reportService.getPlaques().subscribe( plaques => {
       this.plaques = _.sortedUniq( plaques ) as string[]
@@ -103,9 +106,7 @@ export class ReportComponent implements OnInit, AfterViewChecked {
    */
   public print(): void {
 
-    // Obtendo as datas
-    let dates = this.convertDateToISO( this.filter.start, this.filter.finish )
-    this.reportService.getReportHtml( this.filter.plaque, dates.start, dates.finish )
+    this.reportService.getReportHtml( this.filter )
       .subscribe( html => {
         let popup: Window
         if ( window ) {
@@ -186,23 +187,6 @@ export class ReportComponent implements OnInit, AfterViewChecked {
       ( popup.window as any ).app.resumo = app.resumo;
       ( popup.window as any ).readyToPrint = true
     } )
-  }
-
-  /**
-   * Coverte a data para o formato ISO
-   * @param {string} start
-   * @param {string} finish
-   * @returns
-   * @memberOf ReportPage
-   */
-  private convertDateToISO( start: string, finish: string ) {
-    // Se não for informada uma data fim, o dia atual é informado
-    start = moment( start, DATE_FORMAT ).toISOString()
-    finish
-      ? finish = moment( finish, DATE_FORMAT ).toISOString()
-      : finish = moment().toISOString()
-
-    return { start: start, finish: finish }
   }
 
   /**
