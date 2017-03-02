@@ -22,10 +22,9 @@ export class AuthGuard implements CanActivate {
    * @memberOf AuthGuard
    */
   public canActivate() {
-    if ( this.authService.user ) {
+    if ( this.authService.user() ) {
       return true
     }
-
     // not logged in so redirect to login page
     this.router.navigate( [ '/auth/login' ] )
     return false

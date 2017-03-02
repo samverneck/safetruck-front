@@ -31,8 +31,8 @@ export class AuthService {
    * @memberOf AuthService
    */
   public login( email: string, password: string ): Observable<boolean> {
-    let headers = new Headers( { 'Content-Type': 'application/json' })
-    let options = new RequestOptions( { headers: headers })
+    let headers = new Headers( { 'Content-Type': 'application/json' } )
+    let options = new RequestOptions( { headers: headers } )
 
     return this.http.post( `${API_URL}/login`, { email: email, password: password }, options )
       .map(( response: Response ) => {
@@ -45,7 +45,7 @@ export class AuthService {
           this.token = token
           // store email and jwt token in local storage to
           // keep user logged in between page refreshes
-          localStorage.setItem( 'currentUser', JSON.stringify( { email: email, token: token }) )
+          localStorage.setItem( 'currentUser', JSON.stringify( { email: email, token: token } ) )
 
           // return true to indicate successful login
           return true
@@ -53,7 +53,7 @@ export class AuthService {
           // return false to indicate failed login
           return false
         }
-      })
+      } )
   }
 
   /**
@@ -82,7 +82,7 @@ export class AuthService {
     headers.append( 'Content-Type', 'application/json' )
     headers.append( 'Authorization', authToken )
 
-    return new RequestOptions( { headers: headers })
+    return new RequestOptions( { headers: headers } )
   }
 
   /**

@@ -5,7 +5,13 @@ import {
   SkipSelf
 } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { HttpModule } from '@angular/http'
+import { Router } from '@angular/router'
+import {
+  HttpModule,
+  XHRBackend,
+  RequestOptions,
+  Http
+} from '@angular/http'
 
 import { AuthService } from './auth.service'
 import { ValidationService } from './validation.service'
@@ -19,6 +25,15 @@ import { FormService } from './form.service'
 import { MessagesService } from './messages.service'
 import { ENV_PROVIDERS } from './environment'
 import { APP_RESOLVER_PROVIDERS } from './app.resolver'
+import { BaseHttp } from './base-http.service'
+
+let httpProvider = {
+  provide: Http,
+  useFactory: ( router: Router, backend: XHRBackend, defaultOptions: RequestOptions ) => {
+    return new BaseHttp( router, backend, defaultOptions )
+  },
+  deps: [ Router, XHRBackend, RequestOptions ]
+}
 
 @NgModule( {
   imports: [ CommonModule, HttpModule ],
@@ -34,9 +49,10 @@ import { APP_RESOLVER_PROVIDERS } from './app.resolver'
     AuthGuard,
     AppConfig,
     FormService,
-    MessagesService
+    MessagesService,
+    httpProvider
   ]
-})
+} )
 export class CoreModule {
 
   /**

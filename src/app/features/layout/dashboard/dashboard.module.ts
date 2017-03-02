@@ -7,9 +7,6 @@ import { SharedModule } from '../../../shared/shared.module'
 // components
 import { DashboardComponent } from './dashboard.component'
 
-// libs
-import 'jquery.animate-number/jquery.animateNumber.js'
-
 @NgModule( {
   imports: [
     SharedModule,
@@ -21,5 +18,5 @@ import 'jquery.animate-number/jquery.animateNumber.js'
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ]
-})
+} )
 export default class DashboardModule { }

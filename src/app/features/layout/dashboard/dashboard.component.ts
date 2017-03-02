@@ -1,5 +1,7 @@
 import { Component } from '@angular/core'
 
+import { AuthService } from '../../../core'
+
 @Component( {
   selector: 'dashboard',
   templateUrl: './dashboard.component.html',
@@ -8,6 +10,11 @@ import { Component } from '@angular/core'
        font-size: 1.55rem;
     }
   `]
-})
+} )
 export class DashboardComponent {
+  constructor( private auth: AuthService ) { }
+
+  public get user() {
+    return this.auth.user()
+  }
 }

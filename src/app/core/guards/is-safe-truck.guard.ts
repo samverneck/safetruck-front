@@ -26,7 +26,7 @@ export class IsSafeTruckGuard implements CanActivate {
     if ( this.auth.user().isSafeTruck ) {
       return true
     }
-    this.router.navigate( [ '/app/report' ] )
+    this.router.navigate( [ '/error' ] )
     return false
   }
 }

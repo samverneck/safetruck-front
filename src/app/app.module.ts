@@ -1,6 +1,5 @@
 import { NgModule, ApplicationRef } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
-import { HttpModule } from '@angular/http'
 
 // modules
 import { CoreModule } from './core/core.module'
@@ -19,7 +18,6 @@ import { ErrorComponent } from './features/error/error.component'
 @NgModule( {
   imports: [ // import Angular's modules
     BrowserModule,
-    HttpModule,
     CoreModule,
     AppRoutingModule
   ],
@@ -29,7 +27,7 @@ import { ErrorComponent } from './features/error/error.component'
     Autosize
   ],
   bootstrap: [ AppComponent ]
-})
+} )
 export class AppModule {
 
   /**

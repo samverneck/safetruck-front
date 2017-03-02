@@ -4,7 +4,6 @@ import 'angular2-text-mask'
 // 3td part
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { HttpModule } from '@angular/http'
 import { FormsModule } from '@angular/forms'
 import { RouterModule } from '@angular/router'
 import { TooltipModule } from 'ng2-bootstrap'
@@ -40,7 +39,6 @@ import { SlugfyPipe } from './pipes/slugfy.pipe'
     FormsModule,
     DataTableModule,
     Ng2TableModule,
-    HttpModule,
     RouterModule,
     TextMaskModule
   ],
@@ -88,6 +86,6 @@ import { SlugfyPipe } from './pipes/slugfy.pipe'
     KeysPipe,
     SlugfyPipe
   ]
-})
+} )
 export class SharedModule {
 }

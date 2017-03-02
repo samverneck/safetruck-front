@@ -7,14 +7,13 @@ import { AppConfig, AuthService } from '../../../../core'
 @Component( {
   selector: 'sidebar',
   templateUrl: './sidebar.component.html'
-})
+} )
 export class SidebarComponent implements OnInit, AfterViewInit {
 
   public $el: any
   public config: any
   public router: Router
   public location: Location
-  public canView: boolean
 
   /**
    * Creates an instance of SidebarComponent.
@@ -31,7 +30,17 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     this.config = config.getConfig()
     this.router = router
     this.location = location
-    this.canView = this.checkUserPermissions()
+  }
+
+  /**
+   *
+   *
+   * @readonly
+   *
+   * @memberOf SidebarComponent
+   */
+  public get user() {
+    return this.auth.user()
   }
 
   /**
@@ -48,7 +57,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       if ( event instanceof NavigationEnd ) {
         this.changeActiveNavigationItem( this.location )
       }
-    })
+    } )
   }
 
   /**
@@ -63,18 +72,6 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   /**
    *
-   * Obtém os dados do usuário para saber se ele pode ver todos os menus
-   *
-   * @returns
-   *
-   * @memberOf SidebarComponent
-   */
-  public checkUserPermissions() {
-    return this.auth.user().isAdmin || false
-  }
-
-  /**
-   *
    *
    *
    * @memberOf SidebarComponent
@@ -84,12 +81,12 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     if ( this.$el.find( '.slimScrollDiv' ).length !== 0 ) {
       $sidebarContent.slimscroll( {
         destroy: true
-      })
+      } )
     }
     $sidebarContent.slimscroll( {
       height: window.innerHeight,
       size: '4px'
-    })
+    } )
   }
 
   /**

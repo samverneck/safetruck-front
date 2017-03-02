@@ -23,6 +23,9 @@
         </ul>
       </li>
     </ul>
-    <span class="user-info pull-xs-right"> <i class="glyphicon glyphicon-user"></i> <strong>Olá,</strong> {{user.username}}</span>
+    <span class="user-info pull-xs-right"> 
+      <i class="glyphicon glyphicon-user"></i> <strong>Olá,</strong> {{user.username}}
+      <strong *ngIf="user.isAdmin">(Admin)</strong>
+      </span>
   </div>
 </div>

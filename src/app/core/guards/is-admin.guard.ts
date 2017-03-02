@@ -26,7 +26,7 @@ export class IsAdminGuard implements CanActivate {
     if ( this.auth.user().isAdmin ) {
       return true
     }
-    this.router.navigate( [ '/app/report' ] )
+    this.router.navigate( [ '/error' ] )
     return false
   }
 }

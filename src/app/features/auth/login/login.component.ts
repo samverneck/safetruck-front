@@ -12,7 +12,7 @@ import { AuthService } from './../../../core'
   host: {
     class: 'login-page app'
   }
-})
+} )
 export class LoginComponent {
 
   public email: string
@@ -39,14 +39,15 @@ export class LoginComponent {
       .toPromise()
       .then( result => {
         if ( result === true ) {
-          this.router.navigate( [ '/app' ] )
+          const redirectUrl = this.auth.user().isSafeTruck ? '/app' : '/app/report'
+          this.router.navigate( [ redirectUrl ] )
         } else {
           $( '.alert' ).show( 'fast' )
         }
-      })
+      } )
       .catch( error => {
         console.log( error )
         $( '.alert' ).show( 'fast' )
-      })
+      } )
   }
 }
