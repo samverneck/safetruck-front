@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="col-xl-3 col-lg-4 col-xs-12">
+    <panel>
+      <panel-header>
+        <h3>
+          <i class="glyphicon glyphicon-user"></i>
+          <span class="fw-semi-bold">Clientes</span>
+        </h3>
+      </panel-header>
+      <panel-content>
+        <p class="text-muted">
+          Área destinada ao gerenciamento de clientes.
+        </p>
+        <p>
+          <button type="button" class="btn btn-primary btn-block" [routerLink]="['/app/clients']">Abrir</button>
+        </p>
+      </panel-content>
+    </panel>
+  </div>
+  <div class="col-xl-3 col-lg-4 col-xs-12">
+    <panel>
+      <panel-header>
+        <h3>
+          <i class="glyphicon glyphicon-cog"></i>
+          <span class="fw-semi-bold">Equipamentos</span>
+        </h3>
+      </panel-header>
+      <panel-content>
+        <p class="text-muted">
+          Área destinada ao gerenciamento de equipamentos.
+        </p>
+        <p>
+          <button type="button" class="btn btn-primary btn-block" [routerLink]="['/app/equipments']">Abrir</button>
+        </p>
+      </panel-content>
+    </panel>
+  </div>
+
+  <div class="col-xl-3 col-lg-4 col-xs-12" *ngIf="user.isAdmin">
+    <panel>
+      <panel-header>
+        <h3>
+          <i class="glyphicon glyphicon-user"></i>
+          <span class="fw-semi-bold">Usuários</span>
+        </h3>
+      </panel-header>
+      <panel-content>
+        <p class="text-muted">
+          Área destinada ao gerenciamento de usuários.
+        </p>
+        <p>
+          <button type="button" class="btn btn-primary btn-block" [routerLink]="['/app/users']">Abrir</button>
+        </p>
+      </panel-content>
+    </panel>
+  </div>
+  <div class="col-xl-3 col-lg-4 col-xs-12">
+    <panel>
+      <panel-header>
+        <h3>
+          <i class="glyphicon glyphicon-stats"></i>
+          <span class="fw-semi-bold">Relatórios</span>
+        </h3>
+      </panel-header>
+      <panel-content>
+        <p class="text-muted">
+          Área destinada ao gerenciamento de relatórios.
+        </p>
+        <p>
+          <button type="button" class="btn btn-primary btn-block" [routerLink]="['/app/report']">Abrir</button>
+        </p>
+      </panel-content>
+    </panel>
+  </div>
+</div>

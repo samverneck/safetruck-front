@@ -1,0 +1,76 @@
+form .ng-valid:not([disabled]) {
+    border-left: 2px solid #42A948;
+    /* green */
+}
+
+.ng-invalid[required]:not([disabled]),
+.ng-invalid.required:not([disabled]) {
+    border-left: 1px solid $brand-danger;
+    /* green */
+}
+
+form .ng-dirty.ng-invalid {
+    // border-left: 5px solid #a94442; /* red */
+    border-color: $brand-danger;
+    @include box-shadow(inset 0 1px 1px rgba($brand-danger, .075));
+}
+
+.error-message {
+    color: #a03330;
+    font-size: 11px;
+    font-weight: 400;
+    float: right;
+    margin-top: 5px;
+}
+
+// bootstrap overrides
+.form-control {
+    font-weight: 400;
+    -webkit-box-shadow: inset -2px -5px 6px -5px rgba(0, 0, 0, 0.09);
+    -moz-box-shadow: inset -2px -5px 6px -5px rgba(0, 0, 0, 0.09);
+    box-shadow: inset -2px -5px 6px -5px rgba(0, 0, 0, 0.09);
+}
+
+.btn-rounded {
+    border-radius: 3px;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #313131;
+    border-color: rgb(49, 49, 49);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.btn-primary:active:hover,
+.btn-primary:active:focus,
+.btn-primary:active.focus,
+.btn-primary.active:hover,
+.btn-primary.active:focus,
+.btn-primary.active.focus {
+    background-color: goldenrod;
+    border-color: darkgoldenrod;
+}
+
+.btn-primary:hover {
+    background-color: goldenrod;
+    border-color: darkgoldenrod;
+}
+
+.btn-primary:active,
+.btn-primary.active,
+.open>.btn-primary.dropdown-toggle {
+    background-color: goldenrod;
+    border-color: darkgoldenrod;
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+    background-color: goldenrod;
+    border-color: darkgoldenrod;
+}
+
+.btn-primary:hover {
+    background-color: goldenrod;
+    border-color: darkgoldenrod;
+}

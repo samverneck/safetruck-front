@@ -1,0 +1,48 @@
+<div *ngIf="user" class="widget-body">
+  <form class="form-horizontal form-label-left" id="userForm" #userForm="ngForm" (ngSubmit)="onSubmitClick()" novalidate>
+    <fieldset>
+      <!--<legend>Dados do Usuário</legend>-->
+      <div class="row">
+
+        <div class="form-group col-xl-3 col-lg-4 col-md-6 col-xs-12">
+          <label>Cliente</label>
+          <validation-message [error]="errors['clientId']"></validation-message>
+          <select class="form-control" [(ngModel)]="user.clientId" name="clientId" (change)="updateClient(clientId.value)" required
+            #clientId>
+            <option value="">Selecione...</option>
+            <option *ngFor="let client of clients" [value]="client.id">{{client.companyName}}</option>
+            </select>
+        </div>
+        <!--Razão Social-->
+        <div class="form-group col-xl-3 col-lg-4 col-md-6 col-xs-12">
+          <label>Nome</label>
+          <validation-message [error]="errors['name']"></validation-message>
+          <input [disabled]="readOnlyMode" type="text" class="form-control" [(ngModel)]="user.name" name="name" minlength="6" required>
+        </div>
+        <div class="form-group col-xl-3 col-lg-4 col-md-6 col-xs-12">
+          <label>E-mail</label>
+          <validation-message [error]="errors['email']"></validation-message>
+          <input [disabled]="readOnlyMode || user.id" type="email" class="form-control" [(ngModel)]="user.email" name="email" email
+            required>
+        </div>
+        <div class="form-group col-xl-3 col-lg-4 col-md-6 col-xs-12">
+          <label>Perfil</label>
+          <div class="input-group">
+            <span class="input-group-addon beautiful">
+              <input [disabled]="readOnlyMode" type="checkbox" [(ngModel)]="user.isAdmin" name="isAdmin">
+            </span>
+            <span class="form-control">Administrador?</span>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="form-actions">
+      <button type="button" class="btn btn-default btn-rounded" (click)="onCancelClick()">
+            {{user.id ? 'Cancelar' : 'Limpar'}}
+      </button>
+      <button type="submit" class="btn btn-primary btn-rounded" [disabled]="!userForm.valid">
+            {{user.id ?  'Atualizar' : 'Cadastrar'}}
+      </button>
+    </div>
+  </form>

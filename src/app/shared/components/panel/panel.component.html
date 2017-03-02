@@ -1,0 +1,14 @@
+<section class="widget" widget>
+  <header>
+    <ng-content select="panel-header"></ng-content>
+    <div class="widget-controls">
+      <a data-widgster="expand" title="Abrir" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+      <a data-widgster="collapse" title="Fechar" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+      <!--<a data-widgster="fullscreen" title="Tela cheia" href="#"><i class="fa fa-arrows-alt"></i></a>
+      <a data-widgster="restore" title="Sair" href="#"><i class="fa fa-times"></i></a>-->
+    </div>
+  </header>
+  <div class="widget-body">
+    <ng-content select="panel-content"></ng-content>
+  </div>
+</section>

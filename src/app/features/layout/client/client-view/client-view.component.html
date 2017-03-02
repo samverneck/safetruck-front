@@ -1,0 +1,19 @@
+<div class="row" *ngIf="client">
+  <div class="col-xs-12">
+    <panel>
+      <panel-header>
+        <h5>Exibindo {{client.companyName}}</h5>
+      </panel-header>
+      <panel-content>
+        <client-form [client]="client" [readOnlyMode]="true">
+        </client-form>
+      </panel-content>
+    </panel>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <equipment-grid *ngIf="client" [data]="client.equipments" [readOnlyMode]="true">
+    </equipment-grid>
+  </div>
+</div>

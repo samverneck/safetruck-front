@@ -1,0 +1,22 @@
+<header>
+  <h3>Entrar</h3>
+</header>
+<div class="widget-body">
+  <form class="auth-form mt-lg">
+    <div class="form-group">
+      <input type="text" class="form-control" [(ngModel)]="email" name="email" type="mail" placeholder="E-mail" required="required">
+    </div>
+    <div class="form-group">
+      <input class="form-control" [(ngModel)]="pass" name="password" type="password" placeholder="Senha" required="required">
+    </div>
+
+    <div class="alert alert-danger fade in" role="alert" style="display: none">
+      <strong>ERRO!</strong> E-mail ou senha inválidos.
+    </div>
+
+    <div class="clearfix">
+      <a class="pull-xs-left btn-forgot" [routerLink]="['/auth/forgot']">Esqueci minha senha</a>
+      <button type="submit" class="btn btn-inverse pull-xs-right" (click)="authenticateUser()">Entrar</button>
+    </div>
+  </form>
+</div>

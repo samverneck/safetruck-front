@@ -1,4 +1,34 @@
 {
   "typescript.tsdk": "./node_modules/typescript/lib",
   "editor.tabSize": 2,
+  "javascript.validate.enable": false,
+  "standard.enable": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  // Enable/disable default TypeScript formatter.
+  "typescript.format.enable": true,
+  // Defines space handling after a comma delimiter.
+  "typescript.format.insertSpaceAfterCommaDelimiter": true,
+  //  Defines space handling after a semicolon in a for statement.
+  "typescript.format.insertSpaceAfterSemicolonInForStatements": true,
+  // Defines space handling after a binary operator.
+  "typescript.format.insertSpaceBeforeAndAfterBinaryOperators": true,
+  // Defines space handling after keywords in control flow statement.
+  "typescript.format.insertSpaceAfterKeywordsInControlFlowStatements": true,
+  // Defines space handling after function keyword for anonymous functions.
+  "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
+  // Defines space handling after opening and before closing non empty parenthesis.
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+  // Defines space handling after opening and before closing non empty brackets.
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
+  // Defines space handling after opening and before closing template string braces. Requires TypeScript >= 2.0.6.
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": false,
+  // Defines space handling after opening and before closing JSX expression braces. Requires TypeScript >= 2.0.6.
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": false,
+  // Defines whether an open brace is put onto a new line for functions or not.
+  "typescript.format.placeOpenBraceOnNewLineForFunctions": false,
+  // Defines whether an open brace is put onto a new line for control blocks or not.
+  "typescript.format.placeOpenBraceOnNewLineForControlBlocks": false,
+  // Enable/disable default JavaScript formatter.
+  "javascript.format.enable": true
 }
