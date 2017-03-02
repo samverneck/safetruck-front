@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-xs-12">
+    <panel>
+      <panel-header>
+        <h5>
+          {{selectedUser?.id ? 'Atualizar Usuário' : 'Cadastrar Novo Usuário'}}
+        </h5>
+      </panel-header>
+      <panel-content>
+        <users-form [user]="selectedUser" (onSubmit)="saveUser($event)" (onCancel)="cancel()">
+        </users-form>
+      </panel-content>
+    </panel>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <users-grid *ngIf="users" [data]="users" (onSelectUser)="selectUser($event)" (onDeleteUser)="deleteUser($event)" [readOnlyMode]="false">
+    </users-grid>
+  </div>
+</div>

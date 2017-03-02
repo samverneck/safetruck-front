@@ -1,0 +1,133 @@
+:host /deep/ .widget {
+    position: relative;
+    margin-bottom: $widget-padding-vertical;
+    padding: $widget-padding-vertical $widget-padding-horizontal;
+    background: $widget-bg-color;
+    border-radius: $border-radius-sm;
+    -webkit-box-shadow: 0px 1px 6px 2px rgba(0, 0, 0, 0.09);
+    -moz-box-shadow: 0px 1px 6px 2px rgba(0, 0, 0, 0.09);
+    box-shadow: 0px 1px 6px 2px rgba(0, 0, 0, 0.09);
+    >header {
+        margin: (-$widget-padding-vertical) (-$widget-padding-horizontal);
+        padding: 30px 20px 20px 20px;
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 0;
+            color: #f2be35;
+            font-weight: 400;
+        }
+        +.widget-body,
+        +.widget-body.no-padding {
+            margin-top: $widget-padding-vertical;
+        }
+    }
+    >.widget-body.no-padding {
+        margin: (-$widget-padding-vertical) (-$widget-padding-horizontal);
+        +footer {
+            margin-top: $widget-padding-vertical;
+        }
+    }
+    >footer {
+        margin: 0 (-$widget-padding-horizontal) (-$widget-padding-vertical);
+        padding: $widget-padding-vertical $widget-padding-horizontal;
+    }
+    &:hover .widget-controls-hover {
+        opacity: 1;
+    }
+    .loader {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        .spinner {
+            position: absolute;
+            top: 50%;
+            width: 100%; //ie fix
+            margin-top: -10px;
+            font-size: 20px;
+            text-align: center;
+        }
+    }
+    .widget-top-overflow,
+    .widget-middle-overflow {
+        position: relative;
+        margin: 0 (-$widget-padding-horizontal);
+        >img {
+            max-width: 100%;
+        }
+    }
+    .widget-top-overflow {
+        margin-top: (-$widget-padding-vertical);
+        border-top-left-radius: $border-radius;
+        border-top-right-radius: $border-radius;
+        overflow: hidden;
+        >img {
+            border-top-left-radius: $border-radius;
+            border-top-right-radius: $border-radius;
+        }
+        >.btn-toolbar {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 1;
+            margin-right: $widget-padding-horizontal;
+            @include media-breakpoint-up(md) {
+                top: auto;
+                bottom: 0;
+            }
+        }
+    }
+    .widget-table-overflow {
+        margin: 0 (-$widget-padding-horizontal) (-$widget-padding-vertical);
+        th:first-child,
+        td:first-child {
+            padding-left: $widget-padding-horizontal;
+        }
+        th:last-child,
+        td:last-child {
+            padding-right: $widget-padding-horizontal;
+        }
+    }
+}
+
+.widget-controls {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    padding: 14px;
+    font-size: $font-size-sm;
+    &.left {
+        left: 0;
+        right: auto;
+    }
+    &.widget-controls-hover {
+        opacity: 0;
+        @include transition(opacity .15s);
+    }
+    >a {
+        padding: 1px 4px;
+        border-radius: 4px;
+        color: rgba($black, .4);
+        @include transition(color .15s ease-in-out);
+        &:hover {
+            color: rgba($black, .1);
+            text-decoration: none;
+        }
+        >.glyphicon {
+            vertical-align: 0;
+            font-size: 12px;
+        }
+        >.fa {
+            vertical-align: 1px;
+        }
+    }
+    >.btn-group {
+        vertical-align: baseline;
+    }
+}

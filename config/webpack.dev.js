@@ -1,50 +1,33 @@
-const helpers = require('./helpers');
-const webpackMerge = require('webpack-merge'); // used to merge webpack configs
-const commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
+const helpers = require('./helpers')
+const webpackMerge = require('webpack-merge') // used to merge webpack configs
+const environmentFactory = require('./webpack.common.js') // the settings that are common to prod and dev
 
 /**
  * Webpack Plugins
  */
-const DefinePlugin = require('webpack/lib/DefinePlugin');
-const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
+const DefinePlugin = require('webpack/lib/DefinePlugin')
+const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin')
 
 /**
  * Webpack Constants
  */
-const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
-const HOST = process.env.HOST || 'localhost';
-const API_URL = process.env.API_URL || 'https://app.safetruck.com.br/api/v1';
-const PORT = process.env.PORT || 3000;
-const HMR = helpers.hasProcessFlag('hot');
-const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
-  host: HOST,
-  port: PORT,
-  API_URL: API_URL,
-  ENV: ENV,
-  HMR: HMR
-});
+const ENV = process.env.ENV = process.env.NODE_ENV = 'development'
+const environment = environmentFactory.build({ env: ENV })
+
+const METADATA = webpackMerge(environment.metadata, {
+  host: process.env.HOST || 'localhost',
+  API_URL: process.env.API_URL || 'https://app.safetruck.com.br/api/v1',
+  port: process.env.PORT || 3000,
+  ENV: ENV
+})
 
 /**
  * Webpack configuration
  *
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
-module.exports = function(options) {
-  return webpackMerge(commonConfig({env: ENV}), {
-
-    /**
-     * Merged metadata from webpack.common.js for index.html
-     *
-     * See: (custom attribute)
-     */
-    metadata: METADATA,
-
-    /**
-     * Switch loaders to debug mode.
-     *
-     * See: http://webpack.github.io/docs/configuration.html#debug
-     */
-    debug: true,
+module.exports = (options) => {
+  return webpackMerge(environment.config, {
 
     /**
      * Developer tool to enhance debugging
@@ -92,7 +75,7 @@ module.exports = function(options) {
       chunkFilename: '[id].chunk.js',
 
       library: 'ac_[name]',
-      libraryTarget: 'var',
+      libraryTarget: 'var'
     },
 
     plugins: [
@@ -111,11 +94,12 @@ module.exports = function(options) {
         'ENV': JSON.stringify(METADATA.ENV),
         'API_URL': JSON.stringify(METADATA.API_URL),
         'HMR': METADATA.HMR,
+        'GOOGLE_MAPS_API_KEY': JSON.stringify(METADATA.GOOGLE_MAPS_API_KEY),
         'process.env': {
           'ENV': JSON.stringify(METADATA.ENV),
           'API_URL': JSON.stringify(METADATA.API_URL),
           'NODE_ENV': JSON.stringify(METADATA.ENV),
-          'HMR': METADATA.HMR,
+          'HMR': METADATA.HMR
         }
       }),
 
@@ -125,21 +109,9 @@ module.exports = function(options) {
          *
          * See: https://github.com/webpack/webpack/commit/a04ffb928365b19feb75087c63f13cadfc08e1eb
          */
-        new NamedModulesPlugin(),
+      new NamedModulesPlugin()
 
     ],
-
-    /**
-     * Static analysis linter for TypeScript advanced options configuration
-     * Description: An extensible linter for the TypeScript language.
-     *
-     * See: https://github.com/wbuchwalter/tslint-loader
-     */
-    tslint: {
-      emitErrors: false,
-      failOnHint: false,
-      resourcePath: 'src'
-    },
 
     /**
      * Webpack Development Server configuration
@@ -156,8 +128,7 @@ module.exports = function(options) {
       watchOptions: {
         aggregateTimeout: 300,
         poll: 1000
-      },
-      outputPath: helpers.root('dist')
+      }
     },
 
     /*
@@ -167,13 +138,12 @@ module.exports = function(options) {
      * See: https://webpack.github.io/docs/configuration.html#node
      */
     node: {
-      global: 'window',
+      global: true,
       crypto: 'empty',
       process: true,
       module: false,
       clearImmediate: false,
       setImmediate: false
     }
-
-  });
+  })
 }

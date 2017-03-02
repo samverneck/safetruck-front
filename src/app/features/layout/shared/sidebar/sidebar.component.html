@@ -1,0 +1,67 @@
+<div class="js-sidebar-content">
+  <header class="logo hidden-sm-down">
+    <a href="index.html">{{config.name}}</a>
+  </header>
+  <ul class="sidebar-nav">
+    <li *ngIf="user.isMainCompany">
+      <a class="collapsed" data-target="#sidebar-dashboard" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon"><i class="fa fa-desktop"></i></span>
+        <span>Dashboard</span>
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-dashboard" class="collapse">
+        <li><a [routerLink]="['dashboard']">Dashboard</a></li>
+      </ul>
+    </li>
+    <li *ngIf="user.isMainCompany">
+      <a class="collapsed" data-target="#sidebar-client" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="glyphicon glyphicon-user"></i>
+        </span>
+        <span>Clientes</span>
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-client" class="collapse">
+        <li><a [routerLink]="['clients/register']">Cadastro</a></li>
+        <li><a [routerLink]="['clients/search']">Pesquisa</a></li>
+      </ul>
+    </li>
+    <li *ngIf="user.isMainCompany">
+      <a class="collapsed" data-target="#sidebar-equipment" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="glyphicon glyphicon-cog"></i>
+        </span>
+        <span>Equipamentos</span>
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-equipment" class="collapse">
+        <li><a [routerLink]="['equipments/register']">Cadastro</a></li>
+        <li><a [routerLink]="['equipments/search']">Pesquisa</a></li>
+      </ul>
+    </li>
+    <li *ngIf="user.isAdmin">
+      <a class="collapsed" data-target="#sidebar-users" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="glyphicon glyphicon-user"></i>
+        </span>
+        <span>Usuários</span>
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-users" class="collapse">
+        <li><a [routerLink]="['users/register']">Cadastro</a></li>
+      </ul>
+    </li>
+    <li>
+      <a class="collapsed" data-target="#sidebar-report" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="glyphicon glyphicon-stats"></i>
+        </span>
+        <span>Relatórios</span>
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-report" class="collapse">
+        <li><a [routerLink]="['report']">Relatório de Conduta</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>

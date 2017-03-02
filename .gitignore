@@ -4,3 +4,5 @@ src/**/*.map
 node_modules
 dist
 .env
+*.log
+todo.md

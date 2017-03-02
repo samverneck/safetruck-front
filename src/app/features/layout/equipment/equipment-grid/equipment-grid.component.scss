@@ -1,0 +1,11 @@
+.table>thead>tr>th {
+    text-transform: capitalize;
+}
+
+mfDefaultSorter>a {
+    color: $gray;
+    &:hover {
+        color: $gray;
+        text-decoration: none;
+    }
+}

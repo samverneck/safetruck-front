@@ -1,0 +1,9 @@
+<div class="row">
+  <div class="col-xs-12">
+    <client-grid *ngIf="clients" [title]="'Pesquisar Clientes'" [data]="clients" [readOnlyMode]="true" (onSelectClient)="selectClient($event)"
+      (onDeleteClient)="deleteClient($event)">
+      </client-grid>
+      <equipment-grid *ngIf="selectedClient" [data]="selectedClient?.equipments">
+      </equipment-grid>
+  </div>
+</div>
