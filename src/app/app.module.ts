@@ -36,7 +36,7 @@ type StoreType = {
   state: InteralStateType,
   restoreInputValues: () => void,
   disposeOldHosts: () => void
-};
+}
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
