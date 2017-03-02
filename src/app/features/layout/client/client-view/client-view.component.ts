@@ -4,10 +4,9 @@ import { ActivatedRoute } from '@angular/router'
 import { ClientService, Client } from '../shared'
 
 @Component( {
-  moduleId: module.id,
   selector: 'client-view.html',
   templateUrl: 'client-view.component.html'
-})
+} )
 export class ClientViewComponent implements OnInit {
 
   public client: Client
