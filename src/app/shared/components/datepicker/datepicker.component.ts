@@ -11,6 +11,16 @@ const DATE_PICKER_VALUE_ACCESSOR = {
   multi: true
 }
 
+/**
+ * refs:
+ *  http://www.radzen.com/blog/jquery-plugins-and-angular/
+ *  https://medium.com/@tarik.nzl/angular-2-custom-form-control-with-validation-json-input-2b4cf9bc2d73#.55g66k7nx
+ * @export
+ * @class DatePickerComponent
+ * @implements {ControlValueAccessor}
+ * @implements {AfterViewInit}
+ * @implements {OnDestroy}
+ */
 @Component( {
   selector: 'datepicker',
   template: `

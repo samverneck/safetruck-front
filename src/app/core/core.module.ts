@@ -16,7 +16,7 @@ import {
 import { AuthService } from './auth.service'
 import { ValidationService } from './validation.service'
 import { CepService } from './cep.service'
-import { IsSafeTruckGuard } from './guards/is-safe-truck.guard'
+import { IsMainCompanyGuard } from './guards/is-main-company.guard'
 import { IsAdminGuard } from './guards/is-admin.guard'
 import { AuthGuard } from './guards/auth.guard'
 import { AppStateService } from './app-state.service'
@@ -44,7 +44,7 @@ let httpProvider = {
     AuthService,
     ValidationService,
     CepService,
-    IsSafeTruckGuard,
+    IsMainCompanyGuard,
     IsAdminGuard,
     AuthGuard,
     AppConfig,

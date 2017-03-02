@@ -39,7 +39,7 @@ export class LoginComponent {
       .toPromise()
       .then( result => {
         if ( result === true ) {
-          const redirectUrl = this.auth.user().isSafeTruck ? '/app' : '/app/report'
+          const redirectUrl = this.auth.user().isMainCompany ? '/app' : '/app/report'
           this.router.navigate( [ redirectUrl ] )
         } else {
           $( '.alert' ).show( 'fast' )

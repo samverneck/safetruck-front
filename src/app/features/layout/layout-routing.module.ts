@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router'
 import { LayoutComponent } from './layout.component'
 import {
   AuthGuard,
-  IsSafeTruckGuard,
+  IsMainCompanyGuard,
   IsAdminGuard
 } from '../../core'
 
@@ -17,17 +17,17 @@ const layoutRoutes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
         path: 'dashboard',
-        canActivate: [ IsSafeTruckGuard ],
+        canActivate: [ IsMainCompanyGuard ],
         loadChildren: () => System.import( './dashboard/dashboard.module' )
       },
       {
         path: 'clients',
-        canActivate: [ IsSafeTruckGuard ],
+        canActivate: [ IsMainCompanyGuard ],
         loadChildren: () => System.import( './client/client.module' )
       },
       {
         path: 'equipments',
-        canActivate: [ IsSafeTruckGuard ],
+        canActivate: [ IsMainCompanyGuard ],
         loadChildren: () => System.import( './equipment/equipment.module' )
       },
       {

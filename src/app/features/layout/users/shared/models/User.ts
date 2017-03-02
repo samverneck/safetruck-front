@@ -10,5 +10,5 @@ export interface User extends BaseModel {
   password: string
   newPassword?: string
   isAdmin: boolean
-  isSafeTruck: boolean
+  isMainCompany: boolean
 }

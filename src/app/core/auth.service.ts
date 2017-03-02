@@ -96,11 +96,6 @@ export class AuthService {
     const user: User = localStorage.getItem( 'currentUser' )
       ? decode( JSON.parse( localStorage.getItem( 'currentUser' ) ).token )
       : false
-
-    if ( user ) {
-      user.isSafeTruck = user.clientId === 'SJgzWBGhHx'
-    }
-
     return user
   }
 

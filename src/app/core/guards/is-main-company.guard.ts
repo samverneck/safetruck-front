@@ -4,7 +4,7 @@ import { Router, CanActivate } from '@angular/router'
 import { AuthService } from '../auth.service'
 
 @Injectable()
-export class IsSafeTruckGuard implements CanActivate {
+export class IsMainCompanyGuard implements CanActivate {
 
   /**
    * Creates an instance of RouteGuard.
@@ -23,7 +23,7 @@ export class IsSafeTruckGuard implements CanActivate {
    * @memberOf RouteGuard
    */
   public canActivate(): boolean {
-    if ( this.auth.user().isSafeTruck ) {
+    if ( this.auth.user().isMainCompany ) {
       return true
     }
     this.router.navigate( [ '/error' ] )
