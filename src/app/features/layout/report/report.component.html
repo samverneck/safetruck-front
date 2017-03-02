@@ -7,51 +7,36 @@
         </h5>
       </panel-header>
       <panel-content>
-        <form class="form-horizontal form-label-left" id="reportForm">
+        <form class="form-horizontal form-label-left" id="reportForm" #reportForm="ngForm" (ngSubmit)="onSubmitClick()" novalidate>
           <!--Placa-->
-          <div class="form-group row">
-            <label class="form-control-label col-xl-1 col-sm-2 col-xs-12">Placa</label>
-            <div class="col-xl-2 col-lg-3 col-sm-5 col-xs-12">
-              <select class="form-control" name="plaque" id="plaque">
-              <option value="" hidden>Selecione...</option>
-              <option *ngFor="let plaque of plaques" [value]="plaque">{{plaque}}</option>
-            </select>
+          <div class="row">
+            <div class="form-group col-sm-4 col-xs-12">
+              <label class="form-control-label">Placa</label>
+              <validation-message [error]="errors['plaque']"></validation-message>
+              <select class="form-control" [(ngModel)]="filter.plaque" name="plaque" id="plaque" required>
+                <option value="">Selecione...</option>
+                <option *ngFor="let plaque of plaques" [value]="plaque">{{plaque}}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-sm-4 col-xs-12">
+              <label class="form-control-label">Data/Hora inicial</label>
+              <validation-message [error]="errors['start']"></validation-message>
+              <datepicker [(ngModel)]="filter.start" name="start" required></datepicker>
+            </div>
+
+            <div class="form-group col-sm-4 col-xs-12">
+              <label class="form-control-label">Data/Hora final</label>
+              <validation-message [error]="errors['finish']"></validation-message>
+              <datepicker [(ngModel)]="filter.finish" name="finish" required></datepicker>
             </div>
           </div>
-          <!--Início-->
-          <div class="form-group row">
-            <label class="form-control-label col-xl-1 col-sm-2 col-xs-12">Data inicial</label>
-            <div class="input-group col-xl-2 col-lg-3 col-sm-5 col-xs-12 date" data-provide="datepicker">
-              <input type="text" class="form-control" name="start" id="start" placeholder="___/___/____">
-              <div class="input-group-addon">
-                <span class="fa fa-calendar"></span>
-              </div>
-            </div>
-            <div class="input-group col-xl-2 col-lg-3 col-sm-5 col-xs-12">
-              <div class="input-group bootstrap-timepicker timepicker">
-                <input type="text" class="form-control input-small" id="time-start">
-                <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-              </div>
-            </div>
-          </div>
-          <!--Término-->
-          <div class="form-group row">
-            <label class="form-control-label col-xl-1 col-sm-2 col-xs-12">Data final</label>
-            <div class="input-group col-xl-2 col-lg-3 col-sm-5 col-xs-12 date">
-              <input type="text" class="form-control" name="finish" id="finish" placeholder="___/___/____">
-              <div class="input-group-addon">
-                <span class="fa fa-calendar"></span>
-              </div>
-            </div>
-            <div class="input-group col-xl-2 col-lg-3 col-sm-5 col-xs-12">
-              <div class="input-group bootstrap-timepicker timepicker">
-                <input type="text" class="form-control input-small" id="time-finish">
-                <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-              </div>
-            </div>
-          </div>
+
           <div class="form-actions">
-            <button type="submit" class="btn btn-primary btn-rounded" (click)="getReport()">
+            <button type="button" class="btn btn-default btn-rounded" (click)="onCancelClick()">
+              Limpar
+            </button>
+            <button type="submit" class="btn btn-primary btn-rounded" [disabled]="!reportForm.valid">
               Gerar relatório
             </button>
           </div>

@@ -57,26 +57,15 @@
       <div class="form-group col-md-3 col-xs-12">
         <label>Data da instalação</label>
         <validation-message [error]="errors['install.installation']"></validation-message>
-        <div class="input-group date" data-provide="datepicker">
-          <input [disabled]="readOnlyMode" type="text" class="form-control" [(ngModel)]="equipment.install.installation" name="install.installation"
-            required date [textMask]="{mask: masks.date}">
-            <div class="input-group-addon">
-              <span class="icon"><i class="fa fa-calendar"></i></span>
-            </div>
-        </div>
+        <datepicker [(ngModel)]="equipment.install.installation" name="install.installation" [options]="{format:'L'}" required></datepicker>
       </div>
+
 
       <!--Data da alteração do tacógrafo-->
       <div class="form-group col-md-3 col-xs-12">
         <label>Data de aferição</label>
         <validation-message [error]="errors['install.admeasurement']"></validation-message>
-        <div class="input-group date" data-provide="datepicker">
-          <input [disabled]="readOnlyMode" type="text" class="form-control" [(ngModel)]="equipment.install.admeasurement" name="install.admeasurement"
-            required date [textMask]="{mask: masks.date}">
-            <div class="input-group-addon">
-              <span class="icon"><i class="fa fa-calendar"></i></span>
-            </div>
-        </div>
+        <datepicker [(ngModel)]="equipment.install.admeasurement" name="install.admeasurement" [options]="{format:'L'}" required></datepicker>
       </div>
     </div>
   </fieldset>

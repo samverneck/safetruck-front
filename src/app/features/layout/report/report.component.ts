@@ -1,10 +1,11 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core'
-import { Http } from '@angular/http'
+import { Component, ViewEncapsulation, OnInit, ViewChild, AfterViewChecked } from '@angular/core'
+import { NgForm } from '@angular/forms'
+
 import * as _ from 'lodash'
 import * as moment from 'moment'
 
 import { ReportService, ReportData, DataReportPrint, Filter } from './shared'
-import { MessagesService, fadeInOut } from './../../../core'
+import { MessagesService, fadeInOut, ValidationService } from './../../../core'
 
 const DATE_FORMAT = 'DD/MM/YYYY h:mm A'
 
@@ -15,21 +16,38 @@ const DATE_FORMAT = 'DD/MM/YYYY h:mm A'
   styleUrls: [ './report.component.scss' ],
   providers: [ ReportService ],
   animations: [ fadeInOut ]
-})
-export class ReportComponent implements OnInit {
+} )
+export class ReportComponent implements OnInit, AfterViewChecked {
+
+  @ViewChild( 'reportForm' ) public currentForm: NgForm
 
   public report: ReportData
   public plaques: string[]
-  public filter: Filter
+  public filter: Filter = {} as Filter
+  public reportForm: NgForm
+  public errors = {}
+
+  public validationMessages = {
+    'plaque': {
+      'required': 'Obrigatório'
+    },
+    'start': {
+      'required': 'Obrigatório'
+    },
+    'finish': {
+      'required': 'Obrigatório'
+    }
+  }
 
   /**
    * Creates an instance of ReportComponent.
    * @param {ReportService} reportService
-   * @param {Http} http
+   * @param {ValidationService} validation
+   * @param {MessagesService} messages
    *
    * @memberOf ReportComponent
    */
-  constructor( public reportService: ReportService, public http: Http, public messages: MessagesService ) { }
+  constructor( private reportService: ReportService, private validation: ValidationService, private messages: MessagesService ) { }
 
   /**
    *
@@ -42,72 +60,39 @@ export class ReportComponent implements OnInit {
     // Obtém as placas cadastradas
     this.reportService.getPlaques().subscribe( plaques => {
       this.plaques = _.sortedUniq( plaques ) as string[]
-    })
-
-    $( '.date' ).datepicker( {
-      autoclose: true,
-      todayBtn: 'linked',
-      todayHighlight: true,
-      assumeNearbyYear: true,
-      format: 'dd/mm/yyyy',
-      language: 'pt-BR'
-    })
-    $( '#time-start' ).timepicker()
-    $( '#time-finish' ).timepicker()
-    $( '#start, #finish' ).val( moment().format( 'DD/MM/YYYY' ) )
-    $( '#time-start' ).val( moment().subtract( 1, 'hours' ).format( 'h:mm A' ) )
+    } )
   }
 
   /**
-   * Exibe o relatório
    *
    *
-   * @memberOf ReportComponent
+   *
+   * @memberOf EquipmentFormComponent
    */
-  public getReport(): void {
-    // Obetém os valores do usuário
-    this.filter = this.buildFilter()
-
-    // Validação
-    if ( !this.validate( this.filter.plaque, this.filter.start ) ) {
-      return
+  public onSubmitClick() {
+    if ( this.reportForm.form.valid ) {
+      this.getReport()
     }
-    // Obtendo as datas
-    this.reportService.generateReport( this.filter )
-      .subscribe( report => this.report = report )
   }
 
   /**
-   * Obetem os valores dos imputs e padroniza
-   * qualquer discrepância
-   * @returns {{plaque: string, start: string, finish: string}}
-   * @memberOf ReportPage
+   *
+   *
+   *
+   * @memberOf ClientRegisterComponent
    */
-  public buildFilter(): Filter {
-    let plaque = $( '#plaque' ).val()
-    let start = $( '#start' ).val() + ' ' + $( '#time-start' ).val() || moment().format( 'h:m A' )
-    let finish = $( '#finish' ).val() + ' ' + $( '#time-finish' ).val()
-
-    if ( !start || !moment( start, DATE_FORMAT ).isValid() ) {
-      start = moment().subtract( 1, 'hours' ).format( DATE_FORMAT )
-    }
-
-    if ( !finish || !moment( finish, DATE_FORMAT ).isValid() ) {
-      finish = moment().format( DATE_FORMAT )
-    }
-
-    let dates = this.convertDateToISO( start, finish )
-    return { plaque: plaque, ...dates }
+  public ngAfterViewChecked() {
+    this.formChanged()
   }
 
   /**
-   * Remove a classe de erro dos elementos obrigatórios
-   * @memberOf ReportPage
+   *
+   *
+   *
+   * @memberOf ClientFormComponent
    */
-  public removeErrorClass(): void {
-    $( `[name="plaque"]` ).removeClass( 'error' )
-    $( '#start' ).removeClass( 'error' )
-    $( 'time-start' ).removeClass( 'error' )
+  public onCancelClick() {
+    this.reportForm.reset()
   }
 
   /**
@@ -118,11 +103,6 @@ export class ReportComponent implements OnInit {
    */
   public print(): void {
 
-    this.filter = this.buildFilter()
-    // Validação
-    if ( !this.validate( this.filter.plaque, this.filter.start ) ) {
-      return
-    }
     // Obtendo as datas
     let dates = this.convertDateToISO( this.filter.start, this.filter.finish )
     this.reportService.getReportHtml( this.filter.plaque, dates.start, dates.finish )
@@ -144,7 +124,7 @@ export class ReportComponent implements OnInit {
                 popup.document.close()
                 popup.close()
               }
-            })
+            } )
           } else {
             popup = window.open( '', '_blank', 'width=1024,height=600' )
             this.checkPopup( popup ).then(() => {
@@ -153,14 +133,14 @@ export class ReportComponent implements OnInit {
               this.emitDataPopup( popup )
               popup.window.history.pushState( 'relatorio', 'Relatório de conduta', '/app/report' )
               popup.document.close()
-            })
+            } )
           }
         }
       },
       // Error
       () => {
         this.messages.showNotification( 'Ocorreu um erro inesperado.\nTente novamente mais tarde!', 'error' )
-      })
+      } )
   }
 
   /**
@@ -178,7 +158,7 @@ export class ReportComponent implements OnInit {
         }
         return resolve( true )
       }, 250 )
-    })
+    } )
   }
 
   /**
@@ -205,7 +185,7 @@ export class ReportComponent implements OnInit {
       };
       ( popup.window as any ).app.resumo = app.resumo;
       ( popup.window as any ).readyToPrint = true
-    })
+    } )
   }
 
   /**
@@ -226,37 +206,38 @@ export class ReportComponent implements OnInit {
   }
 
   /**
-   * Faz a validação dos campos do formulário
-   * @param {string} plaque
-   * @param {string} start
-   * @returns {boolean}
-   * @memberOf ReportPage
+   * Exibe o relatório
+   *
+   *
+   * @memberOf ReportComponent
    */
-  private validate( plaque: string, start: string ): boolean {
-    // Remove a classe de erro
-    this.removeErrorClass()
-    // Valida se a placa foi informada
-    if ( !plaque ) {
-      $( `[name="plaque"]` ).addClass( 'error' )
-      this.messages.showNotification( 'Você deve selecionar uma placa.', 'error' )
-      return false
-    }
-    // Valida se a data inicial foi informada
-    if ( !start ) {
-      $( '#start' ).addClass( 'error' )
-      $( '#time-start' ).addClass( 'error' )
-      this.messages.showNotification( 'Você deve selecionar uma data de início.', 'error' )
-      return false
-    }
-    // Verifica se a data informada é válida
-    if ( !moment( start ).isValid() || moment( start ).isAfter( moment() ) ) {
-      $( '#start' ).addClass( 'error' )
-      $( '#time-start' ).addClass( 'error' )
-      this.messages.showNotification( 'A data de ínicio não é válida', 'error' )
-      return false
-    }
-
-    return true
+  private getReport(): void {
+    // Obtendo as datas
+    this.reportService.generateReport( this.filter )
+      .subscribe( report => this.report = report )
   }
 
+  /**
+   *
+   *
+   *
+   * @memberOf ClientRegisterComponent
+   */
+  private formChanged() {
+    if ( this.currentForm === this.reportForm ) { return }
+    this.reportForm = this.currentForm
+    if ( this.reportForm ) {
+      this.reportForm.valueChanges.subscribe(() => this.updateErrors() )
+    }
+  }
+
+  /**
+   *
+   *
+   *
+   * @memberOf ClientRegisterComponent
+   */
+  private updateErrors() {
+    this.errors = this.validation.getFormErrors( this.reportForm, this.validationMessages )
+  }
 }

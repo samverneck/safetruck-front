@@ -120,7 +120,7 @@ export class BaseHttp extends Http {
    * @returns {*}
    */
   private retryWhen( errors: Observable<Response> ): any {
-    return errors.delay( 500 )
+    return errors.delay( 30000 )
       .scan(( errorCount, error ) => {
         if ( errorCount >= 2 || ( error.status >= 400 && error.status < 500 ) ) {
           throw error

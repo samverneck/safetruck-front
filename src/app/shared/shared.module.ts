@@ -28,6 +28,7 @@ import { SelectEnumComponent } from './components/select-enum/select-enum.compon
 import { ValidationMessageComponent } from './components/validation-message/validation-message'
 import { PanelComponent } from './components/panel/panel.component'
 import { BtnDeleteComponent } from './components/btn-delete/btn-delete.component'
+import { DatePickerComponent } from './components/datepicker/datepicker.component'
 
 // pipes
 import { KeysPipe } from './pipes/keys.pipe'
@@ -53,6 +54,7 @@ import { SlugfyPipe } from './pipes/slugfy.pipe'
     EmailValidatorDirective,
     PhoneValidatorDirective,
     DateValidatorDirective,
+    DatePickerComponent,
 
     BtnDeleteComponent,
     SearchFieldComponent,
@@ -86,6 +88,7 @@ import { SlugfyPipe } from './pipes/slugfy.pipe'
     SelectEnumComponent,
     ValidationMessageComponent,
     PanelComponent,
+    DatePickerComponent,
 
     KeysPipe,
     SlugfyPipe

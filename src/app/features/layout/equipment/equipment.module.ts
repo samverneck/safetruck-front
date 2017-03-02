@@ -15,10 +15,6 @@ import { EquipmentFormComponent } from './equipment-form/equipment-form.componen
 // shared pipes and services
 import { SearchPipe, EquipmentService } from './shared'
 
-// libs
-// import 'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'
-// import 'bootstrap-datepicker/dist/locales/bootstrap-datepicker.pt-BR.min.js'
-
 @NgModule( {
   declarations: [
     EquipmentComponent,
@@ -40,5 +36,5 @@ import { SearchPipe, EquipmentService } from './shared'
     EquipmentGridComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
-})
+} )
 export default class EquipmentModule { }

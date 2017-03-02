@@ -62,13 +62,11 @@ export class EquipmentFormComponent implements OnInit, AfterViewChecked {
   }
 
   /**
-   * Creates an instance of EquipmentRegisterComponent.
-   * @param {ActivatedRoute} route
-   * @param {EquipmentService} equipService
+   * Creates an instance of EquipmentFormComponent.
    * @param {ClientService} clientService
    * @param {ValidationService} validation
    *
-   * @memberOf EquipmentRegisterComponent
+   * @memberOf EquipmentFormComponent
    */
   constructor( public clientService: ClientService, public validation: ValidationService ) { }
 
@@ -79,18 +77,7 @@ export class EquipmentFormComponent implements OnInit, AfterViewChecked {
    * @memberOf EquipmentRegisterComponent
    */
   public ngOnInit(): void {
-
     this.clientService.getAll().subscribe( clients => this.clients = clients, error => this.handleError( error ) )
-
-    // $( '.date' ).datepicker( {
-    //   autoclose: true,
-    //   todayBtn: 'linked',
-    //   todayHighlight: true,
-    //   assumeNearbyYear: true,
-    //   placeholder: 'Selecione',
-    //   format: 'dd/mm/yyyy',
-    //   language: 'pt-BR'
-    // })
   }
 
   /**

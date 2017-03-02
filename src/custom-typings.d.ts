@@ -42,8 +42,6 @@ import * as _ from 'lodash'
  * You can include your type definitions in this file until you create one for the @types
  *
  */
-
-declare var $: any
 declare var swal: any
 declare var Messenger: any
 declare var google: any
