@@ -53,11 +53,11 @@ export class EquipmentFormComponent implements OnInit, AfterViewChecked {
     },
     'install.installation': {
       'required': 'Obrigatório',
-      'pattern': 'dd/mm/aaaa'
+      'date': 'dd/mm/aaaa'
     },
     'install.admeasurement': {
       'required': 'Obrigatório',
-      'pattern': 'dd/mm/aaaa'
+      'date': 'dd/mm/aaaa'
     }
   }
 

@@ -59,7 +59,7 @@
         <validation-message [error]="errors['install.installation']"></validation-message>
         <div class="input-group date" data-provide="datepicker">
           <input [disabled]="readOnlyMode" type="text" class="form-control" [(ngModel)]="equipment.install.installation" name="install.installation"
-            required pattern="([0-2][0-9]|[3][0-1])/([0-9][1-2])/((1|2)[0-9]{3})" [textMask]="{mask: masks.date}">
+            required date [textMask]="{mask: masks.date}">
             <div class="input-group-addon">
               <span class="icon"><i class="fa fa-calendar"></i></span>
             </div>
@@ -72,7 +72,7 @@
         <validation-message [error]="errors['install.admeasurement']"></validation-message>
         <div class="input-group date" data-provide="datepicker">
           <input [disabled]="readOnlyMode" type="text" class="form-control" [(ngModel)]="equipment.install.admeasurement" name="install.admeasurement"
-            required pattern="([0-2][0-9]|[3][0-1])/([0-9][1-2])/((1|2)[0-9]{3})" [textMask]="{mask: masks.date}">
+            required date [textMask]="{mask: masks.date}">
             <div class="input-group-addon">
               <span class="icon"><i class="fa fa-calendar"></i></span>
             </div>

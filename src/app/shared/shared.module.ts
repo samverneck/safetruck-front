@@ -20,6 +20,8 @@ import { CnpjValidatorDirective } from './directives/cnpj-validator.directive'
 import { ZipCodeValidatorDirective } from './directives/zipcode-validator.directive'
 import { EmailValidatorDirective } from './directives/email-validator.directive'
 import { PhoneValidatorDirective } from './directives/phone-validator.directive'
+import { DateValidatorDirective } from './directives/datebr-validator.directive'
+
 // components
 import { SearchFieldComponent } from './components/search-field/search-field.component'
 import { SelectEnumComponent } from './components/select-enum/select-enum.component'
@@ -50,6 +52,7 @@ import { SlugfyPipe } from './pipes/slugfy.pipe'
     ZipCodeValidatorDirective,
     EmailValidatorDirective,
     PhoneValidatorDirective,
+    DateValidatorDirective,
 
     BtnDeleteComponent,
     SearchFieldComponent,
@@ -76,6 +79,7 @@ import { SlugfyPipe } from './pipes/slugfy.pipe'
     ZipCodeValidatorDirective,
     EmailValidatorDirective,
     PhoneValidatorDirective,
+    DateValidatorDirective,
 
     BtnDeleteComponent,
     SearchFieldComponent,
