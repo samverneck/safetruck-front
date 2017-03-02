@@ -78,7 +78,7 @@ export class DatePickerComponent implements ControlValueAccessor, AfterViewInit,
 
     jQuery( this.input.nativeElement )
       .datetimepicker( options ).on( 'dp.change', ( e ) => {
-        const newValue = e.date ? e.date.toDate() : undefined
+        const newValue: Date = e.date ? e.date.toDate() : undefined
         if ( newValue !== this.innerValue ) {
           this.innerValue = newValue
           this.onTouchedCallback()
@@ -109,12 +109,15 @@ export class DatePickerComponent implements ControlValueAccessor, AfterViewInit,
    *
    * @memberOf DatePickerComponent
    */
-  public writeValue( dateString: any ) {
+  public writeValue( dateString: Date | string ) {
     if ( dateString ) {
-      const [ fullDate, day, month, year ] = dateString.match( /(\d{2})\/(\d{2})\/(\d{4})/ ) || [ 0, 0, 0, 0 ]
-      dateString = fullDate ? `${month}/${day}/${year}` : dateString
 
-      this.$datepicker.date( new Date( dateString ) ) // trigger on change event
+      if ( typeof dateString === 'string' ) {
+        const [ fullDate, day, month, year ] = dateString.match( /(\d{2})\/(\d{2})\/(\d{4})/ ) || [ 0, 0, 0, 0 ]
+        dateString = new Date( fullDate ? `${month}/${day}/${year}` : dateString )
+      }
+
+      this.$datepicker.date( dateString ) // trigger on change event
     } else {
       this.$datepicker.clear()
     }

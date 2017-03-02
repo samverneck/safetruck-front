@@ -8,7 +8,7 @@ import { AuthService } from './auth.service'
 @Injectable()
 export class BaseService<T extends BaseModel> {
 
-  public headerOptions: RequestOptions
+  public requestOptions: RequestOptions
   public resource: string
 
   /**
@@ -19,7 +19,7 @@ export class BaseService<T extends BaseModel> {
    * @memberOf BaseService
    */
   constructor( public http: Http, public auth: AuthService ) {
-    this.headerOptions = this.auth.getHeaders()
+    this.requestOptions = this.auth.getRequestOptions()
   }
 
   /**
@@ -58,7 +58,7 @@ export class BaseService<T extends BaseModel> {
    */
   public create( model: T ): Observable<T> {
     return this.http
-      .post( `${API_URL}/${this.resource}`, model, this.headerOptions )
+      .post( `${API_URL}/${this.resource}`, model, this.requestOptions )
       .map( this.extractData )
       .catch( this.handleError )
   }
@@ -73,7 +73,7 @@ export class BaseService<T extends BaseModel> {
    */
   public update( model: T ): Observable<T> {
     return this.http
-      .put( `${API_URL}/${this.resource}/${model.id}`, model, this.headerOptions )
+      .put( `${API_URL}/${this.resource}/${model.id}`, model, this.requestOptions )
       .map( this.extractData )
       .catch( this.handleError )
   }
@@ -88,7 +88,7 @@ export class BaseService<T extends BaseModel> {
    */
   public delete( model: T ): Observable<T> {
     return this.http
-      .delete( `${API_URL}/${this.resource}/${model.id}`, this.headerOptions )
+      .delete( `${API_URL}/${this.resource}/${model.id}`, this.requestOptions )
       .map( this.extractData )
       .catch( this.handleError )
   }
@@ -102,7 +102,7 @@ export class BaseService<T extends BaseModel> {
    */
   public getAll(): Observable<T[]> {
     return this.http
-      .get( `${API_URL}/${this.resource}`, this.headerOptions )
+      .get( `${API_URL}/${this.resource}`, this.requestOptions )
       .map( this.extractData )
       .catch( this.handleError )
   }
@@ -117,7 +117,7 @@ export class BaseService<T extends BaseModel> {
    */
   public getById( id ): Observable<T> {
     return this.http
-      .get( `${API_URL}/${this.resource}/${id}`, this.headerOptions )
+      .get( `${API_URL}/${this.resource}/${id}`, this.requestOptions )
       .map( this.extractData )
       .catch( this.handleError )
   }

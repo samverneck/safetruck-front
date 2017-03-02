@@ -76,7 +76,7 @@ export class AuthService {
    *
    * @memberOf AuthService
    */
-  public getHeaders() {
+  public getRequestOptions(): RequestOptions {
     let authToken = JSON.parse( localStorage.getItem( 'currentUser' ) ).token
     let headers = new Headers()
     headers.append( 'Content-Type', 'application/json' )

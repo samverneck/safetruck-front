@@ -1,6 +1,5 @@
 export interface Filter {
   plaque: string
-  start: string
-  finish: string
+  start: Date
+  finish: Date
 }
-

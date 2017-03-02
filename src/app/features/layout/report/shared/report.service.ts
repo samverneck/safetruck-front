@@ -33,7 +33,7 @@ export class ReportService extends BaseService<ReportData> {
    */
   public generateReport( filter: Filter ): Observable<ReportData> {
     return this.http
-      .get( `${API_URL}/report?plaque=${filter.plaque}&&dtIni=${filter.start}&dtEnd=${filter.finish}`, this.headerOptions )
+      .get( `${API_URL}/report?plaque=${filter.plaque}&&dtIni=${filter.start}&dtEnd=${filter.finish}`, this.requestOptions )
       .map( this.extractData )
       .catch( this.handleError )
   }
@@ -48,9 +48,9 @@ export class ReportService extends BaseService<ReportData> {
    *
    * @memberOf ReportService
    */
-  public getReportHtml( plaque: string, start, finish ): Observable<string> {
+  public getReportHtml( filter: Filter ): Observable<string> {
     return this.http
-      .get( `${API_URL}/report/printable?plaque=${plaque}&&dtIni=${start}&dtEnd=${finish}`, this.headerOptions )
+      .get( `${API_URL}/report/printable?plaque=${filter.plaque}&&dtIni=${filter.start.toISOString()}&dtEnd=${filter.finish.toISOString()}`, this.requestOptions )
       .map( this.extractDataHtml )
       .catch( this.handleError )
   }
@@ -64,12 +64,12 @@ export class ReportService extends BaseService<ReportData> {
    */
   public getPlaques(): Observable<any> {
     return this.http
-      .get( `${API_URL}/equipments`, this.headerOptions )
+      .get( `${API_URL}/equipments`, this.requestOptions )
       .map( data => {
         return data.json()
           .filter( equip => equip.install )
           .map( equip => equip.install.plaque )
-      })
+      } )
       .catch( this.handleError )
   }
 }
