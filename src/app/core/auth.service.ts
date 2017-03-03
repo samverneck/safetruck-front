@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Http, Headers, Response, RequestOptions } from '@angular/http'
-import { Observable } from 'rxjs'
+import { Observable } from 'rxjs/Observable'
 import * as decode from 'jwt-decode'
 
 import { User } from '../features/layout/users/shared'
