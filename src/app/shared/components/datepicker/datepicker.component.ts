@@ -25,7 +25,7 @@ const DATE_PICKER_VALUE_ACCESSOR = {
   selector: 'datepicker',
   template: `
      <div class="input-group date">
-        <input type="text" class="form-control" #input>
+        <input type="text" class="form-control" #input [disabled]=disabled>
           <div class="input-group-addon">
             <span class="icon"><i class="fa fa-calendar"></i></span>
           </div>
@@ -48,6 +48,7 @@ export class DatePickerComponent implements ControlValueAccessor, AfterViewInit,
   @Output() public onChange = new EventEmitter<Date>()
   @Output() public onError = new EventEmitter<Date>()
   @Input() public options: SetOptions = {}
+  @Input() public disabled: false
 
   private innerValue: Date | undefined
   private onTouchedCallback: () => void = noop

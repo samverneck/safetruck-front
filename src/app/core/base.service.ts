@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Http, Response, RequestOptions } from '@angular/http'
-import { Observable } from 'rxjs/Rx'
+import { Observable } from 'rxjs/Observable'
 
 import { BaseModel } from './models/BaseModel'
 import { AuthService } from './auth.service'
