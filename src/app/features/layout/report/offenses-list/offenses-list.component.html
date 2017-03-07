@@ -24,7 +24,7 @@
       </div>
     </div>
   </div>
-  
+
   <!--////////// IMPRUDÊNCIAS RESUMO \\\\\\\\\\-->
   <div class="row">
     <div class="col-xs-12">
@@ -36,7 +36,7 @@
   <div class="col-xs-10 offset-xs-1">
     <div class="row">
       <div class="col-xs-6">
-        <span>N° de Excessos de Velocidade (+90Km/h)</span>
+        <span>N° de Excessos de Velocidade</span>
       </div>
       <div class="col-xs-6">
         <span>{{data.overSpeedingsTotal}}</span>
@@ -75,10 +75,10 @@
   </div>
   <div *ngFor="let os of data.overSpeedings">
     <div class="col-xs-12 report">
+      <div class="header col-xs-12">
+        <header>VELOCIDADE MÁXIMA: {{os.limit}} km/h</header>
+      </div>
       <div class="row block" *ngFor="let d of os.data; let i = index">
-        <!--<div class="header col-xs-12">
-          <header>VELOCIDADE MÁXIMA: {{os.limit}}</header>
-        </div>-->
         <div class="col-xs-1">
           <span>{{i+1}}</span>
         </div>
@@ -100,8 +100,8 @@
             <div class="col-xs-8"><span>{{d.address}}</span></div>
           </div>
           <div class="row">
-            <div class="col-xs-4"><span>Percurso</span></div>
-            <div class="col-xs-8"><span>{{d.distance}}</span></div>
+            <div class="col-xs-4"><span>Percurso (m)</span></div>
+            <div class="col-xs-8"><span>{{d.distance.toFixed(2)}}</span></div>
           </div>
         </div>
         <div class="img-map col-xs-3">
@@ -144,5 +144,5 @@
         </div>
       </div>
     </div>
-  </div>  
+  </div>
 </div>
