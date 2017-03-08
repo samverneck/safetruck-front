@@ -23,7 +23,7 @@ export class FormService {
       } else {
         obj[ input.name ] = input.value || ''
       }
-    })
+    } )
 
     return obj
   }
@@ -37,12 +37,12 @@ export class FormService {
    * @memberOf FormUtils
    */
   public slugger( str: string ) {
-    return str || ''.toLowerCase()
-      .replace( /\s+/g, '' )            // Remove spaces
+    return ( str || ''.toLowerCase() )
       .replace( /[^\w\-]+/g, '' )       // Remove all non-word chars
       .replace( /\-\-+/g, '' )          // Remove multiple -
       .replace( /^-+/, '' )             // Trim - from start of text
       .replace( /-+$/, '' )             // Trim - from end of text
+      .replace( /\s+/g, '' )            // Remove spaces
   }
 
   /**
@@ -58,6 +58,6 @@ export class FormService {
     form.trigger( 'reset' )
     el.map(( input ) => {
       $( `[name="${input.name}"]` ).removeClass( 'error' )
-    })
+    } )
   }
 }
