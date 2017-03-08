@@ -8,12 +8,12 @@ import { ClientService, Client } from '../shared'
   templateUrl: './client-grid.component.html',
   styleUrls: [ './client-grid.component.scss' ],
   animations: [ fadeInOut ]
-})
+} )
 export class ClientGridComponent {
 
   @Input() public data: Client[]
   @Input() public title: string = 'Clientes'
-  @Input() public readOnlyMode: boolean = true
+  @Input() public readOnlyMode: boolean = false
   @Output() public onSelectClient: EventEmitter<Client> = new EventEmitter()
   @Output() public onDeleteClient: EventEmitter<Client> = new EventEmitter()
 
