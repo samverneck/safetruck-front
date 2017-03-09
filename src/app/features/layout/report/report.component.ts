@@ -1,11 +1,8 @@
-import { Component, ViewEncapsulation, OnInit, ViewChild, AfterViewChecked } from '@angular/core'
-import { NgForm } from '@angular/forms'
-
-import * as _ from 'lodash'
+import { Component, ViewEncapsulation } from '@angular/core'
 import * as moment from 'moment'
 
 import { ReportService, ReportData, DataReportPrint, Filter } from './shared'
-import { MessagesService, fadeInOut, ValidationService } from './../../../core'
+import { MessagesService, fadeInOut } from './../../../core'
 
 const DATE_FORMAT = 'DD/MM/YYYY h:mm A'
 
@@ -17,85 +14,34 @@ const DATE_FORMAT = 'DD/MM/YYYY h:mm A'
   providers: [ ReportService ],
   animations: [ fadeInOut ]
 } )
-export class ReportComponent implements OnInit, AfterViewChecked {
-
-  @ViewChild( 'reportForm' ) public currentForm: NgForm
+export class ReportComponent {
 
   public report: ReportData
-  public plaques: string[]
   public filter: Filter = {} as Filter
-  public reportForm: NgForm
-  public errors = {}
-
-  public validationMessages = {
-    'plaque': {
-      'required': 'Obrigatório'
-    },
-    'start': {
-      'required': 'Obrigatório'
-    },
-    'finish': {
-      'required': 'Obrigatório'
-    }
-  }
 
   /**
    * Creates an instance of ReportComponent.
    * @param {ReportService} reportService
-   * @param {ValidationService} validation
    * @param {MessagesService} messages
    *
    * @memberOf ReportComponent
    */
-  constructor( private reportService: ReportService, private validation: ValidationService, private messages: MessagesService ) { }
+  constructor( private reportService: ReportService, private messages: MessagesService ) { }
 
   /**
-   *
+   * Exibe o relatório
    *
    *
    * @memberOf ReportComponent
    */
-  public ngOnInit(): void {
-
-    this.filter.start = moment().subtract( 1, 'hours' ).toDate()
-    this.filter.finish = new Date()
-
-    // Obtém as placas cadastradas
-    this.reportService.getPlaques().subscribe( plaques => {
-      this.plaques = _.sortedUniq( plaques ) as string[]
-    } )
-  }
-
-  /**
-   *
-   *
-   *
-   * @memberOf EquipmentFormComponent
-   */
-  public onSubmitClick() {
-    if ( this.reportForm.form.valid ) {
-      this.getReport()
-    }
-  }
-
-  /**
-   *
-   *
-   *
-   * @memberOf ClientRegisterComponent
-   */
-  public ngAfterViewChecked() {
-    this.formChanged()
-  }
-
-  /**
-   *
-   *
-   *
-   * @memberOf ClientFormComponent
-   */
-  public onCancelClick() {
-    this.reportForm.reset()
+  public getReport( filter: Filter ): void {
+    this.report = undefined
+    // Obtendo as datas
+    this.reportService.generateReport( this.filter )
+      .subscribe( report => {
+        this.report = report
+        this.filter = filter
+      } )
   }
 
   /**
@@ -187,41 +133,5 @@ export class ReportComponent implements OnInit, AfterViewChecked {
       ( popup.window as any ).app.resumo = app.resumo;
       ( popup.window as any ).readyToPrint = true
     } )
-  }
-
-  /**
-   * Exibe o relatório
-   *
-   *
-   * @memberOf ReportComponent
-   */
-  private getReport(): void {
-    // Obtendo as datas
-    this.reportService.generateReport( this.filter )
-      .subscribe( report => this.report = report )
-  }
-
-  /**
-   *
-   *
-   *
-   * @memberOf ClientRegisterComponent
-   */
-  private formChanged() {
-    if ( this.currentForm === this.reportForm ) { return }
-    this.reportForm = this.currentForm
-    if ( this.reportForm ) {
-      this.reportForm.valueChanges.subscribe(() => this.updateErrors() )
-    }
-  }
-
-  /**
-   *
-   *
-   *
-   * @memberOf ClientRegisterComponent
-   */
-  private updateErrors() {
-    this.errors = this.validation.getFormErrors( this.reportForm, this.validationMessages )
   }
 }

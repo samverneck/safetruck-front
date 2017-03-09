@@ -6,6 +6,7 @@ import { ReportRoutingModule } from './report-routing.module'
 
 // components
 import { ReportComponent } from './report.component'
+import { ReportFilterComponent } from './report-filter/report-filter.component'
 import { OffensesListComponent } from './offenses-list/offenses-list.component'
 import { VehicleRouteComponent } from './vehicle-route/vehicle-route.component'
 
@@ -17,7 +18,8 @@ import { VehicleRouteComponent } from './vehicle-route/vehicle-route.component'
   declarations: [
     ReportComponent,
     VehicleRouteComponent,
-    OffensesListComponent
+    OffensesListComponent,
+    ReportFilterComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 } )
