@@ -1,0 +1,34 @@
+<form class="form-horizontal form-label-left" id="reportForm" #reportForm="ngForm" (ngSubmit)="onSubmitClick()" novalidate>
+  <!--Placa-->
+  <div class="row">
+    <div class="form-group col-sm-4 col-xs-12">
+      <label class="form-control-label">Placa</label>
+      <validation-message [error]="errors['plaque']"></validation-message>
+      <select class="form-control" [(ngModel)]="filter.plaque" name="plaque" id="plaque" required>
+                <option value="">Selecione...</option>
+                <option *ngFor="let plaque of plaques" [value]="plaque">{{plaque}}</option>
+              </select>
+    </div>
+
+    <div class="form-group col-sm-4 col-xs-12">
+      <label class="form-control-label">Data/Hora inicial</label>
+      <validation-message [error]="errors['start']"></validation-message>
+      <datepicker [(ngModel)]="filter.start" name="start" required></datepicker>
+    </div>
+
+    <div class="form-group col-sm-4 col-xs-12">
+      <label class="form-control-label">Data/Hora final</label>
+      <validation-message [error]="errors['finish']"></validation-message>
+      <datepicker [(ngModel)]="filter.finish" name="finish" required></datepicker>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="button" class="btn btn-default btn-rounded" (click)="onCancelClick()">
+              Limpar
+            </button>
+    <button type="submit" class="btn btn-primary btn-rounded" [disabled]="!reportForm.valid">
+              Gerar relatório
+            </button>
+  </div>
+</form>

@@ -35,6 +35,7 @@ export class VehicleRouteComponent implements OnInit, OnChanges {
    * @memberOf VehicleRouteComponent
    */
   public ngOnChanges() {
+    console.log( 'changes' )
     this.initMap()
   }
 
