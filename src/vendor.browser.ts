@@ -33,8 +33,6 @@ import 'widgster'
 import 'pace'
 import 'eonasdan-bootstrap-datetimepicker'
 
-
-
 if ( 'production' === ENV ) {
   //
 } else {

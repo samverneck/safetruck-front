@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, Input, OnInit } from '@angular/core'
+import { Component, ViewEncapsulation, Input, OnInit, OnChanges } from '@angular/core'
 import { Observable } from 'rxjs/Observable'
 import * as _ from 'lodash'
 import * as moment from 'moment'
@@ -10,8 +10,8 @@ import { ReportOverSpeeding, ReportDangerZonesData } from '../shared'
   selector: 'vehicle-route',
   templateUrl: './vehicle-route.component.html',
   styleUrls: [ './vehicle-route.component.scss' ]
-})
-export class VehicleRouteComponent implements OnInit {
+} )
+export class VehicleRouteComponent implements OnInit, OnChanges {
 
   @Input() public route: any[]
   @Input() public times: any
@@ -25,6 +25,16 @@ export class VehicleRouteComponent implements OnInit {
    * @memberOf RouteComponent
    */
   public ngOnInit() {
+    this.initMap()
+  }
+
+  /**
+   *
+   *
+   *
+   * @memberOf VehicleRouteComponent
+   */
+  public ngOnChanges() {
     this.initMap()
   }
 
@@ -49,18 +59,18 @@ export class VehicleRouteComponent implements OnInit {
           date: this.times.finish,
           latLng: _.last( this.route )
         }
-      })
+      } )
       // Zonas perigosas
       this.dangerZones.map( dz => {
         this.drawDangerZonesPoints( map, dz )
-      })
+      } )
       // Excessos de velocidade
       this.overSpeedings.map( overSpeeding => {
         overSpeeding.data.map( data => {
           this.drawOverSpeedingsRoute( map, data )
-        })
-      })
-    })
+        } )
+      } )
+    } )
   }
 
   /**
@@ -74,9 +84,9 @@ export class VehicleRouteComponent implements OnInit {
         zoom: 3,
         center: { lat: 0, lng: -20 },
         mapTypeId: google.maps.MapTypeId.ROADMAP
-      })
+      } )
       obs.next( map )
-    })
+    } )
 
     return map$
   }
@@ -95,11 +105,11 @@ export class VehicleRouteComponent implements OnInit {
       strokeColor: '#0000FF',
       strokeOpacity: 1.0,
       strokeWeight: 4
-    })
+    } )
     let llbounds = new google.maps.LatLngBounds()
     flightPath.getPath().forEach(( e ) => {
       llbounds.extend( e )
-    })
+    } )
     flightPath.setMap( map )
     // Centraliza o mapa na rota
     map.setCenter( llbounds.getCenter() )
@@ -121,7 +131,7 @@ export class VehicleRouteComponent implements OnInit {
       strokeColor: '#FF0000',
       strokeOpacity: 0.6,
       strokeWeight: 6
-    })
+    } )
     line.setMap( map )
     // Ícone
     let start = moment( data.start ).format( 'DD/MM/YYYY HH:mm:ss' )
@@ -143,7 +153,7 @@ export class VehicleRouteComponent implements OnInit {
       // Posiciona o ícone no meio da rota
       position: data.route[ Math.round(( data.route.length ) / 2 ) ],
       content: content
-    })
+    } )
   }
 
   /**
@@ -171,7 +181,7 @@ export class VehicleRouteComponent implements OnInit {
       icon: 'https://maps.google.com/mapfiles/kml/pal3/icon42.png',
       position: data.position,
       content: content
-    })
+    } )
     new google.maps.Circle( {
       strokeColor: '#FF0000',
       strokeOpacity: 0.8,
@@ -181,7 +191,7 @@ export class VehicleRouteComponent implements OnInit {
       map: map,
       center: data.position,
       radius: 200
-    })
+    } )
   }
 
   /**
@@ -196,16 +206,16 @@ export class VehicleRouteComponent implements OnInit {
       icon: opt.icon,
       map: opt.map,
       position: opt.position
-    })
+    } )
 
     let infoWin = new google.maps.InfoWindow( {
       content: opt.content,
       position: opt.position
-    })
+    } )
     // Adiciona um envento que abre a info ao clicar
     marker.addListener( 'click', () => {
       infoWin.open( opt.map, marker )
-    })
+    } )
   }
 
   /**
@@ -242,13 +252,13 @@ export class VehicleRouteComponent implements OnInit {
       label: 'I',
       position: opt.start.latLng,
       content: startMarkerCtn
-    })
+    } )
     this.drawIcon( {
       map: opt.map,
       label: 'F',
       position: opt.finish.latLng,
       content: finishMarkerCtn
-    })
+    } )
   }
 
 }
