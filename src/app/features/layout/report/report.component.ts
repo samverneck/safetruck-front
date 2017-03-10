@@ -37,7 +37,7 @@ export class ReportComponent {
   public getReport( filter: Filter ): void {
     this.report = undefined
     // Obtendo as datas
-    this.reportService.generateReport( this.filter )
+    this.reportService.generateReport( filter )
       .subscribe( report => {
         this.report = report
         this.filter = filter
