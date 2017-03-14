@@ -13,7 +13,7 @@ import { AppConfig } from '../../core'
     '[class.app]': 'true',
     id: 'app'
   }
-})
+} )
 export class LayoutComponent implements OnInit {
 
   public config: any
@@ -50,11 +50,11 @@ export class LayoutComponent implements OnInit {
     }
 
     let $el = $( this.el.nativeElement )
-    this.$sidebar = $el.find( '[sidebar]' )
+    this.$sidebar = $el.find( 'sidebar' )
 
     $el.find( 'a[href="#"]' ).on( 'click', ( e ) => {
       e.preventDefault()
-    })
+    } )
 
     this.$sidebar.on( 'mouseenter', this.sidebarMouseEnter.bind( this ) )
     this.$sidebar.on( 'mouseleave', this.sidebarMouseLeave.bind( this ) )
@@ -65,12 +65,12 @@ export class LayoutComponent implements OnInit {
       if ( $( 'layout' ).is( '.nav-collapsed' ) ) {
         this.expandNavigation()
       }
-    })
+    } )
 
     this.router.events.subscribe(() => {
       this.collapseNavIfSmallScreen()
       window.scrollTo( 0, 0 )
-    })
+    } )
 
     if ( 'ontouchstart' in window ) {
       this.enableSwipeCollapsing()
@@ -84,7 +84,7 @@ export class LayoutComponent implements OnInit {
       let $triggerLink = $( this ).prev( '[data-toggle=collapse]' )
       $( $triggerLink.data( 'parent' ) )
         .find( '.collapse.in' ).not( $( this ) ).collapse( 'hide' )
-    })
+    } )
       /* adding additional classes to navigation link li-parent
        for several purposes. see navigation styles */
       .on( 'show.bs.collapse', function( e ): void {
@@ -93,13 +93,13 @@ export class LayoutComponent implements OnInit {
         if ( e.target !== e.currentTarget ) { return }
 
         $( this ).closest( 'li' ).addClass( 'open' )
-      }).on( 'hide.bs.collapse', function( e ): void {
+      } ).on( 'hide.bs.collapse', function( e ): void {
         // execute only if we're actually the .collapse element initiated event
         // return for bubbled events
         if ( e.target !== e.currentTarget ) { return }
 
         $( this ).closest( 'li' ).removeClass( 'open' )
-      })
+      } )
   }
 
   /**
@@ -227,8 +227,8 @@ export class LayoutComponent implements OnInit {
         if ( !$( 'layout' ).is( '.nav-collapsed' ) ) {
           d.collapseNavigation()
         }
-      })
-    })
+      } )
+    } )
 
     swipe.on( 'swiperight', () => {
       if ( d.configFn.isScreen( 'md' ) ) { return }
@@ -236,7 +236,7 @@ export class LayoutComponent implements OnInit {
       if ( $( 'layout' ).is( '.nav-collapsed' ) ) {
         d.expandNavigation()
       }
-    })
+    } )
   }
 
   /**
