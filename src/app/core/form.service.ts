@@ -37,7 +37,7 @@ export class FormService {
    * @memberOf FormUtils
    */
   public slugger( str: string ) {
-    return ( str || ''.toLowerCase() )
+    return ( str || '' ).toLowerCase()
       .replace( /[^\w\-]+/g, '' )       // Remove all non-word chars
       .replace( /\-\-+/g, '' )          // Remove multiple -
       .replace( /^-+/, '' )             // Trim - from start of text

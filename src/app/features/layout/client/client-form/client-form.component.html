@@ -31,7 +31,7 @@
         <label>Alias</label>
         <validation-message [error]="errors['alias']"></validation-message>
         <input [disabled]="readOnlyMode" type="text" class="form-control" [(ngModel)]="client.alias" name="alias" pattern="^[a-z0-9.]+$"
-          minlength="3" maxlength="56" required>
+          minlength="3" maxlength="56" required (blur)="fillAlias()">
       </div>
     </div>
   </fieldset>
