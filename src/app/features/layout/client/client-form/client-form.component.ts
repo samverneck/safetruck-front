@@ -8,7 +8,7 @@ import { Client } from '../shared'
   selector: 'client-form',
   templateUrl: 'client-form.component.html',
   encapsulation: ViewEncapsulation.None
-})
+} )
 export class ClientFormComponent implements AfterViewChecked {
 
   @Output() public onSubmit = new EventEmitter<Client>()
@@ -182,7 +182,7 @@ export class ClientFormComponent implements AfterViewChecked {
    * @memberOf ClientPage
    */
   public fillAlias(): void {
-    this.client.alias = this.client.alias || this.formUtils.slugger( this.client.tradingName )
+    this.client.alias = this.formUtils.slugger( this.client.alias || this.client.tradingName )
   }
 
   /**
