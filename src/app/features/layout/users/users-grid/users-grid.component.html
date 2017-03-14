@@ -25,14 +25,17 @@
         </thead>
         <tbody>
           <tr *ngFor="let user of mf.data | search : searchText" (click)="select(user)" [class.selected]="user===selectedUser">
-            <td class="main-column">{{user.name}}</td>
+            <td class="main-column">
+              {{user.name}}
+              <span *ngIf="isLoggerUser(user)" class="badge badge-default">logado</span>
+            </td>
             <td class="hidden-xs-down">{{user.email}}</td>
             <td class="text-center">
               <i *ngIf="user.isAdmin" class="fa fa-check-square" style="color:darkolivegreen;font-size: 1.7em;"></i>
               <i *ngIf="!user.isAdmin" class="fa fa-square-o" style="color:darkolivegreen;font-size: 1.7em;"></i>
             </td>
             <td class="hidden-xs-down text-center" *ngIf="!readOnlyMode">
-              <btn-delete (click)="delete(user)"></btn-delete>
+              <btn-delete *ngIf="!isLoggerUser(user)" (click)="delete(user)"></btn-delete>
             </td>
           </tr>
           <tr *ngIf="(mf.data | search : searchText).length === 0">
