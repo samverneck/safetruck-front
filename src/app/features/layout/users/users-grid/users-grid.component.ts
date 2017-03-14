@@ -1,7 +1,7 @@
 
 import { Component, EventEmitter, Output, Input } from '@angular/core'
 
-import { fadeInOut } from '../../../../core'
+import { fadeInOut, AuthService } from '../../../../core'
 import { UsersService, User } from '../shared'
 
 @Component( {
@@ -9,7 +9,7 @@ import { UsersService, User } from '../shared'
   templateUrl: './users-grid.component.html',
   styleUrls: [ './users-grid.component.scss' ],
   animations: [ fadeInOut ]
-})
+} )
 export class UsersGridComponent {
 
   @Input() public data: User[]
@@ -19,6 +19,7 @@ export class UsersGridComponent {
   @Output() public onDeleteUser: EventEmitter<User> = new EventEmitter()
 
   public selectedUser: User | undefined
+  private loggedUser: User
 
   /**
    * Creates an instance of UserTableComponent.
@@ -26,7 +27,9 @@ export class UsersGridComponent {
    *
    * @memberOf UserTableComponent
    */
-  public constructor( public usersService: UsersService ) { }
+  public constructor( public usersService: UsersService, private auth: AuthService ) {
+    this.loggedUser = this.auth.user()
+  }
 
   /**
    *
@@ -59,5 +62,17 @@ export class UsersGridComponent {
    */
   public unselect() {
     this.selectedUser = undefined
+  }
+
+  /**
+   *
+   *
+   * @param {User} user
+   * @returns {boolean}
+   *
+   * @memberOf UsersGridComponent
+   */
+  public isLoggerUser( user: User ): boolean {
+    return user.id === this.loggedUser.id
   }
 }
