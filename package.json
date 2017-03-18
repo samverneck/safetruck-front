@@ -1,6 +1,6 @@
 {
   "name": "safetruck-front",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Safetruck App",
   "scripts": {
     "build:dev": "webpack --config config/webpack.dev.js --progress --profile",
