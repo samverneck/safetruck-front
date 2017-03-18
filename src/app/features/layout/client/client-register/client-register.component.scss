@@ -1,0 +1,28 @@
+
+.btn-label {
+    background: transparent;
+    left: 2px;
+    padding: 1px 6px;
+}
+
+
+/**
+*  autosize
+**/
+
+.autogrow {
+    overflow: hidden;
+    resize: none;
+}
+
+
+/**
+* datetime
+**/
+
+.input-group {
+    width: auto;
+    .input-group-addon {
+        padding: .375rem .75rem .375rem .75rem;
+    }
+}

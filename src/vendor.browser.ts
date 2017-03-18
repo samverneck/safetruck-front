@@ -13,18 +13,28 @@ import '@angular/http'
 import '@angular/router'
 import '@angularclass/hmr'
 
-// RxJS
+// Statics
+import 'rxjs/add/observable/throw'
+
+// Operators
+import 'rxjs/add/operator/catch'
 import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/mergeMap'
+import 'rxjs/add/operator/scan'
+import 'rxjs/add/operator/mergeMap'// flatMap
+import 'rxjs/add/operator/share'
+import 'rxjs/add/operator/timeout'
+import 'rxjs/add/operator/retryWhen'
+import 'rxjs/add/operator/finally'
+import 'rxjs/add/operator/toPromise'
 
 import 'jquery'
-import 'tether'
 import 'bootstrap'
 import 'widgster'
 import 'pace'
+import 'eonasdan-bootstrap-datetimepicker'
 
-if ('production' === ENV) {
-  // 
+if ( 'production' === ENV ) {
+  //
 } else {
   //
 }

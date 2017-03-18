@@ -1,15 +1,15 @@
 /*
  * Angular 2 decorators and services
  */
-import { Component, ViewEncapsulation } from '@angular/core'
+import { Component, ViewEncapsulation, OnInit } from '@angular/core'
 
-import { AppState } from './app.service'
+import { AppStateService } from './core'
 
 /*
  * App Component
  * Top Level Component
  */
-@Component({
+@Component( {
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
   styleUrls: [
@@ -17,12 +17,17 @@ import { AppState } from './app.service'
   ],
   template: `<router-outlet></router-outlet>`
 })
-export class App {
+export class AppComponent implements OnInit {
 
-  constructor(public appState: AppState) {}
+  constructor( public appState: AppStateService ) { }
 
-  ngOnInit() {
+  /**
+   *
+   *
+   *
+   * @memberOf AppComponent
+   */
+  public ngOnInit() {
     // console.log('Initial App State', this.appState.state)
   }
-
 }

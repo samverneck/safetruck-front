@@ -1,0 +1,4 @@
+<select class="form-control" [(ngModel)]="value" (blur)="onBlur()" [disabled]="disabled">
+      <option value="">Selecione...</option>
+      <option *ngFor="let item of enumType | keys" [value]="item.key">{{item.value}}</option>
+</select>

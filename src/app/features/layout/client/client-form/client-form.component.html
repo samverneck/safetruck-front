@@ -1,0 +1,199 @@
+<form *ngIf="client" class="form-horizontal form-label-left" id="clientForm" #clientForm="ngForm" (ngSubmit)="onSubmitClick()"
+  novalidate>
+  <fieldset>
+    <legend>Dados do Cliente</legend>
+    <div class="row">
+      <!--Razão Social-->
+      <div class="form-group col-md-6 col-xs-12">
+        <label>Razão Social</label>
+        <validation-message [error]="errors['companyName']"></validation-message>
+        <input [disabled]="readOnlyMode" type="text" class="form-control" [(ngModel)]="client.companyName" name="companyName" minlength="3"
+          required>
+      </div>
+      <!--Nome Fantasia-->
+      <div class="form-group col-md-6 col-xs-12">
+        <label>Nome Fantasia</label>
+        <validation-message [error]="errors['tradingName']"></validation-message>
+        <input [disabled]="readOnlyMode" type="text" class="form-control" [(ngModel)]="client.tradingName" name="tradingName" minlength="3"
+          required (blur)="fillAlias()">
+      </div>
+    </div>
+    <div class="row">
+      <!--CNPJ-->
+      <div class="form-group col-md-6 col-xs-12">
+        <label>CNPJ</label>
+        <validation-message [error]="errors['cnpj']"></validation-message>
+        <input [disabled]="readOnlyMode" type="text" class="form-control" [(ngModel)]="client.cnpj" name="cnpj" [textMask]="{mask: masks.cnpj}"
+          cnpj required>
+      </div>
+      <!--Alias-->
+      <div class="form-group col-md-6 col-xs-12">
+        <label>Alias</label>
+        <validation-message [error]="errors['alias']"></validation-message>
+        <input [disabled]="readOnlyMode" type="text" class="form-control" [(ngModel)]="client.alias" name="alias" pattern="^[a-z0-9.]+$"
+          minlength="3" maxlength="56" required (blur)="fillAlias()">
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Endereço</legend>
+    <div class="row">
+      <!--CEP-->
+      <div class="form-group col-md-3 col-xs-12">
+        <label>CEP</label>
+        <validation-message [error]="errors['address.zipcode']"></validation-message>
+        <input [disabled]="readOnlyMode" type="text" class="form-control" [(ngModel)]="client.address.zipcode" [textMask]="{mask: masks.zipcode}"
+          name="address.zipcode" (blur)="getAddress(zipcode.value)" #zipcode zipcode required>
+      </div>
+      <!--Logradouro-->
+      <div class="form-group col-md-6 col-xs-12">
+        <label>Logradouro</label>
+        <validation-message [error]="errors['address.address']"></validation-message>
+        <input [disabled]="readOnlyMode" type="text" class="form-control" [(ngModel)]="client.address.address" name="address.address"
+          required>
+      </div>
+      <!--Número-->
+      <div class="form-group col-md-3 col-xs-12">
+        <label>Número</label>
+        <validation-message [error]="errors['address.num']"></validation-message>
+        <input [disabled]="readOnlyMode" type="number" class="form-control" [(ngModel)]="client.address.num" name="address.num" required>
+      </div>
+    </div>
+    <div class="row">
+      <!--Bairro-->
+      <div class="form-group col-md-6 col-xs-12">
+        <label>Bairro</label>
+        <validation-message [error]="errors['address.district']"></validation-message>
+        <input [disabled]="readOnlyMode" type="text" class="form-control" [(ngModel)]="client.address.district" name="address.district"
+          required>
+      </div>
+      <!--Cidade-->
+      <div class="form-group col-md-4 col-xs-12">
+        <label>Cidade</label>
+        <validation-message [error]="errors['address.city']"></validation-message>
+        <input [disabled]="readOnlyMode" type="text" class="form-control" [(ngModel)]="client.address.city" name="address.city" required>
+      </div>
+      <!--Estado-->
+      <div class="form-group col-md-2 col-xs-12">
+        <label>Estado</label>
+        <validation-message [error]="errors['address.state']"></validation-message>
+        <select [disabled]="readOnlyMode" class="form-control" [(ngModel)]="client.address.state" name="address.state" required>
+                  <option value="" hidden>Selecione...</option>
+                  <option *ngFor="let state of states" [value]="state.abbr">{{state.abbr}}</option>
+                </select>
+      </div>
+    </div>
+    <div class="row">
+      <!--Complemento-->
+      <div class="form-group col-xs-12">
+        <label>Complemento</label>
+        <input [disabled]="readOnlyMode" type="text" class="form-control" [(ngModel)]="client.address.complement" name="address.complement">
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Contato</legend>
+    <!--Pessoa para contato-->
+    <div class="row">
+      <div class="form-group col-xs-12">
+        <label>Responsável</label>
+        <validation-message [error]="errors['contact.responsible']"></validation-message>
+        <input [disabled]="readOnlyMode" type="text" class="form-control" [(ngModel)]="client.contact.responsible" name="contact.responsible"
+          minlength="6" required>
+      </div>
+    </div>
+    <div class="row">
+      <!--Telefone-->
+      <div class="form-group col-md-6 col-xs-12">
+        <label>Telefone</label>
+        <validation-message [error]="errors['contact.phone']"></validation-message>
+        <input [disabled]="readOnlyMode" type="text" class="form-control" [(ngModel)]="client.contact.phone" name="contact.phone"
+          [textMask]="{mask: masks.phone}" phone required>
+      </div>
+      <!--E-mail-->
+      <div class="form-group col-md-6 col-xs-12">
+        <label>E-mail</label>
+        <validation-message [error]="errors['contact.email']"></validation-message>
+        <input [disabled]="readOnlyMode" type="email" class="form-control" [(ngModel)]="client.contact.email" name="contact.email"
+          email required>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Informações Adicionais</legend>
+    <div class="row">
+      <!--Mercado-->
+      <div class="form-group col-md-4 col-xs-12">
+        <label>Mercado</label>
+        <validation-message [error]="errors['market']"></validation-message>
+        <select [disabled]="readOnlyMode" class="form-control" [(ngModel)]="client.market" name="market" required>
+                  <option value="" disabled selected>Selecione...</option>
+                  <option value="0">Seguradora</option>
+                  <option value="1">Transportadora</option>
+                  <option value="2" selected>Outros</option>
+                </select>
+      </div>
+      <!--Velocidade Máxima-->
+      <div class="form-group col-md-4 col-xs-12">
+        <label>Velocidade Máxima</label>
+        <validation-message [error]="errors['limit']"></validation-message>
+        <input [disabled]="readOnlyMode" type="number" step="1" class="form-control" [(ngModel)]="client.limit" name="limit" required>
+      </div>
+
+      <!--Pontos perigosos-->
+      <div class="form-group col-md-4 col-xs-12">
+        <label>Pontos perigosos</label>
+        <div class="input-group">
+          <span class="input-group-addon beautiful">
+              <input [disabled]="readOnlyMode" type="checkbox" [(ngModel)]="client.shareDangerousPoints" name="shareDangerousPoints">
+            </span>
+          <span class="form-control">Compartilhar pontos perigosos</span>
+        </div>
+      </div>
+
+      <div class="form-group col-md-4 col-xs-12">
+        <label>Aceleração Frontal</label>
+        <validation-message [error]="errors['forwardAcceleration']"></validation-message>
+        <input [disabled]="readOnlyMode" type="number" step="0.5" class="form-control" [(ngModel)]="client.forwardAcceleration" name="forwardAcceleration"
+          required>
+      </div>
+
+      <div class="form-group col-md-4 col-xs-12">
+        <label>Frenagem</label>
+        <validation-message [error]="errors['braking']"></validation-message>
+        <input [disabled]="readOnlyMode" type="number" step="0.5" class="form-control" [(ngModel)]="client.braking" name="braking"
+          required>
+      </div>
+
+      <div class="form-group col-md-4 col-xs-12">
+        <label>Aceleração Lateral</label>
+        <validation-message [error]="errors['lateralAcceleration']"></validation-message>
+        <input [disabled]="readOnlyMode" type="number" step="0.5" class="form-control" [(ngModel)]="client.lateralAcceleration" name="lateralAcceleration"
+          required>
+      </div>
+
+      <div class="form-group col-md-4 col-xs-12">
+        <label>Aceleração Vertical</label>
+        <validation-message [error]="errors['verticalAcceleration']"></validation-message>
+        <input [disabled]="readOnlyMode" type="number" step="0.5" class="form-control" [(ngModel)]="client.verticalAcceleration"
+          name="verticalAcceleration" required>
+      </div>
+
+      <div class="form-group col-md-4 col-xs-12">
+        <label>Média Móvel</label>
+        <validation-message [error]="errors['movingAverage']"></validation-message>
+        <input [disabled]="readOnlyMode" type="number" step="1" min="1" class="form-control" [(ngModel)]="client.movingAverage" name="movingAverage"
+          required>
+      </div>
+
+    </div>
+  </fieldset>
+  <div class="form-actions" *ngIf="!readOnlyMode">
+    <button type="button" class="btn btn-default btn-rounded" (click)="onCancelClick()">
+              {{client.id ? 'Cancelar' : 'Limpar'}}
+        </button>
+    <button type="submit" class="btn btn-primary btn-rounded" [disabled]="!clientForm.valid">
+              {{client.id ?  'Atualizar' : 'Cadastrar'}}
+        </button>
+  </div>
+  </form>

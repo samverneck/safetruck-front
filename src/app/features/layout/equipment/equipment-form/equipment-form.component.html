@@ -1,0 +1,83 @@
+<form *ngIf="equipment" class="form-horizontal form-label-left" id="equipmentForm" #equipmentForm="ngForm" (ngSubmit)="onSubmitClick()"
+  novalidate>
+  <fieldset>
+    <legend>Dados do Equipamento</legend>
+    <div class="row">
+      <div class="form-group col-md-9 col-xs-12">
+        <label>Código</label>
+        <validation-message [error]="errors['code']"></validation-message>
+        <input [disabled]="readOnlyMode || equipment.id" type="text" class="form-control" [(ngModel)]="equipment.code" name="code"
+          required maxlength="64">
+      </div>
+      <!--Tipo de equipamento-->
+      <div class="form-group col-md-3 col-xs-12">
+        <label>Tipo</label>
+        <validation-message [error]="errors['type']"></validation-message>
+        <select-enum [disabled]="readOnlyMode" [enumType]="types.equipmentType" name="type" [(ngModel)]="equipment.type" required></select-enum>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Dados da Instalação</legend>
+    <div class="row">
+
+      <!--Cliente-->
+      <div class="form-group col-md-9 col-xs-12">
+        <label>Cliente</label>
+        <validation-message [error]="errors['install.clientId']"></validation-message>
+        <select [disabled]="readOnlyMode" class="form-control" [(ngModel)]="equipment.install.clientId" name="install.clientId" required>
+          <option value="">Selecione...</option>
+          <option *ngFor="let client of clients" [value]="client.id">{{client.companyName}}</option>
+          </select>
+      </div>
+      <!--Placa do veículo-->
+      <div class="form-group col-md-3 col-xs-12">
+        <label>Placa do veículo</label>
+        <validation-message [error]="errors['install.plaque']"></validation-message>
+        <input [disabled]="readOnlyMode" type="text" class="form-control uppercase" [(ngModel)]="equipment.install.plaque" name="install.plaque"
+          [textMask]="{mask: masks.plaque}" (blur)="equipment.install.plaque = equipment.install.plaque.toUpperCase()" required
+          pattern="[A-Za-z]{3}\d{4}">
+      </div>
+      <!--Tipo de veículo-->
+      <div class="form-group col-md-3 col-xs-12">
+        <label>Tipo de veículo</label>
+        <validation-message [error]="errors['install.vehicleType']"></validation-message>
+        <select-enum [disabled]="readOnlyMode" [enumType]="types.vehicleType" name="install.vehicleType" [(ngModel)]="equipment.install.vehicleType"
+          required></select-enum>
+      </div>
+      <!--Orientação-->
+      <div class="form-group col-md-3 col-xs-12">
+        <label>Orientação</label>
+        <validation-message [error]="errors['install.orientation']"></validation-message>
+        <select-enum [disabled]="readOnlyMode" [enumType]="types.orientation" name="install.orientation" [(ngModel)]="equipment.install.orientation"
+          required></select-enum>
+      </div>
+
+      <!--Data da instalação-->
+      <div class="form-group col-md-3 col-xs-12">
+        <label>Data da instalação</label>
+        <validation-message [error]="errors['install.installation']"></validation-message>
+        <datepicker [disabled]="readOnlyMode" [(ngModel)]="equipment.install.installation" name="install.installation" [options]="{format:'L'}"
+          required></datepicker>
+      </div>
+
+
+      <!--Data da alteração do tacógrafo-->
+      <div class="form-group col-md-3 col-xs-12">
+        <label>Data de aferição</label>
+        <validation-message [error]="errors['install.admeasurement']"></validation-message>
+        <datepicker [disabled]="readOnlyMode" [(ngModel)]="equipment.install.admeasurement" name="install.admeasurement" [options]="{format:'L'}"
+          required></datepicker>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="form-actions" *ngIf="!readOnlyMode">
+    <button type="button" class="btn btn-default btn-rounded" (click)="onCancelClick()">
+      {{equipment.id ? 'Cancelar' : 'Limpar'}}
+    </button>
+    <button type="submit" class="btn btn-primary btn-rounded" [disabled]="!equipmentForm.valid">
+      {{equipment.id ? 'Atualizar' : 'Cadastrar'}}
+    </button>
+  </div>
+  </form>

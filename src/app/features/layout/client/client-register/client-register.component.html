@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-xs-12">
+    <panel>
+      <panel-header>
+        <h5>
+          {{client?.id ? 'Atualizar Cliente' : 'Cadastrar Novo Cliente'}}
+        </h5>
+      </panel-header>
+      <panel-content>
+        <client-form [client]="client" (onSubmit)="saveClient($event)" (onCancel)="cancel()" (onZipCodeError)="notifyZipCodeError($event)">
+        </client-form>
+      </panel-content>
+    </panel>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <client-grid *ngIf="clients" [data]="clients" (onSelectClient)="selectClient($event)" (onDeleteClient)="deleteClient($event)">
+    </client-grid>
+  </div>
+</div>

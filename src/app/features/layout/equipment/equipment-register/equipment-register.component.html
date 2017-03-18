@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-xs-12">
+    <panel>
+      <panel-header>
+        <h5>
+          {{equipment.id ? 'Atualizar Equipamento' : 'Cadastrar Novo Equipamento'}}
+        </h5>
+      </panel-header>
+      <panel-content>
+        <equipment-form [equipment]="equipment" (onSubmit)="saveEquipment($event)" (onCancel)="cancel()"></equipment-form>
+      </panel-content>
+    </panel>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 ">
+    <equipment-grid *ngIf="equipments" [data]="equipments" (onSelectEquipment)="selectEquipment($event) " (onDeleteEquipment)="deleteEquipment($event)">
+    </equipment-grid>
+  </div>
+</div>
