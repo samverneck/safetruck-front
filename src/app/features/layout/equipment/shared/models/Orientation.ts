@@ -1,5 +1,8 @@
 export enum Orientation {
   YZX,
   XYZ,
-  ZYX
+  ZYX,
+  XZY,
+  YXZ,
+  ZXY
 }
