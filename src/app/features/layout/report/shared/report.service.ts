@@ -33,7 +33,7 @@ export class ReportService extends BaseService<ReportData> {
    */
   public generateReport( filter: Filter ): Observable<ReportData> {
     return this.http
-      .get( `${API_URL}/report?plaque=${filter.plaque}&&dtIni=${filter.start}&dtEnd=${filter.finish}`, this.requestOptions )
+      .get( `${API_URL}/report?plaque=${filter.plaque}&&dtIni=${filter.start.toISOString()}&dtEnd=${filter.finish.toISOString()}`, this.requestOptions )
       .map( this.extractData )
       .catch( this.handleError )
   }
