@@ -15,11 +15,11 @@
       <div class="col-xs-6">
         <div class="row">
           <div class="col-xs-4"><strong>Início</strong></div>
-          <div class="col-xs-8">{{reportTimes.start}}</div>
+          <div class="col-xs-8">{{formatDate(data.dataIni)}}</div>
         </div>
         <div class="row">
           <div class="col-xs-4"><strong>Término</strong></div>
-          <div class="col-xs-8">{{reportTimes.finish}}</div>
+          <div class="col-xs-8">{{formatDate(data.dataEnd)}}</div>
         </div>
       </div>
     </div>
@@ -85,7 +85,7 @@
         <div class="col-xs-8">
           <div class="row">
             <div class="col-xs-4"><span>Início</span></div>
-            <div class="col-xs-8"><span>{{formatDate(d.start)}}</span></div>
+            <div class="col-xs-8"><span>{{formatDate(data.start)}}</span></div>
           </div>
           <div class="row">
             <div class="col-xs-4"><span>Término</span></div>

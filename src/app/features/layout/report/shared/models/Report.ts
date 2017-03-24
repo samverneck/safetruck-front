@@ -1,5 +1,7 @@
 export interface ReportData {
   plaque: string,
+  dataIni?: Date,
+  dataEnd?: Date,
   route: LocationGoogle[],
   overSpeedingsTotal: number,
   passOverDangerZones: number,

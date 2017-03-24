@@ -23,7 +23,8 @@
         </h5>
       </panel-header>
       <panel-content>
-        <vehicle-route [route]="report.route" [times]="filter" [overSpeedings]="report.overSpeedings" [dangerZones]="report.dangerZones"></vehicle-route>
+        <vehicle-route [dtaIni]="report.dataIni" [dtaEnd]="report.dataEnd" [route]="report.route" [times]="filter" [overSpeedings]="report.overSpeedings"
+          [dangerZones]="report.dangerZones"></vehicle-route>
       </panel-content>
     </panel>
   </div>
@@ -45,7 +46,7 @@
   </div>
   <div class="col-xs-12 text-center">
     <button class="btn btn-primary" (click)="print()">
-      <i class="fa fa-print"></i> 
+      <i class="fa fa-print"></i>
       Imprimir
     </button>
   </div>

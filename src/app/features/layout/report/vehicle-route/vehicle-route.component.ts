@@ -12,7 +12,8 @@ import { ReportOverSpeeding, ReportDangerZonesData } from '../shared'
   styleUrls: [ './vehicle-route.component.scss' ]
 } )
 export class VehicleRouteComponent implements OnInit, OnChanges {
-
+  @Input() public dtaEnd: Date
+  @Input() public dtaIni: Date
   @Input() public route: any[]
   @Input() public times: any
   @Input() public overSpeedings: ReportOverSpeeding[]
@@ -53,11 +54,11 @@ export class VehicleRouteComponent implements OnInit, OnChanges {
       this.drawStartAndFinish( {
         map: map,
         start: {
-          date: this.times.start,
+          date: this.dtaIni,
           latLng: _.head( this.route )
         },
         finish: {
-          date: this.times.finish,
+          date: this.dtaEnd,
           latLng: _.last( this.route )
         }
       } )
@@ -228,7 +229,7 @@ export class VehicleRouteComponent implements OnInit, OnChanges {
    * @memberOf RouteComponent
    */
   public drawStartAndFinish( opt ): void {
-    let startMarker = moment( opt.start.date, 'DD/MM/YYYY h:mm A' ).format( 'DD/MM/YYYY HH:mm' )
+    let startMarker = moment( opt.start.date ).format( 'DD/MM/YYYY HH:mm' )
     let startMarkerCtn = `
       <div id="content">
         <div id="siteNotice"></div>
@@ -238,7 +239,7 @@ export class VehicleRouteComponent implements OnInit, OnChanges {
         </div>
       </div>
     `
-    let finishMarker = moment( opt.finish.date, 'DD/MM/YYYY h:mm A' ).format( 'DD/MM/YYYY HH:mm' )
+    let finishMarker = moment( opt.finish.date ).format( 'DD/MM/YYYY HH:mm' )
     let finishMarkerCtn = `
       <div id="content">
         <div id="siteNotice"></div>
